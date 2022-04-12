@@ -1,0 +1,92 @@
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Interactors.deps.json
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Interactors.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Interactors.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Constants.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Dto.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Models.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Utils.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Dto.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Utils.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Constants.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Models.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.AssemblyReference.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfoInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CoreCompileInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CopyComplete
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\refint\BBS.Interactors.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Interactors\obj\Debug\net6.0\ref\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Interactors.deps.json
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Interactors.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Constants.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Dto.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Models.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Utils.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Dto.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Utils.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Constants.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\bin\Debug\net6.0\BBS.Models.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfo.cs
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CoreCompileInputs.cache
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CopyComplete
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\refint\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\BBS.Interactors.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Interactors\obj\Debug\net6.0\ref\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Interactors.deps.json
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Interactors.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Constants.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Dto.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Models.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Utils.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Dto.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Utils.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Constants.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\bin\Debug\net6.0\BBS.Models.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfo.cs
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CoreCompileInputs.cache
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CopyComplete
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\refint\BBS.Interactors.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\BBS.Interactors.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Interactors\obj\Debug\net6.0\ref\BBS.Interactors.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Interactors.deps.json
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Interactors.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Interactors.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Constants.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Dto.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Models.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Utils.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Dto.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Utils.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Constants.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\bin\Debug\net6.0\BBS.Models.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.AssemblyReference.cache
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfoInputs.cache
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.AssemblyInfo.cs
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CoreCompileInputs.cache
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.csproj.CopyComplete
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\refint\BBS.Interactors.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\BBS.Interactors.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Interactors\obj\Debug\net6.0\ref\BBS.Interactors.dll

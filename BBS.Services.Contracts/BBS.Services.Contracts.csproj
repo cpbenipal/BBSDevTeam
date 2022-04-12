@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BBS.Dto\BBS.Dto.csproj" />
+    <ProjectReference Include="..\BBS.Models\BBS.Models.csproj" />
+    <ProjectReference Include="..\Constants\BBS.Constants.csproj" />
+  </ItemGroup>
+
+</Project>

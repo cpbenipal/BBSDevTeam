@@ -1,0 +1,2 @@
+::2022-04-04 16:17:43.1715 :: 0|INFO|LogInformation IEnumerable<WeatherForecast> Get() 
+::2022-04-04 16:17:43.3061 :: 0|WARN|LogWarning IEnumerable<WeatherForecast> Get() 

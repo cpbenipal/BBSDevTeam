@@ -1,0 +1,30 @@
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.deps.json
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.csproj.AssemblyReference.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.AssemblyInfoInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.AssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.csproj.CoreCompileInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.deps.json
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.pdb
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.AssemblyInfo.cs
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.csproj.CoreCompileInputs.cache
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.dll
+D:\Projects\DevTeam\Nahom\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.deps.json
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\bin\Debug\netcoreapp3.1\BBS.Constants.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.csproj.AssemblyReference.cache
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.AssemblyInfoInputs.cache
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.AssemblyInfo.cs
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.csproj.CoreCompileInputs.cache
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\Constants\obj\Debug\netcoreapp3.1\BBS.Constants.pdb

@@ -1,0 +1,20 @@
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\Constants.deps.json
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\Constants.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\bin\Debug\netcoreapp3.1\Constants.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.csproj.AssemblyReference.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.AssemblyInfoInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.AssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.csproj.CoreCompileInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\BBSDevTeam\Constants\obj\Debug\netcoreapp3.1\Constants.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\bin\Debug\netcoreapp3.1\Constants.deps.json
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\bin\Debug\netcoreapp3.1\Constants.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\bin\Debug\netcoreapp3.1\Constants.pdb
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.AssemblyInfo.cs
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.csproj.CoreCompileInputs.cache
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.dll
+D:\Projects\DevTeam\Nahom\BusraBackendSystem\Constants\obj\Debug\netcoreapp3.1\Constants.pdb

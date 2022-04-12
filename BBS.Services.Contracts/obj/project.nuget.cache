@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "9xFHnrPcRwFkhkmzKu1/8NPAlk1mish3YW7uJOmYA3C2a7Rlhk3vl0f6NRMvkalOA2JcuauEYxVlb8lhKvzClA==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Benipal\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",
+    "C:\\Users\\Benipal\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\Benipal\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
