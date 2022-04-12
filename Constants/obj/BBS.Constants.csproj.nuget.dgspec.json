@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {}
+    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {
+    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj",
+        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj",
         "projectName": "BBS.Constants",
-        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj",
+        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\obj\\",
+        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"

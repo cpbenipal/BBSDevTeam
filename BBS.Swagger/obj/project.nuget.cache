@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0xi0HK1AOkic+tLwSoEo8NurCRouq5u3Skuc/Y07ssjibwxJK/o3mdsjYP8rqAKEr52pmhbxoOfTLQw6EdGntg==",
+  "dgSpecHash": "mv99qKt5cuX1YV3I9hZrV8KhT5Z1lRYKWTmO20m6+oGni1InbL+JSeZE3SnySK5h9aK+SyOI+dZVZttVIyH/iA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Swagger\\BBS.Swagger.csproj",
+  "projectFilePath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Swagger\\BBS.Swagger.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Benipal\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Benipal\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

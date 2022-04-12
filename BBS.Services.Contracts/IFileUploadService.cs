@@ -6,7 +6,7 @@ namespace BBS.Services.Contracts
 {
     public interface IFileUploadService
     {
-        Task<BlobFiles> UploadFileToBlob(IFormFile files);
+        BlobFiles UploadFileToBlob(IFormFile files);
         Task<List<string>> DownloadBlob(string downloadPath); 
     }
 }

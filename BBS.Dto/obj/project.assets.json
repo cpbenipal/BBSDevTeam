@@ -160,11 +160,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+      "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj",
       "projectName": "BBS.Dto",
-      "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+      "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj",
       "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\obj\\",
+      "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"

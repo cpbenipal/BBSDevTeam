@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TiPniPENZpKCR+IzZyI9s2nrDKdXT4xWttb50JIBx5SDoUxoRSz6yEifiYitIgyVzFJ6zNIGehIpJ6sCc1bi8g==",
+  "dgSpecHash": "A+Y0w10Hv1aFYeL8DVscG20mQLhaM+l5kZg5a6QRokPSiatXCMuoRqpYa+LlCFVHAZfftCVyldg/zT3TpDjuVA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj",
+  "projectFilePath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -31,7 +31,7 @@ namespace BBS.Services.Repository
             }
         }
 
-        public async Task<BlobFiles> UploadFileToBlob(IFormFile item)
+        public BlobFiles UploadFileToBlob(IFormFile item)
         {
             var blobfile = new BlobFiles();
             try
@@ -40,16 +40,18 @@ namespace BBS.Services.Repository
                 var extension = Path.GetExtension(item.FileName);
                 if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
                 {
+                   // string mimeType = item.ContentType;
+                   // byte[] fileData = new byte[item.Length];
+
                     string systemFileName = Guid.NewGuid() + extension;
 
                     var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
 
                     using (var memoryStream = new MemoryStream())
-                    {                        
-                        await item.CopyToAsync(memoryStream);      
+                    {  
+                        item.CopyTo(memoryStream);
                         memoryStream.Position = 0;
-                        await blob.UploadAsync(memoryStream, true);                     
-                        // url = await _blobSerivces.UploadFileToBlob(Guid.NewGuid().ToString() + extension, memoryStream, file.ContentType, containerName);
+                        blob.Upload(memoryStream, true);                                            
                     }
 
                     blobfile.ContentType = item.ContentType;

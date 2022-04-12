@@ -35,7 +35,7 @@ namespace Interactors
         {
             return _repository.UserLoginManager.IsUserExists(UserName) || _repository.PersonManager.IsUserExists(Email);
         }
-        public async Task<GenericApiResponse> RegisterUser(RegisterUserDto registerUserDto)
+        public GenericApiResponse RegisterUser(RegisterUserDto registerUserDto)
         {
             var response = new GenericApiResponse();
             try
@@ -59,7 +59,7 @@ namespace Interactors
 
                     CreateUserRole(createdUserLoginProfile.Id);
 
-                    await UploadFilesAndCreateAttachments(
+                    UploadFilesAndCreateAttachments(
                         registerUserDto.Attachments,
                         createdPerson.Id
                     );
@@ -80,11 +80,11 @@ namespace Interactors
             return response;
         }
 
-        private async Task UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
+        private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
         {
 
             var personalAttachment = new PersonalAttachment();
-            var uploadedFile = await UploadFilesToAzureBlob(attachments);
+            var uploadedFile = UploadFilesToAzureBlob(attachments);
 
             personalAttachment.Front = uploadedFile[0].ImageUrl;
             personalAttachment.Back = uploadedFile[1].ImageUrl;
@@ -97,14 +97,14 @@ namespace Interactors
 
         }
 
-        private async Task<List<BlobFiles>> UploadFilesToAzureBlob(IEnumerable<IFormFile> files)
+        private List<BlobFiles> UploadFilesToAzureBlob(IEnumerable<IFormFile> files)
         {
             try
             {
                 List<BlobFiles> uploadedFiles = new List<BlobFiles>();
                 foreach (var item in files)
                 {
-                    var fileData = await _uploadService.UploadFileToBlob(item);
+                    var fileData = _uploadService.UploadFileToBlob(item);
                     uploadedFiles.Add(new BlobFiles { ImageUrl = fileData.ImageUrl, ContentType = fileData.ContentType });
                 }
                 return uploadedFiles;

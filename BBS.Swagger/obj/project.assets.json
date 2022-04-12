@@ -8500,11 +8500,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Swagger\\BBS.Swagger.csproj",
+      "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Swagger\\BBS.Swagger.csproj",
       "projectName": "BBS.Swagger",
-      "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Swagger\\BBS.Swagger.csproj",
+      "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Swagger\\BBS.Swagger.csproj",
       "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Swagger\\obj\\",
+      "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Swagger\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -8528,17 +8528,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.API\\BBS.API.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.API\\BBS.API.csproj"
+            "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.API\\BBS.API.csproj": {
+              "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.API\\BBS.API.csproj"
             },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+            "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+              "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
             },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj"
+            "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj": {
+              "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj"
             },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
+            "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Utils\\BBS.Utils.csproj": {
+              "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Utils\\BBS.Utils.csproj"
             }
           }
         }
