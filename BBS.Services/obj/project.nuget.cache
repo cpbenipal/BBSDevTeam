@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9+9JtRDVjW6wEhqvWNz7ZDZ/fy0sPTmJhZqUPtZS+4q92s9uZr0ZeoV1p6fJXv2hTRJsdd4rITHJfdZ4WmBqOg==",
+  "dgSpecHash": "rMwfTnYsD0eow95J0lQ2ZQytod7S+cguo4o0EIE9VeO6V83LUTJ55i7iI9K+VIkD9wnVIo6baUOfv50gyiF6Sg==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj",
+  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Benipal\\.nuget\\packages\\azure.core\\1.22.0\\azure.core.1.22.0.nupkg.sha512",
     "C:\\Users\\Benipal\\.nuget\\packages\\azure.storage.blobs\\12.11.0\\azure.storage.blobs.12.11.0.nupkg.sha512",

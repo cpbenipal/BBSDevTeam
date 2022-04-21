@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "I/uHTB19O7D40Ri1NgWMDXhTUplSJtepY6MU9SVGE94Wg80h1ZJ0jzUOsDnJ4rTfEZOkYQN972SvjGOJ0W0pRg==",
+  "dgSpecHash": "MwCNkCEa9yv1LuFzKktGpwVLh7I0HQWk3LI5CUhl9PP0OF9NYWyfp94V+r2iY98C+mmpD6eEr3TwrcaA5gmU5g==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj",
+  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

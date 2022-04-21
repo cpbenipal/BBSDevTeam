@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "paZR/6GFT+fj/b8DuL16BnENpDCb2gHMZ/l3ujg8BmAJoGrdzJ+dWt2Qk5fAcVMPfuUs+oHNHmzo/qIgiqXakQ==",
+  "dgSpecHash": "u7nbn+PNgIhszM/QoqP9AwUAzui0/G+Pg28GdmWrYkfeYWwDNoF/qtv9YWUo/Q0xtbKGdFqXhBHokSbLy3uigA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.API\\BBS.API.csproj",
+  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Benipal\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Benipal\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

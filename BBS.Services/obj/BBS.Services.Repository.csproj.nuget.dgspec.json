@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj": {}
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj": {
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj",
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
         "projectName": "BBS.Dto",
-        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj",
+        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\obj\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -28,8 +28,7 @@
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {},
-          "https://nuget.telerik.com/v3/index.json": {}
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -67,18 +66,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Entities\\BBS.Entities.csproj": {
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Entities\\BBS.Entities.csproj",
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
         "projectName": "BBS.Entities",
-        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Entities\\BBS.Entities.csproj",
+        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Entities\\obj\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -95,15 +94,14 @@
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {},
-          "https://nuget.telerik.com/v3/index.json": {}
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               }
             }
           }
@@ -158,18 +156,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj": {
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj",
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "projectName": "BBS.Models",
-        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj",
+        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\obj\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -186,8 +184,7 @@
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {},
-          "https://nuget.telerik.com/v3/index.json": {}
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -219,18 +216,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
         "projectName": "BBS.Services.Contracts",
-        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\obj\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -247,21 +244,20 @@
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {},
-          "https://nuget.telerik.com/v3/index.json": {}
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Dto\\BBS.Dto.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
               },
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Models\\BBS.Models.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               },
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj"
               }
             }
           }
@@ -290,18 +286,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj": {
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj",
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
         "projectName": "BBS.Services.Repository",
-        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\BBS.Services.Repository.csproj",
+        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services\\obj\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -318,21 +314,20 @@
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {},
-          "https://nuget.telerik.com/v3/index.json": {}
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Entities\\BBS.Entities.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Entities\\BBS.Entities.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj"
               },
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               },
-              "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj": {
-                "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj"
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj"
               }
             }
           }
@@ -387,18 +382,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj": {
+    "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj",
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj",
         "projectName": "BBS.Constants",
-        "projectPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\BBS.Constants.csproj",
+        "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj",
         "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Farhal\\Projects\\BURSASYSTEMAPI\\API\\Constants\\obj\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -415,8 +410,7 @@
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {},
-          "https://nuget.telerik.com/v3/index.json": {}
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -448,7 +442,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
