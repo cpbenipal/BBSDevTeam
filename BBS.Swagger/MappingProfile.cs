@@ -25,6 +25,9 @@ namespace BBS.Swagger
 
             CreateMap<Role, RoleDto>();
             CreateMap<RoleDto, Role>();
+
+            CreateMap<Share, RegisteredShareDto>();
+            CreateMap<RegisteredShareDto, Share>();
         }
     }
 }

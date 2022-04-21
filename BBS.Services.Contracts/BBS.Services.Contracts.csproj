@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BBS.Constants\BBS.Constants.csproj" />
     <ProjectReference Include="..\BBS.Dto\BBS.Dto.csproj" />
     <ProjectReference Include="..\BBS.Models\BBS.Models.csproj" />
-    <ProjectReference Include="..\Constants\BBS.Constants.csproj" />
   </ItemGroup>
 
 </Project>

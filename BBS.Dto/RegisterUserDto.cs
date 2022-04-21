@@ -6,7 +6,7 @@ namespace BBS.Dto
     public class RegisterUserDto
     {
         public PersonDto Person { get; set; }
-        public AdditionalPersonInformationDto AdditionalPersonInformation { get; set; }
+        public PersonInfoDto PersonalInfo { get; set; }
         public AddressDto Address { get; set; }
         public EmployementDto Employement { get; set; }
         public ExperienceDto Experience { get; set; }
@@ -14,8 +14,4 @@ namespace BBS.Dto
         public IEnumerable<IFormFile> Attachments { get; set; }
     }
 
-    public class FileModel
-    {
-        public IEnumerable<IFormFile> ImageFile { get; set; }
-    }
 }

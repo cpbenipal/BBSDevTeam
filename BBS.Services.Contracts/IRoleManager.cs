@@ -5,5 +5,6 @@ namespace BBS.Services.Contracts
     public interface IRoleManager
     {
         Role InsertRole(Role role);
+        Role GetRole(int roleId);
     }
 }

@@ -12,6 +12,7 @@
           "BBS.Constants": "1.0.0",
           "BBS.Entities": "1.0.0",
           "BBS.Services.Contracts": "1.0.0",
+          "BBS.Utils": "1.0.0",
           "Microsoft.IdentityModel.Tokens": "6.17.0",
           "NLog": "4.7.15",
           "Swashbuckle.AspNetCore": "6.3.0",
@@ -20,6 +21,17 @@
         },
         "runtime": {
           "BBS.Services.Repository.dll": {}
+        }
+      },
+      "AutoMapper/11.0.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.1.0"
+          }
         }
       },
       "Azure.Core/1.22.0": {
@@ -1305,6 +1317,9 @@
         }
       },
       "BBS.Models/1.0.0": {
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "runtime": {
           "BBS.Models.dll": {}
         }
@@ -1318,6 +1333,18 @@
         "runtime": {
           "BBS.Services.Contracts.dll": {}
         }
+      },
+      "BBS.Utils/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "11.0.1",
+          "BBS.Dto": "1.0.0",
+          "BBS.Models": "1.0.0",
+          "Swashbuckle.AspNetCore": "6.3.0",
+          "WindowsAzure.Storage": "9.3.3"
+        },
+        "runtime": {
+          "BBS.Utils.dll": {}
+        }
       }
     }
   },
@@ -1326,6 +1353,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AutoMapper/11.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
+      "path": "automapper/11.0.1",
+      "hashPath": "automapper.11.0.1.nupkg.sha512"
     },
     "Azure.Core/1.22.0": {
       "type": "package",
@@ -2328,6 +2362,11 @@
       "sha512": ""
     },
     "BBS.Services.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BBS.Utils/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

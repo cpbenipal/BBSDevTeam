@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "rMwfTnYsD0eow95J0lQ2ZQytod7S+cguo4o0EIE9VeO6V83LUTJ55i7iI9K+VIkD9wnVIo6baUOfv50gyiF6Sg==",
+  "dgSpecHash": "vPPvSeR4hxUC1ye4FQGlxz/oTo7qHg8RPwi5B7yvrNS4+paizk2SpwFvBt2DRk6NxG6FfZ2y786p1ern+ywpXg==",
   "success": true,
   "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Benipal\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Benipal\\.nuget\\packages\\azure.core\\1.22.0\\azure.core.1.22.0.nupkg.sha512",
     "C:\\Users\\Benipal\\.nuget\\packages\\azure.storage.blobs\\12.11.0\\azure.storage.blobs.12.11.0.nupkg.sha512",
     "C:\\Users\\Benipal\\.nuget\\packages\\azure.storage.common\\12.10.0\\azure.storage.common.12.10.0.nupkg.sha512",

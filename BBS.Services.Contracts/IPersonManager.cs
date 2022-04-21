@@ -6,5 +6,7 @@ namespace BBS.Services.Contracts
     {
         Person InsertPerson(Person person);
         bool IsUserExists(string Email);
+        bool IsEmiratesIDExists(string EmiratesID);
+        Person GetPerson(int personId);
     }
 }

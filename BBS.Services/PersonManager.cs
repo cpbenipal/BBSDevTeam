@@ -23,5 +23,14 @@ namespace BBS.Services.Repository
         {
            return _repositoryBase.GetAll().Any(x=>x.Email == Email);
         }
+        public bool IsEmiratesIDExists(string EmiratesID)
+        {
+            return _repositoryBase.GetAll().Any(x => x.EmiratesID == EmiratesID);
+        }
+
+        public Person GetPerson(int personId)
+        {
+            return _repositoryBase.GetById(personId);
+        }
     }
 }

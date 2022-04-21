@@ -2,7 +2,9 @@
 {
     public interface IHashManager
     {
-        List<byte[]> Hash(string password);
-        bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt);
+        List<byte[]> HashWithSalt(string password);
+        bool VerifyPasswordWithSaltAndStoredHash(string password, byte[] storedHash, byte[] storedSalt);
+        string EncryptPlainText(string plainText);
+        string DecryptCipherText(string cipherText);
     }
 }

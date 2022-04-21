@@ -7,12 +7,13 @@ namespace BBS.Services.Repository
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private BusraDbContext _repoContext;
-        public RepositoryWrapper(BusraDbContext repositoryContext)
+        private IHashManager _hashManager;
+        public RepositoryWrapper(BusraDbContext repositoryContext, IHashManager hashManager)
         {
             _repoContext = repositoryContext;
+            _hashManager = hashManager;
         }
 
-       
         private ICountryManager _countryManager;
         public ICountryManager CountryManager
         {
@@ -91,7 +92,7 @@ namespace BBS.Services.Repository
                 if (_userLoginManager == null)
                 {
                     var repositoryBase = new RepositoryBase<UserLogin>(_repoContext);
-                    _userLoginManager = new UserLoginManager(repositoryBase);
+                    _userLoginManager = new UserLoginManager(repositoryBase, _hashManager);
                 }
                 return _userLoginManager;
             }
@@ -104,12 +105,96 @@ namespace BBS.Services.Repository
             {
                 if (_personalAttachmentManager == null)
                 {
-                    var repositoryBase = new RepositoryBase<PersonalAttachment>(_repoContext);
+                    var repositoryBase = new RepositoryBase<Attachment>(_repoContext);
                     _personalAttachmentManager = new PersonalAttachmentManager(repositoryBase);
                 }
                 return _personalAttachmentManager;
             }
         }
 
+        private IDebtRoundManager _debtRoundManager;
+        public IDebtRoundManager DebtRoundManager
+        {
+            get
+            {
+                if (_debtRoundManager == null)
+                {
+                    var repositoryBase = new RepositoryBase<DebtRound>(_repoContext);
+                    _debtRoundManager = new DebtRoundManager(repositoryBase);
+                }
+                return _debtRoundManager;
+            }
+        }
+
+        private IEquityRoundManager _equityRoundManager;
+        public IEquityRoundManager EquityRoundManager
+        {
+            get
+            {
+                if (_equityRoundManager == null)
+                {
+                    var repositoryBase = new RepositoryBase<EquityRound>(_repoContext);
+                    _equityRoundManager = new EquityRoundManager(repositoryBase);
+                }
+                return _equityRoundManager;
+            }
+        }
+
+        private IGrantTypeManager _grantTypeManager;
+        public IGrantTypeManager GrantTypeManager
+        {
+            get
+            {
+                if (_grantTypeManager == null)
+                {
+                    var repositoryBase = new RepositoryBase<GrantType>(_repoContext);
+                    _grantTypeManager = new GrantTypeManager(repositoryBase);
+                }
+                return _grantTypeManager;
+            }
+        }
+
+        private IRestrictionManager _restrictionManager;
+        public IRestrictionManager RestrictionManager
+        {
+            get
+            {
+                if (_restrictionManager == null)
+                {
+                    var repositoryBase = new RepositoryBase<Restriction>(_repoContext);
+                    _restrictionManager = new RestrictionManager(repositoryBase);
+                }
+                return _restrictionManager;
+            }
+        }
+
+
+        private IStorageLocationManager _storageLocationManager;
+        public IStorageLocationManager StorageLocationManager
+        {
+            get
+            {
+                if (_storageLocationManager == null)
+                {
+                    var repositoryBase = new RepositoryBase<StorageLocation>(_repoContext);
+                    _storageLocationManager = new StorageLocationManager(repositoryBase);
+                }
+                return _storageLocationManager;
+            }
+        }
+
+        private IShareManager _share;
+        public IShareManager ShareManager
+        {
+            get
+            {
+                if (_share == null)
+                {
+                    var repositoryBase = new RepositoryBase<Share>(_repoContext);
+                    _share = new ShareManager(repositoryBase);
+                }
+                return _share;
+            }
+        }
     }
 }

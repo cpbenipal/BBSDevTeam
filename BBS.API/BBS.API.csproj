@@ -14,8 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BBS.Models\BBS.Models.csproj" />
     <ProjectReference Include="..\BBS.Services.Contracts\BBS.Services.Contracts.csproj" />
-    <ProjectReference Include="..\Constants\BBS.Constants.csproj" />
-    <ProjectReference Include="..\Interactors\BBS.Interactors.csproj" />
+    <ProjectReference Include="..\BBS.Interactors\BBS.Interactors.csproj" />
   </ItemGroup>
 
 </Project>

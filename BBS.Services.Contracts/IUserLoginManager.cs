@@ -6,5 +6,6 @@ namespace BBS.Services.Contracts
     {
         UserLogin InsertUserLogin(UserLogin userLogin);
         bool IsUserExists(string UserName);
+        UserLogin? GetUserLoginByPin(string pin);
     }
 }

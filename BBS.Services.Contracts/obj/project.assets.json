@@ -59,6 +59,9 @@
       "BBS.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/BBS.Models.dll": {}
         },
@@ -138,8 +141,8 @@
     },
     "BBS.Constants/1.0.0": {
       "type": "project",
-      "path": "../Constants/BBS.Constants.csproj",
-      "msbuildProject": "../Constants/BBS.Constants.csproj"
+      "path": "../BBS.Constants/BBS.Constants.csproj",
+      "msbuildProject": "../BBS.Constants/BBS.Constants.csproj"
     },
     "BBS.Dto/1.0.0": {
       "type": "project",
@@ -193,14 +196,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+            },
             "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
               "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
             },
             "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
               "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
-            },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj"
             }
           }
         }

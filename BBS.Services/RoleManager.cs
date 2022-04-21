@@ -12,6 +12,11 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public Role GetRole(int roleId)
+        {
+            return _repositoryBase.GetById(roleId);
+        }
+
         public Role InsertRole(Role role)
         {
             var addedRole = _repositoryBase.Insert(role);

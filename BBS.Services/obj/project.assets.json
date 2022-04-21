@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "AutoMapper/11.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {}
+        }
+      },
       "Azure.Core/1.22.0": {
         "type": "package",
         "dependencies": {
@@ -2130,6 +2142,9 @@
       "BBS.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/BBS.Models.dll": {}
         },
@@ -2151,10 +2166,42 @@
         "runtime": {
           "bin/placeholder/BBS.Services.Contracts.dll": {}
         }
+      },
+      "BBS.Utils/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "AutoMapper": "11.0.1",
+          "BBS.Dto": "1.0.0",
+          "BBS.Models": "1.0.0",
+          "Swashbuckle.AspNetCore": "6.3.0",
+          "WindowsAzure.Storage": "9.3.3"
+        },
+        "compile": {
+          "bin/placeholder/BBS.Utils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BBS.Utils.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "AutoMapper/11.0.1": {
+      "sha512": "WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
+      "type": "package",
+      "path": "automapper/11.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.11.0.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/netstandard2.1/AutoMapper.dll",
+        "lib/netstandard2.1/AutoMapper.xml"
+      ]
+    },
     "Azure.Core/1.22.0": {
       "sha512": "ze/xRCHSSDe5TIk5vBDbVrauW1EN7UIbnBvIBfMH8KSt/I9+/7yPAjTBDgNBk0IwG6WBV+BBHp4IUtS/PGAQwQ==",
       "type": "package",
@@ -7488,8 +7535,8 @@
     },
     "BBS.Constants/1.0.0": {
       "type": "project",
-      "path": "../Constants/BBS.Constants.csproj",
-      "msbuildProject": "../Constants/BBS.Constants.csproj"
+      "path": "../BBS.Constants/BBS.Constants.csproj",
+      "msbuildProject": "../BBS.Constants/BBS.Constants.csproj"
     },
     "BBS.Dto/1.0.0": {
       "type": "project",
@@ -7510,6 +7557,11 @@
       "type": "project",
       "path": "../BBS.Services.Contracts/BBS.Services.Contracts.csproj",
       "msbuildProject": "../BBS.Services.Contracts/BBS.Services.Contracts.csproj"
+    },
+    "BBS.Utils/1.0.0": {
+      "type": "project",
+      "path": "../BBS.Utils/BBS.Utils.csproj",
+      "msbuildProject": "../BBS.Utils/BBS.Utils.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7518,6 +7570,7 @@
       "BBS.Constants >= 1.0.0",
       "BBS.Entities >= 1.0.0",
       "BBS.Services.Contracts >= 1.0.0",
+      "BBS.Utils >= 1.0.0",
       "Microsoft.IdentityModel.Tokens >= 6.17.0",
       "NLog >= 4.7.15",
       "Swashbuckle.AspNetCore >= 6.3.0",
@@ -7559,14 +7612,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+            },
             "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
               "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj"
             },
             "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
               "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
             },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\Constants\\BBS.Constants.csproj"
+            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
             }
           }
         }

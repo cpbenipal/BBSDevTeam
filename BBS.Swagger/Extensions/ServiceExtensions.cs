@@ -1,7 +1,7 @@
-﻿using BBS.Services.Contracts;
+﻿using BBS.Interactors;
+using BBS.Services.Contracts;
 using BBS.Services.Repository;
 using BBS.Utils;
-using Interactors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -79,8 +79,21 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<ITokenManager, JwtTokenManager>();
             services.AddScoped<IHashManager, HashManager>();
+
             services.AddScoped<RegisterUserInteractor>();
             services.AddScoped<RegisterUserUtils>();
+
+            services.AddScoped<RegisterShareInteractor>();
+            services.AddScoped<RegisterShareUtils>();
+
+            services.AddScoped<LoginUserInteractor>();
+
+            services.AddScoped<GetProfileInformationInteractor>();
+            services.AddScoped<GetProfileInformationUtils>();
+
+            services.AddScoped<GetRegisteredSharesInteractor>();
+            services.AddScoped<GetRegisteredSharesUtils>();
+
 
             Config = BuildConfiguration();
 

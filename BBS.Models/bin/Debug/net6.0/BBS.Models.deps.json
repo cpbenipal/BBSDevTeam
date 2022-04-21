@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "BBS.Models/1.0.0": {
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "runtime": {
           "BBS.Models.dll": {}
+        }
+      },
+      "BBS.Constants/1.0.0": {
+        "runtime": {
+          "BBS.Constants.dll": {}
         }
       }
     }
   },
   "libraries": {
     "BBS.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BBS.Constants/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

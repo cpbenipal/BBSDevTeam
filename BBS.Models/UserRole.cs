@@ -1,11 +1,12 @@
 ﻿
+using BBS.Constants;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BBS.Models
 {   
     [Table("UserRole")]
-    public class UserRole
+    public class UserRole : BaseEntity
     {
         [Key]
         public int Id { get; set; }

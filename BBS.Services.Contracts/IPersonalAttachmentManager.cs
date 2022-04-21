@@ -4,6 +4,7 @@ namespace BBS.Services.Contracts
 {
     public interface IPersonalAttachmentManager
     {
-        PersonalAttachment InsertPersonalAttachment(PersonalAttachment personalAttachment);
+        Attachment InsertPersonalAttachment(Attachment personalAttachment);
+        Attachment? GetAttachementByPerson(int personId);
     }
 }

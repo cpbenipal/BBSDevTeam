@@ -1,10 +1,30 @@
 ﻿using BBS.Services.Contracts;
+using System.Text;
 
 namespace BBS.Services.Repository
 {
     public class HashManager : IHashManager
     {
-        public List<byte[]> Hash(string password)
+        public string DecryptCipherText(string cipherText)
+        {
+            UTF8Encoding utfEncoding = new UTF8Encoding();
+            Decoder Decode = utfEncoding.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(cipherText);
+            int charCount = Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+          //  string decryptpwd = new(decoded_char);
+            return string.Join("", decoded_char);
+        }
+
+        public string EncryptPlainText(string plainText)
+        {
+            byte[] encode = Encoding.UTF8.GetBytes(plainText);
+            string cipherText = Convert.ToBase64String(encode);
+            return cipherText;
+        }
+
+        public List<byte[]> HashWithSalt(string password)
         {
             var hash = new List<byte[]>();
 
@@ -24,7 +44,7 @@ namespace BBS.Services.Repository
             return hash;
         }
 
-        public bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
+        public bool VerifyPasswordWithSaltAndStoredHash(string password, byte[] storedHash, byte[] storedSalt)
         {
             if (password == null) 
                 throw new ArgumentNullException("Password Is Empty");

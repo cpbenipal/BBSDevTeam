@@ -12,6 +12,11 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public Nationality GetNationality(int nationalityId)
+        {
+            return _repositoryBase.GetById(nationalityId);
+        }
+
         public Nationality InsertNationality(Nationality nationality)
         {
             var addedNationality = _repositoryBase.Insert(nationality);

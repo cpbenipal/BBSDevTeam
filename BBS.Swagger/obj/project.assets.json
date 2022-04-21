@@ -2493,7 +2493,6 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper": "11.0.1",
-          "BBS.Constants": "1.0.0",
           "BBS.Interactors": "1.0.0",
           "BBS.Models": "1.0.0",
           "BBS.Services.Contracts": "1.0.0",
@@ -2550,7 +2549,6 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper": "11.0.1",
-          "BBS.Constants": "1.0.0",
           "BBS.Dto": "1.0.0",
           "BBS.Services.Contracts": "1.0.0",
           "BBS.Utils": "1.0.0",
@@ -2566,6 +2564,9 @@
       "BBS.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/BBS.Models.dll": {}
         },
@@ -2596,6 +2597,7 @@
           "BBS.Constants": "1.0.0",
           "BBS.Entities": "1.0.0",
           "BBS.Services.Contracts": "1.0.0",
+          "BBS.Utils": "1.0.0",
           "Microsoft.IdentityModel.Tokens": "6.17.0",
           "NLog": "4.7.15",
           "Swashbuckle.AspNetCore": "6.3.0",
@@ -2613,6 +2615,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper": "11.0.1",
           "BBS.Dto": "1.0.0",
           "BBS.Models": "1.0.0",
           "Swashbuckle.AspNetCore": "6.3.0",
@@ -8439,8 +8442,8 @@
     },
     "BBS.Constants/1.0.0": {
       "type": "project",
-      "path": "../Constants/BBS.Constants.csproj",
-      "msbuildProject": "../Constants/BBS.Constants.csproj"
+      "path": "../BBS.Constants/BBS.Constants.csproj",
+      "msbuildProject": "../BBS.Constants/BBS.Constants.csproj"
     },
     "BBS.Dto/1.0.0": {
       "type": "project",
@@ -8454,8 +8457,8 @@
     },
     "BBS.Interactors/1.0.0": {
       "type": "project",
-      "path": "../Interactors/BBS.Interactors.csproj",
-      "msbuildProject": "../Interactors/BBS.Interactors.csproj"
+      "path": "../BBS.Interactors/BBS.Interactors.csproj",
+      "msbuildProject": "../BBS.Interactors/BBS.Interactors.csproj"
     },
     "BBS.Models/1.0.0": {
       "type": "project",

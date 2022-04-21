@@ -559,9 +559,22 @@
           }
         }
       },
+      "BBS.Constants/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/BBS.Constants.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BBS.Constants.dll": {}
+        }
+      },
       "BBS.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/BBS.Models.dll": {}
         },
@@ -1753,6 +1766,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "BBS.Constants/1.0.0": {
+      "type": "project",
+      "path": "../BBS.Constants/BBS.Constants.csproj",
+      "msbuildProject": "../BBS.Constants/BBS.Constants.csproj"
     },
     "BBS.Models/1.0.0": {
       "type": "project",

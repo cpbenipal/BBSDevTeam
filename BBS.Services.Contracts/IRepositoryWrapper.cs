@@ -9,5 +9,11 @@
         public IUserLoginManager UserLoginManager { get; }
         public IRoleManager RoleManager { get; }
         public IPersonalAttachmentManager PersonalAttachmentManager { get; }
+        public IDebtRoundManager DebtRoundManager { get; }
+        public IEquityRoundManager EquityRoundManager { get; }
+        public IGrantTypeManager GrantTypeManager { get; }
+        public IRestrictionManager RestrictionManager { get; }
+        public IStorageLocationManager StorageLocationManager { get; }
+        public IShareManager ShareManager { get; }
     }
 }

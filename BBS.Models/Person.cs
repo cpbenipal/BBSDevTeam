@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BBS.Constants;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BBS.Models
 {
     [Table("Person")]
-    public class Person
+    public class Person: BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -49,6 +50,17 @@ namespace BBS.Models
         [MaxLength(50)]
         public string? AddressLine { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        public string? EmiratesID { get; set; } 
+
+        [Required]
+        [MaxLength(100)]
+        public string? VaultNumber { get; set; } 
+        [Required]
+        [MaxLength(100)]
+        public string? IBANNumber { get; set; }
+
         [ForeignKey("Country")]
         public int CountryId { get; set; }
         public Country? Country { get; set; }
@@ -75,5 +87,9 @@ namespace BBS.Models
 
         [Required]
         public bool HaveExperience { get; set; }
+        
+        [Required]
+        public int VerificationState { get; set; }
+
     }
 }

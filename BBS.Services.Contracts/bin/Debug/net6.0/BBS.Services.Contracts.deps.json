@@ -58,6 +58,9 @@
         }
       },
       "BBS.Models/1.0.0": {
+        "dependencies": {
+          "BBS.Constants": "1.0.0"
+        },
         "runtime": {
           "BBS.Models.dll": {}
         }

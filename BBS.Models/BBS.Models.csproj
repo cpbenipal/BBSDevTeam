@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BBS.Constants\BBS.Constants.csproj" />
+  </ItemGroup>
+
 </Project>

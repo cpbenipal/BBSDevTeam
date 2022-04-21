@@ -2,11 +2,8 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using BBS.Constants;
-using BBS.Dto;
 using BBS.Services.Contracts;
 using Microsoft.AspNetCore.Http;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace BBS.Services.Repository
 {
@@ -36,22 +33,22 @@ namespace BBS.Services.Repository
             var blobfile = new BlobFiles();
             try
             {
-                
+
                 var extension = Path.GetExtension(item.FileName);
                 if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
                 {
-                   // string mimeType = item.ContentType;
-                   // byte[] fileData = new byte[item.Length];
+                    // string mimeType = item.ContentType;
+                    // byte[] fileData = new byte[item.Length];
 
                     string systemFileName = Guid.NewGuid() + extension;
 
                     var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
 
                     using (var memoryStream = new MemoryStream())
-                    {  
+                    {
                         item.CopyTo(memoryStream);
                         memoryStream.Position = 0;
-                        blob.Upload(memoryStream, true);                                            
+                        blob.Upload(memoryStream, true);
                     }
 
                     blobfile.ContentType = item.ContentType;

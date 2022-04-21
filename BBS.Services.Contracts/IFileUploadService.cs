@@ -1,5 +1,4 @@
 ﻿using BBS.Constants;
-using BBS.Dto;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Services.Contracts

@@ -12,6 +12,12 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public UserRole? GetUserRoleByUserLoginId(int userLoginId)
+        {
+            var userRole = _repositoryBase.GetAll().Where(x => x.UserLoginId == userLoginId).FirstOrDefault();
+            return userRole;
+        }
+
         public UserRole InsertUserRole(UserRole userRole)
         {
             var addedUserRole = _repositoryBase.Insert(userRole);

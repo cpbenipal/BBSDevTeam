@@ -1,6 +1,5 @@
-using AutoMapper;
-using BBS.Models;
-using BBS.Services.Contracts;
+using BBS.Dto;
+using BBS.Interactors;
 using Microsoft.AspNetCore.Mvc; 
 
 namespace BBS.API.Controllers 
@@ -9,27 +8,17 @@ namespace BBS.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private IRepositoryWrapper _repository;
-        private IMapper _mapper;
-        private ITokenManager _tokenManager;
+        private readonly LoginUserInteractor _loginUserInteractor;
 
-        public AuthController(
-            IRepositoryWrapper repository,
-            IMapper mapper,
-            ITokenManager tokenManager
-        )
+        public AuthController(LoginUserInteractor loginUserInteractor)
         {
-            _repository = repository;
-            _mapper = mapper;
-            _tokenManager = tokenManager;
-
+            _loginUserInteractor = loginUserInteractor;
         }
 
-        [HttpGet]
-        public IActionResult Login()
+        [HttpPost]
+        public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
-            var token = _tokenManager.GenerateToken();
-            return Ok(token);
+            return Ok(_loginUserInteractor.LoginUser(loginUserDto));
         }
     }
 }
