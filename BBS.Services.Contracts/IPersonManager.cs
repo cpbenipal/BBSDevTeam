@@ -8,5 +8,6 @@ namespace BBS.Services.Contracts
         bool IsUserExists(string Email);
         bool IsEmiratesIDExists(string EmiratesID);
         Person GetPerson(int personId);
+        Person? GetPersonByEmail(string Email);
     }
 }

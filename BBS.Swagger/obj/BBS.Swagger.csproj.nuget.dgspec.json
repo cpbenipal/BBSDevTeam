@@ -336,6 +336,9 @@
               "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               },
+              "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj"
+              },
               "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
               }
@@ -580,6 +583,10 @@
             "NLog": {
               "target": "Package",
               "version": "[4.7.15, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.27.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

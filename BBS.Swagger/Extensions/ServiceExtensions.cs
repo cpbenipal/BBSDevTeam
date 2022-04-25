@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using static BBS.Utils.SecureUtil;
 
 namespace BBS.Swagger.Extensions
 {
@@ -93,6 +94,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GetRegisteredSharesInteractor>();
             services.AddScoped<GetRegisteredSharesUtils>();
+           
 
 
             Config = BuildConfiguration();
@@ -106,8 +108,17 @@ namespace BBS.Swagger.Extensions
                 containerName: ConsumerName,
                 timeSpan: int.Parse(TimeOutInMinutes)
             );
-
             services.AddScoped<IFileUploadService>(uploader => azureFileUploader);
+
+            services.AddTransient<IEmailSender, SendGridEmailSender>();
+            services.Configure<SendGridEmailSenderOptions>(options =>
+            {
+                options.ApiKey = Config["ExternalProviders:SendGrid:ApiKey"];
+                options.SenderEmail = Config["ExternalProviders:SendGrid:SenderEmail"];
+                options.SenderName = Config["ExternalProviders:SendGrid:SenderName"];
+            });
+           
+            
         }
     }
 

@@ -184,3 +184,5 @@ D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\refi
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.pdb
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.genruntimeconfig.cache
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\ref\BBS.Swagger.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\bin\Debug\net6.0\SendGrid.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\bin\Debug\net6.0\StarkbankEcdsa.dll

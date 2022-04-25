@@ -30,6 +30,15 @@ namespace BBS.Utils
             decryptpwd = new String(decoded_char);
             return decryptpwd;
         }
+
+        public class SendGridEmailSenderOptions
+        {
+            public string ApiKey { get; set; }
+
+            public string SenderEmail { get; set; }
+
+            public string SenderName { get; set; }
+        }
     }
 }
  

@@ -16,7 +16,11 @@ namespace BBS.Utils
             var rndDigits = new System.Text.StringBuilder().Insert(0, "0123456789", length).ToString().ToCharArray();
             return "B" + string.Join("", rndDigits.OrderBy(o => Guid.NewGuid()).Take(length));
         }
-
+        public string GenerateUniqueNumber(int length) 
+        {
+            var rndDigits = new System.Text.StringBuilder().Insert(0, "0123456789", length).ToString().ToCharArray();
+            return string.Join("", rndDigits.OrderBy(o => Guid.NewGuid()).Take(length));
+        }
         public Person ParsePersonFromRequest(RegisterUserDto registerUserDto)
         {
             var person = new Person();

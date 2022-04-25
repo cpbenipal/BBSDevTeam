@@ -17,6 +17,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<BusraDbContext>(options => options.UseNpgsql(connectionString));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+/*
+services.Configure<SendGridEmailSenderOptions>(options =>
+{
+    options.ApiKey = Configuration["ExternalProviders:SendGrid:ApiKey"];
+    options.SenderEMail = Configuration["ExternalProviders:SendGrid:SenderEmail"]; 
+    options.SenderName = Configuration["ExternalProviders:SendGrid:SenderName"];
+});
+*/
 builder.Services.ConfigureJWTToken();
 builder.Services.ConfigureRepositoryWrapper();
 builder.Services.AddAutoMapper(typeof(Program));

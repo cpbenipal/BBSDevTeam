@@ -1,6 +1,7 @@
 ﻿using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Services.Repository;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -9,25 +10,50 @@ namespace BBS.Interactors
     {
         private IRepositoryWrapper _repository;
         private ITokenManager _tokenManager;
-
+        private readonly IEmailSender _emailSender;
         public LoginUserInteractor(
             IRepositoryWrapper repository,
-            ITokenManager tokenManager
+            ITokenManager tokenManager, IEmailSender emailSender
         )
         {
             _repository = repository;
             _tokenManager = tokenManager;
+            _emailSender = emailSender;
         }
-
+        public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
+        {
+            var response = new GenericApiResponse();
+            _emailSender.SendEmailAsync(loginUserDto.Email, "OTP: Verify your login", "One Time Passcode : " + loginUserDto.OTP);
+            response.ReturnCode = StatusCodes.Status202Accepted;
+            response.ReturnMessage = "OTP sent on Email";
+            response.ReturnData = "";
+            response.ReturnStatus = true;
+            return response; 
+        }
         public GenericApiResponse LoginUser(LoginUserDto loginUserDto)
         {
-            try
+            return TryLoggingUser(loginUserDto);
+        }
+
+        public GenericApiResponse ForgotPasscode(ForgotPasscodeDto fgpscodeDto)
+        {
+            var response = new GenericApiResponse();
+            var emailcheck = _repository.PersonManager.GetPersonByEmail(fgpscodeDto.Email);
+            if (emailcheck != null)
             {
-                return TryLoggingUser(loginUserDto);
+                string newPasscode = _repository.UserLoginManager.UpdatePassCode(emailcheck.Id);
+
+                _emailSender.SendEmailAsync(fgpscodeDto.Email, "New passcode to login", "Your new Passcode : " + newPasscode);
+
+                response.ReturnCode = StatusCodes.Status202Accepted;
+                response.ReturnMessage = "Passcode sent on Email";
+                response.ReturnData = "";
+                response.ReturnStatus = true;
+                return response;
             }
-            catch (Exception)
+            else
             {
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Email does not exist in the system!");
             }
         }
 
@@ -45,30 +71,35 @@ namespace BBS.Interactors
                 );
 
                 response.ReturnCode = StatusCodes.Status202Accepted;
-                response.ReturnMessage = "Successfull";
+                response.ReturnMessage = "User Login Successful!. Please continue..";
                 response.ReturnData = generatedToken;
-                response.ReturnStatus = false;
+                response.ReturnStatus = true;
 
                 return response;
             }
             else
             {
-                throw new Exception();
+                return ReturnErrorStatus("Authentication failed. The email or passcode you entered is incorrect.");
             }
         }
 
         private UserLogin? GetUserByPincode(LoginUserDto loginUserDto)
         {
-            var userLogin = _repository.UserLoginManager.GetUserLoginByPin(loginUserDto.Passcode);
+            UserLogin? userLogin = null;
+            var emailcheck = _repository.PersonManager.GetPersonByEmail(loginUserDto.Email);
+            if (emailcheck!=null)
+            {
+                userLogin = _repository.UserLoginManager.GetUserLoginByPin(loginUserDto, emailcheck.Id);
+            }
             return userLogin;
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             var response = new GenericApiResponse();
 
             response.ReturnCode = StatusCodes.Status400BadRequest;
-            response.ReturnMessage = "Incorrect Passcode";
+            response.ReturnMessage = message;
             response.ReturnData = "";
             response.ReturnStatus = false;
 

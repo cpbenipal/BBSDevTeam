@@ -32,5 +32,10 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetById(personId);
         }
+        public Person? GetPersonByEmail(string Email)
+        {
+            return _repositoryBase.GetAll().FirstOrDefault(x=>x.Email == Email);
+        }
     }
 }
+ 

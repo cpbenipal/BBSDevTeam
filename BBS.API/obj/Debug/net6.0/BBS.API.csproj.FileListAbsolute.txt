@@ -48,3 +48,9 @@ D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\refint\BBS.API.dll
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.pdb
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\ref\BBS.API.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.API.runtimeconfig.json
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Entities.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Services.Repository.dll
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Entities.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Services.Repository.pdb
+D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.genruntimeconfig.cache

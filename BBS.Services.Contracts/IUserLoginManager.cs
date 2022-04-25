@@ -1,4 +1,5 @@
-﻿using BBS.Models;
+﻿using BBS.Dto;
+using BBS.Models;
 
 namespace BBS.Services.Contracts
 {
@@ -6,6 +7,7 @@ namespace BBS.Services.Contracts
     {
         UserLogin InsertUserLogin(UserLogin userLogin);
         bool IsUserExists(string UserName);
-        UserLogin? GetUserLoginByPin(string pin);
+        UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto, int id);
+        string UpdatePassCode(int userLoginId);
     }
 }

@@ -15,10 +15,22 @@ namespace BBS.API.Controllers
             _loginUserInteractor = loginUserInteractor;
         }
 
-        [HttpPost]
+        [HttpPost("SendOTP")]
+        public IActionResult SendOTP([FromBody] LoginUserOTPDto loginUserDto)
+        {
+            return Ok(_loginUserInteractor.SendOTP(loginUserDto)); 
+        }
+
+        [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
             return Ok(_loginUserInteractor.LoginUser(loginUserDto));
         }
+
+        [HttpPost("ForgotPasscode")]
+        public IActionResult ForgotPasscode([FromBody] ForgotPasscodeDto fgpscodeDto)
+        {
+            return Ok(_loginUserInteractor.ForgotPasscode(fgpscodeDto)); 
+        } 
     }
 }

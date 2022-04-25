@@ -1,5 +1,7 @@
-﻿using BBS.Models;
+﻿using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Utils;
 
 namespace BBS.Services.Repository
 {
@@ -14,10 +16,10 @@ namespace BBS.Services.Repository
             _hashManager = hashManager;
         }
 
-        public UserLogin? GetUserLoginByPin(string passcode)
+        public UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto,int Id)
         {
-            var encryptedText = _hashManager.EncryptPlainText(passcode);
-            return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText);
+            var encryptedText = _hashManager.EncryptPlainText(loginUserDto.Passcode);
+            return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText && x.Id == Id);
         }
 
         public UserLogin InsertUserLogin(UserLogin userLogin)
@@ -32,6 +34,18 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().Any(
                 x => _hashManager.VerifyPasswordWithSaltAndStoredHash(passcode, x.PasswordHash!, x.PasswordSalt!)
             );
-        }   
+        }
+        public string UpdatePassCode(int userLoginId) 
+        {
+            var newPasscode = (new RegisterUserUtils()).GenerateUniqueNumber(4);            
+            var userdetail = _repositoryBase.GetAll().Where(x => x.Id == userLoginId).FirstOrDefault();
+            userdetail.Passcode = _hashManager.EncryptPlainText(newPasscode);
+            userdetail.ModifiedDate = DateTime.Now;
+
+            var addedUserLogin = _repositoryBase.Update(userdetail);
+            _repositoryBase.Save();
+
+            return newPasscode;
+        }
     }
 }
