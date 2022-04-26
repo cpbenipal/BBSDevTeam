@@ -58,24 +58,26 @@ namespace BBS.Interactors
                     person, role, attachements, nationality, country
                 );
 
-            var response = new GenericApiResponse();
-            response.ReturnCode = StatusCodes.Status200OK;
-            response.ReturnMessage = "Successfull";
-            response.ReturnData = userProfileInformation;
-            response.ReturnStatus = false;
+            var response = new GenericApiResponse
+            {
+                ReturnCode = StatusCodes.Status200OK,
+                ReturnMessage = "Successfull",
+                ReturnData = userProfileInformation,
+                ReturnStatus = false
+            };
 
             return response;
         }
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            var response = new GenericApiResponse();
-
-            response.ReturnCode = StatusCodes.Status500InternalServerError;
-            response.ReturnMessage = "Couldnot get user Profile Information";
-            response.ReturnData = "";
-            response.ReturnStatus = false;
-
+            var response = new GenericApiResponse
+            {
+                ReturnCode = StatusCodes.Status500InternalServerError,
+                ReturnMessage = "Couldnot get user Profile Information",
+                ReturnData = "",
+                ReturnStatus = false
+            };
             return response;
         }
     }

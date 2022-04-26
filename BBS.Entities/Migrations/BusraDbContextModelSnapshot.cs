@@ -315,10 +315,10 @@ namespace BBS.Entities.Migrations
 
                     b.Property<DateTime?>("DateOfBirth")
                         .IsRequired()
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("DateOfEmployement")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -470,7 +470,7 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateOfGrant")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("date");
 
                     b.Property<int>("DebtRoundId")
                         .HasColumnType("integer");

@@ -6,5 +6,6 @@ namespace BBS.Services.Contracts
     public interface IEquityRoundManager
     {
         EquityRound InsertEquityRound(EquityRound equityRound);
+        List<EquityRound> GetAllEquityRounds();
     }
 }

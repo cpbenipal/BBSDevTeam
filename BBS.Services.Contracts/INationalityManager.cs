@@ -6,5 +6,6 @@ namespace BBS.Services.Contracts
     {
         Nationality InsertNationality(Nationality nationality);
         Nationality GetNationality(int nationalityId);
+        List<Nationality> GetAllNationalities();
     }
 }

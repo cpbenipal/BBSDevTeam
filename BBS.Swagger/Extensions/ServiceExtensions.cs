@@ -1,4 +1,5 @@
-﻿using BBS.Interactors;
+﻿using BBS.Dto;
+using BBS.Interactors;
 using BBS.Services.Contracts;
 using BBS.Services.Repository;
 using BBS.Utils;
@@ -7,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using static BBS.Utils.SecureUtil;
 
 namespace BBS.Swagger.Extensions
 {
@@ -88,13 +88,21 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<RegisterShareUtils>();
 
             services.AddScoped<LoginUserInteractor>();
+            services.AddScoped<ForgotPasscodeInteractor>();
 
             services.AddScoped<GetProfileInformationInteractor>();
             services.AddScoped<GetProfileInformationUtils>();
 
             services.AddScoped<GetRegisteredSharesInteractor>();
             services.AddScoped<GetRegisteredSharesUtils>();
-           
+
+            services.AddScoped<GetAllCountriesInteractor>();
+            services.AddScoped<GetAllDebtRoundsInteractor>();
+            services.AddScoped<GetAllEquityRoundsInteractor>();
+            services.AddScoped<GetAllGrantTypesInteractor>();
+            services.AddScoped<GetAllNationalitiesInteractor>();
+            services.AddScoped<GetAllRestrictionsInteractor>();
+            services.AddScoped<GetAllStorageLocationsInteractor>();
 
 
             Config = BuildConfiguration();

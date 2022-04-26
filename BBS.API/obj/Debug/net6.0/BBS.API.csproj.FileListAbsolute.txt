@@ -1,56 +1,31 @@
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.deps.json
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Constants.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Dto.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Interactors.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Models.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Services.Contracts.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Utils.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Models.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Services.Contracts.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Interactors.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Constants.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Dto.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Utils.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.AssemblyReference.cache
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfoInputs.cache
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfo.cs
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CoreCompileInputs.cache
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CopyComplete
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\refint\BBS.API.dll
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.pdb
-D:\Projects\DevTeam\Nahom\BBSDevTeam\BBS.API\obj\Debug\net6.0\ref\BBS.API.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.API.deps.json
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.API.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.API.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Constants.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Dto.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Interactors.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Models.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Services.Contracts.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Utils.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Models.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Services.Contracts.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Interactors.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Constants.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Dto.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Utils.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.csproj.AssemblyReference.cache
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfoInputs.cache
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfo.cs
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CoreCompileInputs.cache
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CopyComplete
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\refint\BBS.API.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\ref\BBS.API.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.API.runtimeconfig.json
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Entities.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Services.Repository.dll
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Entities.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\bin\Debug\net6.0\BBS.Services.Repository.pdb
-D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.genruntimeconfig.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.deps.json
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.runtimeconfig.json
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.API.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Constants.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Dto.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Entities.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Interactors.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Models.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Services.Contracts.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Services.Repository.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Utils.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Models.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Interactors.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Constants.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Dto.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Entities.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Services.Repository.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\bin\Debug\net6.0\BBS.Utils.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.AssemblyReference.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfoInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CoreCompileInputs.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CopyComplete
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\refint\BBS.API.dll
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.pdb
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.genruntimeconfig.cache
+C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.API\obj\Debug\net6.0\ref\BBS.API.dll

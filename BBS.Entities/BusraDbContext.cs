@@ -13,14 +13,14 @@ namespace BBS.Entities
         {
         }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+            }
+        }
 
         // OnBoarding
         public virtual DbSet<CertificateType> CertificateTypes { get; set; }
@@ -103,7 +103,8 @@ namespace BBS.Entities
                   new StorageLocation { Id = 1, Name = "Dropbox" },
                   new StorageLocation { Id = 2, Name = "One Drive" },
                   new StorageLocation { Id = 3, Name = "Google " },
-                  new StorageLocation { Id = 4, Name = "iCloud" }
+                  new StorageLocation { Id = 4, Name = "iCloud" },
+                  new StorageLocation { Id = 5, Name = "My Desktop" }
             );
 
             OnModelCreatingPartial(modelBuilder);

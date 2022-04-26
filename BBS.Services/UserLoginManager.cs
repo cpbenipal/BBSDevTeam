@@ -9,7 +9,7 @@ namespace BBS.Services.Repository
     {
         private readonly IGenericRepository<UserLogin> _repositoryBase;
         private IHashManager _hashManager;
-
+       
         public UserLoginManager(IGenericRepository<UserLogin> repositoryBase, IHashManager hashManager)
         {
             _repositoryBase = repositoryBase;
@@ -38,11 +38,11 @@ namespace BBS.Services.Repository
         public string UpdatePassCode(int userLoginId) 
         {
             var newPasscode = (new RegisterUserUtils()).GenerateUniqueNumber(4);            
-            var userdetail = _repositoryBase.GetAll().Where(x => x.Id == userLoginId).FirstOrDefault();
-            userdetail.Passcode = _hashManager.EncryptPlainText(newPasscode);
-            userdetail.ModifiedDate = DateTime.Now;
+            var userLogin = _repositoryBase.GetAll().Where(x => x.Id == userLoginId).FirstOrDefault();
+            userLogin!.Passcode = _hashManager.EncryptPlainText(newPasscode);
+            userLogin.ModifiedDate = DateTime.Now;
 
-            var addedUserLogin = _repositoryBase.Update(userdetail);
+            var addedUserLogin = _repositoryBase.Update(userLogin);
             _repositoryBase.Save();
 
             return newPasscode;

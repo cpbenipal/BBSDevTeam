@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "MBsaermSw4Z1buPvQiqhaDBGmGtLOZwIjnuXtEmTTHcHkdOBLYVgVRe7o+aQNonio6EUIsPN9jZACGX2y02v/A==",
+  "dgSpecHash": "cKcvVRcfEBGmimr2FnWAYT/ecf4sVAFz477NKsCw+cBaXDuFZiw1+6edqEZK6jYDTFEQIzqUh9A7NPCWEH7eWg==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Benipal\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",
-    "C:\\Users\\Benipal\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
-    "C:\\Users\\Benipal\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
-    "C:\\Users\\Benipal\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+    "C:\\Users\\nahom.habtamu\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",
+    "C:\\Users\\nahom.habtamu\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\nahom.habtamu\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
+    "C:\\Users\\nahom.habtamu\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

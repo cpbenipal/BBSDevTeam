@@ -26,11 +26,5 @@ namespace BBS.API.Controllers
         {
             return Ok(_loginUserInteractor.LoginUser(loginUserDto));
         }
-
-        [HttpPost("ForgotPasscode")]
-        public IActionResult ForgotPasscode([FromBody] ForgotPasscodeDto fgpscodeDto)
-        {
-            return Ok(_loginUserInteractor.ForgotPasscode(fgpscodeDto)); 
-        } 
     }
 }

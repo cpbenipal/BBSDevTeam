@@ -35,32 +35,10 @@ namespace BBS.Interactors
             return TryLoggingUser(loginUserDto);
         }
 
-        public GenericApiResponse ForgotPasscode(ForgotPasscodeDto fgpscodeDto)
-        {
-            var response = new GenericApiResponse();
-            var emailcheck = _repository.PersonManager.GetPersonByEmail(fgpscodeDto.Email);
-            if (emailcheck != null)
-            {
-                string newPasscode = _repository.UserLoginManager.UpdatePassCode(emailcheck.Id);
-
-                _emailSender.SendEmailAsync(fgpscodeDto.Email, "New passcode to login", "Your new Passcode : " + newPasscode);
-
-                response.ReturnCode = StatusCodes.Status202Accepted;
-                response.ReturnMessage = "Passcode sent on Email";
-                response.ReturnData = "";
-                response.ReturnStatus = true;
-                return response;
-            }
-            else
-            {
-                return ReturnErrorStatus("Email does not exist in the system!");
-            }
-        }
-
         private GenericApiResponse TryLoggingUser(LoginUserDto loginUserDto)
         {
             var response = new GenericApiResponse();
-            var userLogin = GetUserByPincode(loginUserDto);
+            var userLogin = GetUserByPincodeAndEmail(loginUserDto);
             if (userLogin != null)
             {
                 var userRole = _repository.UserRoleManager.GetUserRoleByUserLoginId(userLogin.Id);
@@ -83,11 +61,11 @@ namespace BBS.Interactors
             }
         }
 
-        private UserLogin? GetUserByPincode(LoginUserDto loginUserDto)
+        private UserLogin? GetUserByPincodeAndEmail(LoginUserDto loginUserDto)
         {
             UserLogin? userLogin = null;
             var emailcheck = _repository.PersonManager.GetPersonByEmail(loginUserDto.Email);
-            if (emailcheck!=null)
+            if (emailcheck != null)
             {
                 userLogin = _repository.UserLoginManager.GetUserLoginByPin(loginUserDto, emailcheck.Id);
             }

@@ -24,6 +24,7 @@ namespace BBS.Models
         public string? Email { get; set; }
 
         [Required]
+        [Column(TypeName = "date")]
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
@@ -76,6 +77,7 @@ namespace BBS.Models
         public decimal AnnualIncome { get; set; }
 
         [Required]
+        [Column(TypeName = "date")]
         [DataType(DataType.Date)]
         public DateTime DateOfEmployement { get; set; }
 

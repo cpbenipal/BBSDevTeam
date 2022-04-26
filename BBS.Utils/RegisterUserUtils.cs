@@ -54,7 +54,7 @@ namespace BBS.Utils
 
             person.VaultNumber = GenerateVaultNumber(12);
             person.IBANNumber = GenerateIBANNumber(21);
-
+            person.AddedDate = DateTime.Now;
 
             return person;
         }

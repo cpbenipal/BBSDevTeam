@@ -12,6 +12,11 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public List<GrantType> GetAllGrantTypes()
+        {
+            return _repositoryBase.GetAll().ToList();
+        }
+
         public GrantType InsertGrantType(GrantType grantType)
         {
             var addedGrantType = _repositoryBase.Insert(grantType);

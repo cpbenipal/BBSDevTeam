@@ -25,6 +25,9 @@ namespace BBS.Utils
             share.Email = registerShareDto.ContactPerson.Email;
             share.PhoneNumber = registerShareDto.ContactPerson.PhoneNumber;
 
+            share.AddedDate = DateTime.Now;
+
+
             return share;
         }
 

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class final : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -164,7 +164,7 @@ namespace BBS.Entities.Migrations
                     FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
                     IsUSCitizen = table.Column<bool>(type: "boolean", nullable: false),
                     IsPublicSectorEmployee = table.Column<bool>(type: "boolean", nullable: false),
                     IsIndividual = table.Column<bool>(type: "boolean", nullable: false),
@@ -179,7 +179,7 @@ namespace BBS.Entities.Migrations
                     NationalityId = table.Column<int>(type: "integer", nullable: false),
                     IsEmployed = table.Column<bool>(type: "boolean", nullable: false),
                     AnnualIncome = table.Column<decimal>(type: "numeric", nullable: false),
-                    DateOfEmployement = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateOfEmployement = table.Column<DateTime>(type: "date", nullable: false),
                     HavePriorExpirence = table.Column<bool>(type: "boolean", nullable: false),
                     HaveTraining = table.Column<bool>(type: "boolean", nullable: false),
                     HaveExperience = table.Column<bool>(type: "boolean", nullable: false),
@@ -277,7 +277,7 @@ namespace BBS.Entities.Migrations
                     EquityRoundId = table.Column<int>(type: "integer", nullable: false),
                     DebtRoundId = table.Column<int>(type: "integer", nullable: false),
                     NumberOfShares = table.Column<int>(type: "integer", nullable: false),
-                    DateOfGrant = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateOfGrant = table.Column<DateTime>(type: "date", nullable: false),
                     SharePrice = table.Column<decimal>(type: "numeric", nullable: false),
                     RestrictionId = table.Column<int>(type: "integer", nullable: false),
                     StorageLocationId = table.Column<int>(type: "integer", nullable: false),
