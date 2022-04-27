@@ -14,6 +14,7 @@ namespace BBS.Interactors
         private readonly IMapper _mapper;
         private readonly IHashManager _hashManager;
         private readonly IFileUploadService _uploadService;
+        private readonly IApiResponseManager _responseManager;
         private readonly RegisterUserUtils _registerUserUtils;
 
         public RegisterUserInteractor(
@@ -21,6 +22,7 @@ namespace BBS.Interactors
             IMapper mapper,
             IHashManager hashManager,
             IFileUploadService uploadService,
+            IApiResponseManager responseManager,
             RegisterUserUtils registerUserUtils
         )
         {
@@ -28,6 +30,7 @@ namespace BBS.Interactors
             _mapper = mapper;
             _hashManager = hashManager;
             _uploadService = uploadService;
+            _responseManager = responseManager;
             _registerUserUtils = registerUserUtils;
         }
         private bool IsUserExists(string Email)
@@ -40,62 +43,60 @@ namespace BBS.Interactors
         }
         public GenericApiResponse RegisterUser(RegisterUserDto registerUserDto)
         {
-            var response = new GenericApiResponse();
             try
             {
-
-                if (IsUserExists(registerUserDto.Person.Email))
-                {
-                    response.ReturnCode = StatusCodes.Status200OK;
-                    response.ReturnMessage = "Email already exists";
-                    response.ReturnData = "";
-                    response.ReturnStatus = false;
-
-                }
-               else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
-                {
-                    response.ReturnCode = StatusCodes.Status200OK;
-                    response.ReturnMessage = "Emirates ID already exists";
-                    response.ReturnData = "";
-                    response.ReturnStatus = false;
-                }
-                else if (registerUserDto.Attachments.Count() < 2)
-                {
-                    response.ReturnCode = StatusCodes.Status200OK;
-                    response.ReturnMessage = "Please Enter Both Front and Back Side Picture of Your Emirates Id";
-                    response.ReturnData = "";
-                    response.ReturnStatus = false;
-                }
-
-                else
-                {
-                    var createdPerson = CreatePerson(registerUserDto);
-                    var createdUserLoginProfile = CreateUserLogin(
-                        registerUserDto.UserLogin,
-                        createdPerson.Id
-                    );
-
-                    CreateUserRole(createdUserLoginProfile.Id);
-
-                    UploadFilesAndCreateAttachments(
-                        registerUserDto.Attachments,
-                        createdPerson.Id
-                    );
-
-                    response.ReturnCode = StatusCodes.Status201Created;
-                    response.ReturnMessage = "Successful";
-                    response.ReturnData = "";
-                    response.ReturnStatus = true;
-                }
+                return TryRegisteringUser(registerUserDto);
             }
             catch (Exception ex)
             {
-                response.ReturnData = "";
-                response.ReturnCode = StatusCodes.Status400BadRequest;
-                response.ReturnMessage = ex.Message;
-                response.ReturnStatus = false;
+                return _responseManager.ErrorResponse(
+                    ex.Message,
+                    StatusCodes.Status400BadRequest
+                );
             }
-            return response;
+        }
+
+        private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto)
+        {
+            if (IsUserExists(registerUserDto.Person.Email))
+            {
+                throw new Exception("Email already exists");
+            }
+            else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
+            {
+                throw new Exception("Emirates ID already exists");
+            }
+            else if (registerUserDto.Attachments.Count() < 2)
+            {
+                throw new Exception("Please Enter Both Front and Back Side Picture of Your Emirates Id");
+            }
+
+            else
+            {
+                return HandleCreatingUser(registerUserDto);
+            }
+        }
+
+        private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto)
+        {
+            var createdPerson = CreatePerson(registerUserDto);
+            var createdUserLoginProfile = CreateUserLogin(
+                registerUserDto.UserLogin,
+                createdPerson.Id
+            );
+
+            CreateUserRole(createdUserLoginProfile.Id);
+
+            UploadFilesAndCreateAttachments(
+                registerUserDto.Attachments,
+                createdPerson.Id
+            );
+
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status201Created,
+                ""
+            );
         }
 
         private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
@@ -149,7 +150,6 @@ namespace BBS.Interactors
 
         private UserLogin CreateUserLogin(UserLoginDto userLogin, int personId)
         {
-            userLogin.PersonId = personId;
             var hashed = _hashManager.HashWithSalt(userLogin.Passcode);
             var mappedRequest = new UserLogin()
             {

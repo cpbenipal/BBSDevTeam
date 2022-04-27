@@ -15,12 +15,6 @@ namespace BBS.API.Controllers
             _loginUserInteractor = loginUserInteractor;
         }
 
-        [HttpPost("SendOTP")]
-        public IActionResult SendOTP([FromBody] LoginUserOTPDto loginUserDto)
-        {
-            return Ok(_loginUserInteractor.SendOTP(loginUserDto)); 
-        }
-
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {

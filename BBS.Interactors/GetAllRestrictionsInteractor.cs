@@ -7,9 +7,14 @@ namespace BBS.Interactors
     public class GetAllRestrictionsInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllRestrictionsInteractor(IRepositoryWrapper repositoryWrapper)
+        private readonly IApiResponseManager _responseManager;
+
+        public GetAllRestrictionsInteractor(
+            IRepositoryWrapper repositoryWrapper,
+            IApiResponseManager responseManager)
         {
             _repositoryWrapper = repositoryWrapper;
+            _responseManager = responseManager;
         }
 
         public GenericApiResponse GetAllRestrictions()
@@ -27,27 +32,20 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            return new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Error in fetching Restrictions",
-                ReturnData = "",
-                ReturnStatus = false
-            };
+            return _responseManager.ErrorResponse(
+                "Error in fetching Restriction",
+                StatusCodes.Status500InternalServerError
+            );
         }
 
         private GenericApiResponse TryGettingAllRestrictions()
         {
             var allRestrictions = _repositoryWrapper.RestrictionManager.GetAllRestrictions();
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allRestrictions,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allRestrictions
+            );
         }
     }
 }

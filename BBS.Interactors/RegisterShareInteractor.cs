@@ -12,61 +12,65 @@ namespace BBS.Interactors
         private readonly RegisterShareUtils _registerShareUtils;
         private readonly IFileUploadService _uploadService;
         private readonly ITokenManager _tokenManager;
+        private readonly IApiResponseManager _responseManager;
+
 
         public RegisterShareInteractor(
             IRepositoryWrapper repository,
             RegisterShareUtils registerShareUtils,
-            IFileUploadService uploadService, 
-            ITokenManager tokenManager
+            IFileUploadService uploadService,
+            ITokenManager tokenManager,
+            IApiResponseManager responseManager
         )
         {
             _repository = repository;
             _registerShareUtils = registerShareUtils;
             _uploadService = uploadService;
             _tokenManager = tokenManager;
+            _responseManager = responseManager;
 
         }
 
         public GenericApiResponse RegisterShare(RegisterShareDto registerShareDto, string token)
         {
-            var response = new GenericApiResponse();
-
             try
             {
-                response = TryRegisteringShare(registerShareDto, token);
+                return TryRegisteringShare(registerShareDto, token);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                response.ReturnData = "";
-                response.ReturnCode = StatusCodes.Status400BadRequest;
-                response.ReturnMessage = ex.Message;
-                response.ReturnStatus = false;
+                return ErrorStatus();
             }
-            return response;
+        }
+
+        private GenericApiResponse ErrorStatus()
+        {
+            return _responseManager.ErrorResponse(
+                "Error In Registering Share",
+                StatusCodes.Status400BadRequest
+            );
         }
 
         private GenericApiResponse TryRegisteringShare(RegisterShareDto registerShareDto, string token)
         {
-
             var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
 
-            var response = new GenericApiResponse();
             var logoUrl = UploadFilesToAzureBlob(registerShareDto.BusinessLogo);
-            
+
             var shareToInsert = _registerShareUtils.ParseShareObjectFromRegisterShareDto(registerShareDto);
             shareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
             shareToInsert.BusinessLogo = logoUrl.ImageUrl;
 
             _repository.ShareManager.InsertShare(shareToInsert);
 
-            response.ReturnCode = StatusCodes.Status201Created;
-            response.ReturnMessage = "Successful";
-            response.ReturnData = 1;
-            response.ReturnStatus = true;
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status201Created,
+                1
+            );
         }
 
-        private BlobFiles UploadFilesToAzureBlob(IFormFile businessLogo) 
+        private BlobFiles UploadFilesToAzureBlob(IFormFile businessLogo)
         {
             try
             {
@@ -75,7 +79,7 @@ namespace BBS.Interactors
                 {
                     ImageUrl = fileData.ImageUrl,
                     ContentType = fileData.ContentType
-                };                
+                };
                 return uploadedFiles;
             }
             catch (Exception)

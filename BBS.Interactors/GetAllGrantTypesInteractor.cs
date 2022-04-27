@@ -7,9 +7,14 @@ namespace BBS.Interactors
     public class GetAllGrantTypesInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllGrantTypesInteractor(IRepositoryWrapper repositoryWrapper)
+        private readonly IApiResponseManager _responseManager;
+
+        public GetAllGrantTypesInteractor(
+            IRepositoryWrapper repositoryWrapper, 
+            IApiResponseManager responseManager)
         {
             _repositoryWrapper = repositoryWrapper;
+            _responseManager = responseManager;
         }
 
         public GenericApiResponse GetAllGrantTypes()
@@ -22,32 +27,24 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus();
             }
-
         }
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            return new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Error in fetching Grant Types",
-                ReturnData = "",
-                ReturnStatus = false
-            };
+            return _responseManager.ErrorResponse(
+                "Error in fetching Grant Types",
+                StatusCodes.Status500InternalServerError
+            );
         }
 
         private GenericApiResponse TryGettingAllGrantTypes()
         {
             var allGrantTypes = _repositoryWrapper.GrantTypeManager.GetAllGrantTypes();
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allGrantTypes,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allGrantTypes
+            );
         }
     }
 }

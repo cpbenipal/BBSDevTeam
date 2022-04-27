@@ -7,9 +7,14 @@ namespace BBS.Interactors
     public class GetAllEquityRoundsInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllEquityRoundsInteractor(IRepositoryWrapper repositoryWrapper)
+        private readonly IApiResponseManager _responseManager;
+
+        public GetAllEquityRoundsInteractor(
+            IRepositoryWrapper repositoryWrapper, 
+            IApiResponseManager responseManager)
         {
             _repositoryWrapper = repositoryWrapper;
+            _responseManager = responseManager;
         }
 
         public GenericApiResponse GetAllEquityRounds()
@@ -27,27 +32,21 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            return new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Error in fetching EquityRounds",
-                ReturnData = "",
-                ReturnStatus = false
-            };
+            return _responseManager.ErrorResponse(
+                "Error in fetching EquityRounds", 
+                StatusCodes.Status500InternalServerError
+            );
         }
 
         private GenericApiResponse TryGettingAllEquityRounds()
         {
             var allEquityRounds = _repositoryWrapper.EquityRoundManager.GetAllEquityRounds();
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allEquityRounds,
-                ReturnStatus = false
-            };
-
-            return response;
+            
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allEquityRounds
+            );
         }
     }
 }

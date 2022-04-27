@@ -7,9 +7,14 @@ namespace BBS.Interactors
     public class GetAllStorageLocationsInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllStorageLocationsInteractor(IRepositoryWrapper repositoryWrapper)
+        private readonly IApiResponseManager _responseManager;
+
+        public GetAllStorageLocationsInteractor(
+            IRepositoryWrapper repositoryWrapper, 
+            IApiResponseManager responseManager)
         {
             _repositoryWrapper = repositoryWrapper;
+            _responseManager = responseManager;
         }
 
         public GenericApiResponse GetAllStorageLocations()
@@ -27,27 +32,20 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            return new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Error in fetching Storage Locations",
-                ReturnData = "",
-                ReturnStatus = false
-            };
+            return _responseManager.ErrorResponse(
+               "Error in fetching Storage Locations",
+               StatusCodes.Status500InternalServerError
+           );
         }
 
         private GenericApiResponse TryGettingAllStorageLocations()
         {
             var allStorageLocations = _repositoryWrapper.StorageLocationManager.GetAllStorageLocations();
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allStorageLocations,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allStorageLocations
+            );
         }
     }
 }

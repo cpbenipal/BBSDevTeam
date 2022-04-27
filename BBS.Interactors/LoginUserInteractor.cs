@@ -1,43 +1,41 @@
 ﻿using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
-using BBS.Services.Repository;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
     public class LoginUserInteractor
     {
-        private IRepositoryWrapper _repository;
-        private ITokenManager _tokenManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IRepositoryWrapper _repository;
+        private readonly ITokenManager _tokenManager;
+        private readonly IApiResponseManager _responseManager;
+
         public LoginUserInteractor(
-            IRepositoryWrapper repository,
-            ITokenManager tokenManager, IEmailSender emailSender
-        )
+            IRepositoryWrapper repository, 
+            ITokenManager tokenManager,
+            IApiResponseManager responseManager)
         {
             _repository = repository;
             _tokenManager = tokenManager;
-            _emailSender = emailSender;
+            _responseManager = responseManager;
         }
-        public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
-        {
-            var response = new GenericApiResponse();
-            _emailSender.SendEmailAsync(loginUserDto.Email, "OTP: Verify your login", "One Time Passcode : " + loginUserDto.OTP);
-            response.ReturnCode = StatusCodes.Status202Accepted;
-            response.ReturnMessage = "OTP sent on Email";
-            response.ReturnData = "";
-            response.ReturnStatus = true;
-            return response; 
-        }
+
         public GenericApiResponse LoginUser(LoginUserDto loginUserDto)
         {
-            return TryLoggingUser(loginUserDto);
+            try
+            {
+                return TryLoggingUser(loginUserDto);
+            }
+            catch (Exception)
+            {
+
+                return ReturnErrorStatus();
+            }
         }
 
         private GenericApiResponse TryLoggingUser(LoginUserDto loginUserDto)
         {
-            var response = new GenericApiResponse();
             var userLogin = GetUserByPincodeAndEmail(loginUserDto);
             if (userLogin != null)
             {
@@ -48,16 +46,15 @@ namespace BBS.Interactors
                     userLogin.Id.ToString()
                 );
 
-                response.ReturnCode = StatusCodes.Status202Accepted;
-                response.ReturnMessage = "User Login Successful!. Please continue..";
-                response.ReturnData = generatedToken;
-                response.ReturnStatus = true;
-
-                return response;
+                return _responseManager.SuccessResponse(
+                    "User Login Successful!. Please continue..",
+                    StatusCodes.Status202Accepted,
+                    generatedToken
+                );
             }
             else
             {
-                return ReturnErrorStatus("Authentication failed. The email or passcode you entered is incorrect.");
+                throw new Exception();
             }
         }
 
@@ -72,16 +69,12 @@ namespace BBS.Interactors
             return userLogin;
         }
 
-        private GenericApiResponse ReturnErrorStatus(string message)
+        private GenericApiResponse ReturnErrorStatus()
         {
-            var response = new GenericApiResponse();
-
-            response.ReturnCode = StatusCodes.Status400BadRequest;
-            response.ReturnMessage = message;
-            response.ReturnData = "";
-            response.ReturnStatus = false;
-
-            return response;
+            return _responseManager.ErrorResponse(
+                "Authentication failed. The email or passcode you entered is incorrect.",
+                StatusCodes.Status400BadRequest
+            );
         }
 
     }

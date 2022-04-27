@@ -64,7 +64,7 @@ namespace BBS.Services.Repository
 
         public static string GetaAllErrors(this Exception exception)
         {
-            var messages = exception.FromHierarchy(ex => ex.InnerException)
+            var messages = exception.FromHierarchy(ex => ex.InnerException!)
                 .Select(ex => ex.Message);
             return String.Join(Environment.NewLine, messages);
         }

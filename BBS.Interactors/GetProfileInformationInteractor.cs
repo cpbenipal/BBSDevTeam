@@ -10,15 +10,18 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly GetProfileInformationUtils _getProfileInformationUtils;
         private readonly ITokenManager _tokenManager;
+        private readonly IApiResponseManager _responseManager;
 
         public GetProfileInformationInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
+            IApiResponseManager responseManager,
             GetProfileInformationUtils getProfileInformationUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _tokenManager = tokenManager;
+            _responseManager = responseManager;
             _getProfileInformationUtils = getProfileInformationUtils;
         }
 
@@ -58,27 +61,19 @@ namespace BBS.Interactors
                     person, role, attachements, nationality, country
                 );
 
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = userProfileInformation,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                userProfileInformation
+            );
         }
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Couldnot get user Profile Information",
-                ReturnData = "",
-                ReturnStatus = false
-            };
-            return response;
+            return _responseManager.ErrorResponse(
+                "Couldnot get user Profile Information",
+                StatusCodes.Status500InternalServerError
+            );
         }
     }
 }

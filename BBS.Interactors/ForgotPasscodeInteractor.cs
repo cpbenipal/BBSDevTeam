@@ -6,15 +6,19 @@ namespace BBS.Interactors
 {
     public class ForgotPasscodeInteractor
     {
-        private IRepositoryWrapper _repository;
+        private readonly IRepositoryWrapper _repository;
         private readonly IEmailSender _emailSender;
+        private readonly IApiResponseManager _responseManager;
+
         public ForgotPasscodeInteractor(
             IRepositoryWrapper repository,
-            IEmailSender emailSender
+            IEmailSender emailSender,
+            IApiResponseManager responseManager
         )
         {
             _repository = repository;
             _emailSender = emailSender;
+            _responseManager = responseManager;
         }
 
         public GenericApiResponse ForgotPasscode(ForgotPasscodeDto forgotPassDto)
@@ -31,24 +35,24 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingEmailAndSendingNewPasscode(ForgotPasscodeDto forgotPassDto)
         {
-            var response = new GenericApiResponse();
             var personWithThisEmail = _repository.PersonManager.GetPersonByEmail(forgotPassDto.Email);
             if (personWithThisEmail != null)
             {
                 string newPasscode = _repository.UserLoginManager.UpdatePassCode(personWithThisEmail.Id);
 
                 _emailSender.SendEmailAsync(
-                    forgotPassDto.Email, 
-                    "New passcode to login", 
-                    "Your new Passcode : " + 
+                    forgotPassDto.Email,
+                    "New passcode to login",
+                    "Your new Passcode : " +
                     newPasscode
                 );
 
-                response.ReturnCode = StatusCodes.Status202Accepted;
-                response.ReturnMessage = "Passcode sent on Email";
-                response.ReturnData = "";
-                response.ReturnStatus = true;
-                return response;
+                return _responseManager.SuccessResponse(
+                    "Passcode sent on Email",
+                     StatusCodes.Status202Accepted,
+                     ""
+                );
+
             }
             else
             {
@@ -58,14 +62,10 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            var response = new GenericApiResponse();
-
-            response.ReturnCode = StatusCodes.Status400BadRequest;
-            response.ReturnMessage = "Email does not exist in the system!";
-            response.ReturnData = "";
-            response.ReturnStatus = false;
-
-            return response;
+            return _responseManager.ErrorResponse(
+                "Passcode sent on Email",
+                StatusCodes.Status202Accepted
+            );
         }
     }
 }

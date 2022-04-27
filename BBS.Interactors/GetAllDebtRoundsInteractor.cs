@@ -7,9 +7,14 @@ namespace BBS.Interactors
     public class GetAllDebtRoundsInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllDebtRoundsInteractor(IRepositoryWrapper repositoryWrapper)
+        private readonly IApiResponseManager _responseManager;
+
+        public GetAllDebtRoundsInteractor(
+            IRepositoryWrapper repositoryWrapper,
+            IApiResponseManager responseManager)
         {
             _repositoryWrapper = repositoryWrapper;
+            _responseManager = responseManager;
         }
 
         public GenericApiResponse GetAllDebtRounds()
@@ -27,27 +32,16 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            return new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Error in fetching DebtRounds",
-                ReturnData = "",
-                ReturnStatus = false
-            };
+            return _responseManager.ErrorResponse(
+                "Error in fetching DebtRounds",
+                StatusCodes.Status500InternalServerError
+            );
         }
 
         private GenericApiResponse TryGettingAllDebtRounds()
         {
             var allDebtRounds = _repositoryWrapper.DebtRoundManager.GetAllDebtRounds();
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allDebtRounds,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, allDebtRounds);
         }
     }
 }

@@ -80,6 +80,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<ITokenManager, JwtTokenManager>();
             services.AddScoped<IHashManager, HashManager>();
+            services.AddScoped<IApiResponseManager, ApiResponseManager>();
 
             services.AddScoped<RegisterUserInteractor>();
             services.AddScoped<RegisterUserUtils>();
@@ -89,6 +90,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<LoginUserInteractor>();
             services.AddScoped<ForgotPasscodeInteractor>();
+            services.AddScoped<SendOTPInteractor>();
 
             services.AddScoped<GetProfileInformationInteractor>();
             services.AddScoped<GetProfileInformationUtils>();
@@ -155,7 +157,7 @@ namespace BBS.Swagger.Extensions
             JsonSerializerOptions options
             )
         {
-            string assemblyQualifiedName = value.AssemblyQualifiedName;
+            string assemblyQualifiedName = value.AssemblyQualifiedName!;
             // Use this with caution, since you are disclosing type information.
             writer.WriteStringValue(assemblyQualifiedName);
         }

@@ -7,9 +7,15 @@ namespace BBS.Interactors
     public class GetAllNationalitiesInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllNationalitiesInteractor(IRepositoryWrapper repositoryWrapper)
+        private readonly IApiResponseManager _responseManager;
+
+        public GetAllNationalitiesInteractor(
+            IRepositoryWrapper repositoryWrapper,
+            IApiResponseManager responseManager)
         {
             _repositoryWrapper = repositoryWrapper;
+            _responseManager = responseManager;
+
         }
 
         public GenericApiResponse GetAllNationalities()
@@ -27,27 +33,20 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            return new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status500InternalServerError,
-                ReturnMessage = "Error in fetching Nationalities",
-                ReturnData = "",
-                ReturnStatus = false
-            };
+            return _responseManager.ErrorResponse(
+                "Error in fetching Nationalities",
+                StatusCodes.Status500InternalServerError
+            );
         }
 
         private GenericApiResponse TryGettingAllNationalities()
         {
             var allNationalities = _repositoryWrapper.NationalityManager.GetAllNationalities();
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allNationalities,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allNationalities
+            );
         }
     }
 }

@@ -9,16 +9,19 @@ namespace BBS.Interactors
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly ITokenManager _tokenManager;
+        private readonly IApiResponseManager _responseManager;
         private readonly GetRegisteredSharesUtils _getRegisteredSharesUtil;
 
         public GetRegisteredSharesInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
+            IApiResponseManager responseManager,
             GetRegisteredSharesUtils getRegisteredSharesUtil
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _tokenManager = tokenManager;
+            _responseManager = responseManager;
             _getRegisteredSharesUtil = getRegisteredSharesUtil; 
         }
 
@@ -40,32 +43,23 @@ namespace BBS.Interactors
             var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
             var allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId);
 
-
             var allMappedShares = 
                 _getRegisteredSharesUtil
                 .MapListOfSharesToListOfRegisteredSharesDto(allShares);
 
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allMappedShares,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allMappedShares
+            );
         }
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            var response = new GenericApiResponse();
-
-            response.ReturnCode = StatusCodes.Status500InternalServerError;
-            response.ReturnMessage = "Couldn't Fetch Shares";
-            response.ReturnData = "";
-            response.ReturnStatus = false;
-
-            return response;
+            return _responseManager.ErrorResponse(
+                "Couldn't Fetch Shares",
+                StatusCodes.Status500InternalServerError
+            );
         }
     }
 }

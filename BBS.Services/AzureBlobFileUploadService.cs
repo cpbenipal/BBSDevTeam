@@ -31,35 +31,30 @@ namespace BBS.Services.Repository
         public BlobFiles UploadFileToBlob(IFormFile item)
         {
             var blobfile = new BlobFiles();
-            try
+
+            var extension = Path.GetExtension(item.FileName);
+            if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
             {
+                // string mimeType = item.ContentType;
+                // byte[] fileData = new byte[item.Length];
 
-                var extension = Path.GetExtension(item.FileName);
-                if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
+                string systemFileName = Guid.NewGuid() + extension;
+
+                var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
+
+                using (var memoryStream = new MemoryStream())
                 {
-                    // string mimeType = item.ContentType;
-                    // byte[] fileData = new byte[item.Length];
-
-                    string systemFileName = Guid.NewGuid() + extension;
-
-                    var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
-
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        item.CopyTo(memoryStream);
-                        memoryStream.Position = 0;
-                        blob.Upload(memoryStream, true);
-                    }
-
-                    blobfile.ContentType = item.ContentType;
-                    blobfile.ImageUrl = blob.Uri.AbsoluteUri;
+                    item.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
+                    blob.Upload(memoryStream, true);
                 }
 
+                blobfile.ContentType = item.ContentType;
+                blobfile.ImageUrl = blob.Uri.AbsoluteUri;
             }
-            catch (Exception ex)
-            {
 
-            }
+
+
             return blobfile;
         }
 
