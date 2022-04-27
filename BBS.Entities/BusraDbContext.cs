@@ -17,8 +17,7 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+                optionsBuilder.UseNpgsql("Server = localhost; Port = 5432; Database = Busra_Dev; User Id = postgres; Password = secret");
             }
         }
 
@@ -103,8 +102,7 @@ namespace BBS.Entities
                   new StorageLocation { Id = 1, Name = "Dropbox" },
                   new StorageLocation { Id = 2, Name = "One Drive" },
                   new StorageLocation { Id = 3, Name = "Google " },
-                  new StorageLocation { Id = 4, Name = "iCloud" },
-                  new StorageLocation { Id = 5, Name = "My Desktop" }
+                  new StorageLocation { Id = 4, Name = "iCloud" }
             );
 
             OnModelCreatingPartial(modelBuilder);

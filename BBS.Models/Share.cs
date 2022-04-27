@@ -14,8 +14,6 @@ namespace BBS.Models
         public int EquityRoundId { get; set; }
         public int DebtRoundId { get; set; }
         public int NumberOfShares { get; set; }
-
-        [Column(TypeName = "date")]
         public DateTime DateOfGrant { get; set; }
         public decimal SharePrice { get; set; }
         public int RestrictionId { get; set; }

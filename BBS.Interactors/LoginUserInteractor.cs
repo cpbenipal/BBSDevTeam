@@ -62,7 +62,7 @@ namespace BBS.Interactors
         {
             UserLogin? userLogin = null;
             var emailcheck = _repository.PersonManager.GetPersonByEmail(loginUserDto.Email);
-            if (emailcheck != null)
+            if (emailcheck!=null)
             {
                 userLogin = _repository.UserLoginManager.GetUserLoginByPin(loginUserDto, emailcheck.Id);
             }

@@ -15,7 +15,10 @@ namespace BBS.Services.Repository
 
         public SendGridEmailSenderOptions Options { get; set; }
 
-        public async Task SendEmailAsync(string email,string subject,string message)
+        public async Task SendEmailAsync(
+            string email,
+            string subject,
+            string message)
         {
             await Execute(Options.ApiKey, subject, message, email);
         }
@@ -33,10 +36,13 @@ namespace BBS.Services.Repository
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
+                
             };
 
             msg.AddTo(new EmailAddress(email));
 
+            // disable tracking settings
+            // ref.: https://sendgrid.com/docs/User_Guide/Settings/tracking.html
             msg.SetClickTracking(false, false);
             msg.SetOpenTracking(false);
             msg.SetGoogleAnalytics(false);

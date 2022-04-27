@@ -106,7 +106,6 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllRestrictionsInteractor>();
             services.AddScoped<GetAllStorageLocationsInteractor>();
 
-
             Config = BuildConfiguration();
 
             var ConnectionString = Config["AzureStorage:ConnectionString"];

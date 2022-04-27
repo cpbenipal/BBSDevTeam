@@ -15,7 +15,7 @@ namespace BBS.API.Controllers
             _loginUserInteractor = loginUserInteractor;
         }
 
-        [HttpPost("Login")]
+        [HttpPost]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
             return Ok(_loginUserInteractor.LoginUser(loginUserDto));
