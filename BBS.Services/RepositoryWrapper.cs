@@ -196,5 +196,19 @@ namespace BBS.Services.Repository
                 return _share;
             }
         }
+
+        private IIssuedDigitalShareManager _issuedShare;
+        public IIssuedDigitalShareManager IssuedDigitalShareManager
+        {
+            get
+            {
+                if (_issuedShare == null)
+                {
+                    var repositoryBase = new RepositoryBase<IssuedDigitalShare>(_repoContext);
+                    _issuedShare = new IssuedDigitalShareManager(repositoryBase);
+                }
+                return _issuedShare;
+            }
+        }
     }
 }

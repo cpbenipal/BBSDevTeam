@@ -22,7 +22,6 @@ namespace BBS.Entities
         }
 
         // OnBoarding
-        public virtual DbSet<CertificateType> CertificateTypes { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Nationality> Nationalities { get; set; }
@@ -40,6 +39,11 @@ namespace BBS.Entities
         public virtual DbSet<StorageLocation> StorageLocations { get; set; }
         public virtual DbSet<Share> Shares { get; set; }
         public virtual DbSet<State> States { get; set; }
+
+
+        // Issuing Shares
+        public virtual DbSet<IssuedDigitalShare> IssuedDigitalShares { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -102,7 +106,8 @@ namespace BBS.Entities
                   new StorageLocation { Id = 1, Name = "Dropbox" },
                   new StorageLocation { Id = 2, Name = "One Drive" },
                   new StorageLocation { Id = 3, Name = "Google " },
-                  new StorageLocation { Id = 4, Name = "iCloud" }
+                  new StorageLocation { Id = 4, Name = "iCloud" },
+                  new StorageLocation { Id = 5, Name = "My Desktop" }
             );
 
             OnModelCreatingPartial(modelBuilder);

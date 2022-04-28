@@ -97,6 +97,9 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GetRegisteredSharesInteractor>();
             services.AddScoped<GetRegisteredSharesUtils>();
+            
+            services.AddScoped<IssueDigitalSharesInteractor>();
+            services.AddScoped<IssueDigitalShareUtils>();
 
             services.AddScoped<GetAllCountriesInteractor>();
             services.AddScoped<GetAllDebtRoundsInteractor>();

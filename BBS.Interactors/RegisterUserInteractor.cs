@@ -138,15 +138,14 @@ namespace BBS.Interactors
             }
         }
 
-        private PersonDto CreatePerson(RegisterUserDto registerUserDto)
+        private Person CreatePerson(RegisterUserDto registerUserDto)
         {
             Person mappedRequest = _registerUserUtils.ParsePersonFromRequest(registerUserDto);
 
             var createdPerson = _repository
                 .PersonManager
                 .InsertPerson(mappedRequest);
-            var mappedResponse = _mapper.Map<PersonDto>(createdPerson);
-            return mappedResponse;
+            return createdPerson;
         }
 
         private UserLogin CreateUserLogin(UserLoginDto userLogin, int personId)

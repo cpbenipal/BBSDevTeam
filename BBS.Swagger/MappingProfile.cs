@@ -28,6 +28,10 @@ namespace BBS.Swagger
 
             CreateMap<Share, RegisteredShareDto>();
             CreateMap<RegisteredShareDto, Share>();
+
+            CreateMap<IssueDigitalShareDto, IssuedDigitalShare>();
+            CreateMap<IssuedDigitalShare,IssueDigitalShareDto>();
+
         }
     }
 }

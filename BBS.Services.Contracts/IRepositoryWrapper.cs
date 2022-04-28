@@ -15,5 +15,6 @@
         public IRestrictionManager RestrictionManager { get; }
         public IStorageLocationManager StorageLocationManager { get; }
         public IShareManager ShareManager { get; }
+        public IIssuedDigitalShareManager IssuedDigitalShareManager { get; }
     }
 }
