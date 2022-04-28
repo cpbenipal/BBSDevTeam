@@ -6,5 +6,6 @@ namespace BBS.Services.Contracts
     {
         Share InsertShare(Share share);
         List<Share> GetAllSharesForUser(int userLoginId);
+        List<Share> GetSharesByUserLoginAndCompanyId(int userLoginId,int companyId);
     }
 }

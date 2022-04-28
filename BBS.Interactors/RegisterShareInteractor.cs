@@ -14,7 +14,6 @@ namespace BBS.Interactors
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
 
-
         public RegisterShareInteractor(
             IRepositoryWrapper repository,
             RegisterShareUtils registerShareUtils,
@@ -54,7 +53,17 @@ namespace BBS.Interactors
         private GenericApiResponse TryRegisteringShare(RegisterShareDto registerShareDto, string token)
         {
             var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
+            var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyId);
+            if (duplicates)
+            {
+                throw new Exception("Share Already Registered");
+            }
 
+            return HandleRegisteringShare(registerShareDto, extractedTokenValues);
+        }
+
+        private GenericApiResponse HandleRegisteringShare(RegisterShareDto registerShareDto, TokenValues extractedTokenValues)
+        {
             var logoUrl = UploadFilesToAzureBlob(registerShareDto.BusinessLogo);
 
             var shareToInsert = _registerShareUtils.ParseShareObjectFromRegisterShareDto(registerShareDto);
@@ -68,6 +77,19 @@ namespace BBS.Interactors
                 StatusCodes.Status201Created,
                 1
             );
+        }
+
+        private bool CheckDuplicateShares(int userLoginId, int companyId)
+        {
+            var duplicates = _repository.ShareManager.GetSharesByUserLoginAndCompanyId(
+                 userLoginId, companyId
+            );
+
+            if (duplicates.Count == 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         private BlobFiles UploadFilesToAzureBlob(IFormFile businessLogo)
