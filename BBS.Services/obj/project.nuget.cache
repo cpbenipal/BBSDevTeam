@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VQ6CYqsC3iapkuDNizy5OKM7z0BEwYoQjlI41LRPaMKFl2f/XXgbH8BD21USmTSNaA+iKu5JjX4m05KOJDhs/A==",
+  "dgSpecHash": "WGAq5IDfLRf+G1H/jwA1oVwStymfjUjj6LcN2dIZUC90aGUSRUTEB+2fP4yxC4L3x5XC+YHpbpG5QCMpA7r/lw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
+  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nahom.habtamu\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\nahom.habtamu\\.nuget\\packages\\azure.core\\1.22.0\\azure.core.1.22.0.nupkg.sha512",

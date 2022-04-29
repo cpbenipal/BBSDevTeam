@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BBS.Constants
+﻿namespace BBS.Constants
 {
     public enum Roles
     {

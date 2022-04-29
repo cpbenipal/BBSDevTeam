@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {}
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
         "projectName": "BBS.Constants",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,14 +59,14 @@
         }
       }
     },
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
         "projectName": "BBS.Dto",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -120,14 +120,14 @@
         }
       }
     },
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
         "projectName": "BBS.Entities",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Entities\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -145,8 +145,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               }
             }
           }
@@ -205,14 +205,14 @@
         }
       }
     },
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "projectName": "BBS.Models",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -230,8 +230,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               }
             }
           }
@@ -264,14 +264,14 @@
         }
       }
     },
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
         "projectName": "BBS.Services.Contracts",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services.Contracts\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -289,14 +289,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               },
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
               },
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               }
             }
           }
@@ -329,14 +329,14 @@
         }
       }
     },
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
         "projectName": "BBS.Services.Repository",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -354,17 +354,17 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               },
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj"
               },
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               },
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
               }
             }
           }
@@ -427,14 +427,14 @@
         }
       }
     },
-    "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
         "projectName": "BBS.Utils",
-        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
         "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Utils\\obj\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Utils\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -452,11 +452,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
               },
-              "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               }
             }
           }

@@ -4,6 +4,7 @@ using Azure.Storage.Blobs.Models;
 using BBS.Constants;
 using BBS.Services.Contracts;
 using Microsoft.AspNetCore.Http;
+using System.Text;
 
 namespace BBS.Services.Repository
 {
@@ -35,13 +36,8 @@ namespace BBS.Services.Repository
             var extension = Path.GetExtension(item.FileName);
             if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
             {
-                // string mimeType = item.ContentType;
-                // byte[] fileData = new byte[item.Length];
-
                 string systemFileName = Guid.NewGuid() + extension;
-
                 var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
-
                 using (var memoryStream = new MemoryStream())
                 {
                     item.CopyTo(memoryStream);
@@ -53,12 +49,28 @@ namespace BBS.Services.Repository
                 blobfile.ImageUrl = blob.Uri.AbsoluteUri;
             }
 
-
-
             return blobfile;
         }
 
+        public BlobFiles UploadCertificate(string fileContent)
+        {
+            var blobfile = new BlobFiles();
+            
+            string systemFileName = Guid.NewGuid() + ".html";
+            var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
+            using (var memoryStream = new MemoryStream())
+            {
+                byte[] content = new UTF8Encoding(true).GetBytes(fileContent);
+                memoryStream.Write(content, 0, content.Length);
+                memoryStream.Position = 0;
+                blob.Upload(memoryStream, true);
+            }
 
+            blobfile.ContentType = "text/html";
+            blobfile.ImageUrl = blob.Uri.AbsoluteUri;
+            
+            return blobfile;
+        }
 
         public async Task<List<string>> DownloadBlob(string downloadFolder)
         {

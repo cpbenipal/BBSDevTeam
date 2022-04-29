@@ -37,5 +37,7 @@ namespace BBS.Models
         [ForeignKey("UserLoginId")]
         public int UserLoginId { get; set; }
         public UserLogin? UserLogin { get; set; }
+
+        public string CertificateUrl { get; set; }
     }
 }

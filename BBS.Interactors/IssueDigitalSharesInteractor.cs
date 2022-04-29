@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -11,18 +12,24 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ITokenManager _tokenManager;
         private readonly IssueDigitalShareUtils _digitalShareUtils;
+        private readonly GenerateHtmlCertificate _generateHtmlCertificate;
+        private readonly IFileUploadService _uploadService;
 
         public IssueDigitalSharesInteractor(
             IRepositoryWrapper repository, 
             IApiResponseManager responseManager,
             ITokenManager tokenManager,
-            IssueDigitalShareUtils digitalShareUtils
+            IssueDigitalShareUtils digitalShareUtils,
+            GenerateHtmlCertificate generateHtmlCertificate,
+            IFileUploadService uploadService
         )
         {
             _repository = repository;
             _responseManager = responseManager;
             _tokenManager = tokenManager;
             _digitalShareUtils = digitalShareUtils;
+            _generateHtmlCertificate = generateHtmlCertificate;
+            _uploadService = uploadService;
         }
 
         public GenericApiResponse IssueShareDigitally(IssueDigitalShareDto digitalShare, string token)
@@ -49,13 +56,17 @@ namespace BBS.Interactors
             {
                 throw new Exception();
             }
+            
+            BlobFiles uploadedFile = HandleIssuingCertificate(digitalShare, share.NumberOfShares);
 
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
-                valuesFromToken.UserLoginId
+                valuesFromToken.UserLoginId,
+                uploadedFile.ImageUrl
             );
 
             _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
+
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -63,6 +74,21 @@ namespace BBS.Interactors
                 1
             );
 
+        }
+
+        private BlobFiles HandleIssuingCertificate(IssueDigitalShareDto digitalShare, int shareCount)
+        {
+            CertificateContent certificate = new CertificateContent
+            {
+                CompanyName = digitalShare.CompanyName,
+                Name = digitalShare.FirstName + digitalShare.LastName,
+                NumberOfShares = shareCount,
+                ShareName = ""
+            };
+
+            var htmlContent = _generateHtmlCertificate.Execute(certificate);
+            var uploadedFile = _uploadService.UploadCertificate(htmlContent);
+            return uploadedFile;
         }
 
         private GenericApiResponse ReturnErrorStatus()

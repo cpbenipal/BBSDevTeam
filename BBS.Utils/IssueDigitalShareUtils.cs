@@ -12,14 +12,15 @@ namespace BBS.Utils
             _mapper = mapper;
         }
 
-
         public IssuedDigitalShare MapDigitalShareObjectFromRequest(
             IssueDigitalShareDto issueDigitalShareDto, 
-            int userLoginId
+            int userLoginId,
+            string certificateUrl
         )
         {
             var mappedShare = _mapper.Map<IssuedDigitalShare>(issueDigitalShareDto);
             mappedShare.UserLoginId = userLoginId;
+            mappedShare.CertificateUrl = certificateUrl;
 
             return mappedShare;
         }

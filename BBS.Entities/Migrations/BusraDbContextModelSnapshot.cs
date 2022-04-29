@@ -245,6 +245,10 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CertificateUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 

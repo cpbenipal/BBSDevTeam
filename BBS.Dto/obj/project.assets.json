@@ -159,11 +159,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+      "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
       "projectName": "BBS.Dto",
-      "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+      "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
       "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\obj\\",
+      "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",

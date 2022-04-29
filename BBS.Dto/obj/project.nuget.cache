@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cKcvVRcfEBGmimr2FnWAYT/ecf4sVAFz477NKsCw+cBaXDuFZiw1+6edqEZK6jYDTFEQIzqUh9A7NPCWEH7eWg==",
+  "dgSpecHash": "HIQUT82oOezCKRCXPlv+/E14Df/QBEXhZxxcT7R227NfFmxj97fFoym7OVd8apuiCn2W7WwHIPC10sgqOKyZCA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nahom.habtamu\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",
     "C:\\Users\\nahom.habtamu\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IWqDN6eG3rFK3h0gB6z59xyhjtFABufOgtS/EMnJkE9+x2idTSCA0OA70MbaPsU/no+4SSEBblf3QwYjW5jSYg==",
+  "dgSpecHash": "snwuWx5/AdcKM7ncir1+rCio+JmIHoNWAiZz/D+e63bVwJ41ifPdUg3kvBTWFskkBNacvpRRLU5STXgAQNKazA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\WorkSpace Files\\.Net Core\\Bursa\\BBSDevTeam\\BBS.Swagger\\BBS.Swagger.csproj",
+  "projectFilePath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Swagger\\BBS.Swagger.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nahom.habtamu\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\nahom.habtamu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
