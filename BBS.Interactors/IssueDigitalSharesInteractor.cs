@@ -59,13 +59,13 @@ namespace BBS.Interactors
             
             BlobFiles uploadedFile = HandleIssuingCertificate(digitalShare, share.NumberOfShares);
 
-            var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
-                digitalShare,
-                valuesFromToken.UserLoginId,
-                uploadedFile.ImageUrl
-            );
+            //var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
+            //    digitalShare,
+            //    valuesFromToken.UserLoginId,
+            //    uploadedFile.ImageUrl
+            //);
 
-            _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
+            //_repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
 
 
             return _responseManager.SuccessResponse(

@@ -18,18 +18,24 @@ namespace BBS.Utils
         [Obsolete]
         public string Execute(CertificateContent certificateContents)
         {
-            var htmlContent = "<html lang=\"en\">" +
-                "<body>" +
-                "<div>" +
-                "@Name" + certificateContents.Name + "\n" +
-                "@noofshares" + certificateContents.NumberOfShares + "\n" +
-                "@shareName" + certificateContents.ShareName + "\n" +
-                "@companyName" + certificateContents.CompanyName + "\n" +
-                "</div>" +
-                "</body>" +
-                "</html>";
+          
+            var templateContent = File.ReadAllText(Path.Combine(_env.ContentRootPath, "certificate/" + "index.html"));
 
-            return htmlContent;
+            string nameAdded = templateContent.Replace("@Name", certificateContents.Name);
+            string numberOfShareAdded = nameAdded.Replace(
+                "@noofshares", 
+                certificateContents.NumberOfShares.ToString()
+            );
+            string shareNameAdded = numberOfShareAdded.Replace(
+                "@shareName",
+                certificateContents.NumberOfShares.ToString()
+            );
+            string final = shareNameAdded.Replace(
+                "@companyName",
+                certificateContents.NumberOfShares.ToString()
+            );
+
+            return final;
         }
     }
 
