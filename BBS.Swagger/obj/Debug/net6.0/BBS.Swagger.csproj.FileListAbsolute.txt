@@ -188,3 +188,5 @@ C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\o
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.genruntimeconfig.cache
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\ref\BBS.Swagger.dll
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.dll
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.pdb

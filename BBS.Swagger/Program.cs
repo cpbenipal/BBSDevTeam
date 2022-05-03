@@ -1,4 +1,5 @@
 using BBS.Entities;
+using BBS.Middlewares;
 using BBS.Swagger.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -41,6 +42,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging())
 {
+    app.UseMiddleware<SwaggerAuthenticationMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();    
     app.UseDeveloperExceptionPage();

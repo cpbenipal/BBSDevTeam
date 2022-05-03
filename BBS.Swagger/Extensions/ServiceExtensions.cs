@@ -1,5 +1,6 @@
 ﻿using BBS.Dto;
 using BBS.Interactors;
+using BBS.Middlewares;
 using BBS.Services.Contracts;
 using BBS.Services.Repository;
 using BBS.Utils;
@@ -126,7 +127,7 @@ namespace BBS.Swagger.Extensions
                 timeSpan: int.Parse(TimeOutInMinutes)
             );
             services.AddScoped<IFileUploadService>(uploader => azureFileUploader);
-
+            services.AddTransient<SwaggerAuthenticationMiddleware>();
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.Configure<SendGridEmailSenderOptions>(options =>
             {

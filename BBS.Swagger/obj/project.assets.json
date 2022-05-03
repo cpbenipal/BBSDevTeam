@@ -2584,6 +2584,19 @@
           "bin/placeholder/BBS.Interactors.dll": {}
         }
       },
+      "BBS.Middlewares/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
+        },
+        "compile": {
+          "bin/placeholder/BBS.Middlewares.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BBS.Middlewares.dll": {}
+        }
+      },
       "BBS.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -8523,6 +8536,11 @@
       "path": "../BBS.Interactors/BBS.Interactors.csproj",
       "msbuildProject": "../BBS.Interactors/BBS.Interactors.csproj"
     },
+    "BBS.Middlewares/1.0.0": {
+      "type": "project",
+      "path": "../BBS.Middlewares/BBS.Middlewares.csproj",
+      "msbuildProject": "../BBS.Middlewares/BBS.Middlewares.csproj"
+    },
     "BBS.Models/1.0.0": {
       "type": "project",
       "path": "../BBS.Models/BBS.Models.csproj",
@@ -8549,6 +8567,7 @@
       "AutoMapper >= 11.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
       "BBS.API >= 1.0.0",
+      "BBS.Middlewares >= 1.0.0",
       "BBS.Services.Contracts >= 1.0.0",
       "BBS.Services.Repository >= 1.0.0",
       "BBS.Utils >= 1.0.0",
@@ -8589,6 +8608,9 @@
           "projectReferences": {
             "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.API\\BBS.API.csproj": {
               "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.API\\BBS.API.csproj"
+            },
+            "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj": {
+              "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj"
             },
             "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
               "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"

@@ -11,6 +11,7 @@
           "AutoMapper": "11.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "BBS.API": "1.0.0",
+          "BBS.Middlewares": "1.0.0",
           "BBS.Services.Contracts": "1.0.0",
           "BBS.Services.Repository": "1.0.0",
           "BBS.Utils": "1.0.0",
@@ -1598,6 +1599,14 @@
           "BBS.Interactors.dll": {}
         }
       },
+      "BBS.Middlewares/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
+        },
+        "runtime": {
+          "BBS.Middlewares.dll": {}
+        }
+      },
       "BBS.Models/1.0.0": {
         "dependencies": {
           "BBS.Constants": "1.0.0"
@@ -2865,6 +2874,11 @@
       "sha512": ""
     },
     "BBS.Interactors/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BBS.Middlewares/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
