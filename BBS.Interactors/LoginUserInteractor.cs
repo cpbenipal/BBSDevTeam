@@ -61,7 +61,7 @@ namespace BBS.Interactors
         private UserLogin? GetUserByPincodeAndEmail(LoginUserDto loginUserDto)
         {
             UserLogin? userLogin = null;
-            var emailcheck = _repository.PersonManager.GetPersonByEmail(loginUserDto.Email);
+            var emailcheck = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
             if (emailcheck!=null)
             {
                 userLogin = _repository.UserLoginManager.GetUserLoginByPin(loginUserDto, emailcheck.Id);

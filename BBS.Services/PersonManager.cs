@@ -19,22 +19,22 @@ namespace BBS.Services.Repository
             return addedPerson;
         }
 
-        public bool IsUserExists(string Email)
+        public bool IsUserExists(string email, string phoneNumber)
         {
-           return _repositoryBase.GetAll().Any(x=>x.Email == Email);
+           return _repositoryBase.GetAll().Any(x=> x.Email == email || x.PhoneNumber == phoneNumber);
         }
-        public bool IsEmiratesIDExists(string EmiratesID)
+        public bool IsEmiratesIDExists(string emiratesID)
         {
-            return _repositoryBase.GetAll().Any(x => x.EmiratesID == EmiratesID);
+            return _repositoryBase.GetAll().Any(x => x.EmiratesID == emiratesID);
         }
 
         public Person GetPerson(int personId)
         {
             return _repositoryBase.GetById(personId);
         }
-        public Person? GetPersonByEmail(string Email)
+        public Person? GetPersonByEmailOrPhone(string emailOrPhone)
         {
-            return _repositoryBase.GetAll().FirstOrDefault(x=>x.Email == Email);
+            return _repositoryBase.GetAll().FirstOrDefault(x=> x.Email == emailOrPhone || x.PhoneNumber == emailOrPhone);
         }
     }
 }

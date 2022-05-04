@@ -24,6 +24,10 @@ namespace BBS.Models
         public string? Email { get; set; }
 
         [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 

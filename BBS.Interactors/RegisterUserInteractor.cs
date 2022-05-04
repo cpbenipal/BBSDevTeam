@@ -33,9 +33,9 @@ namespace BBS.Interactors
             _responseManager = responseManager;
             _registerUserUtils = registerUserUtils;
         }
-        private bool IsUserExists(string Email)
+        private bool IsUserExists(string Email, string PhoneNumber)
         {
-            return _repository.PersonManager.IsUserExists(Email);
+            return _repository.PersonManager.IsUserExists(Email, PhoneNumber);
         }
         private bool IsEmiratesIDExists(string EmiratesID)  
         {

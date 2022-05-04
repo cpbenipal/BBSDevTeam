@@ -30,9 +30,13 @@ namespace BBS.Utils
                 "@shareName",
                 certificateContents.NumberOfShares.ToString()
             );
-            string final = shareNameAdded.Replace(
+            string grantTimeAdded = numberOfShareAdded.Replace(
+                "@grantTime",
+                certificateContents.GrantTime
+            );
+            string final = grantTimeAdded.Replace(
                 "@companyName",
-                certificateContents.NumberOfShares.ToString()
+                certificateContents.CompanyName.ToString()
             );
 
             return final;

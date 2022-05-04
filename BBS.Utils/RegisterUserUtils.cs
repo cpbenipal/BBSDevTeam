@@ -28,6 +28,7 @@ namespace BBS.Utils
                 LastName = registerUserDto.Person.LastName,
                 Email = registerUserDto.Person.Email,
                 DateOfBirth = registerUserDto.Person.DateOfBirth,
+                PhoneNumber = registerUserDto.Person.PhoneNumber,
 
                 IsUSCitizen = registerUserDto.PersonalInfo.IsUSCitizen,
                 IsPublicSectorEmployee = registerUserDto.PersonalInfo.IsPublicSectorEmployee,

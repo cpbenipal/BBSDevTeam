@@ -35,7 +35,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingEmailAndSendingNewPasscode(ForgotPasscodeDto forgotPassDto)
         {
-            var personWithThisEmail = _repository.PersonManager.GetPersonByEmail(forgotPassDto.Email);
+            var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(forgotPassDto.Email);
             if (personWithThisEmail != null)
             {
                 string newPasscode = _repository.UserLoginManager.UpdatePassCode(personWithThisEmail.Id);

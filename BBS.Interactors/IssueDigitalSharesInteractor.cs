@@ -1,5 +1,6 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -57,7 +58,7 @@ namespace BBS.Interactors
                 throw new Exception();
             }
             
-            BlobFiles uploadedFile = HandleIssuingCertificate(digitalShare, share.NumberOfShares);
+            BlobFiles uploadedFile = HandleIssuingCertificate(digitalShare, share);
 
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
@@ -76,14 +77,14 @@ namespace BBS.Interactors
 
         }
 
-        private BlobFiles HandleIssuingCertificate(IssueDigitalShareDto digitalShare, int shareCount)
+        private BlobFiles HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share)
         {
             CertificateContent certificate = new CertificateContent
             {
                 CompanyName = digitalShare.CompanyName,
-                Name = digitalShare.FirstName + digitalShare.LastName,
-                NumberOfShares = shareCount,
-                ShareName = ""
+                Name = digitalShare.FirstName + " " + digitalShare.LastName,
+                NumberOfShares = share.NumberOfShares,
+                GrantTime = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year
             };
 
             var htmlContent = _generateHtmlCertificate.Execute(certificate);
