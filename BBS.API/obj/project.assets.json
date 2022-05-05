@@ -8369,19 +8369,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nahom.habtamu\\.nuget\\packages\\": {}
+    "C:\\Users\\Nahom\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
+      "projectUniqueName": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
       "projectName": "BBS.API",
-      "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
-      "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.API\\obj\\",
+      "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
+      "packagesPath": "C:\\Users\\Nahom\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nahom\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8389,21 +8389,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://192.168.1.23:1212/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj": {
-              "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj"
+            "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj": {
+              "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj"
             },
-            "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-              "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+            "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+              "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
             },
-            "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-              "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+            "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+              "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
             }
           }
         }
@@ -8442,7 +8441,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

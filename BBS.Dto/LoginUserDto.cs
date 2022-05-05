@@ -5,7 +5,7 @@ namespace BBS.Dto
     public class LoginUserDto
     {
         [Required]
-        public string Email { get; set; }
+        public string EmailOrPhone { get; set; }
         [Required]
         public string Passcode { get; set; } 
     }

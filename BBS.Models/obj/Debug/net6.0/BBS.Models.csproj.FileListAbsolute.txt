@@ -28,3 +28,18 @@ C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Models\ob
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Models\obj\Debug\net6.0\refint\BBS.Models.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Models\obj\Debug\net6.0\ref\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\bin\Debug\net6.0\BBS.Models.deps.json
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\bin\Debug\net6.0\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\bin\Debug\net6.0\BBS.Models.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\bin\Debug\net6.0\BBS.Constants.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\bin\Debug\net6.0\BBS.Constants.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.csproj.AssemblyReference.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.AssemblyInfoInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.AssemblyInfo.cs
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.csproj.CoreCompileInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.csproj.CopyComplete
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\refint\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\BBS.Models.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Models\obj\Debug\net6.0\ref\BBS.Models.dll

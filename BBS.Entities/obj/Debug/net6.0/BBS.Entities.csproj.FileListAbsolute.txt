@@ -36,3 +36,22 @@ C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.genruntimeconfig.cache
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\ref\BBS.Entities.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Entities.deps.json
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Entities.runtimeconfig.json
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Entities.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Entities.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Constants.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Models.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\bin\Debug\net6.0\BBS.Constants.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.csproj.AssemblyReference.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.AssemblyInfoInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.AssemblyInfo.cs
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.csproj.CopyComplete
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\refint\BBS.Entities.dll
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.pdb
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\BBS.Entities.genruntimeconfig.cache
+C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Entities\obj\Debug\net6.0\ref\BBS.Entities.dll
