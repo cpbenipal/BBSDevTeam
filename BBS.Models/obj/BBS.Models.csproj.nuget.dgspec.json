@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {}
+    "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+    "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
+        "projectUniqueName": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
         "projectName": "BBS.Constants",
-        "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
+        "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
         "packagesPath": "C:\\Users\\Nahom\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Constants\\obj\\",
+        "outputPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nahom\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,14 +58,14 @@
         }
       }
     },
-    "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+    "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+        "projectUniqueName": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "projectName": "BBS.Models",
-        "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+        "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "packagesPath": "C:\\Users\\Nahom\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Models\\obj\\",
+        "outputPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nahom\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,8 +82,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               }
             }
           }

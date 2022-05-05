@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MdqIrwJer6UkFiHcvoUC5FPPABBtwY5K/CmQ10d1kChm/bEZ5cHxkM7NMCAZDArYeo7NF6OUfmhr2MG08hWJYg==",
+  "dgSpecHash": "JuRlzWf29l+prXzZbAIbhgbTrI22bGgfQ8BQvM104nmXAXDRFgaMoxhTLhjJR9J1xDiq6+Z13qHNcbAPQglaew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
+  "projectFilePath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nahom\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Nahom\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

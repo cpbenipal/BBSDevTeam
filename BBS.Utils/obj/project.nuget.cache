@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JRv+C/W8yP/hV94U12qVMiMXBjUcLOQ57dKHR/e8NinluEIts9kyLyuSoD2Pt9uW2lBldp5cj3cQnihnM2m6Sw==",
+  "dgSpecHash": "e6uONmcbjEcWEGQp5mOb9NThmWqFaZ1bXu7vw5zgJKLo8MdIQdGKpNN5A5gwtahoI7ZEKoS90BKs0pA6S0dTHQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
+  "projectFilePath": "C:\\Users\\Nahom\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nahom\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Nahom\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",

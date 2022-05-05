@@ -55,3 +55,22 @@ C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services.Contracts\obj\Deb
 C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\refint\BBS.Services.Contracts.dll
 C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.pdb
 C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\ref\BBS.Services.Contracts.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Services.Contracts.deps.json
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Services.Contracts.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Constants.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Dto.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Constants.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Dto.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\bin\Debug\net6.0\BBS.Models.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.csproj.AssemblyReference.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.AssemblyInfoInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.AssemblyInfo.cs
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.csproj.CopyComplete
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\refint\BBS.Services.Contracts.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\BBS.Services.Contracts.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services.Contracts\obj\Debug\net6.0\ref\BBS.Services.Contracts.dll

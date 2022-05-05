@@ -79,3 +79,30 @@ C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services\obj\Debug\net6.0\
 C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.pdb
 C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.genruntimeconfig.cache
 C:\Users\Nahom\Desktop\Workspace Files\BBSDevTeam\BBS.Services\obj\Debug\net6.0\ref\BBS.Services.Repository.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Services.Repository.deps.json
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Services.Repository.runtimeconfig.json
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Services.Repository.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Services.Repository.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Constants.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Dto.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Entities.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Models.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Services.Contracts.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Utils.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Entities.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Services.Contracts.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Constants.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Utils.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Dto.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\bin\Debug\net6.0\BBS.Models.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.csproj.AssemblyReference.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.AssemblyInfoInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.AssemblyInfo.cs
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.csproj.CoreCompileInputs.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.csproj.CopyComplete
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\refint\BBS.Services.Repository.dll
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.pdb
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.genruntimeconfig.cache
+C:\Users\Nahom\Desktop\Workspace Files\.Net Core\BBSDevTeam\BBS.Services\obj\Debug\net6.0\ref\BBS.Services.Repository.dll
