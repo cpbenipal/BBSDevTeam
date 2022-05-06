@@ -93,9 +93,9 @@ C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.Sw
 C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.pdb
 C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.genruntimeconfig.cache
 C:\Users\nahom.habtamu\Desktop\WorkSpace Files\.Net Core\Bursa\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\ref\BBS.Swagger.dll
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\nlog.config
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\appsettings.json
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\nlog.config
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Swagger.exe
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Swagger.deps.json
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Swagger.runtimeconfig.json
@@ -159,11 +159,13 @@ C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\b
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Dto.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Entities.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Interactors.dll
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Models.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Services.Contracts.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Services.Repository.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Utils.dll
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.API.pdb
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Services.Contracts.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Services.Repository.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Utils.pdb
@@ -188,5 +190,3 @@ C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\o
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.pdb
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.genruntimeconfig.cache
 C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\ref\BBS.Swagger.dll
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.dll
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.pdb
