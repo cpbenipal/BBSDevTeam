@@ -126,9 +126,15 @@ namespace BBS.Swagger.Extensions
                 containerName: ConsumerName,
                 timeSpan: int.Parse(TimeOutInMinutes)
             );
+
             services.AddScoped<IFileUploadService>(uploader => azureFileUploader);
-            services.AddTransient<SwaggerAuthenticationMiddleware>();
             services.AddTransient<IEmailSender, SendGridEmailSender>();
+
+            var TwilioSID = Config["Twilio:SID"];
+            var TwilioApiKey = Config["Twilio:ApiKey"];
+            var twilioSMSSender = new TwilioSMSSender(TwilioSID, TwilioApiKey);
+            services.AddTransient<ISMSSender>(sms => twilioSMSSender);
+
             services.Configure<SendGridEmailSenderOptions>(options =>
             {
                 options.ApiKey = Config["ExternalProviders:SendGrid:ApiKey"];
@@ -136,6 +142,7 @@ namespace BBS.Swagger.Extensions
                 options.SenderName = Config["ExternalProviders:SendGrid:SenderName"];
             });
            
+            services.AddTransient<SwaggerAuthenticationMiddleware>();
             
         }
     }

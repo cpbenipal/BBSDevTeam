@@ -8,11 +8,17 @@ namespace BBS.Interactors
     {
         private readonly IEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
+        private readonly ISMSSender _smsSender;
 
-        public SendOTPInteractor(IEmailSender emailSender,IApiResponseManager responseManager)
+        public SendOTPInteractor(
+            IEmailSender emailSender,
+            IApiResponseManager responseManager,
+            ISMSSender smsSender
+        )
         {
             _emailSender = emailSender;
             _responseManager = responseManager;
+            _smsSender = smsSender;
         }
 
         public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
@@ -29,18 +35,33 @@ namespace BBS.Interactors
 
         private GenericApiResponse TrySendingOtp(LoginUserOTPDto loginUserDto)
         {
-            _emailSender.SendEmailAsync(
-                loginUserDto.Email, 
-                "OTP: Verify your login", 
-                "One Time Passcode : " + 
-                loginUserDto.OTP
-            );
 
-            return _responseManager.SuccessResponse(
-                "OTP sent on Email",
-                StatusCodes.Status202Accepted,
-                ""
-            );
+            if(!string.IsNullOrEmpty(loginUserDto.Email) || 
+               !string.IsNullOrEmpty(loginUserDto.PhoneNumber)
+            )
+            {
+                _emailSender.SendEmailAsync(
+                    loginUserDto.Email,
+                    "OTP: Verify your login",
+                    "One Time Passcode : " +
+                    loginUserDto.OTP
+                );
+
+                _smsSender.Send(
+                    loginUserDto.PhoneNumber,
+                    "One Time Passcode : " +
+                    loginUserDto.OTP
+                );
+
+                return _responseManager.SuccessResponse(
+                    "OTP sent on Email",
+                    StatusCodes.Status202Accepted,
+                    ""
+                );
+            }
+
+            throw new Exception("Email and PhoneNumber is Empty");
+            
         }
 
         private GenericApiResponse ReturnErrorStatus()
