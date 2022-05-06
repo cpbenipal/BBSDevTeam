@@ -19,7 +19,7 @@ namespace BBS.Dto
         public string IBANNumber { get; set; }
         public string Country { get; set; }
         public string Nationality { get; set; }
-        public bool IsEmployed { get; set; }
+        public int EmployementId { get; set; }
         public decimal AnnualIncome { get; set; }
         public DateTime DateOfEmployement { get; set; }
         public bool HavePriorExpirence { get; set; }

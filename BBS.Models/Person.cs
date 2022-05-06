@@ -73,8 +73,10 @@ namespace BBS.Models
         public int NationalityId { get; set; }
         public Nationality? Nationality { get; set; }
 
+        [ForeignKey("EmployementType")]
         [Required]
-        public bool IsEmployed { get; set; }
+        public int EmployementTypeId { get; set; }
+        public EmployementType? EmployementType { get; set; }
 
         [Required]
         public decimal AnnualIncome { get; set; }

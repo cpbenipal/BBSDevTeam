@@ -4,7 +4,7 @@ namespace BBS.Dto
 {
     public class EmployementDto
     {
-        public bool IsEmployed { get; set; }
+        public int EmployementTypeId { get; set; }
         public decimal AnnualIncome { get; set; }
         public DateTime DateOfEmployement { get; set; }
     }

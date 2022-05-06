@@ -29,6 +29,7 @@ namespace BBS.Entities
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Attachment> PersonalAttachments { get; set; }
+        public virtual DbSet<EmployementType> EmployementTypes { get; set; }
 
         // Register Share
         public virtual DbSet<Company> Companies { get; set; }
@@ -63,6 +64,15 @@ namespace BBS.Entities
 
             modelBuilder.Entity<Nationality>().HasData(
                 new Nationality { Id = 1, Name = "Indian" }, new Nationality { Id = 2, Name = "Emirati" });
+
+
+            modelBuilder.Entity<EmployementType>().HasData(
+                new EmployementType { Id = 1, Name = "Employed" }, 
+                new EmployementType { Id = 2, Name = "Unemployed" },
+                new EmployementType { Id = 3, Name = "Full-Time" },
+                new EmployementType { Id = 4, Name = "Part-Time" }
+            );
+
 
             modelBuilder.Entity<GrantType>().HasData(
                  new GrantType

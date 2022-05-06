@@ -29,7 +29,7 @@ namespace BBS.Utils
                 EmiratesID = person.EmiratesID,
                 VaultNumber = person.VaultNumber,
                 IBANNumber = person.IBANNumber,
-                IsEmployed = person.IsEmployed,
+                EmployementId = person.EmployementTypeId,
                 AnnualIncome = person.AnnualIncome,
                 DateOfEmployement = person.DateOfEmployement,
                 HavePriorExpirence = person.HavePriorExpirence,

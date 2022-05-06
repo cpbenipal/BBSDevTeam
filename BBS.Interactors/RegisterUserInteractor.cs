@@ -58,7 +58,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto)
         {
-            if (IsUserExists(registerUserDto.Person.Email))
+            if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
             {
                 throw new Exception("Email already exists");
             }

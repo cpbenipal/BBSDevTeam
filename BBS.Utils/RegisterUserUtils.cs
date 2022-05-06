@@ -43,7 +43,7 @@ namespace BBS.Utils
                 CountryId = registerUserDto.Address.CountryId,
                 NationalityId = registerUserDto.Address.NationalityId,
 
-                IsEmployed = registerUserDto.Employement.IsEmployed,
+                EmployementTypeId = registerUserDto.Employement.EmployementTypeId,
                 AnnualIncome = registerUserDto.Employement.AnnualIncome,
                 DateOfEmployement = registerUserDto.Employement.DateOfEmployement,
 
@@ -55,7 +55,6 @@ namespace BBS.Utils
                 VaultNumber = GenerateVaultNumber(12),
                 IBANNumber = GenerateIBANNumber(21)
             };
-
 
             return person;
         }
