@@ -210,5 +210,19 @@ namespace BBS.Services.Repository
                 return _issuedShare;
             }
         }
+
+        private IEmployementTypeManager _employementType;
+        public IEmployementTypeManager EmployementTypeManager
+        {
+            get
+            {
+                if (_employementType == null)
+                {
+                    var repositoryBase = new RepositoryBase<EmployementType>(_repoContext);
+                    _employementType = new EmployementTypeManager(repositoryBase);
+                }
+                return _employementType;
+            }
+        }
     }
 }

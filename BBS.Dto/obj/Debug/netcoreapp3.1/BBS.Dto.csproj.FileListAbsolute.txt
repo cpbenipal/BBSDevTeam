@@ -1,0 +1,10 @@
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\bin\Debug\netcoreapp3.1\BBS.Dto.deps.json
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\bin\Debug\netcoreapp3.1\BBS.Dto.dll
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\bin\Debug\netcoreapp3.1\BBS.Dto.pdb
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.csproj.AssemblyReference.cache
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.AssemblyInfoInputs.cache
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.AssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.csproj.CoreCompileInputs.cache
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.dll
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.pdb

@@ -6,8 +6,8 @@ namespace BBS.Middlewares
 {
     public class SwaggerAuthenticationMiddleware : IMiddleware
     {
-        private const string UserName = "username";
-        private const string Password = "password";
+        private const string UserName = "admin";
+        private const string Password = "admin@321";
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
