@@ -1,6 +1,6 @@
 using BBS.Dto;
 using BBS.Interactors;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
 
 namespace BBS.API.Controllers 
 {

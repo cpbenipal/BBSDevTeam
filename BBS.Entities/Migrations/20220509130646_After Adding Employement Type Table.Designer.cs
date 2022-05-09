@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220506074757_Add Employement Type")]
-    partial class AddEmployementType
+    [Migration("20220509130646_After Adding Employement Type Table")]
+    partial class AfterAddingEmployementTypeTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

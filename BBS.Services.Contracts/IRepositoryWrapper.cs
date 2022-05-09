@@ -17,5 +17,6 @@
         public IShareManager ShareManager { get; }
         public IIssuedDigitalShareManager IssuedDigitalShareManager { get; }
         public IEmployementTypeManager EmployementTypeManager { get; }
+        public ICompanyManager CompanyManager { get; }
     }
 }

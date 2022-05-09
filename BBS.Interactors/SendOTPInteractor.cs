@@ -9,16 +9,21 @@ namespace BBS.Interactors
         private readonly IEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
         private readonly ISMSSender _smsSender;
+        private readonly ILoggerManager _loggerManager;
+
 
         public SendOTPInteractor(
             IEmailSender emailSender,
             IApiResponseManager responseManager,
-            ISMSSender smsSender
+            ISMSSender smsSender, 
+            ILoggerManager loggerManager
         )
         {
             _emailSender = emailSender;
             _responseManager = responseManager;
             _smsSender = smsSender;
+            _loggerManager = loggerManager;
+
         }
 
         public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
@@ -27,8 +32,9 @@ namespace BBS.Interactors
             {
                 return TrySendingOtp(loginUserDto);
             }
-            catch (Exception)
+            catch (Exception ex) 
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
         }

@@ -224,5 +224,19 @@ namespace BBS.Services.Repository
                 return _employementType;
             }
         }
+
+        private ICompanyManager _country;
+        public ICompanyManager CompanyManager
+        {
+            get
+            {
+                if (_country == null)
+                {
+                    var repositoryBase = new RepositoryBase<Company>(_repoContext);
+                    _country = new CompanyManager(repositoryBase);
+                }
+                return _country;
+            }
+        }
     }
 }

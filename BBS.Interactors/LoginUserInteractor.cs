@@ -10,15 +10,19 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repository;
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
 
         public LoginUserInteractor(
             IRepositoryWrapper repository, 
             ITokenManager tokenManager,
-            IApiResponseManager responseManager)
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager
+        )
         {
             _repository = repository;
             _tokenManager = tokenManager;
             _responseManager = responseManager;
+            _loggerManager = loggerManager;
         }
 
         public GenericApiResponse LoginUser(LoginUserDto loginUserDto)
@@ -27,9 +31,9 @@ namespace BBS.Interactors
             {
                 return TryLoggingUser(loginUserDto);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
         }

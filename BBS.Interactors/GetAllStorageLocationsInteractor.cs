@@ -8,13 +8,17 @@ namespace BBS.Interactors
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
 
         public GetAllStorageLocationsInteractor(
             IRepositoryWrapper repositoryWrapper, 
-            IApiResponseManager responseManager)
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager    
+        )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
+            _loggerManager = loggerManager;
         }
 
         public GenericApiResponse GetAllStorageLocations()
@@ -23,11 +27,11 @@ namespace BBS.Interactors
             {
                 return TryGettingAllStorageLocations();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
-
         }
 
         private GenericApiResponse ReturnErrorStatus()

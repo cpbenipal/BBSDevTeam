@@ -15,11 +15,14 @@ namespace BBS.Interactors
         private readonly IssueDigitalShareUtils _digitalShareUtils;
         private readonly GenerateHtmlCertificate _generateHtmlCertificate;
         private readonly IFileUploadService _uploadService;
+        private readonly ILoggerManager _loggerManager;
+
 
         public IssueDigitalSharesInteractor(
-            IRepositoryWrapper repository, 
+            IRepositoryWrapper repository,
             IApiResponseManager responseManager,
             ITokenManager tokenManager,
+            ILoggerManager loggerManager,
             IssueDigitalShareUtils digitalShareUtils,
             GenerateHtmlCertificate generateHtmlCertificate,
             IFileUploadService uploadService
@@ -31,6 +34,8 @@ namespace BBS.Interactors
             _digitalShareUtils = digitalShareUtils;
             _generateHtmlCertificate = generateHtmlCertificate;
             _uploadService = uploadService;
+            _loggerManager = loggerManager;
+
         }
 
         public GenericApiResponse IssueShareDigitally(IssueDigitalShareDto digitalShare, string token)
@@ -39,8 +44,9 @@ namespace BBS.Interactors
             {
                 return TryIssuingDigitalShare(digitalShare, token);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
         }

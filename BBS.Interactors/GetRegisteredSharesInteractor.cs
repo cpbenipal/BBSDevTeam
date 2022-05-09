@@ -10,19 +10,23 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
         private readonly GetRegisteredSharesUtils _getRegisteredSharesUtil;
 
         public GetRegisteredSharesInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
             IApiResponseManager responseManager,
+            ILoggerManager loggerManager,
             GetRegisteredSharesUtils getRegisteredSharesUtil
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _tokenManager = tokenManager;
             _responseManager = responseManager;
-            _getRegisteredSharesUtil = getRegisteredSharesUtil; 
+            _getRegisteredSharesUtil = getRegisteredSharesUtil;
+            _loggerManager = loggerManager;
+
         }
 
         public GenericApiResponse GetRegisteredShares(string token)
@@ -31,9 +35,9 @@ namespace BBS.Interactors
             {
                 return TryGettingRegisteredShareForUser(token);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
         }

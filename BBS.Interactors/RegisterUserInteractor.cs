@@ -16,6 +16,7 @@ namespace BBS.Interactors
         private readonly IFileUploadService _uploadService;
         private readonly IApiResponseManager _responseManager;
         private readonly RegisterUserUtils _registerUserUtils;
+        private readonly ILoggerManager _loggerManager;
 
         public RegisterUserInteractor(
             IRepositoryWrapper repository,
@@ -23,7 +24,8 @@ namespace BBS.Interactors
             IHashManager hashManager,
             IFileUploadService uploadService,
             IApiResponseManager responseManager,
-            RegisterUserUtils registerUserUtils
+            RegisterUserUtils registerUserUtils, 
+            ILoggerManager loggerManager
         )
         {
             _repository = repository;
@@ -32,6 +34,8 @@ namespace BBS.Interactors
             _uploadService = uploadService;
             _responseManager = responseManager;
             _registerUserUtils = registerUserUtils;
+            _loggerManager = loggerManager;
+
         }
         private bool IsUserExists(string Email, string PhoneNumber)
         {
@@ -49,6 +53,7 @@ namespace BBS.Interactors
             }
             catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return _responseManager.ErrorResponse(
                     ex.Message,
                     StatusCodes.Status400BadRequest

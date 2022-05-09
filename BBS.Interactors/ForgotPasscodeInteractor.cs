@@ -9,16 +9,20 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repository;
         private readonly IEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
 
         public ForgotPasscodeInteractor(
             IRepositoryWrapper repository,
             IEmailSender emailSender,
-            IApiResponseManager responseManager
+            IApiResponseManager responseManager, 
+            ILoggerManager loggerManager
         )
         {
             _repository = repository;
             _emailSender = emailSender;
             _responseManager = responseManager;
+            _loggerManager = loggerManager;
+
         }
 
         public GenericApiResponse ForgotPasscode(ForgotPasscodeDto forgotPassDto)
@@ -27,8 +31,9 @@ namespace BBS.Interactors
             {
                 return TryGettingEmailAndSendingNewPasscode(forgotPassDto);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
         }

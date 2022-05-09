@@ -11,18 +11,23 @@ namespace BBS.Interactors
         private readonly GetProfileInformationUtils _getProfileInformationUtils;
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
+
 
         public GetProfileInformationInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
             IApiResponseManager responseManager,
-            GetProfileInformationUtils getProfileInformationUtils
+            GetProfileInformationUtils getProfileInformationUtils, 
+            ILoggerManager loggerManager
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _tokenManager = tokenManager;
             _responseManager = responseManager;
             _getProfileInformationUtils = getProfileInformationUtils;
+            _loggerManager = loggerManager;
+
         }
 
         public GenericApiResponse GetUserProfileInformation(string token)
@@ -31,8 +36,9 @@ namespace BBS.Interactors
             {
                 return TryGettingUserProfile(token);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
         }

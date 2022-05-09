@@ -109,6 +109,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllNationalitiesInteractor>();
             services.AddScoped<GetAllRestrictionsInteractor>();
             services.AddScoped<GetAllStorageLocationsInteractor>();
+            services.AddScoped<GetAllCompaniesInteractor>();
 
 
             services.AddScoped<GenerateHtmlCertificate>();

@@ -8,14 +8,17 @@ namespace BBS.Interactors
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
 
         public GetAllNationalitiesInteractor(
-            IRepositoryWrapper repositoryWrapper,
-            IApiResponseManager responseManager)
+            IRepositoryWrapper repositoryWrapper, 
+            IApiResponseManager responseManager, 
+            ILoggerManager loggerManager
+        )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
-
+            _loggerManager = loggerManager;
         }
 
         public GenericApiResponse GetAllNationalities()
@@ -24,8 +27,9 @@ namespace BBS.Interactors
             {
                 return TryGettingAllNationalities();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
 

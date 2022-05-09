@@ -6,7 +6,9 @@ namespace BBS.Dto
     {
         [Required]
         public string EmailOrPhone { get; set; }
+
         [Required]
+        [StringLength(4)]
         public string Passcode { get; set; } 
     }
 }

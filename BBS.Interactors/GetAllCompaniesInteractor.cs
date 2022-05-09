@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class GetAllCountriesInteractor
+    public class GetAllCompaniesInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-        public GetAllCountriesInteractor(
-            IRepositoryWrapper repositoryWrapper, 
+        public GetAllCompaniesInteractor(
+            IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager
         )
@@ -21,31 +21,30 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetAllCountries()
+        public GenericApiResponse GetAllCompanies()
         {
             try
             {
-                return TryGettingAllCountries();
+                return TryGettingAllCompanies();
             }
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
-
         }
 
         private GenericApiResponse ReturnErrorStatus()
         {
             return _responseManager.ErrorResponse(
-                "Error In Fetching Countries", StatusCodes.Status500InternalServerError
+                "Error In Fetching Companies", StatusCodes.Status500InternalServerError
             );
         }
 
-        private GenericApiResponse TryGettingAllCountries()
+        private GenericApiResponse TryGettingAllCompanies()
         {
-            var allCountries = _repositoryWrapper.CountryManager.GetCountries();
-            return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, allCountries);
+            var allCompanies = _repositoryWrapper.CompanyManager.GetCompanies();
+            return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, allCompanies);
         }
     }
 }

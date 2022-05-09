@@ -12,7 +12,7 @@ namespace BBS.Services.Repository
         }
         public void LogError(Exception ex)
         {
-            logger.Error(ex, ExeptionHelper.GetaAllErrors(ex));
+            logger.Error(ex, ExeptionHelper.GetAllErrors(ex));
         }
         public void LogError_Wrapper(string api, string errorMessage)
         {
@@ -62,7 +62,7 @@ namespace BBS.Services.Repository
             return FromHierarchy(source, nextItem, s => s != null);
         }
 
-        public static string GetaAllErrors(this Exception exception)
+        public static string GetAllErrors(this Exception exception)
         {
             var messages = exception.FromHierarchy(ex => ex.InnerException!)
                 .Select(ex => ex.Message);

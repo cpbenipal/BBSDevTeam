@@ -1,5 +1,6 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -13,13 +14,16 @@ namespace BBS.Interactors
         private readonly IFileUploadService _uploadService;
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
+
 
         public RegisterShareInteractor(
             IRepositoryWrapper repository,
             RegisterShareUtils registerShareUtils,
             IFileUploadService uploadService,
             ITokenManager tokenManager,
-            IApiResponseManager responseManager
+            IApiResponseManager responseManager, 
+            ILoggerManager loggerManager
         )
         {
             _repository = repository;
@@ -27,6 +31,7 @@ namespace BBS.Interactors
             _uploadService = uploadService;
             _tokenManager = tokenManager;
             _responseManager = responseManager;
+            _loggerManager = loggerManager;
 
         }
 
@@ -36,8 +41,9 @@ namespace BBS.Interactors
             {
                 return TryRegisteringShare(registerShareDto, token);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ErrorStatus();
             }
         }
@@ -62,7 +68,10 @@ namespace BBS.Interactors
             return HandleRegisteringShare(registerShareDto, extractedTokenValues);
         }
 
-        private GenericApiResponse HandleRegisteringShare(RegisterShareDto registerShareDto, TokenValues extractedTokenValues)
+        private GenericApiResponse HandleRegisteringShare(
+            RegisterShareDto registerShareDto, 
+            TokenValues extractedTokenValues
+        )
         {
             var logoUrl = UploadFilesToAzureBlob(registerShareDto.BusinessLogo);
 
@@ -72,11 +81,24 @@ namespace BBS.Interactors
 
             _repository.ShareManager.InsertShare(shareToInsert);
 
+            HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
                 1
             );
+        }
+
+        private void HandleInsertingCompanyIfNotAlreadyRegistered(RegisterShareDto registerShareDto)
+        {
+            if (_repository.CompanyManager.GetCompanyByName(registerShareDto.ShareInformation.CompanyName) == null)
+            {
+                _repository.CompanyManager.InsertCompany(new Company
+                {
+                    Name = registerShareDto.ShareInformation.CompanyName
+                });
+            }
         }
 
         private bool CheckDuplicateShares(int userLoginId, int companyId)
@@ -94,20 +116,13 @@ namespace BBS.Interactors
 
         private BlobFiles UploadFilesToAzureBlob(IFormFile businessLogo)
         {
-            try
+            var fileData = _uploadService.UploadFileToBlob(businessLogo);
+            var uploadedFiles = new BlobFiles()
             {
-                var fileData = _uploadService.UploadFileToBlob(businessLogo);
-                var uploadedFiles = new BlobFiles()
-                {
-                    ImageUrl = fileData.ImageUrl,
-                    ContentType = fileData.ContentType
-                };
-                return uploadedFiles;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                ImageUrl = fileData.ImageUrl,
+                ContentType = fileData.ContentType
+            };
+            return uploadedFiles;
         }
     }
 }

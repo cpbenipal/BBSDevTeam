@@ -8,13 +8,17 @@ namespace BBS.Interactors
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
 
         public GetAllDebtRoundsInteractor(
             IRepositoryWrapper repositoryWrapper,
-            IApiResponseManager responseManager)
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager
+        )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
+            _loggerManager = loggerManager; 
         }
 
         public GenericApiResponse GetAllDebtRounds()
@@ -23,8 +27,9 @@ namespace BBS.Interactors
             {
                 return TryGettingAllDebtRounds();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerManager.LogError(ex);
                 return ReturnErrorStatus();
             }
 

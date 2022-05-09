@@ -1,6 +1,5 @@
 ﻿using BBS.Dto;
 using BBS.Interactors;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BBS.API.Controllers
@@ -16,7 +15,6 @@ namespace BBS.API.Controllers
             _getAllNationalitiesInteractor = interactor;
         }
 
-        [Authorize]
         [HttpGet]
         public GenericApiResponse GetAllNationalities()
         {
