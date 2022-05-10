@@ -23,6 +23,8 @@ namespace BBS.Models
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }                
         public string? BusinessLogo { get; set; }
+        public string? ShareOwnershipDocument { get; set; }
+        public string? CompanyInformationDocument { get; set; }
 
         [ForeignKey("UserLoginId")]
         public int UserLoginId { get; set; }

@@ -16,7 +16,6 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-
         public RegisterShareInteractor(
             IRepositoryWrapper repository,
             RegisterShareUtils registerShareUtils,
@@ -68,16 +67,19 @@ namespace BBS.Interactors
             return HandleRegisteringShare(registerShareDto, extractedTokenValues);
         }
 
+
         private GenericApiResponse HandleRegisteringShare(
             RegisterShareDto registerShareDto, 
             TokenValues extractedTokenValues
         )
         {
-            var logoUrl = UploadFilesToAzureBlob(registerShareDto.BusinessLogo);
+            var uploadedFiles = UploadShareRelatedFiles(registerShareDto);
 
             var shareToInsert = _registerShareUtils.ParseShareObjectFromRegisterShareDto(registerShareDto);
             shareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
-            shareToInsert.BusinessLogo = logoUrl.ImageUrl;
+            shareToInsert.BusinessLogo = uploadedFiles[0];
+            shareToInsert.ShareOwnershipDocument = uploadedFiles[1];
+            shareToInsert.CompanyInformationDocument = uploadedFiles[2];
 
             _repository.ShareManager.InsertShare(shareToInsert);
 
@@ -88,6 +90,27 @@ namespace BBS.Interactors
                 StatusCodes.Status201Created,
                 1
             );
+        }
+
+        private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)
+        {
+            var logo = UploadFileToAzureBlob(registerShareDto.BusinessLogo, FileUploadExtensions.IMAGE);
+
+            var shareDocument = UploadFileToAzureBlob(
+                registerShareDto.ShareOwnershipDocument,
+                FileUploadExtensions.PDF
+            );
+            var companyDocument = UploadFileToAzureBlob(
+                registerShareDto.CompanyInformationDocument,
+                FileUploadExtensions.PDF
+            );
+
+            return new List<string>
+            {
+                logo.ImageUrl,
+                shareDocument.ImageUrl,
+                companyDocument.ImageUrl
+            };
         }
 
         private void HandleInsertingCompanyIfNotAlreadyRegistered(RegisterShareDto registerShareDto)
@@ -114,15 +137,15 @@ namespace BBS.Interactors
             return true;
         }
 
-        private BlobFiles UploadFilesToAzureBlob(IFormFile businessLogo)
+        private BlobFiles UploadFileToAzureBlob(IFormFile file, List<string> validExtensions)
         {
-            var fileData = _uploadService.UploadFileToBlob(businessLogo);
-            var uploadedFiles = new BlobFiles()
+            var fileData = _uploadService.UploadFileToBlob(file, validExtensions);
+            var uploadedFileData = new BlobFiles()
             {
                 ImageUrl = fileData.ImageUrl,
                 ContentType = fileData.ContentType
             };
-            return uploadedFiles;
+            return uploadedFileData;
         }
     }
 }

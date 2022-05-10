@@ -30,6 +30,7 @@ namespace BBS.Utils
                 VaultNumber = person.VaultNumber,
                 IBANNumber = person.IBANNumber,
                 EmployementId = person.EmployementTypeId,
+                EmployerName = person.EmployerName,
                 AnnualIncome = person.AnnualIncome,
                 DateOfEmployement = person.DateOfEmployement,
                 HavePriorExpirence = person.HavePriorExpirence,

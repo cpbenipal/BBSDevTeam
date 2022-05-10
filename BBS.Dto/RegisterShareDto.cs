@@ -14,5 +14,11 @@ namespace BBS.Dto
         [Required]
         public IFormFile BusinessLogo { get; set; }
 
+        [Required]
+        public IFormFile ShareOwnershipDocument { get; set; }
+
+        [Required]
+        public IFormFile CompanyInformationDocument { get; set; }
+
     }
 }

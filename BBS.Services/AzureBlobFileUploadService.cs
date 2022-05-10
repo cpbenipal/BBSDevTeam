@@ -29,12 +29,11 @@ namespace BBS.Services.Repository
             }
         }
 
-        public BlobFiles UploadFileToBlob(IFormFile item)
+        public BlobFiles UploadFileToBlob(IFormFile item, List<string> validFileExtensions)
         {
             var blobfile = new BlobFiles();
-
             var extension = Path.GetExtension(item.FileName);
-            if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
+            if(validFileExtensions.Contains(extension))
             {
                 string systemFileName = Guid.NewGuid() + extension;
                 var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
@@ -47,9 +46,14 @@ namespace BBS.Services.Repository
 
                 blobfile.ContentType = item.ContentType;
                 blobfile.ImageUrl = blob.Uri.AbsoluteUri;
+                
+                return blobfile;
+            }
+            else
+            {
+                throw new Exception("Invalid File Format");
             }
 
-            return blobfile;
         }
 
         public BlobFiles UploadCertificate(string fileContent)

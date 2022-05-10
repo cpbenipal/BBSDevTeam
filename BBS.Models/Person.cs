@@ -79,6 +79,10 @@ namespace BBS.Models
         public EmployementType? EmployementType { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        public string EmployerName { get; set; }
+
+        [Required]
         public decimal AnnualIncome { get; set; }
 
         [Required]

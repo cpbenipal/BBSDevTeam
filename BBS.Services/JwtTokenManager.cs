@@ -23,8 +23,8 @@ namespace BBS.Services.Repository
 
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, personId),
-                new Claim("UserLoginId",roleId),
-                new Claim("RoleId",userLoginId),
+                new Claim("UserLoginId",userLoginId),
+                new Claim("RoleId",roleId),
             };
 
             var token = new JwtSecurityToken(null,

@@ -1,5 +1,4 @@
-﻿using BBS.Dto;
-using BBS.Interactors;
+﻿using BBS.Interactors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +17,9 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public GenericApiResponse GetAllStorageLocation()
+        public IActionResult GetAllStorageLocation()
         {
-            return _getAllStorageLocationsInteractor.GetAllStorageLocations();
+            return Ok(_getAllStorageLocationsInteractor.GetAllStorageLocations());
         }
     }
 }

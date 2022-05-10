@@ -13,7 +13,6 @@ namespace BBS.Dto
         public string CompanyName { get; set; }
 
         [Required]
-        [StringLength(1)]
         public int GrantTypeId { get; set; }
 
         [Required]
@@ -22,6 +21,7 @@ namespace BBS.Dto
         [Required]
         public int DebtRoundId { get; set; }
 
+        [Required]
         public int NumberOfShares { get; set; }
         
         [DisplayName("DD/MM/YYYY")]

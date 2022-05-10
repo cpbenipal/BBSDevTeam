@@ -38,20 +38,6 @@ namespace BBS.Middlewares
             }
         }
 
-        private bool IsAuthorized(string username, string password) => UserName == username && Password == password;
-
-        private bool IsLocalRequest(HttpContext context)
-        {
-            if (context.Request.Host.Value.StartsWith("localhost:"))
-                return true;
-
-            if (context.Connection.RemoteIpAddress == null && context.Connection.LocalIpAddress == null)
-                return true;
-
-            if (context.Connection.RemoteIpAddress != null && context.Connection.RemoteIpAddress.Equals(context.Connection.LocalIpAddress))
-                return true;
-
-            return IPAddress.IsLoopback(context.Connection.RemoteIpAddress!);
-        }
+        private static bool IsAuthorized(string username, string password) => UserName == username && Password == password;
     }
 }

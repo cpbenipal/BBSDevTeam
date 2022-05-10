@@ -1,5 +1,4 @@
-﻿using BBS.Dto;
-using BBS.Interactors;
+﻿using BBS.Interactors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BBS.API.Controllers
@@ -16,9 +15,9 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public GenericApiResponse GetAllCountries()
+        public IActionResult GetAllCountries()
         {
-            return _getAllCountriesInteractor.GetAllCountries();
+            return Ok(_getAllCountriesInteractor.GetAllCountries());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using BBS.Dto;
-using BBS.Interactors;
+﻿using BBS.Interactors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BBS.API.Controllers
@@ -16,9 +15,9 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public GenericApiResponse GetAllCompanies()
+        public IActionResult GetAllCompanies()
         {
-            return _getAllCompaniesInteractor.GetAllCompanies();
+            return Ok(_getAllCompaniesInteractor.GetAllCompanies());
         }
     }
 }

@@ -22,5 +22,8 @@ namespace BBS.Dto
         [Required]
         [MaxLength(100)]
         public string EmiratesID { get; set; }
+
+        [Required]
+        public int VerificationState { get; set; }
     }
 }

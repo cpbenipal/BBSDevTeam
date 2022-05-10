@@ -10,7 +10,11 @@ namespace BBS.Dto
         
         [Required]
         public decimal AnnualIncome { get; set; }
-        
+
+        [Required]
+        [MaxLength(50)]
+        public string EmployerName { get; set; }
+
         [Required]
         public DateTime DateOfEmployement { get; set; }
     }

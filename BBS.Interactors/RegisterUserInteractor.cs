@@ -15,7 +15,6 @@ namespace BBS.Interactors
         private readonly IHashManager _hashManager;
         private readonly IFileUploadService _uploadService;
         private readonly IApiResponseManager _responseManager;
-        private readonly RegisterUserUtils _registerUserUtils;
         private readonly ILoggerManager _loggerManager;
 
         public RegisterUserInteractor(
@@ -24,7 +23,6 @@ namespace BBS.Interactors
             IHashManager hashManager,
             IFileUploadService uploadService,
             IApiResponseManager responseManager,
-            RegisterUserUtils registerUserUtils, 
             ILoggerManager loggerManager
         )
         {
@@ -33,7 +31,6 @@ namespace BBS.Interactors
             _hashManager = hashManager;
             _uploadService = uploadService;
             _responseManager = responseManager;
-            _registerUserUtils = registerUserUtils;
             _loggerManager = loggerManager;
 
         }
@@ -125,10 +122,10 @@ namespace BBS.Interactors
         {
             try
             {
-                List<BlobFiles> uploadedFiles = new List<BlobFiles>();
+                List<BlobFiles> uploadedFiles = new();
                 foreach (var item in files)
                 {
-                    var fileData = _uploadService.UploadFileToBlob(item);
+                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.IMAGE);
                     uploadedFiles.Add(
                         new BlobFiles { 
                             ImageUrl = fileData.ImageUrl, 
@@ -145,7 +142,7 @@ namespace BBS.Interactors
 
         private Person CreatePerson(RegisterUserDto registerUserDto)
         {
-            Person mappedRequest = _registerUserUtils.ParsePersonFromRequest(registerUserDto);
+            Person mappedRequest = RegisterUserUtils.ParsePersonFromRequest(registerUserDto);
 
             var createdPerson = _repository
                 .PersonManager
@@ -180,13 +177,15 @@ namespace BBS.Interactors
                 .InsertUserRole(mappedRequest);
         }
 
-        private UserRoleDto InitUserRoleDto(int userLoginId)
+        private static UserRoleDto InitUserRoleDto(int userLoginId)
         {
             int roleId = (int)Roles.INVESTOR;
 
-            var userRole = new UserRoleDto();
-            userRole.UserLoginId = userLoginId;
-            userRole.RoleId = roleId;
+            var userRole = new UserRoleDto
+            {
+                UserLoginId = userLoginId,
+                RoleId = roleId
+            };
 
             return userRole;
         }
