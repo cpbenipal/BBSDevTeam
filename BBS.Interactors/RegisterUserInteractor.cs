@@ -52,7 +52,7 @@ namespace BBS.Interactors
             {
                 _loggerManager.LogError(ex);
                 return _responseManager.ErrorResponse(
-                    ex.Message,
+                    "Couldn't Register User",
                     StatusCodes.Status400BadRequest
                 );
             }

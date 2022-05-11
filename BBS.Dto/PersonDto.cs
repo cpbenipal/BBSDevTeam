@@ -5,13 +5,16 @@ namespace BBS.Dto
 {
     public class PersonDto
     {
+        [MaxLength(50)]
         [Required]
         public string FirstName { get; set; }
         
+        [MaxLength(50)]
         [Required]
         public string LastName { get; set; }       
         
         [Required]
+        [EmailAddress]
         public string Email { get; set; }        
         
         [Required]

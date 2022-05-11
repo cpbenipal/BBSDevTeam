@@ -1,7 +1,6 @@
 using BBS.Entities;
 using BBS.Middlewares;
 using BBS.Swagger.Extensions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using NLog; 

@@ -39,7 +39,7 @@ namespace BBS.Interactors
         private GenericApiResponse ReturnErrorStatus()
         {
             return _responseManager.ErrorResponse(
-                "Error in fetching Grant Types",
+                "Error in fetching Employement Types",
                 StatusCodes.Status500InternalServerError
             );
         }

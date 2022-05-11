@@ -41,10 +41,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse TrySendingOtp(LoginUserOTPDto loginUserDto)
         {
-
-            if(!string.IsNullOrEmpty(loginUserDto.Email) || 
-               !string.IsNullOrEmpty(loginUserDto.PhoneNumber)
-            )
+            if(!string.IsNullOrEmpty(loginUserDto.Email))
             {
                 _emailSender.SendEmailAsync(
                     loginUserDto.Email,
@@ -53,11 +50,11 @@ namespace BBS.Interactors
                     loginUserDto.OTP
                 );
 
-                _smsSender.Send(
-                    loginUserDto.PhoneNumber,
-                    "One Time Passcode : " +
-                    loginUserDto.OTP
-                );
+                //_smsSender.Send(
+                //    loginUserDto.PhoneNumber,
+                //    "One Time Passcode : " +
+                //    loginUserDto.OTP
+                //);
 
                 return _responseManager.SuccessResponse(
                     "OTP sent on Email",

@@ -6,8 +6,8 @@ namespace BBS.Services.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private BusraDbContext _repoContext;
-        private IHashManager _hashManager;
+        private readonly BusraDbContext _repoContext;
+        private readonly IHashManager _hashManager;
         public RepositoryWrapper(BusraDbContext repositoryContext, IHashManager hashManager)
         {
             _repoContext = repositoryContext;

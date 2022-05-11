@@ -20,7 +20,7 @@ namespace BBS.Dto
         public bool HaveConvicted { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(255)]
         public string EmiratesID { get; set; }
 
         [Required]
