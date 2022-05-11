@@ -11,6 +11,7 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <ProjectReference Include="..\BBS.CustomExceptions\BBS.CustomExceptions.csproj" />
     <ProjectReference Include="..\BBS.Dto\BBS.Dto.csproj" />
     <ProjectReference Include="..\BBS.Services.Contracts\BBS.Services.Contracts.csproj" />
     <ProjectReference Include="..\BBS.Services\BBS.Services.Repository.csproj" />

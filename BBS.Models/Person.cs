@@ -29,7 +29,7 @@ namespace BBS.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         public bool IsUSCitizen { get; set; }

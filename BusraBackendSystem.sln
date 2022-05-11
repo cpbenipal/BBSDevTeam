@@ -28,7 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBS.Interactors", "BBS.Inte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBS.Constants", "BBS.Constants\BBS.Constants.csproj", "{D361131A-AE20-4C32-B135-A659232BF90F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBS.Middlewares", "BBS.Middlewares\BBS.Middlewares.csproj", "{8C2E1F77-4094-4692-B6D5-17B5875515F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBS.Middlewares", "BBS.Middlewares\BBS.Middlewares.csproj", "{8C2E1F77-4094-4692-B6D5-17B5875515F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBS.CustomExceptions", "BBS.CustomExceptions\BBS.CustomExceptions.csproj", "{180A4347-F979-441B-AF65-89DDD25D0F62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{8C2E1F77-4094-4692-B6D5-17B5875515F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C2E1F77-4094-4692-B6D5-17B5875515F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C2E1F77-4094-4692-B6D5-17B5875515F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{180A4347-F979-441B-AF65-89DDD25D0F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180A4347-F979-441B-AF65-89DDD25D0F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180A4347-F979-441B-AF65-89DDD25D0F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{180A4347-F979-441B-AF65-89DDD25D0F62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

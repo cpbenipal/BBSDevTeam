@@ -13,7 +13,6 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-
         public GetProfileInformationInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
@@ -62,9 +61,14 @@ namespace BBS.Interactors
                 .CountryManager
                 .GetCountry(person.CountryId);
 
+            var state = _repositoryWrapper.StateManager.GetState(person.VerificationState);
+
+            var employementType =
+                _repositoryWrapper.EmployementTypeManager.GetEmployementType(person.EmployementTypeId);
+
             UserProfileInformationDto userProfileInformation =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    person, role, attachements, nationality, country
+                    person, role, attachements, nationality, country,state,employementType
                 );
 
             return _responseManager.SuccessResponse(

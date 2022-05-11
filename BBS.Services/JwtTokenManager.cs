@@ -62,7 +62,7 @@ namespace BBS.Services.Repository
             var tokenValues = new TokenValues()
             {
                 RoleId = roleId,
-                PersonId = roleId,
+                PersonId = personId,
                 UserLoginId = userLoginId
             };
                 

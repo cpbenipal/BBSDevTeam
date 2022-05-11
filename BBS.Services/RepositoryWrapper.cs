@@ -225,17 +225,31 @@ namespace BBS.Services.Repository
             }
         }
 
-        private ICompanyManager _country;
+        private ICompanyManager _company;
         public ICompanyManager CompanyManager
         {
             get
             {
-                if (_country == null)
+                if (_company == null)
                 {
                     var repositoryBase = new RepositoryBase<Company>(_repoContext);
-                    _country = new CompanyManager(repositoryBase);
+                    _company = new CompanyManager(repositoryBase);
                 }
-                return _country;
+                return _company;
+            }
+        }
+
+        private IStateManager _state;
+        public IStateManager StateManager
+        {
+            get
+            {
+                if (_state == null)
+                {
+                    var repositoryBase = new RepositoryBase<State>(_repoContext);
+                    _state = new StateManager(repositoryBase);
+                }
+                return _state;
             }
         }
     }

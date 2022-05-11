@@ -15,5 +15,10 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetAll().ToList();
         }
+
+        public EmployementType GetEmployementType(int employementTypeId)
+        {
+           return _repositoryBase.GetById(employementTypeId);
+        }
     }
 }

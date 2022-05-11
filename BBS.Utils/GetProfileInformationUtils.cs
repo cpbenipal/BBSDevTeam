@@ -10,7 +10,9 @@ namespace BBS.Utils
             Role role,
             Attachment? attachment,
             Nationality nationality,
-            Country country
+            Country country,
+            State state,
+            EmployementType employementType
         )
         {
             return new UserProfileInformationDto
@@ -18,7 +20,7 @@ namespace BBS.Utils
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 Email = person.Email,
-                DateOfBirth = person.DateOfBirth,
+                DateOfBirth = person.DateOfBirth.ToString("yyyy-MM-dd"),
                 IsUSCitizen = person.IsUSCitizen,
                 IsPublicSectorEmployee = person.IsPublicSectorEmployee,
                 IsIndividual = person.IsIndividual,
@@ -29,14 +31,14 @@ namespace BBS.Utils
                 EmiratesID = person.EmiratesID,
                 VaultNumber = person.VaultNumber,
                 IBANNumber = person.IBANNumber,
-                EmployementId = person.EmployementTypeId,
+                EmployementId = employementType.Name,
                 EmployerName = person.EmployerName,
                 AnnualIncome = person.AnnualIncome,
-                DateOfEmployement = person.DateOfEmployement,
+                DateOfEmployement = person.DateOfEmployement.ToString("yyyy-MM-dd"),
                 HavePriorExpirence = person.HavePriorExpirence,
                 HaveTraining = person.HaveTraining,
                 HaveExperience = person.HaveExperience,
-                VerificationState = person.VerificationState,
+                VerificationState = state.Name,
                 Country = country.Name,
                 Nationality = nationality.Name,
                 EmiratesIdPictureFront = attachment?.Front ?? "",

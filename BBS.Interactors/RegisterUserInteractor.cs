@@ -5,6 +5,7 @@ using BBS.Models;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using BBS.Constants;
+using BBS.CustomExceptions;
 
 namespace BBS.Interactors
 {
@@ -48,29 +49,40 @@ namespace BBS.Interactors
             {
                 return TryRegisteringUser(registerUserDto);
             }
+            catch (RegisterUserException ex)
+            {
+                return ReturnErrorStatus(ex,null);
+            }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
-                return _responseManager.ErrorResponse(
-                    "Couldn't Register User",
-                    StatusCodes.Status400BadRequest
-                );
+                return ReturnErrorStatus(ex, "Couldn't Register User");
             }
+        }
+
+        private GenericApiResponse ReturnErrorStatus(Exception ex, string? message)
+        {
+            _loggerManager.LogError(ex);
+            return _responseManager.ErrorResponse(
+                message ?? ex.Message,
+                StatusCodes.Status400BadRequest
+            );
         }
 
         private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto)
         {
             if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
             {
-                throw new Exception("Email already exists");
+                throw new UserAlreadyExistsException("Email or Phone already exists");
             }
             else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
             {
-                throw new Exception("Emirates ID already exists");
+                throw new EmiratesIDExistsException("Emirates ID already exists");
             }
             else if (registerUserDto.Attachments.Count() < 2)
             {
-                throw new Exception("Please Enter Both Front and Back Side Picture of Your Emirates Id");
+                throw new AttachmentCountLowException(
+                    "Please Enter Both Front and Back Side Picture of Your Emirates Id"
+                );
             }
 
             else
@@ -94,11 +106,23 @@ namespace BBS.Interactors
                 createdPerson.Id
             );
 
+            var vaultIdAndIbanNumber = new Dictionary<string, string>()
+            {
+                ["VaultID"] = createdPerson!.VaultNumber!,
+                ["IBANNumber"] = createdPerson!.IBANNumber!,
+            };
+
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
-                ""
+                IsRegistrationVerified(createdPerson) ? vaultIdAndIbanNumber : "Successfull"
             );
+        }
+
+        private static bool IsRegistrationVerified(Person createdPerson)
+        {
+            return createdPerson.VerificationState == 2;
         }
 
         private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
