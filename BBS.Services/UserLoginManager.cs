@@ -19,7 +19,7 @@ namespace BBS.Services.Repository
         public UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto,int Id)
         {
             var encryptedText = _hashManager.EncryptPlainText(loginUserDto.Passcode);
-            return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText && x.Id == Id);
+            return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText && x.PersonId == Id);
         }
 
         public UserLogin InsertUserLogin(UserLogin userLogin)

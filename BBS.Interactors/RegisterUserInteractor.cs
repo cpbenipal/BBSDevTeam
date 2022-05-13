@@ -106,17 +106,22 @@ namespace BBS.Interactors
                 createdPerson.Id
             );
 
-            var vaultIdAndIbanNumber = new Dictionary<string, string>()
-            {
-                ["VaultID"] = createdPerson!.VaultNumber!,
-                ["IBANNumber"] = createdPerson!.IBANNumber!,
-            };
+            //var vaultIdAndIbanNumber = new Dictionary<string, string>()
+            //{
+            //    ["VaultID"] = createdPerson!.VaultNumber!,
+            //    ["IBANNumber"] = createdPerson!.IBANNumber!,
+            //};
 
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
-                IsRegistrationVerified(createdPerson) ? vaultIdAndIbanNumber : "Successfull"
+                 new ResponseDTo
+                 {
+                     Id = createdUserLoginProfile.Id,
+                     IBANNumber = createdPerson.IBANNumber,
+                     VaultNumber = createdPerson.VaultNumber,
+                 }
             );
         }
 
