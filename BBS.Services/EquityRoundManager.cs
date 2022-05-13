@@ -17,6 +17,11 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
+        public EquityRound GetEquityRound(int id)
+        {
+            return _repositoryBase.GetById(id);
+        }
+
         public EquityRound InsertEquityRound(EquityRound equityRound)
         {
             var addedEquityRound = _repositoryBase.Insert(equityRound);

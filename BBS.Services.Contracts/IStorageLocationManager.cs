@@ -7,5 +7,6 @@ namespace BBS.Services.Contracts
     {
         StorageLocation InsertStorageLocation(StorageLocation storageLocation);
         List<StorageLocation> GetAllStorageLocations();
+        StorageLocation GetStorageLocation(int id);
     }
 }

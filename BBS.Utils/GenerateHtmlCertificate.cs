@@ -34,7 +34,11 @@ namespace BBS.Utils
                 "@grantTime",
                 certificateContents.GrantTime
             );
-            string final = grantTimeAdded.Replace(
+            string signatureAdded = grantTimeAdded.Replace(
+                "@signature", 
+                certificateContents.Signature
+            );
+            string final = signatureAdded.Replace(
                 "@companyName",
                 certificateContents.CompanyName.ToString()
             );

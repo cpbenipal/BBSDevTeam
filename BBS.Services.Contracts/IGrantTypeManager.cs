@@ -7,5 +7,6 @@ namespace BBS.Services.Contracts
     {
         GrantType InsertGrantType(GrantType grantType);
         List<GrantType> GetAllGrantTypes();
+        GrantType GetGrantType(int id);
     }
 }

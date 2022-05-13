@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BBS.API\BBS.API.csproj" />
     <ProjectReference Include="..\BBS.Middlewares\BBS.Middlewares.csproj" />
+    <ProjectReference Include="..\BBS.Models\BBS.Models.csproj" />
     <ProjectReference Include="..\BBS.Services.Contracts\BBS.Services.Contracts.csproj" />
     <ProjectReference Include="..\BBS.Services\BBS.Services.Repository.csproj" />
     <ProjectReference Include="..\BBS.Utils\BBS.Utils.csproj" />

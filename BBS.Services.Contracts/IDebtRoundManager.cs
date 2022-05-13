@@ -7,5 +7,6 @@ namespace BBS.Services.Contracts
     {
         DebtRound InsertDebtRound(DebtRound debtRound);
         List<DebtRound> GetAllDebtRounds();
+        DebtRound GetDebtRound(int id);
     }
 }

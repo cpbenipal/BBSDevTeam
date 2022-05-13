@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BBS.Dto
@@ -28,6 +29,9 @@ namespace BBS.Dto
 
         [Required, MaxLength(50)]
         public string CompanyName { get; set; }
+
+        [Required]
+        public IFormFile Signature { get; set; }
 
         [Required]
         public bool IsCertified { get; set; }

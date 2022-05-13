@@ -7,5 +7,6 @@ namespace BBS.Services.Contracts
     {
         EquityRound InsertEquityRound(EquityRound equityRound);
         List<EquityRound> GetAllEquityRounds();
+        EquityRound GetEquityRound(int id);
     }
 }

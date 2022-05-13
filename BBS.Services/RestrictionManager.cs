@@ -17,6 +17,11 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
+        public Restriction GetRestriction(int id)
+        {
+            return _repositoryBase.GetById(id);
+        }
+
         public Restriction InsertRestriction(Restriction restriction)
         {
             var addedRestriction = _repositoryBase.Insert(restriction);

@@ -5,25 +5,28 @@ namespace BBS.Utils
 {
     public class RegisterShareUtils
     {
-        public Share ParseShareObjectFromRegisterShareDto(RegisterShareDto registerShareDto)
+        public static Share ParseShareObjectFromRegisterShareDto(
+            RegisterShareDto registerShareDto
+        )
         {
-            Share share = new Share();
+            Share share = new()
+            {
+                CompanyId = registerShareDto.ShareInformation.CompanyId,
+                CompanyName = registerShareDto.ShareInformation.CompanyName,
+                SharePrice = registerShareDto.ShareInformation.SharePrice,
+                StorageLocationId = registerShareDto.ShareInformation.StorageLocationId,
+                DateOfGrant = registerShareDto.ShareInformation.DateOfGrant,
+                NumberOfShares = registerShareDto.ShareInformation.NumberOfShares,
+                GrantTypeId = registerShareDto.ShareInformation.GrantTypeId,
+                DebtRoundId = registerShareDto.ShareInformation.DebtRoundId,
+                EquityRoundId = registerShareDto.ShareInformation.EquityRoundId,
+                RestrictionId = registerShareDto.ShareInformation.RestrictionId,
 
-            share.CompanyId = registerShareDto.ShareInformation.CompanyId;
-            share.CompanyName = registerShareDto.ShareInformation.CompanyName;
-            share.SharePrice = registerShareDto.ShareInformation.SharePrice;
-            share.StorageLocationId = registerShareDto.ShareInformation.StorageLocationId;
-            share.DateOfGrant = registerShareDto.ShareInformation.DateOfGrant;
-            share.NumberOfShares = registerShareDto.ShareInformation.NumberOfShares;
-            share.GrantTypeId = registerShareDto.ShareInformation.GrantTypeId;
-            share.DebtRoundId = registerShareDto.ShareInformation.DebtRoundId;
-            share.EquityRoundId = registerShareDto.ShareInformation.EquityRoundId;
-            share.RestrictionId = registerShareDto.ShareInformation.RestrictionId;
-
-            share.FirstName = registerShareDto.ContactPerson.FirstName;
-            share.LastName = registerShareDto.ContactPerson.LastName;
-            share.Email = registerShareDto.ContactPerson.Email;
-            share.PhoneNumber = registerShareDto.ContactPerson.PhoneNumber;
+                FirstName = registerShareDto.ContactPerson.FirstName,
+                LastName = registerShareDto.ContactPerson.LastName,
+                Email = registerShareDto.ContactPerson.Email,
+                PhoneNumber = registerShareDto.ContactPerson.PhoneNumber
+            };
 
             return share;
         }

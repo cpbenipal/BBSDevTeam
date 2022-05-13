@@ -18,7 +18,7 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult IssueDigitalShare([FromBody] IssueDigitalShareDto share)
+        public IActionResult IssueDigitalShare([FromForm] IssueDigitalShareDto share)
         {
             var token = HttpContext.Request.Headers["Authorization"];
             var response = _issueDigitalShareInteractor.IssueShareDigitally(share,token);

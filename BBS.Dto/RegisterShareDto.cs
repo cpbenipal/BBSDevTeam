@@ -6,7 +6,7 @@ namespace BBS.Dto
     public class RegisterShareDto
     {
         [Required]
-        public ShareInformationDto ShareInformation { get; set; }
+        public InsertShareDto ShareInformation { get; set; }
 
         [Required]
         public ContactPersonDto ContactPerson { get; set; }

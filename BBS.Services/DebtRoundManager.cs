@@ -17,6 +17,11 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
+        public DebtRound GetDebtRound(int id)
+        {
+            return _repositoryBase.GetById(id);
+        }
+
         public DebtRound InsertDebtRound(DebtRound debtRound)
         {
             var addedDebtRound = _repositoryBase.Insert(debtRound);

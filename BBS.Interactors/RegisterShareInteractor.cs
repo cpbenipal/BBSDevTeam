@@ -75,7 +75,8 @@ namespace BBS.Interactors
         {
             var uploadedFiles = UploadShareRelatedFiles(registerShareDto);
 
-            var shareToInsert = _registerShareUtils.ParseShareObjectFromRegisterShareDto(registerShareDto);
+            var shareToInsert = RegisterShareUtils.ParseShareObjectFromRegisterShareDto(registerShareDto);
+            
             shareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
             shareToInsert.BusinessLogo = uploadedFiles[0];
             shareToInsert.ShareOwnershipDocument = uploadedFiles[1];

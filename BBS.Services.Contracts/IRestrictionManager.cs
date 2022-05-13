@@ -7,5 +7,6 @@ namespace BBS.Services.Contracts
     {
         Restriction InsertRestriction(Restriction restriction);
         List<Restriction> GetAllRestrictions();
+        Restriction GetRestriction(int id);
     }
 }

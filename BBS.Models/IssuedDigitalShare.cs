@@ -39,5 +39,6 @@ namespace BBS.Models
         public UserLogin? UserLogin { get; set; }
 
         public string CertificateUrl { get; set; }
+        public string CertificateKey { get; set; }
     }
 }

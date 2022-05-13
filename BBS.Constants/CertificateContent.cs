@@ -6,5 +6,6 @@
         public int NumberOfShares { get; set; }
         public string CompanyName { get; set; }
         public string GrantTime { get; set; }
+        public string Signature { get; set; }
     }
 }

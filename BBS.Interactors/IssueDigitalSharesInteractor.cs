@@ -63,34 +63,49 @@ namespace BBS.Interactors
             {
                 throw new Exception();
             }
-            
-            BlobFiles uploadedFile = HandleIssuingCertificate(digitalShare, share);
 
+
+            BlobFiles uploadedSignature = _uploadService.UploadFileToBlob(
+                digitalShare.Signature, 
+                FileUploadExtensions.IMAGE
+            );
+
+            BlobFiles uploadedHtml = HandleIssuingCertificate(digitalShare, share, uploadedSignature.ImageUrl);
+
+            var certificateKey = Guid.NewGuid().ToString("n")[..36].ToUpper();
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
                 valuesFromToken.UserLoginId,
-                uploadedFile.ImageUrl
+                uploadedHtml.ImageUrl,
+                certificateKey
             );
 
             _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
 
 
+            var response = new Dictionary<string, string>()
+            {
+                ["CertificateImageUrl"] = uploadedHtml.ImageUrl,
+                ["CertificateKey"] = certificateKey,
+            };
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
-                1
+                response
             );
 
         }
 
-        private BlobFiles HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share)
+        private BlobFiles HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)
         {
             CertificateContent certificate = new CertificateContent
             {
                 CompanyName = digitalShare.CompanyName,
                 Name = digitalShare.FirstName + " " + digitalShare.LastName,
                 NumberOfShares = share.NumberOfShares,
-                GrantTime = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year
+                GrantTime = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year,
+                Signature = signature
             };
 
             var htmlContent = _generateHtmlCertificate.Execute(certificate);
