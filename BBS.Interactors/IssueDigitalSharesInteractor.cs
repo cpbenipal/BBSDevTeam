@@ -69,10 +69,13 @@ namespace BBS.Interactors
                 digitalShare.Signature, 
                 FileUploadExtensions.IMAGE
             );
+            uploadedSignature.ImageUrl = _uploadService.GetFilePublicUri(uploadedSignature.FileName);
 
             BlobFiles uploadedHtml = HandleIssuingCertificate(digitalShare, share, uploadedSignature.ImageUrl);
 
-            var certificateKey = Guid.NewGuid().ToString("n")[..36].ToUpper();
+            uploadedHtml.ImageUrl = _uploadService.GetFilePublicUri(uploadedHtml.FileName);
+
+            var certificateKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper();
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
                 valuesFromToken.UserLoginId,

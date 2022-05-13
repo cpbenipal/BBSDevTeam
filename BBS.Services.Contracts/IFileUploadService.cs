@@ -8,5 +8,6 @@ namespace BBS.Services.Contracts
         BlobFiles UploadFileToBlob(IFormFile files, List<string> validExtensions);
         Task<List<string>> DownloadBlob(string downloadPath);
         BlobFiles UploadCertificate(string content);
+        string GetFilePublicUri(string fileName);
     }
 }

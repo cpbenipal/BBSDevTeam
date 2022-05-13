@@ -4,17 +4,23 @@ using Azure.Storage.Blobs.Models;
 using BBS.Constants;
 using BBS.Services.Contracts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System.Text;
 
 namespace BBS.Services.Repository
 {
     public class AzureBlobFileUploadService : IFileUploadService
     {
+        private readonly CloudStorageAccount _storageAccount;
         private readonly BlobContainerClient blobContainerClient;
-
-        public AzureBlobFileUploadService(string connectionString, string containerName, int timeSpan)
+      
+        public string _ContainerName { get; set; }
+        public AzureBlobFileUploadService(string connectionString, string containerName, int timeSpan )
         {
-
+            _ContainerName = containerName;
+            _storageAccount = CloudStorageAccount.Parse(connectionString);
             var blobClientOptions = new BlobClientOptions
             {
                 Transport = new HttpClientTransport(new HttpClient { Timeout = TimeSpan.FromMinutes(timeSpan) }),
@@ -35,8 +41,9 @@ namespace BBS.Services.Repository
             var extension = Path.GetExtension(item.FileName);
             if(validFileExtensions.Contains(extension))
             {
-                string systemFileName = Guid.NewGuid() + extension;
-                var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
+                string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + extension).ToLower();
+                blobfile.FileName=systemFileName;
+                var blob = blobContainerClient.GetBlobClient(systemFileName);
                 using (var memoryStream = new MemoryStream())
                 {
                     item.CopyTo(memoryStream);
@@ -60,8 +67,9 @@ namespace BBS.Services.Repository
         {
             var blobfile = new BlobFiles();
             
-            string systemFileName = Guid.NewGuid() + ".html";
-            var blob = blobContainerClient.GetBlobClient(systemFileName.Replace("-", "").ToLower());
+            string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".html").ToLower();
+            blobfile.FileName = systemFileName;
+            var blob = blobContainerClient.GetBlobClient(systemFileName);
             using (var memoryStream = new MemoryStream())
             {
                 byte[] content = new UTF8Encoding(true).GetBytes(fileContent);
@@ -103,5 +111,29 @@ namespace BBS.Services.Repository
 
             return downloadedFiles;
         }
+
+        public string GetFilePublicUri(string fileName)
+        {  
+            CloudBlobClient serviceClient = _storageAccount.CreateCloudBlobClient();
+
+            var container = serviceClient.GetContainerReference(_ContainerName);container.CreateIfNotExistsAsync().Wait();
+
+            CloudBlockBlob blob = container.GetBlockBlobReference(fileName);
+
+            SharedAccessBlobPolicy policy = new SharedAccessBlobPolicy();
+            // define the expiration time
+            policy.SharedAccessExpiryTime = DateTime.UtcNow.AddDays(1);
+
+            // define the permission
+            policy.Permissions = SharedAccessBlobPermissions.Read;
+
+            // create signature
+            string signature = blob.GetSharedAccessSignature(policy);
+
+            // get full temporary uri
+            return blob.Uri + signature;
+
+        }
+
     }
 }
