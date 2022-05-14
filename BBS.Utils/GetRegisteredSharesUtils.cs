@@ -7,9 +7,11 @@ namespace BBS.Utils
     public class GetRegisteredSharesUtils
     {
         private IRepositoryWrapper _repository;
-        public GetRegisteredSharesUtils(IRepositoryWrapper repositoryWrapper)
+        private IFileUploadService _uploadService;
+        public GetRegisteredSharesUtils(IRepositoryWrapper repositoryWrapper, IFileUploadService fileUploadService)
         {
             _repository = repositoryWrapper;
+            _uploadService = fileUploadService;
         }
 
         public List<RegisteredShareDto> MapListOfSharesToListOfRegisteredSharesDto(List<Share> shares)
@@ -34,14 +36,14 @@ namespace BBS.Utils
 
             var registeredShare = new RegisteredShareDto
             {
-                BusinessLogo = share.BusinessLogo,
+                BusinessLogo = _uploadService.GetFilePublicUri(share.BusinessLogo!),
                 FirstName = share.FirstName,
                 LastName = share.LastName,
                 Email = share.Email,
                 DebtRound = debtRound.Name,
                 EquityRound = equityRound.Name,
-                ShareOwnerShipDocument = share.ShareOwnershipDocument,
-                CompanyInformationDocument = share.CompanyInformationDocument,
+                ShareOwnerShipDocument = _uploadService.GetFilePublicUri(share.ShareOwnershipDocument!),
+                CompanyInformationDocument = _uploadService.GetFilePublicUri(share.CompanyInformationDocument!),
                 CompanyName = share.CompanyName,
                 DateOfGrant = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year,
                 GrantType = grantType.Name,

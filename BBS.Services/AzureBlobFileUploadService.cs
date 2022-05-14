@@ -4,7 +4,6 @@ using Azure.Storage.Blobs.Models;
 using BBS.Constants;
 using BBS.Services.Contracts;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Text;
@@ -35,9 +34,9 @@ namespace BBS.Services.Repository
             }
         }
 
-        public BlobFiles UploadFileToBlob(IFormFile item, List<string> validFileExtensions)
+        public BlobFile UploadFileToBlob(IFormFile item, List<string> validFileExtensions)
         {
-            var blobfile = new BlobFiles();
+            var blobfile = new BlobFile();
             var extension = Path.GetExtension(item.FileName);
             if(validFileExtensions.Contains(extension))
             {
@@ -53,7 +52,9 @@ namespace BBS.Services.Repository
 
                 blobfile.ContentType = item.ContentType;
                 blobfile.ImageUrl = blob.Uri.AbsoluteUri;
-                
+                blobfile.PublicPath = GetFilePublicUri(blob.Uri.AbsoluteUri);
+                blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
+
                 return blobfile;
             }
             else
@@ -63,9 +64,9 @@ namespace BBS.Services.Repository
 
         }
 
-        public BlobFiles UploadCertificate(string fileContent)
+        public BlobFile UploadCertificate(string fileContent)
         {
-            var blobfile = new BlobFiles();
+            var blobfile = new BlobFile();
             
             string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".html").ToLower();
             blobfile.FileName = systemFileName;
@@ -80,8 +81,16 @@ namespace BBS.Services.Repository
 
             blobfile.ContentType = "text/html";
             blobfile.ImageUrl = blob.Uri.AbsoluteUri;
+            blobfile.PublicPath = GetFilePublicUri(blob.Uri.AbsoluteUri);
+            blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
             
             return blobfile;
+        }
+
+
+        public string GetFileName(string path)
+        {
+            return String.IsNullOrEmpty(path.Trim()) || !path.Contains(".") ? string.Empty : Path.GetFileName(new Uri(path).AbsolutePath);
         }
 
         public async Task<List<string>> DownloadBlob(string downloadFolder)

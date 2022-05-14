@@ -65,21 +65,18 @@ namespace BBS.Interactors
             }
 
 
-            BlobFiles uploadedSignature = _uploadService.UploadFileToBlob(
+            BlobFile uploadedSignature = _uploadService.UploadFileToBlob(
                 digitalShare.Signature, 
                 FileUploadExtensions.IMAGE
             );
-            uploadedSignature.ImageUrl = _uploadService.GetFilePublicUri(uploadedSignature.FileName);
 
-            BlobFiles uploadedHtml = HandleIssuingCertificate(digitalShare, share, uploadedSignature.ImageUrl);
-
-            uploadedHtml.ImageUrl = _uploadService.GetFilePublicUri(uploadedHtml.FileName);
+            BlobFile uploadedHtml = HandleIssuingCertificate(digitalShare, share, uploadedSignature.PublicPath);
 
             var certificateKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper();
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
                 valuesFromToken.UserLoginId,
-                uploadedHtml.ImageUrl,
+                uploadedHtml.FileName,
                 certificateKey
             );
 
@@ -100,7 +97,7 @@ namespace BBS.Interactors
 
         }
 
-        private BlobFiles HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)
+        private BlobFile HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)
         {
             CertificateContent certificate = new CertificateContent
             {
