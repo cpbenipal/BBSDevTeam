@@ -9,7 +9,7 @@ namespace BBS.API.Controllers
     [Route("api/[controller]")]
     public class IssueDigitalShareController : ControllerBase
     {
-        public IssueDigitalSharesInteractor _issueDigitalShareInteractor { get; set; }
+        private readonly IssueDigitalSharesInteractor _issueDigitalShareInteractor;
 
         public IssueDigitalShareController(IssueDigitalSharesInteractor interactor)
         {

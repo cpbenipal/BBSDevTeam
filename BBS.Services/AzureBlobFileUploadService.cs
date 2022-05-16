@@ -3,11 +3,10 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using BBS.Constants;
 using BBS.Services.Contracts;
-using BBS.Utils;
+using CoreHtmlToImage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System.Text;
 
 namespace BBS.Services.Repository
 {
@@ -16,10 +15,10 @@ namespace BBS.Services.Repository
         private readonly CloudStorageAccount _storageAccount;
         private readonly BlobContainerClient blobContainerClient;
       
-        public string _ContainerName { get; set; }
+        public string ContainerName { get; set; }
         public AzureBlobFileUploadService(string connectionString, string containerName, int timeSpan )
         {
-            _ContainerName = containerName;
+            ContainerName = containerName;
             _storageAccount = CloudStorageAccount.Parse(connectionString);
             var blobClientOptions = new BlobClientOptions
             {
@@ -69,26 +68,31 @@ namespace BBS.Services.Repository
         {
             var blobfile = new BlobFile();
             
-            string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".pdf").ToLower();
+            string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".png").ToLower();
             blobfile.FileName = systemFileName;
             var blob = blobContainerClient.GetBlobClient(systemFileName);
+
+            var converter = new HtmlConverter();
+            var content = converter.FromHtmlString(fileContent);
+
             using (var memoryStream = new MemoryStream())
             {
-                byte[] content = new UTF8Encoding(true).GetBytes(fileContent);
                 memoryStream.Write(content, 0, content.Length);
                 memoryStream.Position = 0;
                 blob.Upload(memoryStream, true);
             } 
-            blobfile.ContentType = "application/pdf";
-            blobfile.ImageUrl = GetFilePublicUri(IssueDigitalShareUtils.GetFilenameFromUrl(blob.Uri.AbsoluteUri));
+            blobfile.ContentType = "image/png";
+            blobfile.ImageUrl = blob.Uri.AbsoluteUri;
+            blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
+            blobfile.PublicPath = GetFilePublicUri(GetFileName(blob.Uri.AbsoluteUri));
             
             return blobfile;
         }
 
 
-        public string GetFileName(string path)
+        public static string GetFileName(string path)
         {
-            return String.IsNullOrEmpty(path.Trim()) || !path.Contains(".") ? string.Empty : Path.GetFileName(new Uri(path).AbsolutePath);
+            return String.IsNullOrEmpty(path.Trim()) || !path.Contains('.') ? string.Empty : Path.GetFileName(new Uri(path).AbsolutePath);
         }
 
         public async Task<List<string>> DownloadBlob(string downloadFolder)
@@ -123,16 +127,18 @@ namespace BBS.Services.Repository
         {  
             CloudBlobClient serviceClient = _storageAccount.CreateCloudBlobClient();
 
-            var container = serviceClient.GetContainerReference(_ContainerName);container.CreateIfNotExistsAsync().Wait();
+            var container = serviceClient.GetContainerReference(ContainerName);container.CreateIfNotExistsAsync().Wait();
 
             CloudBlockBlob blob = container.GetBlockBlobReference(fileName);
 
-            SharedAccessBlobPolicy policy = new SharedAccessBlobPolicy();
-            // define the expiration time
-            policy.SharedAccessExpiryTime = DateTime.UtcNow.AddDays(1);
+            SharedAccessBlobPolicy policy = new()
+            {
+                // define the expiration time
+                SharedAccessExpiryTime = DateTime.UtcNow.AddDays(1),
 
-            // define the permission
-            policy.Permissions = SharedAccessBlobPermissions.Read;
+                // define the permission
+                Permissions = SharedAccessBlobPermissions.Read
+            };
 
             // create signature
             string signature = blob.GetSharedAccessSignature(policy);

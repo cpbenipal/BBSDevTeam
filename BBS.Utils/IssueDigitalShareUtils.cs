@@ -29,7 +29,7 @@ namespace BBS.Utils
 
         public static string GetFilenameFromUrl(string url)
         {
-            return String.IsNullOrEmpty(url.Trim()) || !url.Contains(".") ? string.Empty : Path.GetFileName(new Uri(url).AbsolutePath);
+            return String.IsNullOrEmpty(url.Trim()) || !url.Contains('.') ? string.Empty : Path.GetFileName(new Uri(url).AbsolutePath);
         }
     }
 }

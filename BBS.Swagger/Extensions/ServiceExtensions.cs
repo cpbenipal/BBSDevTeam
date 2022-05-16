@@ -113,6 +113,10 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllEmployementTypesInteractor>();
 
 
+            services.AddScoped<GetAllIssuedSharesInteractor>();
+            services.AddScoped<GetIssuedDigitalSharesUtils>();
+
+
             services.AddScoped<GenerateHtmlCertificate>();
 
 

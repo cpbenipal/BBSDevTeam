@@ -59,13 +59,13 @@ namespace BBS.Interactors
             var valuesFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
 
-            if (
-                !ShareIsRegisteredByCurrentUser(valuesFromToken, share) ||
-                IsShareAlreadyIssued(digitalShare)
-            )
-            {
-                throw new Exception();
-            }
+            //if (
+            //    !ShareIsRegisteredByCurrentUser(valuesFromToken, share) ||
+            //    IsShareAlreadyIssued(digitalShare)
+            //)
+            //{
+            //    throw new Exception();
+            //}
 
 
             BlobFile uploadedSignature = _uploadService.UploadFileToBlob(
@@ -83,12 +83,12 @@ namespace BBS.Interactors
                 certificateKey
             );
 
-            _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
+            //_repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
 
 
             var response = new Dictionary<string, string>()
             {
-                ["CertificateImageUrl"] = uploadedHtml.ImageUrl,
+                ["CertificateImageUrl"] = uploadedHtml.PublicPath,
                 ["CertificateKey"] = certificateKey,
             };
 
@@ -102,7 +102,7 @@ namespace BBS.Interactors
 
         private BlobFile HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)
         {
-            CertificateContent certificate = new CertificateContent
+            CertificateContent certificate = new()
             {
                 Side1 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side1.png"),
                 Side2 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side2.png"),
@@ -126,7 +126,7 @@ namespace BBS.Interactors
             );
         }
 
-        private bool ShareIsRegisteredByCurrentUser(TokenValues valuesFromToken, Models.Share share)
+        private static bool ShareIsRegisteredByCurrentUser(TokenValues valuesFromToken, Share share)
         {
             return share != null && share.UserLoginId == valuesFromToken.UserLoginId;
         }

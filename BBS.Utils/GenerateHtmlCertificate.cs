@@ -28,7 +28,7 @@ namespace BBS.Utils
                 "@shareName",
                 certificateContents.NumberOfShares.ToString()
             );
-            string grantTimeAdded = numberOfShareAdded.Replace(
+            string grantTimeAdded = shareNameAdded.Replace(
                 "@grantTime",
                 certificateContents.GrantTime
             );

@@ -21,6 +21,11 @@ namespace BBS.Services.Repository
                 .Where(s => s.ShareId == shareId && s.CompanyId == companyId).ToList();
         }
 
+        public List<IssuedDigitalShare> GetIssuedDigitalSharesForPerson(int userLoginId)
+        {
+            return _repositoryBase.GetAll().Where(s => s.UserLoginId == userLoginId).ToList();
+        }
+
         public IssuedDigitalShare InsertDigitallyIssuedShare(IssuedDigitalShare issuedShare)
         {
             var addedDigitalShare = _repositoryBase.Insert(issuedShare);
