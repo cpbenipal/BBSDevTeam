@@ -1,29 +1,27 @@
 ﻿using BBS.Constants;
-using Microsoft.Extensions.Hosting;
-using System.Text;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BBS.Utils
 {
     public class GenerateHtmlCertificate
     {
-        [Obsolete]
-        private IHostingEnvironment _env;
-
-        [Obsolete]
-        public GenerateHtmlCertificate(IHostingEnvironment env)
+        private readonly IWebHostEnvironment _env;
+        public GenerateHtmlCertificate(IWebHostEnvironment env)
         {
             _env = env;
         }
 
-        [Obsolete]
         public string Execute(CertificateContent certificateContents)
         {
-          
+
             var templateContent = File.ReadAllText(Path.Combine(_env.ContentRootPath, "certificate/" + "index.html"));
 
-            string nameAdded = templateContent.Replace("@Name", certificateContents.Name);
+            string side1added = templateContent.Replace("@Side1", certificateContents.Side1);
+            string side2added = side1added.Replace("@Side2", certificateContents.Side2);
+
+            string nameAdded = side2added.Replace("@Name", certificateContents.Name);
             string numberOfShareAdded = nameAdded.Replace(
-                "@noofshares", 
+                "@noofshares",
                 certificateContents.NumberOfShares.ToString()
             );
             string shareNameAdded = numberOfShareAdded.Replace(
@@ -34,18 +32,14 @@ namespace BBS.Utils
                 "@grantTime",
                 certificateContents.GrantTime
             );
-            string signatureAdded = grantTimeAdded.Replace(
-                "@signature", 
-                certificateContents.Signature
-            );
-            string final = signatureAdded.Replace(
+            string final = grantTimeAdded.Replace(
                 "@companyName",
                 certificateContents.CompanyName.ToString()
             );
+            string signature = final.Replace("@signature", certificateContents.Signature);
 
-            return final;
+            return signature;
         }
+        
     }
-
-
 }

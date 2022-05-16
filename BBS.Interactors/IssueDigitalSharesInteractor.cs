@@ -3,6 +3,7 @@ using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -16,9 +17,10 @@ namespace BBS.Interactors
         private readonly GenerateHtmlCertificate _generateHtmlCertificate;
         private readonly IFileUploadService _uploadService;
         private readonly ILoggerManager _loggerManager;
-
+        private readonly IWebHostEnvironment _IHostEnvironment;
 
         public IssueDigitalSharesInteractor(
+            IWebHostEnvironment IHostEnvironment,
             IRepositoryWrapper repository,
             IApiResponseManager responseManager,
             ITokenManager tokenManager,
@@ -28,6 +30,7 @@ namespace BBS.Interactors
             IFileUploadService uploadService
         )
         {
+            _IHostEnvironment = IHostEnvironment;
             _repository = repository;
             _responseManager = responseManager;
             _tokenManager = tokenManager;
@@ -104,6 +107,8 @@ namespace BBS.Interactors
         {
             CertificateContent certificate = new CertificateContent
             {
+                Side1 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side1.png"),
+                Side2 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side2.png"),
                 CompanyName = digitalShare.CompanyName,
                 Name = digitalShare.FirstName + " " + digitalShare.LastName,
                 NumberOfShares = share.NumberOfShares,

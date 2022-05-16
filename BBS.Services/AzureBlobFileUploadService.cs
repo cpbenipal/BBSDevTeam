@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using BBS.Constants;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -67,7 +68,7 @@ namespace BBS.Services.Repository
         {
             var blobfile = new BlobFiles();
             
-            string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".html").ToLower();
+            string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".pdf").ToLower();
             blobfile.FileName = systemFileName;
             var blob = blobContainerClient.GetBlobClient(systemFileName);
             using (var memoryStream = new MemoryStream())
@@ -76,10 +77,9 @@ namespace BBS.Services.Repository
                 memoryStream.Write(content, 0, content.Length);
                 memoryStream.Position = 0;
                 blob.Upload(memoryStream, true);
-            }
-
-            blobfile.ContentType = "text/html";
-            blobfile.ImageUrl = blob.Uri.AbsoluteUri;
+            } 
+            blobfile.ContentType = "application/pdf";
+            blobfile.ImageUrl = GetFilePublicUri(IssueDigitalShareUtils.GetFilenameFromUrl(blob.Uri.AbsoluteUri));
             
             return blobfile;
         }
