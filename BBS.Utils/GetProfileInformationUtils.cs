@@ -1,10 +1,19 @@
 ﻿using BBS.Dto;
 using BBS.Models;
+using BBS.Services.Contracts;
 
 namespace BBS.Utils
 {
     public class GetProfileInformationUtils
     {
+        private readonly IFileUploadService _fileUploadService;
+
+        public GetProfileInformationUtils(IFileUploadService fileUploadService)
+        {
+            _fileUploadService = fileUploadService;
+        }
+
+
         public UserProfileInformationDto ParseUserProfileFromDifferentObjects(
             Person person,
             Role role,
@@ -41,8 +50,8 @@ namespace BBS.Utils
                 VerificationState = state.Name,
                 Country = country.Name,
                 Nationality = nationality.Name,
-                EmiratesIdPictureFront = attachment?.Front ?? "",
-                EmiratesIdPictureBack = attachment?.Back ?? "",
+                EmiratesIdPictureFront = _fileUploadService.GetFilePublicUri(attachment?.Front!) ?? "",
+                EmiratesIdPictureBack = _fileUploadService.GetFilePublicUri(attachment?.Back!) ?? "",
                 Role = role.Name
             };
         }

@@ -26,7 +26,6 @@ namespace BBS.Interactors
             _responseManager = responseManager;
             _getProfileInformationUtils = getProfileInformationUtils;
             _loggerManager = loggerManager;
-
         }
 
         public GenericApiResponse GetUserProfileInformation(string token)
@@ -49,7 +48,7 @@ namespace BBS.Interactors
             var person = _repositoryWrapper.PersonManager.GetPerson(tokenValues.PersonId);
             var role = _repositoryWrapper.RoleManager.GetRole(tokenValues.RoleId);
 
-            var attachements = _repositoryWrapper
+            var attachment = _repositoryWrapper
                 .PersonalAttachmentManager
                 .GetAttachementByPerson(tokenValues.PersonId);
 
@@ -68,7 +67,7 @@ namespace BBS.Interactors
 
             UserProfileInformationDto userProfileInformation =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    person, role, attachements, nationality, country,state,employementType
+                    person, role, attachment, nationality, country,state,employementType
                 );
 
             return _responseManager.SuccessResponse(

@@ -108,9 +108,9 @@ namespace BBS.Interactors
 
             return new List<string>
             {
-                logo.ImageUrl,
-                shareDocument.ImageUrl,
-                companyDocument.ImageUrl
+                logo.FileName,
+                shareDocument.FileName,
+                companyDocument.FileName
             };
         }
 
@@ -138,13 +138,15 @@ namespace BBS.Interactors
             return true;
         }
 
-        private BlobFiles UploadFileToAzureBlob(IFormFile file, List<string> validExtensions)
+        private BlobFile UploadFileToAzureBlob(IFormFile file, List<string> validExtensions)
         {
             var fileData = _uploadService.UploadFileToBlob(file, validExtensions);
-            var uploadedFileData = new BlobFiles()
+            var uploadedFileData = new BlobFile()
             {
                 ImageUrl = fileData.ImageUrl,
-                ContentType = fileData.ContentType
+                ContentType = fileData.ContentType,
+                FileName = fileData.FileName,
+                PublicPath = fileData.PublicPath,
             };
             return uploadedFileData;
         }
