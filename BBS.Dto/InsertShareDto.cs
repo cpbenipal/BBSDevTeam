@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BBS.Dto
 {
     public class InsertShareDto
-    {
+    { 
         [Required]
         public int CompanyId { get; set; }
 

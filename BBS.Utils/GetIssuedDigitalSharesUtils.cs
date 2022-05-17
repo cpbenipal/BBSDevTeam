@@ -24,7 +24,7 @@ namespace BBS.Utils
                     CertificateKey = digitalShare.CertificateKey,
                     CertificateUrl = _uploadService.GetFilePublicUri(digitalShare.CertificateUrl),
                     CompanyName = digitalShare.CompanyName,
-                    DateOfBirth = digitalShare.DateOfBirth.ToString("YYYY-MM-DD"),
+                    DateOfBirth = digitalShare.DateOfBirth.ToString("yyyy-MM-dd"),
                     FirstName = digitalShare.FirstName,
                     MiddleName = digitalShare.MiddleName,
                     LastName = digitalShare.LastName,

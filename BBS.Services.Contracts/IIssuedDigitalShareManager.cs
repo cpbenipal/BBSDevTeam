@@ -7,5 +7,6 @@ namespace BBS.Services.Contracts
         IssuedDigitalShare InsertDigitallyIssuedShare(IssuedDigitalShare issuedShare);
         List<IssuedDigitalShare> GetIssuedDigitalSharesByShareIdAndCompanyId(int shareId, int companyId);
         List<IssuedDigitalShare> GetIssuedDigitalSharesForPerson(int userLoginId);
+        string GetIssuedDigitalShareCertificateUrl(int issuedDigitalShareId);
     }
 }

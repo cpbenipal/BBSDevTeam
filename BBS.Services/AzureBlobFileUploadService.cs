@@ -54,7 +54,6 @@ namespace BBS.Services.Repository
                 blobfile.ImageUrl = blob.Uri.AbsoluteUri;
                 blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
                 blobfile.PublicPath = GetFilePublicUri(blobfile.FileName);
-                
 
                 return blobfile;
             }

@@ -43,14 +43,14 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                return ErrorStatus();
+                return ErrorStatus(ex.Message);
             }
         }
 
-        private GenericApiResponse ErrorStatus()
+        private GenericApiResponse ErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Error In Registering Share",
+                message,
                 StatusCodes.Status400BadRequest
             );
         }

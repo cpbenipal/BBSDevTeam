@@ -12,6 +12,11 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public string GetIssuedDigitalShareCertificateUrl(int issuedDigitalShareId)
+        {
+            return _repositoryBase.GetAll().Where(s => s.Id == issuedDigitalShareId).Select(s => s.CertificateUrl).FirstOrDefault()!;    
+        }
+
         public List<IssuedDigitalShare> GetIssuedDigitalSharesByShareIdAndCompanyId(
             int shareId, 
             int companyId

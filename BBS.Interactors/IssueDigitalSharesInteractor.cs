@@ -59,13 +59,13 @@ namespace BBS.Interactors
             var valuesFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
 
-            //if (
-            //    !ShareIsRegisteredByCurrentUser(valuesFromToken, share) ||
-            //    IsShareAlreadyIssued(digitalShare)
-            //)
-            //{
-            //    throw new Exception();
-            //}
+            if (
+                !ShareIsRegisteredByCurrentUser(valuesFromToken, share) ||
+                IsShareAlreadyIssued(digitalShare)
+            )
+            {
+                throw new Exception();
+            }
 
 
             BlobFile uploadedSignature = _uploadService.UploadFileToBlob(
@@ -83,7 +83,7 @@ namespace BBS.Interactors
                 certificateKey
             );
 
-            //_repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
+            _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
 
 
             var response = new Dictionary<string, string>()

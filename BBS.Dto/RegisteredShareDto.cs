@@ -4,6 +4,7 @@ namespace BBS.Dto
 {
     public class RegisteredShareDto
     {
+        public int Id { get; set; }
         public string BusinessLogo { get; set; }
         public string ShareOwnerShipDocument { get; set; }
         public string CompanyInformationDocument { get; set; }

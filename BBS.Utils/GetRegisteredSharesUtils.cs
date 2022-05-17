@@ -36,6 +36,7 @@ namespace BBS.Utils
 
             var registeredShare = new RegisteredShareDto
             {
+                Id = share.Id,
                 BusinessLogo = _uploadService.GetFilePublicUri(share.BusinessLogo!),
                 FirstName = share.FirstName,
                 LastName = share.LastName,
