@@ -25,5 +25,10 @@ namespace BBS.Models
         [ForeignKey("OfferTypeId")]
         public int OfferTypeId { get; set; }
         public OfferType? OfferType { get; set; }
+
+        [Required]
+        [ForeignKey("UserLoginId")]
+        public int UserLoginId { get; set; }
+        public UserLogin? UserLogin { get; set; }
     }
 }

@@ -117,6 +117,9 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllIssuedSharesInteractor>();
             services.AddScoped<GetIssuedDigitalSharesUtils>();
 
+            services.AddScoped<OfferShareInteractor>();
+            services.AddScoped<GetAllOfferedSharesInteractor>();
+            services.AddScoped<GetAllOfferedSharesUtils>();
 
             services.AddScoped<GenerateHtmlCertificate>();
 

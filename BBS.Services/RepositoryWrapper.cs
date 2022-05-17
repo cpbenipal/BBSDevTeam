@@ -252,5 +252,33 @@ namespace BBS.Services.Repository
                 return _state;
             }
         }
+
+        private IOfferTypeManager _offerType;
+        public IOfferTypeManager OfferTypeManager
+        {
+            get
+            {
+                if (_offerType == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferType>(_repoContext);
+                    _offerType = new OfferTypeManager(repositoryBase);
+                }
+                return _offerType;
+            }
+        }
+
+        private IOfferedShareManager _offeredShare;
+        public IOfferedShareManager OfferedShareManager
+        {
+            get
+            {
+                if (_offeredShare == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferedShare>(_repoContext);
+                    _offeredShare = new OfferedShareManager(repositoryBase);
+                }
+                return _offeredShare;
+            }
+        }
     }
 }

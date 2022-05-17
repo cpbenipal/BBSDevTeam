@@ -32,9 +32,15 @@ namespace BBS.Swagger
             CreateMap<IssueDigitalShareDto, IssuedDigitalShare>();
             CreateMap<IssuedDigitalShare, IssueDigitalShareDto>();
 
-
             CreateMap<GetDigitalSharesItemDto, IssuedDigitalShare>();
             CreateMap<IssuedDigitalShare, GetDigitalSharesItemDto>();
+
+            CreateMap<OfferShareDto, OfferedShare>();
+            CreateMap<OfferedShare, OfferShareDto>();
+
+            CreateMap<GetOfferedSharesItemDto, OfferedShare>();
+            CreateMap<OfferedShare, GetOfferedSharesItemDto>();
         }
+
     }
 }

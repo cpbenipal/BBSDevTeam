@@ -10,7 +10,6 @@ namespace BBS.Interactors
     public class RegisterShareInteractor
     {
         private readonly IRepositoryWrapper _repository;
-        private readonly RegisterShareUtils _registerShareUtils;
         private readonly IFileUploadService _uploadService;
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
@@ -18,7 +17,6 @@ namespace BBS.Interactors
 
         public RegisterShareInteractor(
             IRepositoryWrapper repository,
-            RegisterShareUtils registerShareUtils,
             IFileUploadService uploadService,
             ITokenManager tokenManager,
             IApiResponseManager responseManager, 
@@ -26,7 +24,6 @@ namespace BBS.Interactors
         )
         {
             _repository = repository;
-            _registerShareUtils = registerShareUtils;
             _uploadService = uploadService;
             _tokenManager = tokenManager;
             _responseManager = responseManager;

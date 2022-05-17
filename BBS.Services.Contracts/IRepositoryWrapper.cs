@@ -19,5 +19,7 @@
         public IEmployementTypeManager EmployementTypeManager { get; }
         public ICompanyManager CompanyManager { get; }
         public IStateManager StateManager { get; }
+        public IOfferTypeManager OfferTypeManager { get; }
+        public IOfferedShareManager OfferedShareManager { get; }
     }
 }
