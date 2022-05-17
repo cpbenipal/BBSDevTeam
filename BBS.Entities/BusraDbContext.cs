@@ -42,10 +42,15 @@ namespace BBS.Entities
         public virtual DbSet<State> States { get; set; }
 
 
+
+
         // Issuing Shares
         public virtual DbSet<IssuedDigitalShare> IssuedDigitalShares { get; set; }
 
 
+        // Offer Share
+        public virtual DbSet<OfferedShare> OfferedShares { get; set; }
+        public virtual DbSet<OfferType> OfferTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -118,6 +123,11 @@ namespace BBS.Entities
                   new StorageLocation { Id = 3, Name = "Google " },
                   new StorageLocation { Id = 4, Name = "iCloud" },
                   new StorageLocation { Id = 5, Name = "My Desktop" }
+            );
+
+            modelBuilder.Entity<OfferType>().HasData(
+                  new OfferType { Id = 1, Name = "Auction" },
+                  new OfferType { Id = 2, Name = "Private" }
             );
 
             OnModelCreatingPartial(modelBuilder);
