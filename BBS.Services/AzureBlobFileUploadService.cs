@@ -53,7 +53,7 @@ namespace BBS.Services.Repository
                 blobfile.ContentType = item.ContentType;
                 blobfile.ImageUrl = blob.Uri.AbsoluteUri;
                 blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
-                blobfile.PublicPath = GetFilePublicUri(blobfile.FileName);
+                blobfile.PublicPath = GetFilePublicUri(blob.Uri.AbsoluteUri);
 
                 return blobfile;
             }
@@ -84,7 +84,7 @@ namespace BBS.Services.Repository
             blobfile.ContentType = "image/png";
             blobfile.ImageUrl = blob.Uri.AbsoluteUri;
             blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
-            blobfile.PublicPath = GetFilePublicUri(GetFileName(blob.Uri.AbsoluteUri));
+            blobfile.PublicPath = GetFilePublicUri(blob.Uri.AbsoluteUri);
             
             return blobfile;
         }
@@ -125,6 +125,7 @@ namespace BBS.Services.Repository
 
         public string GetFilePublicUri(string fileName)
         {  
+            fileName = GetFileName(fileName);   
             CloudBlobClient serviceClient = _storageAccount.CreateCloudBlobClient();
 
             var container = serviceClient.GetContainerReference(ContainerName);container.CreateIfNotExistsAsync().Wait();

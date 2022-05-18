@@ -30,6 +30,7 @@ namespace BBS.Utils
                     LastName = digitalShare.LastName,
                     IsCertified = digitalShare.IsCertified,
                     ShareId = digitalShare.ShareId,
+                    NumberOfShares = digitalShare.NumberOfShares
                 };
 
                 result.Add(getDigitalSharesItemDto);

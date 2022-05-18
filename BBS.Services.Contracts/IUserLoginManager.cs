@@ -9,5 +9,6 @@ namespace BBS.Services.Contracts
         bool IsUserExists(string UserName);
         UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto, int id);
         string UpdatePassCode(int userLoginId);
+        UserLogin GetUserById(int Id);
     }
 }

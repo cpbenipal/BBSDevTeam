@@ -45,6 +45,7 @@ namespace BBS.Interactors
         {
             var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
 
+            //var user = _repositoryWrapper.UserLoginManager.GetUserById(tokenValues.UserLoginId);
             var person = _repositoryWrapper.PersonManager.GetPerson(tokenValues.PersonId);
             var role = _repositoryWrapper.RoleManager.GetRole(tokenValues.RoleId);
 
@@ -67,7 +68,7 @@ namespace BBS.Interactors
 
             UserProfileInformationDto userProfileInformation =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    person, role, attachment, nationality, country,state,employementType
+                    person, role, attachment, nationality, country,state,employementType, tokenValues.UserLoginId
                 );
 
             return _responseManager.SuccessResponse(

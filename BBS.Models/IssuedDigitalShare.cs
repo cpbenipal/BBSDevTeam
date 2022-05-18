@@ -30,7 +30,9 @@ namespace BBS.Models
         
         [Required, MaxLength(50)]
         public string CompanyName { get; set; }
-        
+        [Required]
+        public int NumberOfShares { get; set; }
+
         [Required]
         public bool IsCertified { get; set; }
 

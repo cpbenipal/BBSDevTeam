@@ -21,7 +21,10 @@ namespace BBS.Services.Repository
             var encryptedText = _hashManager.EncryptPlainText(loginUserDto.Passcode);
             return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText && x.PersonId == Id);
         }
-
+        public UserLogin GetUserById(int Id)
+        {
+            return _repositoryBase.GetById(Id);
+        }
         public UserLogin InsertUserLogin(UserLogin userLogin)
         {
             var addedUserLogin = _repositoryBase.Insert(userLogin);

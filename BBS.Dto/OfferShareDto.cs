@@ -19,4 +19,10 @@ namespace BBS.Dto
         [Required]
         public int OfferTimeLimitInWeeks { get; set; }
     }
+    public class OfferType
+    {        
+        public int Id { get; set; }
+        
+        public string Name { get; set; }
+    }
 }

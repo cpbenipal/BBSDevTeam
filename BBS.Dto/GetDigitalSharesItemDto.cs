@@ -9,6 +9,7 @@
         public string MiddleName { get; set; }
         public string DateOfBirth { get; set; }
         public string CompanyName { get; set; }
+        public int NumberOfShares { get; set; }
         public bool IsCertified { get; set; }
         public string CertificateUrl { get; set; }
         public string CertificateKey { get; set; }

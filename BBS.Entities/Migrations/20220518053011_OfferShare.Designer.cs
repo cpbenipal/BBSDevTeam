@@ -3,6 +3,7 @@ using System;
 using BBS.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    partial class BusraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220518053011_OfferShare")]
+    partial class OfferShare
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -320,9 +322,6 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
-
-                    b.Property<int>("NumberOfShares")
-                        .HasColumnType("integer");
 
                     b.Property<int>("ShareId")
                         .HasColumnType("integer");

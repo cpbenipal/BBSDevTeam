@@ -21,7 +21,8 @@ namespace BBS.Utils
             Nationality nationality,
             Country country,
             State state,
-            EmployementType employementType
+            EmployementType employementType,
+            int UserLoginId
         )
         {
             return new UserProfileInformationDto
@@ -52,7 +53,9 @@ namespace BBS.Utils
                 Nationality = nationality.Name,
                 EmiratesIdPictureFront = _fileUploadService.GetFilePublicUri(attachment?.Front!) ?? "",
                 EmiratesIdPictureBack = _fileUploadService.GetFilePublicUri(attachment?.Back!) ?? "",
-                Role = role.Name
+                Role = role.Name,
+                PersonId = person.Id,
+                Id = UserLoginId
             };
         }
     }

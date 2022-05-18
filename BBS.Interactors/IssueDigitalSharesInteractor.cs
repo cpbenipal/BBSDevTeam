@@ -79,7 +79,7 @@ namespace BBS.Interactors
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
                 valuesFromToken.UserLoginId,
-                uploadedHtml.FileName,
+                uploadedHtml.ImageUrl,
                 certificateKey
             );
 

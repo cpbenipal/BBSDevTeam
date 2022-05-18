@@ -105,9 +105,9 @@ namespace BBS.Interactors
 
             return new List<string>
             {
-                logo.FileName,
-                shareDocument.FileName,
-                companyDocument.FileName
+                logo.ImageUrl,
+                shareDocument.ImageUrl,
+                companyDocument.ImageUrl
             };
         }
 

@@ -129,8 +129,8 @@ namespace BBS.Interactors
             var personalAttachment = new Attachment();
             var uploadedFile = UploadFilesToAzureBlob(attachments);
 
-            personalAttachment.Front = uploadedFile[0].FileName;
-            personalAttachment.Back = uploadedFile[1].FileName;
+            personalAttachment.Front = uploadedFile[0].ImageUrl;
+            personalAttachment.Back = uploadedFile[1].ImageUrl;
             personalAttachment.ContentType = uploadedFile[0].ContentType;
             personalAttachment.PersonId = personId;
 

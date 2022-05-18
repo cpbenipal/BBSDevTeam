@@ -23,6 +23,7 @@ namespace BBS.API.Controllers
             var token = HttpContext.Request.Headers["Authorization"];
             var response = _offerShareInteractor.InsertOfferedShares(share, token);
             return Ok(response);
-        }
+        } 
+       
     }
 }
