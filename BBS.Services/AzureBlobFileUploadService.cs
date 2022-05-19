@@ -14,9 +14,9 @@ namespace BBS.Services.Repository
     {
         private readonly CloudStorageAccount _storageAccount;
         private readonly BlobContainerClient blobContainerClient;
-      
+
         public string ContainerName { get; set; }
-        public AzureBlobFileUploadService(string connectionString, string containerName, int timeSpan )
+        public AzureBlobFileUploadService(string connectionString, string containerName, int timeSpan)
         {
             ContainerName = containerName;
             _storageAccount = CloudStorageAccount.Parse(connectionString);
@@ -38,10 +38,10 @@ namespace BBS.Services.Repository
         {
             var blobfile = new BlobFile();
             var extension = Path.GetExtension(item.FileName);
-            if(validFileExtensions.Contains(extension))
+            if (validFileExtensions.Contains(extension))
             {
                 string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + extension).ToLower();
-                blobfile.FileName=systemFileName;
+                blobfile.FileName = systemFileName;
                 var blob = blobContainerClient.GetBlobClient(systemFileName);
                 using (var memoryStream = new MemoryStream())
                 {
@@ -67,7 +67,7 @@ namespace BBS.Services.Repository
         public BlobFile UploadCertificate(string fileContent)
         {
             var blobfile = new BlobFile();
-            
+
             string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + ".png").ToLower();
             blobfile.FileName = systemFileName;
             var blob = blobContainerClient.GetBlobClient(systemFileName);
@@ -80,12 +80,12 @@ namespace BBS.Services.Repository
                 memoryStream.Write(content, 0, content.Length);
                 memoryStream.Position = 0;
                 blob.Upload(memoryStream, true);
-            } 
+            }
             blobfile.ContentType = "image/png";
             blobfile.ImageUrl = blob.Uri.AbsoluteUri;
             blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
             blobfile.PublicPath = GetFilePublicUri(blob.Uri.AbsoluteUri);
-            
+
             return blobfile;
         }
 
@@ -124,11 +124,11 @@ namespace BBS.Services.Repository
         }
 
         public string GetFilePublicUri(string fileName)
-        {  
-            fileName = GetFileName(fileName);   
+        {
+            fileName = GetFileName(fileName);
             CloudBlobClient serviceClient = _storageAccount.CreateCloudBlobClient();
 
-            var container = serviceClient.GetContainerReference(ContainerName);container.CreateIfNotExistsAsync().Wait();
+            var container = serviceClient.GetContainerReference(ContainerName); container.CreateIfNotExistsAsync().Wait();
 
             CloudBlockBlob blob = container.GetBlockBlobReference(fileName);
 

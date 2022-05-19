@@ -52,8 +52,10 @@ namespace BBS.Utils
                 HaveTraining = registerUserDto.Experience.HaveTraining,
                 HaveExperience = registerUserDto.Experience.HaveExperience,
 
-                VaultNumber = registerUserDto.PersonalInfo.VerificationState == 2 ? GenerateVaultNumber(12) : String.Empty,
-                IBANNumber = registerUserDto.PersonalInfo.VerificationState == 2 ? GenerateIBANNumber(21) : String.Empty
+                VaultNumber = registerUserDto.PersonalInfo.VerificationState == 2 
+                    ? GenerateVaultNumber(12) : String.Empty,
+                IBANNumber = registerUserDto.PersonalInfo.VerificationState == 2 
+                    ? GenerateIBANNumber(21) : String.Empty            
             };
 
             return person;

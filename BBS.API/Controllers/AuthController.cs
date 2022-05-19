@@ -2,7 +2,7 @@ using BBS.Dto;
 using BBS.Interactors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BBS.API.Controllers 
+namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

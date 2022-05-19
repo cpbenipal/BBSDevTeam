@@ -36,6 +36,13 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetAll().FirstOrDefault(x=> x.Email == emailOrPhone || x.PhoneNumber == emailOrPhone);
         }
+
+        public Person UpdatePerson(Person person)
+        {
+            _repositoryBase.Update(person);
+            _repositoryBase.Save();
+            return person;
+        }
     }
 }
  

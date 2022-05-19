@@ -21,7 +21,7 @@ namespace BBS.Services.Repository
             var encryptedText = _hashManager.EncryptPlainText(loginUserDto.Passcode);
             return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText && x.PersonId == Id);
         }
-        public UserLogin GetUserById(int Id)
+        public UserLogin GetUserLoginById(int Id)
         {
             return _repositoryBase.GetById(Id);
         }
@@ -49,6 +49,12 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
 
             return newPasscode;
+        }
+        public UserLogin UpdateUserLogin(UserLogin userLogin)
+        {
+            _repositoryBase.Update(userLogin);
+            _repositoryBase.Save();
+            return userLogin;
         }
     }
 }

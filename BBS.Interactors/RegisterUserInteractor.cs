@@ -118,11 +118,6 @@ namespace BBS.Interactors
             );
         }
 
-        private static bool IsRegistrationVerified(Person createdPerson)
-        {
-            return createdPerson.VerificationState == 2;
-        }
-
         private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
         {
 

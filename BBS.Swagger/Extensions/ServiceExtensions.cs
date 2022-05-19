@@ -112,6 +112,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllCompaniesInteractor>();
             services.AddScoped<GetAllEmployementTypesInteractor>();
             services.AddScoped<GetIssuedDigitalCertificateInteractor>();
+            services.AddScoped<RefreshTokenInteractor>();
 
 
             services.AddScoped<GetAllIssuedSharesInteractor>();

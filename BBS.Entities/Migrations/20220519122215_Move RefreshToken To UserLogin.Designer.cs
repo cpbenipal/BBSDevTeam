@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220513083854_Add Certificate Key To Share")]
-    partial class AddCertificateKeyToShare
+    [Migration("20220519122215_Move RefreshToken To UserLogin")]
+    partial class MoveRefreshTokenToUserLogin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -302,8 +302,7 @@ namespace BBS.Entities.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime?>("DateOfBirth")
-                        .IsRequired()
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
@@ -323,6 +322,9 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<int>("NumberOfShares")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ShareId")
                         .HasColumnType("integer");
@@ -364,6 +366,72 @@ namespace BBS.Entities.Migrations
                         {
                             Id = 2,
                             Name = "Emirati"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferedShare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IssuedDigitalShareId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("OfferPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("OfferTimeLimitInWeeks")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OfferTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IssuedDigitalShareId");
+
+                    b.HasIndex("OfferTypeId");
+
+                    b.HasIndex("UserLoginId");
+
+                    b.ToTable("OfferedShares");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OfferTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Auction"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Private"
                         });
                 });
 
@@ -748,6 +816,10 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Username")
                         .HasColumnType("text");
 
@@ -817,6 +889,33 @@ namespace BBS.Entities.Migrations
                         .HasForeignKey("UserLoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("UserLogin");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferedShare", b =>
+                {
+                    b.HasOne("BBS.Models.IssuedDigitalShare", "IssuedDigitalShare")
+                        .WithMany()
+                        .HasForeignKey("IssuedDigitalShareId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.OfferType", "OfferType")
+                        .WithMany()
+                        .HasForeignKey("OfferTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
+                        .WithMany()
+                        .HasForeignKey("UserLoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IssuedDigitalShare");
+
+                    b.Navigation("OfferType");
 
                     b.Navigation("UserLogin");
                 });

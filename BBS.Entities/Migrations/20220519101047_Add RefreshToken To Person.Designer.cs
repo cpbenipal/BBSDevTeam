@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220510091740_Add Missing Attributes")]
-    partial class AddMissingAttributes
+    [Migration("20220519101047_Add RefreshToken To Person")]
+    partial class AddRefreshTokenToPerson
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -286,6 +286,10 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CertificateKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CertificateUrl")
                         .IsRequired()
                         .HasColumnType("text");
@@ -298,8 +302,7 @@ namespace BBS.Entities.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime?>("DateOfBirth")
-                        .IsRequired()
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
@@ -319,6 +322,9 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<int>("NumberOfShares")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ShareId")
                         .HasColumnType("integer");
@@ -363,6 +369,72 @@ namespace BBS.Entities.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BBS.Models.OfferedShare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IssuedDigitalShareId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("OfferPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("OfferTimeLimitInWeeks")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OfferTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IssuedDigitalShareId");
+
+                    b.HasIndex("OfferTypeId");
+
+                    b.HasIndex("UserLoginId");
+
+                    b.ToTable("OfferedShares");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OfferTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Auction"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Private"
+                        });
+                });
+
             modelBuilder.Entity("BBS.Models.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -393,8 +465,7 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("DateOfBirth")
-                        .IsRequired()
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateOfEmployement")
@@ -473,6 +544,10 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RefreshToken")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -814,6 +889,33 @@ namespace BBS.Entities.Migrations
                         .HasForeignKey("UserLoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("UserLogin");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferedShare", b =>
+                {
+                    b.HasOne("BBS.Models.IssuedDigitalShare", "IssuedDigitalShare")
+                        .WithMany()
+                        .HasForeignKey("IssuedDigitalShareId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.OfferType", "OfferType")
+                        .WithMany()
+                        .HasForeignKey("OfferTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
+                        .WithMany()
+                        .HasForeignKey("UserLoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IssuedDigitalShare");
+
+                    b.Navigation("OfferType");
 
                     b.Navigation("UserLogin");
                 });

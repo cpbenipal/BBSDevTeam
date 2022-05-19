@@ -100,6 +100,5 @@ namespace BBS.Models
         
         [Required]
         public int VerificationState { get; set; }
-
     }
 }

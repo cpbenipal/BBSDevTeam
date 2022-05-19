@@ -4,23 +4,23 @@
 
 namespace BBS.Entities.Migrations
 {
-    public partial class NoofShareParameter : Migration
+    public partial class AddRefreshTokenToPerson : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "NumberOfShares",
-                table: "IssuedDigitalShares",
-                type: "integer",
+            migrationBuilder.AddColumn<string>(
+                name: "RefreshToken",
+                table: "Person",
+                type: "text",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: "");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "NumberOfShares",
-                table: "IssuedDigitalShares");
+                name: "RefreshToken",
+                table: "Person");
         }
     }
 }

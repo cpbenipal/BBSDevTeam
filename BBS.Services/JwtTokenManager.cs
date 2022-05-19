@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BBS.Services.Repository
@@ -27,12 +28,15 @@ namespace BBS.Services.Repository
                 new Claim("RoleId",roleId),
             };
 
+            var tokenExpiryTime = double.Parse(_configuration["AppSettings:TokenExpirationTimeInMinutes"]);
+
             var token = new JwtSecurityToken(null,
               null,
               claims,
-              expires: DateTime.Now.AddMinutes(120),
+              expires: DateTime.Now.AddMinutes(tokenExpiryTime),
               signingCredentials: credentials
             );
+
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
@@ -74,6 +78,63 @@ namespace BBS.Services.Repository
                 var securityToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
                 var claimValue = securityToken.Claims.FirstOrDefault(c => c.Type == claimName)?.Value;
                 return claimValue ?? string.Empty;            
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber).Replace(" ", "+");
+        }
+
+        public List<string> RefreshToken(string accessToken, string refreshToken)
+        {
+            if (accessToken is null || refreshToken is null)
+            {
+                throw new Exception("Invalid Operation");
+            }
+
+            var principal = GetPrincipalFromExpiredToken(accessToken);
+            if (principal == null)
+            {
+                throw new Exception("Invalid access token or refresh token");
+            }
+
+            var claims = principal.Claims.ToList();
+
+            var newAccessToken = GenerateToken(
+                claims[0].Value,
+                claims[1].Value,
+                claims[2].Value
+            );
+            var newRefreshToken = GenerateRefreshToken();
+
+            return new List<string>
+            {
+                newAccessToken,
+                newRefreshToken
+            };
+        }
+
+        public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:Secret"])),
+                ValidateLifetime = false
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Invalid token");
+
+            return principal;
+
         }
     }
 }

@@ -49,11 +49,22 @@ namespace BBS.Interactors
                     userRole!.RoleId.ToString(),
                     userLogin.Id.ToString()
                 );
+                var refreshToken = _tokenManager.GenerateRefreshToken();
+
+                userLogin.RefreshToken = refreshToken;
+
+                _repository.UserLoginManager.UpdateUserLogin(userLogin);
+
+                var response = new Dictionary<string, string>()
+                {
+                    ["AccessToken"] = generatedToken,
+                    ["RefreshToken"] = refreshToken,
+                };
 
                 return _responseManager.SuccessResponse(
                     "User Login Successful!. Please continue..",
                     StatusCodes.Status202Accepted,
-                    generatedToken
+                    response
                 );
             }
             else
