@@ -17,8 +17,6 @@ namespace BBS.Models
         [ForeignKey("PersonId")]
         public int PersonId { get; set; }
         public Person? Person { get; set; }
-
-        [Required]
-        public string RefreshToken { get; set; }
+        public string? RefreshToken { get; set; }
     }
 }

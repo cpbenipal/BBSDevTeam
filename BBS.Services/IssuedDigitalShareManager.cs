@@ -18,12 +18,12 @@ namespace BBS.Services.Repository
         }
 
         public List<IssuedDigitalShare> GetIssuedDigitalSharesByShareIdAndCompanyId(
-            int shareId, 
-            int companyId
+            int shareId,
+             string companyName
         )
         {
             return _repositoryBase.GetAll()
-                .Where(s => s.ShareId == shareId && s.CompanyId == companyId).ToList();
+                .Where(s => s.ShareId == shareId && s.CompanyName == companyName).ToList();
         }
 
         public List<IssuedDigitalShare> GetIssuedDigitalSharesForPerson(int userLoginId)

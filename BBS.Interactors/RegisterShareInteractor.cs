@@ -55,7 +55,7 @@ namespace BBS.Interactors
         private GenericApiResponse TryRegisteringShare(RegisterShareDto registerShareDto, string token)
         {
             var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
-            var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyId);
+            var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
             if (duplicates)
             {
                 throw new Exception("Share Already Registered");
@@ -122,10 +122,10 @@ namespace BBS.Interactors
             }
         }
 
-        private bool CheckDuplicateShares(int userLoginId, int companyId)
+        private bool CheckDuplicateShares(int userLoginId, string company)
         {
             var duplicates = _repository.ShareManager.GetSharesByUserLoginAndCompanyId(
-                 userLoginId, companyId
+                 userLoginId, company
             );
 
             if (duplicates.Count == 0)

@@ -50,7 +50,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't Issue Digital Share");
             }
         }
 
@@ -59,17 +59,18 @@ namespace BBS.Interactors
             var valuesFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
 
-            if (
-                !ShareIsRegisteredByCurrentUser(valuesFromToken, share) ||
-                IsShareAlreadyIssued(digitalShare)
-            )
+            if (!ShareIsRegisteredByCurrentUser(valuesFromToken.UserLoginId))
             {
-                throw new Exception();
+                return ReturnErrorStatus("Digital Share already Issued by user");
+            }
+            else if (IsShareAlreadyIssued(digitalShare))
+            {
+                return ReturnErrorStatus("This Digital Share already Issued for same company");
             }
 
 
             BlobFile uploadedSignature = _uploadService.UploadFileToBlob(
-                digitalShare.Signature, 
+                digitalShare.Signature,
                 FileUploadExtensions.IMAGE
             );
 
@@ -118,26 +119,31 @@ namespace BBS.Interactors
             return uploadedFile;
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string s)
         {
-            return _responseManager.ErrorResponse(
-                "Couldn't Issue Digital Share", 
+            return _responseManager.ErrorResponse(s
+                ,
                 StatusCodes.Status400BadRequest
             );
         }
 
-        private static bool ShareIsRegisteredByCurrentUser(TokenValues valuesFromToken, Share share)
+        //private static bool ShareIsRegisteredByCurrentUser(TokenValues valuesFromToken, Share share)
+        //{
+        //    return share != null && share.UserLoginId == valuesFromToken.UserLoginId;
+        //}
+        private bool ShareIsRegisteredByCurrentUser(int UserLoginId)
         {
-            return share != null && share.UserLoginId == valuesFromToken.UserLoginId;
+            var duplicate = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(UserLoginId);
+            return duplicate.Count != 0;
         }
-
         private bool IsShareAlreadyIssued(IssueDigitalShareDto share)
         {
             var duplicate = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesByShareIdAndCompanyId(
                 share.ShareId,
-                share.CompanyId
+                share.CompanyName
             );
             return duplicate.Count != 0;
         }
+
     }
 }

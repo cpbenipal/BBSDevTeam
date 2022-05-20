@@ -11,7 +11,7 @@ namespace BBS.Utils
         {
             Share share = new()
             {
-                CompanyId = registerShareDto.ShareInformation.CompanyId,
+               // CompanyId = registerShareDto.ShareInformation.CompanyId,
                 CompanyName = registerShareDto.ShareInformation.CompanyName,
                 SharePrice = registerShareDto.ShareInformation.SharePrice,
                 StorageLocationId = registerShareDto.ShareInformation.StorageLocationId,

@@ -24,9 +24,6 @@ namespace BBS.Dto
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
-        [Required]
-        public int CompanyId { get; set; }
-
         [Required, MaxLength(50)]
         public string CompanyName { get; set; }
         [Required]

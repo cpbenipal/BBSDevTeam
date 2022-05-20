@@ -22,9 +22,9 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetById(id);
         }
 
-        public List<Share> GetSharesByUserLoginAndCompanyId(int userLoginId, int companyId)
+        public List<Share> GetSharesByUserLoginAndCompanyId(int userLoginId, string company)
         {
-            return GetAllSharesForUser(userLoginId).Where(s => s.CompanyId == companyId).ToList();
+            return GetAllSharesForUser(userLoginId).Where(s => s.CompanyName == company).ToList();
         }
 
         public Share InsertShare(Share share)
