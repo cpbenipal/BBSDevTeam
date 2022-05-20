@@ -110,7 +110,7 @@ namespace BBS.Interactors
                 createdPerson.Id
             );
 
-            SendEmailToAdminAboutRegisteredUser(registerUserDto,createdPerson);
+            SendEmailToAdminAboutRegisteredUser(registerUserDto);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -124,11 +124,11 @@ namespace BBS.Interactors
             );
         }
 
-        private void SendEmailToAdminAboutRegisteredUser(RegisterUserDto registerUserDto,Person createdPerson)
+        private void SendEmailToAdminAboutRegisteredUser(RegisterUserDto registerUserDto)
         {
             var recieverEmail = "nahomhab2626@gmail.com";
-            var subject = "Notifying Registration of " + createdPerson.FirstName + " " + createdPerson.LastName;
-            var message = "";
+            var subject = "Notifying Registration of " + registerUserDto.Person.FirstName + " " + registerUserDto.Person.LastName;
+            var message = "This is the message";
 
 
             var companyDocument = registerUserDto.Attachments.FirstOrDefault();
@@ -158,7 +158,7 @@ namespace BBS.Interactors
         }
 
 
-        private string ReadFormFileAndGetContent(IFormFile file)
+        private static string ReadFormFileAndGetContent(IFormFile file)
         {
             using (var ms = new MemoryStream())
             {
@@ -230,7 +230,8 @@ namespace BBS.Interactors
                 PasswordHash = hashed[0],
                 PasswordSalt = hashed[1],
                 PersonId = personId,
-                Passcode = _hashManager.EncryptPlainText(userLogin.Passcode)
+                Passcode = _hashManager.EncryptPlainText(userLogin.Passcode),
+                RefreshToken = ""
             };
 
             var createdUserLoginProfile = _repository
