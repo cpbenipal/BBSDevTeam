@@ -39,32 +39,41 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Error In Inserting Offered Share");
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string s)
         {
             return _responseManager.ErrorResponse(
-                "Error In Inserting Offered Share", 
+               s , 
                 StatusCodes.Status500InternalServerError
             );
         }
 
         private GenericApiResponse TryInsertingOfferedShare(OfferShareDto offerShareDto, string token)
         {
-            var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
+            var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);            
 
-            var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
-            offeredShareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
-    
-            _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
+            var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
 
-            return _responseManager.SuccessResponse(
-                "Successfull",
-                StatusCodes.Status200OK,
-                1
-            );
+            if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId)))
+            {
+                _loggerManager.LogInfo("This Digital Share already Offered");
+                return ReturnErrorStatus("This Digital Share already Offered");
+            }
+            else
+            {
+                var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
+                offeredShareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
+                _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
+
+                return _responseManager.SuccessResponse(
+                    "Successfull",
+                    StatusCodes.Status200OK,
+                    1
+                );
+            }
         }
         
     }
