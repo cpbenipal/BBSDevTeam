@@ -18,16 +18,20 @@ namespace BBS.Services.Repository
         public async Task SendEmailAsync(
             string email,
             string subject,
-            string message)
+            string message,
+            List<Attachment>? attachments = null
+        )
         {
-            await Execute(Options.ApiKey, subject, message, email);
+            await Execute(Options.ApiKey, subject, message, email, attachments);
         }
 
         private async Task<Response> Execute(
             string apiKey,
             string subject,
             string message,
-            string email)
+            string email,
+            List<Attachment>? attachments = null
+        )
         {
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
@@ -35,8 +39,8 @@ namespace BBS.Services.Repository
                 From = new EmailAddress(Options.SenderEmail, Options.SenderName),
                 Subject = subject,
                 PlainTextContent = message,
-                HtmlContent = message
-                
+                HtmlContent = message,
+                Attachments = attachments ?? new List<Attachment>()
             };
 
             msg.AddTo(new EmailAddress(email));

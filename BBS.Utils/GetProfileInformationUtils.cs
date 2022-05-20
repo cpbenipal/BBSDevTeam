@@ -17,7 +17,7 @@ namespace BBS.Utils
         public UserProfileInformationDto ParseUserProfileFromDifferentObjects(
             Person person,
             Role role,
-            Attachment? attachment,
+            PersonalAttachment? attachment,
             Nationality nationality,
             Country country,
             State state,

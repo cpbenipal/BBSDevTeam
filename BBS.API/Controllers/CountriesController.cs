@@ -15,9 +15,9 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCountries()
+        public IActionResult GetAllCountries([FromQuery] string? keyword)
         {
-            return Ok(_getAllCountriesInteractor.GetAllCountries());
+            return Ok(_getAllCountriesInteractor.GetAllCountries(keyword));
         }
     }
 }

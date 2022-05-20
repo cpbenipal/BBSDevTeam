@@ -28,7 +28,7 @@ namespace BBS.Entities
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
-        public virtual DbSet<Attachment> PersonalAttachments { get; set; }
+        public virtual DbSet<PersonalAttachment> PersonalAttachments { get; set; }
         public virtual DbSet<EmployementType> EmployementTypes { get; set; }
 
         // Register Share

@@ -6,6 +6,7 @@ using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using BBS.Constants;
 using BBS.CustomExceptions;
+using SendGrid.Helpers.Mail;
 
 namespace BBS.Interactors
 {
@@ -17,6 +18,7 @@ namespace BBS.Interactors
         private readonly IFileUploadService _uploadService;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
+        private readonly IEmailSender _emailSender;
 
         public RegisterUserInteractor(
             IRepositoryWrapper repository,
@@ -24,7 +26,8 @@ namespace BBS.Interactors
             IHashManager hashManager,
             IFileUploadService uploadService,
             IApiResponseManager responseManager,
-            ILoggerManager loggerManager
+            ILoggerManager loggerManager, 
+            IEmailSender emailSender
         )
         {
             _repository = repository;
@@ -33,6 +36,7 @@ namespace BBS.Interactors
             _uploadService = uploadService;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
+            _emailSender = emailSender;
 
         }
         private bool IsUserExists(string Email, string PhoneNumber)
@@ -106,6 +110,8 @@ namespace BBS.Interactors
                 createdPerson.Id
             );
 
+            SendEmailToAdminAboutRegisteredUser(registerUserDto,createdPerson);
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
@@ -118,10 +124,56 @@ namespace BBS.Interactors
             );
         }
 
+        private void SendEmailToAdminAboutRegisteredUser(RegisterUserDto registerUserDto,Person createdPerson)
+        {
+            var recieverEmail = "nahomhab2626@gmail.com";
+            var subject = "Notifying Registration of " + createdPerson.FirstName + " " + createdPerson.LastName;
+            var message = "";
+
+
+            var companyDocument = registerUserDto.Attachments.FirstOrDefault();
+            var personalAttachment = registerUserDto.Attachments.LastOrDefault();
+
+            var attachments = new List<Attachment>()
+            {
+                new Attachment()
+                {
+                    Content = ReadFormFileAndGetContent(companyDocument!),
+                    ContentId = new Guid().ToString(),
+                    Disposition = companyDocument!.ContentDisposition,
+                    Filename = companyDocument.FileName,
+                    Type = companyDocument.ContentType,
+                },
+                new Attachment()
+                {
+                    Content = ReadFormFileAndGetContent(personalAttachment!),
+                    ContentId = new Guid().ToString(),
+                    Disposition = personalAttachment!.ContentDisposition,
+                    Filename = personalAttachment.FileName,
+                    Type = personalAttachment.ContentType,
+                },
+            };
+
+            _emailSender.SendEmailAsync(recieverEmail, subject, message, attachments);
+        }
+
+
+        private string ReadFormFileAndGetContent(IFormFile file)
+        {
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                var fileBytes = ms.ToArray();
+                string contentRead = Convert.ToBase64String(fileBytes);
+                return contentRead;
+            }
+        }
+
+
         private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
         {
 
-            var personalAttachment = new Attachment();
+            var personalAttachment = new PersonalAttachment();
             var uploadedFile = UploadFilesToAzureBlob(attachments);
 
             personalAttachment.Front = uploadedFile[0].ImageUrl;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BBS.Models
 {
-    public class Attachment : BaseEntity
+    public class PersonalAttachment : BaseEntity
     { 
         [Key]
         public int Id { get; set; }

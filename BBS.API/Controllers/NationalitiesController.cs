@@ -15,9 +15,9 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllNationalities()
+        public IActionResult GetAllNationalities([FromQuery] string? keyword)
         {
-            return Ok(_getAllNationalitiesInteractor.GetAllNationalities());
+            return Ok(_getAllNationalitiesInteractor.GetAllNationalities(keyword));
         }
     }
 }

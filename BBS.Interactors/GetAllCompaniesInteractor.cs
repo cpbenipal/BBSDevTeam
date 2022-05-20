@@ -21,11 +21,11 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetAllCompanies()
+        public GenericApiResponse GetAllCompanies(string? keyword)
         {
             try
             {
-                return TryGettingAllCompanies();
+                return TryGettingAllCompanies(keyword);
             }
             catch (Exception ex)
             {
@@ -41,10 +41,22 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllCompanies()
+        private GenericApiResponse TryGettingAllCompanies(string? keyword)
         {
             var allCompanies = _repositoryWrapper.CompanyManager.GetCompanies();
-            return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, allCompanies);
+
+            if (keyword != null)
+            {
+                allCompanies = allCompanies.Where(
+                    n => n.Name.ToLower().Contains(keyword.ToLower()
+                )).ToList();
+            }
+
+            return _responseManager.SuccessResponse(
+                "Successfull", 
+                StatusCodes.Status200OK, 
+                allCompanies
+            );
         }
     }
 }

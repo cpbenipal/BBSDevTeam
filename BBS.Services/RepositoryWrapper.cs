@@ -105,7 +105,7 @@ namespace BBS.Services.Repository
             {
                 if (_personalAttachmentManager == null)
                 {
-                    var repositoryBase = new RepositoryBase<Attachment>(_repoContext);
+                    var repositoryBase = new RepositoryBase<PersonalAttachment>(_repoContext);
                     _personalAttachmentManager = new PersonalAttachmentManager(repositoryBase);
                 }
                 return _personalAttachmentManager;

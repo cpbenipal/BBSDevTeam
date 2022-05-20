@@ -15,9 +15,9 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCompanies()
+        public IActionResult GetAllCompanies([FromQuery] string? keyword)
         {
-            return Ok(_getAllCompaniesInteractor.GetAllCompanies());
+            return Ok(_getAllCompaniesInteractor.GetAllCompanies(keyword));
         }
     }
 }

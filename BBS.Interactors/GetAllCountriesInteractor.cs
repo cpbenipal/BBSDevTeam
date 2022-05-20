@@ -21,11 +21,11 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetAllCountries()
+        public GenericApiResponse GetAllCountries(string? keyword)
         {
             try
             {
-                return TryGettingAllCountries();
+                return TryGettingAllCountries(keyword);
             }
             catch (Exception ex)
             {
@@ -42,10 +42,22 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllCountries()
+        private GenericApiResponse TryGettingAllCountries(string? keyword)
         {
             var allCountries = _repositoryWrapper.CountryManager.GetCountries();
-            return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, allCountries);
+
+            if (keyword != null)
+            {
+                allCountries = allCountries.Where(
+                    n => n.Name.ToLower().Contains(keyword.ToLower()
+                )).ToList();
+            }
+
+            return _responseManager.SuccessResponse(
+                "Successfull", 
+                StatusCodes.Status200OK, 
+                allCountries
+            );
         }
     }
 }
