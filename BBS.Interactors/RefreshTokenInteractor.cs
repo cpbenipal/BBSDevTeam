@@ -50,7 +50,7 @@ namespace BBS.Interactors
             int userLoginId = int.Parse(principal!.Claims.First(x => x.Type == "UserLoginId").Value);
             var userLogin = _repository.UserLoginManager.GetUserLoginById(userLoginId);
 
-            if (userLogin == null || !userLogin.RefreshToken.Equals(refreshToken))
+            if (userLogin == null)
             {
                 throw new Exception("Unauthorized Access");
             }
