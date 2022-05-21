@@ -176,8 +176,8 @@ namespace BBS.Interactors
             var personalAttachment = new PersonalAttachment();
             var uploadedFile = UploadFilesToAzureBlob(attachments);
 
-            personalAttachment.Front = uploadedFile[0].ImageUrl;
-            personalAttachment.Back = uploadedFile[1].ImageUrl;
+            personalAttachment.Front = uploadedFile[0].FileName;
+            personalAttachment.Back = uploadedFile[1].FileName;
             personalAttachment.ContentType = uploadedFile[0].ContentType;
             personalAttachment.PersonId = personId;
 
@@ -194,7 +194,7 @@ namespace BBS.Interactors
                 List<BlobFile> uploadedFiles = new();
                 foreach (var item in files)
                 {
-                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.IMAGE);
+                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.PDF);
                     uploadedFiles.Add(
                         new BlobFile { 
                             ImageUrl = fileData.ImageUrl, 

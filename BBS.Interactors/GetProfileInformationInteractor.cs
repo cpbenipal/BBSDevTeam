@@ -2,6 +2,7 @@
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BBS.Interactors
 {
@@ -34,10 +35,17 @@ namespace BBS.Interactors
             {
                 return TryGettingUserProfile(token);
             }
+
+            catch(SecurityTokenExpiredException ex)
+            {
+                _loggerManager.LogError(ex);
+                return ReturnErrorStatus("Token Expired Please Refresh Before You Continue");
+            }
+
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus(ex.Message);
             }
         }
 
@@ -78,10 +86,10 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldnot get user Profile Information",
+                message,
                 StatusCodes.Status500InternalServerError
             );
         }
