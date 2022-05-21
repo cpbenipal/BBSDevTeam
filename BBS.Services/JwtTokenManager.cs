@@ -88,35 +88,6 @@ namespace BBS.Services.Repository
             return Convert.ToBase64String(randomNumber).Replace(" ", "+");
         }
 
-        public List<string> RefreshToken(string accessToken, string refreshToken)
-        {
-            if (accessToken is null || refreshToken is null)
-            {
-                throw new Exception("Invalid Operation");
-            }
-
-            var principal = GetPrincipalFromExpiredToken(accessToken);
-            if (principal == null)
-            {
-                throw new Exception("Invalid access token or refresh token");
-            }
-
-            var claims = principal.Claims.ToList();
-
-            var newAccessToken = GenerateToken(
-                claims[0].Value,
-                claims[1].Value,
-                claims[2].Value
-            );
-            var newRefreshToken = GenerateRefreshToken();
-
-            return new List<string>
-            {
-                newAccessToken,
-                newRefreshToken
-            };
-        }
-
         public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters

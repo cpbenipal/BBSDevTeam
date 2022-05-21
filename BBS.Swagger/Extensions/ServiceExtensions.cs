@@ -63,6 +63,17 @@ namespace BBS.Swagger.Extensions
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+
+                x.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context => {
+                        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                        {
+                            context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
         }
 

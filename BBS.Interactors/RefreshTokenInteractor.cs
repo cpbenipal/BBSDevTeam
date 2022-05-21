@@ -42,24 +42,36 @@ namespace BBS.Interactors
         {
 
             var principal = _tokenManager.GetPrincipalFromExpiredToken(accessToken);
+            if(principal == null)
+            {
+                throw new Exception("Invalid access token or refresh token");
+            }
+
             int userLoginId = int.Parse(principal!.Claims.First(x => x.Type == "UserLoginId").Value);
             var userLogin = _repository.UserLoginManager.GetUserLoginById(userLoginId);
 
-            if(userLogin == null || !userLogin.RefreshToken.Equals(refreshToken))
+            if (userLogin == null || !userLogin.RefreshToken.Equals(refreshToken))
             {
                 throw new Exception("Unauthorized Access");
             }
 
-            List<string> refreshedTokens = _tokenManager.RefreshToken(accessToken, refreshToken);
+            var userRole = _repository.UserRoleManager.GetUserRoleByUserLoginId(userLogin.Id);
+            var generatedToken = _tokenManager.GenerateToken(
+                userLogin.PersonId.ToString(),
+                userRole!.RoleId.ToString(),
+                userLogin.Id.ToString()
+            );
 
-            userLogin.RefreshToken = refreshedTokens.Last();
+            var newRefreshToken = _tokenManager.GenerateRefreshToken();
+
+            userLogin.RefreshToken = newRefreshToken;
             _repository.UserLoginManager.UpdateUserLogin(userLogin);
 
 
             var response = new Dictionary<string, string>()
             {
-                ["AccessToken"] = refreshedTokens[0],
-                ["RefreshToken"] = refreshedTokens[1],
+                ["AccessToken"] = generatedToken,
+                ["RefreshToken"] = newRefreshToken,
             };
 
             return _responseManager.SuccessResponse(

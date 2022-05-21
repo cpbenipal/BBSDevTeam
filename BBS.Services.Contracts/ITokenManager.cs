@@ -8,7 +8,6 @@ namespace BBS.Services.Contracts
         string GenerateToken(string personId, string roleId, string userLoginId);
         TokenValues GetNeededValuesFromToken(string token);
         string GenerateRefreshToken();
-        List<string> RefreshToken(string accessToken, string refreshToken);
         ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
     }
 }
