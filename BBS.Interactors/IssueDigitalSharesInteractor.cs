@@ -59,7 +59,7 @@ namespace BBS.Interactors
             var valuesFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
 
-            if (!ShareIsRegisteredByCurrentUser(valuesFromToken.UserLoginId))
+            if (!(share.UserLoginId.Equals(valuesFromToken.UserLoginId)))
             {
                 return ReturnErrorStatus("Digital Share already Issued by user");
             }
@@ -74,13 +74,17 @@ namespace BBS.Interactors
                 FileUploadExtensions.IMAGE
             );
 
-            BlobFile uploadedHtml = HandleIssuingCertificate(digitalShare, share, uploadedSignature.PublicPath);
+            BlobFile uploadedHtml = HandleIssuingCertificate(
+                digitalShare, 
+                share, 
+                uploadedSignature.PublicPath
+            );
 
             var certificateKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper();
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
                 valuesFromToken.UserLoginId,
-                uploadedHtml.ImageUrl,
+                uploadedHtml.FileName,
                 certificateKey
             );
 
@@ -127,10 +131,6 @@ namespace BBS.Interactors
             );
         }
 
-        //private static bool ShareIsRegisteredByCurrentUser(TokenValues valuesFromToken, Share share)
-        //{
-        //    return share != null && share.UserLoginId == valuesFromToken.UserLoginId;
-        //}
         private bool ShareIsRegisteredByCurrentUser(int UserLoginId)
         {
             var duplicate = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(UserLoginId);

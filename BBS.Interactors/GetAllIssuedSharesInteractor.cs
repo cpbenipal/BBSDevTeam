@@ -51,6 +51,7 @@ namespace BBS.Interactors
         private GenericApiResponse TryGettingAllIssuedShares(string token)
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             var allIssuedShares = _repositoryWrapper
                 .IssuedDigitalShareManager
                 .GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId);

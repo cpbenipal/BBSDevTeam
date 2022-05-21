@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220519122215_Move RefreshToken To UserLogin")]
-    partial class MoveRefreshTokenToUserLogin
+    [Migration("20220521090931_0")]
+    partial class _0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,54 +23,6 @@ namespace BBS.Entities.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("BBS.Models.Attachment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AddedById")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("AddedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Back")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Front")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("IPAddress")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("ModifiedById")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("PersonalAttachments");
-                });
 
             modelBuilder.Entity("BBS.Models.Company", b =>
                 {
@@ -293,9 +245,6 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("CertificateUrl")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -566,6 +515,54 @@ namespace BBS.Entities.Migrations
                     b.ToTable("Person");
                 });
 
+            modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Back")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Front")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("PersonalAttachments");
+                });
+
             modelBuilder.Entity("BBS.Models.Restriction", b =>
                 {
                     b.Property<int>("Id")
@@ -624,9 +621,6 @@ namespace BBS.Entities.Migrations
 
                     b.Property<string>("BusinessLogo")
                         .HasColumnType("text");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("CompanyInformationDocument")
                         .HasColumnType("text");
@@ -871,17 +865,6 @@ namespace BBS.Entities.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("BBS.Models.Attachment", b =>
-                {
-                    b.HasOne("BBS.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("BBS.Models.IssuedDigitalShare", b =>
                 {
                     b.HasOne("BBS.Models.UserLogin", "UserLogin")
@@ -945,6 +928,17 @@ namespace BBS.Entities.Migrations
                     b.Navigation("EmployementType");
 
                     b.Navigation("Nationality");
+                });
+
+            modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
+                {
+                    b.HasOne("BBS.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("BBS.Models.Share", b =>
