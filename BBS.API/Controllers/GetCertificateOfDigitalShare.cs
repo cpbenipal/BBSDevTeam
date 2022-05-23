@@ -6,11 +6,11 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GetIssuedShareCertificateController : ControllerBase
+    public class GetCertificateOfDigitalShare : ControllerBase
     {
-        private readonly GetIssuedDigitalCertificateInteractor _issueDigitalShareInteractor;
+        private readonly GetDigitalCertificateOfIssuedShareInteractor _issueDigitalShareInteractor;
 
-        public GetIssuedShareCertificateController(GetIssuedDigitalCertificateInteractor interactor)
+        public GetCertificateOfDigitalShare(GetDigitalCertificateOfIssuedShareInteractor interactor)
         {
             _issueDigitalShareInteractor = interactor;
         }

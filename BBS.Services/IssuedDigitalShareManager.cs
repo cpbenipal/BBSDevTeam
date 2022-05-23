@@ -41,5 +41,10 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetById(id); 
         }
+
+        public List<IssuedDigitalShare> GetAllIssuedDigitalShares()
+        {
+            return _repositoryBase.GetAll().ToList();
+        }
     }
 }

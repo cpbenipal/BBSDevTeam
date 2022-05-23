@@ -36,7 +36,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                throw new Exception();
+                throw;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -45,7 +46,12 @@ namespace BBS.Interactors
         private GenericApiResponse TryGettingRegisteredShareForUser(string token)
         {
             var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
-            var allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId);
+            var allShares = _repositoryWrapper.ShareManager.GetAllShares();
+
+            if(tokenValues.RoleId != (int)Roles.ADMIN)
+            {
+                allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId);
+            }
 
             var allMappedShares = 
                 _getRegisteredSharesUtil

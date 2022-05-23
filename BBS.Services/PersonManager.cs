@@ -43,6 +43,11 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
             return person;
         }
+
+        public List<Person> GetAllPerson()
+        {
+            return _repositoryBase.GetAll().ToList();
+        }
     }
 }
  

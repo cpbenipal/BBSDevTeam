@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class GetIssuedDigitalCertificateInteractor
+    public class GetDigitalCertificateOfIssuedShareInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly IFileUploadService _uploadService;
 
-        public GetIssuedDigitalCertificateInteractor(
+        public GetDigitalCertificateOfIssuedShareInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,

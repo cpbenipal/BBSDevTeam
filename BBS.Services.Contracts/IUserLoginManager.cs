@@ -8,6 +8,7 @@ namespace BBS.Services.Contracts
         UserLogin InsertUserLogin(UserLogin userLogin);
         bool IsUserExists(string UserName);
         UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto, int id);
+        UserLogin? GetUserLoginByPerson(int personId);
         string UpdatePassCode(int userLoginId);
         UserLogin GetUserLoginById(int Id);
         UserLogin UpdateUserLogin(UserLogin userLogin);

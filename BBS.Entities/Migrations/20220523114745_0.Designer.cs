@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220523063828_schemaChanged")]
-    partial class schemaChanged
+    [Migration("20220523114745_0")]
+    partial class _0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -549,6 +549,42 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("NationalityId");
 
                     b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 0,
+                            AddedDate = new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Local).AddTicks(2450),
+                            AddressLine = "Addis Ababa",
+                            AnnualIncome = 1000m,
+                            City = "Addis Ababa",
+                            CountryId = 1,
+                            DateOfBirth = new DateTime(2022, 5, 23, 11, 47, 44, 327, DateTimeKind.Utc).AddTicks(2470),
+                            DateOfEmployement = new DateTime(2022, 5, 23, 11, 47, 44, 327, DateTimeKind.Utc).AddTicks(2477),
+                            Email = "admin@gmail.com",
+                            EmiratesID = "000000000000",
+                            EmployementTypeId = 1,
+                            EmployerName = "None",
+                            FirstName = "Admin",
+                            HaveConvicted = false,
+                            HaveCriminalRecord = false,
+                            HaveExperience = false,
+                            HavePriorExpirence = false,
+                            HaveTraining = false,
+                            IBANNumber = "00000000000",
+                            IsDeleted = false,
+                            IsIndividual = false,
+                            IsPublicSectorEmployee = false,
+                            IsUSCitizen = false,
+                            LastName = "Admin",
+                            ModifiedById = 0,
+                            ModifiedDate = new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Local).AddTicks(2466),
+                            NationalityId = 1,
+                            PhoneNumber = "0926849888",
+                            VaultNumber = "00000000000",
+                            VerificationState = 0
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
@@ -878,6 +914,23 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("UserLogin");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 0,
+                            AddedDate = new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Local).AddTicks(2725),
+                            IsDeleted = false,
+                            ModifiedById = 0,
+                            ModifiedDate = new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Local).AddTicks(2727),
+                            Passcode = "MTIzNA==",
+                            PasswordHash = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                            PasswordSalt = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                            PersonId = 1,
+                            RefreshToken = "",
+                            Username = ""
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.UserRole", b =>
@@ -919,6 +972,19 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("UserLoginId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 0,
+                            AddedDate = new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Local).AddTicks(2767),
+                            IsDeleted = false,
+                            ModifiedById = 0,
+                            ModifiedDate = new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Local).AddTicks(2768),
+                            RoleId = 1,
+                            UserLoginId = 1
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.IssuedDigitalShare", b =>

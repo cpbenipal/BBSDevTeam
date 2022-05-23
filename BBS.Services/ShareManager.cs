@@ -12,6 +12,11 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public List<Share> GetAllShares()
+        {
+            return _repositoryBase.GetAll().ToList();
+        }
+
         public List<Share> GetAllSharesForUser(int userLoginId)
         {
             return _repositoryBase.GetAll().Where(share => share.UserLoginId == userLoginId).ToList();

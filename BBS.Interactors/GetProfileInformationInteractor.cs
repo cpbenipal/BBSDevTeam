@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -51,15 +52,55 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingUserProfile(string token)
         {
+
+            List<UserProfileInformationDto> allUsersInformation = new();
+
             var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
+            List<int> allPersonIds = BuildListOfPersonToFetchProfile(tokenValues);
 
-            //var user = _repositoryWrapper.UserLoginManager.GetUserById(tokenValues.UserLoginId);
-            var person = _repositoryWrapper.PersonManager.GetPerson(tokenValues.PersonId);
-            var role = _repositoryWrapper.RoleManager.GetRole(tokenValues.RoleId);
+            foreach (var personId in allPersonIds)
+            {
+                UserProfileInformationDto userProfileInformation = BuildProfileForPerson(personId);
+                allUsersInformation.Add(userProfileInformation);
+            }
 
+            object response =
+                allUsersInformation.Count == 1 ?
+                allUsersInformation.FirstOrDefault()! : allUsersInformation;
+
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                response
+            );
+        }
+
+        private List<int> BuildListOfPersonToFetchProfile(TokenValues tokenValues)
+        {
+            var allPersonIds = _repositoryWrapper.PersonManager.GetAllPerson().Select(p => p.Id).ToList();
+
+            if (tokenValues.RoleId != (int)Roles.ADMIN)
+            {
+                allPersonIds = new List<int> { tokenValues.PersonId };
+            }
+
+            return allPersonIds;
+        }
+
+        private UserProfileInformationDto BuildProfileForPerson(int personId)
+        {
+            var person = _repositoryWrapper.PersonManager.GetPerson(personId);
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginByPerson(personId);
+            var userRole = _repositoryWrapper.UserRoleManager.GetUserRoleByUserLoginId(userLogin!.Id);
+            var role = _repositoryWrapper.RoleManager.GetRole(userRole!.RoleId);
+
+            if (userLogin == null || userRole == null || person == null || role == null)
+            {
+                throw new Exception();
+            }
             var attachment = _repositoryWrapper
                 .PersonalAttachmentManager
-                .GetAttachementByPerson(tokenValues.PersonId);
+                .GetAttachementByPerson(personId);
 
             var nationality = _repositoryWrapper
                 .NationalityManager
@@ -76,14 +117,9 @@ namespace BBS.Interactors
 
             UserProfileInformationDto userProfileInformation =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    person, role, attachment, nationality, country,state,employementType, tokenValues.UserLoginId
+                    person, role, attachment, nationality, country, state, employementType, userLogin.Id
                 );
-
-            return _responseManager.SuccessResponse(
-                "Successfull",
-                StatusCodes.Status200OK,
-                userProfileInformation
-            );
+            return userProfileInformation;
         }
 
         private GenericApiResponse ReturnErrorStatus(string message)

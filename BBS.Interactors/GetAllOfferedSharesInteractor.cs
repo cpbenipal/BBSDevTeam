@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -55,7 +56,14 @@ namespace BBS.Interactors
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
+                .GetAllOfferedShares();
+
+            if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+            {
+                allOfferedShares = _repositoryWrapper
+                .OfferedShareManager
                 .GetOfferedSharesByUserLoginId(extractedFromToken.UserLoginId);
+            }
 
             var parsedOfferedShares = _getAllOfferedSharesUtils
                 .MapOfferedShareObjectFromRequest(allOfferedShares);

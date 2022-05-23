@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class schemaChanged : Migration
+    public partial class _0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -547,6 +547,21 @@ namespace BBS.Entities.Migrations
                     { 4, "iCloud" },
                     { 5, "My Desktop" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Person",
+                columns: new[] { "Id", "AddedById", "AddedDate", "AddressLine", "AnnualIncome", "City", "CountryId", "DateOfBirth", "DateOfEmployement", "Email", "EmiratesID", "EmployementTypeId", "EmployerName", "FirstName", "HaveConvicted", "HaveCriminalRecord", "HaveExperience", "HavePriorExpirence", "HaveTraining", "IBANNumber", "IPAddress", "IsDeleted", "IsIndividual", "IsPublicSectorEmployee", "IsUSCitizen", "LastName", "ModifiedById", "ModifiedDate", "NationalityId", "PhoneNumber", "VaultNumber", "VerificationState" },
+                values: new object[] { 1, 0, new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Utc).AddTicks(2450), "Addis Ababa", 1000m, "Addis Ababa", 1, new DateTime(2022, 5, 23, 11, 47, 44, 327, DateTimeKind.Utc).AddTicks(2470), new DateTime(2022, 5, 23, 11, 47, 44, 327, DateTimeKind.Utc).AddTicks(2477), "admin@gmail.com", "000000000000", 1, "None", "Admin", false, false, false, false, false, "00000000000", null, false, false, false, false, "Admin", 0, new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Utc).AddTicks(2466), 1, "0926849888", "00000000000", 0 });
+
+            migrationBuilder.InsertData(
+                table: "UserLogin",
+                columns: new[] { "Id", "AddedById", "AddedDate", "IPAddress", "IsDeleted", "ModifiedById", "ModifiedDate", "Passcode", "PasswordHash", "PasswordSalt", "PersonId", "RefreshToken", "Username" },
+                values: new object[] { 1, 0, new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Utc).AddTicks(2725), null, false, 0, new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Utc).AddTicks(2727), "MTIzNA==", new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 1, "", "" });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "Id", "AddedById", "AddedDate", "IPAddress", "IsDeleted", "ModifiedById", "ModifiedDate", "RoleId", "UserLoginId" },
+                values: new object[] { 1, 0, new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Utc).AddTicks(2767), null, false, 0, new DateTime(2022, 5, 23, 14, 47, 44, 327, DateTimeKind.Utc).AddTicks(2768), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_IssuedDigitalShares_UserLoginId",

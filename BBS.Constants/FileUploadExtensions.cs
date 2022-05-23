@@ -6,16 +6,16 @@ namespace BBS.Constants
     {
         public static List<string> IMAGE = new List<string>
         {
-            ".jpg", ".jpeg",".png"
+            ".jpg", ".jpeg",".png",".PNG", ".JPEG", ".JPG"
         };
 
         public static List<string> PDF = new List<string>
         {
-            ".pdf"
+            ".pdf",".PDF"
         };
         public static List<string> DOCUMENT = new List<string>
         {
-            ".jpg", ".jpeg",".png",".pdf"
+            ".jpg", ".jpeg",".png",".PNG", ".JPEG", ".JPG",".pdf",".PDF"
         };
     }
 }

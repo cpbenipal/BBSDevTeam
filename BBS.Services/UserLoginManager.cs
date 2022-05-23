@@ -56,5 +56,10 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
             return userLogin;
         }
+
+        public UserLogin? GetUserLoginByPerson(int personId)
+        {
+            return _repositoryBase.GetAll().Where(ul => ul.PersonId == personId).FirstOrDefault();
+        }
     }
 }

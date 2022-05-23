@@ -10,5 +10,6 @@ namespace BBS.Services.Contracts
         Person GetPerson(int personId);
         Person? GetPersonByEmailOrPhone(string emailOrPhone);
         Person UpdatePerson(Person person);
+        List<Person> GetAllPerson();
     }
 }

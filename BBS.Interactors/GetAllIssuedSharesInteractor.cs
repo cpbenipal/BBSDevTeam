@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -51,11 +52,18 @@ namespace BBS.Interactors
         private GenericApiResponse TryGettingAllIssuedShares(string token)
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
-
             var allIssuedShares = _repositoryWrapper
                 .IssuedDigitalShareManager
+                .GetAllIssuedDigitalShares();
+                
+            if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+            {
+                allIssuedShares = _repositoryWrapper
+                .IssuedDigitalShareManager
                 .GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId);
+            }
 
+ 
             var response = _getIssuedDigitalSharesUtils.ParseDigitalSharesToDto(allIssuedShares);
 
             return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, response);
