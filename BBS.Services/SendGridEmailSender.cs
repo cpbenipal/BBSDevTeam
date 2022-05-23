@@ -13,7 +13,7 @@ namespace BBS.Services.Repository
             this.Options = options.Value;
         }
 
-        public SendGridEmailSenderOptions Options { get; set; }
+        public SendGridEmailSenderOptions Options { get; set; } 
 
         public async Task SendEmailAsync(
             string email,
@@ -52,7 +52,11 @@ namespace BBS.Services.Repository
             msg.SetGoogleAnalytics(false);
             msg.SetSubscriptionTracking(false);
 
-            return await client.SendEmailAsync(msg);
+            var response = await client.SendEmailAsync(msg);
+
+            Console.WriteLine($"Response: {response.StatusCode}");
+
+            return response;
         }
     }
 }

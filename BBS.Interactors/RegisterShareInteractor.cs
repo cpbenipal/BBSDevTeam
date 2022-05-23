@@ -35,6 +35,7 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo("RegisterShare : " + CommonUtils.JSONSerialize(registerShareDto));
                 return TryRegisteringShare(registerShareDto, token);
             }
             catch (Exception ex)
@@ -57,13 +58,20 @@ namespace BBS.Interactors
             var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
             var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
             if (duplicates)
-            {
-                throw new Exception("Share Already Registered");
+            { 
+                _loggerManager.LogWarn("Share Already Registered");
+                return ReturnErrorStatus("Share already Issued Digitally to user");
             }
 
             return HandleRegisteringShare(registerShareDto, extractedTokenValues);
         }
-
+        private GenericApiResponse ReturnErrorStatus(string s)
+        {
+            return _responseManager.ErrorResponse(s
+                ,
+                StatusCodes.Status400BadRequest
+            );
+        }
 
         private GenericApiResponse HandleRegisteringShare(
             RegisterShareDto registerShareDto, 
@@ -82,7 +90,7 @@ namespace BBS.Interactors
             _repository.ShareManager.InsertShare(shareToInsert);
 
             HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
-
+            _loggerManager.LogInfo("Share Registered");
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
@@ -105,9 +113,9 @@ namespace BBS.Interactors
 
             return new List<string>
             {
-                logo.FileName,
-                shareDocument.FileName,
-                companyDocument.FileName
+                logo.ImageUrl,
+                shareDocument.ImageUrl,
+                companyDocument.ImageUrl
             };
         }
 

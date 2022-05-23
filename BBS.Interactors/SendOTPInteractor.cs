@@ -1,5 +1,6 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -10,26 +11,27 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ISMSSender _smsSender;
         private readonly ILoggerManager _loggerManager;
-
+        private readonly IRepositoryWrapper _repository;
 
         public SendOTPInteractor(
             IEmailSender emailSender,
             IApiResponseManager responseManager,
             ISMSSender smsSender, 
-            ILoggerManager loggerManager
+            ILoggerManager loggerManager, IRepositoryWrapper repository
         )
         {
             _emailSender = emailSender;
             _responseManager = responseManager;
             _smsSender = smsSender;
             _loggerManager = loggerManager;
-
+            _repository = repository;   
         }
 
         public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
         {
             try
             {
+                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(loginUserDto));
                 return TrySendingOtp(loginUserDto);
             }
             catch (Exception ex) 
@@ -41,7 +43,8 @@ namespace BBS.Interactors
 
         private GenericApiResponse TrySendingOtp(LoginUserOTPDto loginUserDto)
         {
-            if(!string.IsNullOrEmpty(loginUserDto.Email))
+            var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
+            if (personWithThisEmail != null)
             {
                 _emailSender.SendEmailAsync(
                     loginUserDto.Email,
@@ -55,15 +58,22 @@ namespace BBS.Interactors
                 //    "One Time Passcode : " +
                 //    loginUserDto.OTP
                 //);
-
+                _loggerManager.LogInfo("SendOTP : " + "If a matching account was found, an OTP will send to " + loginUserDto.Email);
                 return _responseManager.SuccessResponse(
                     "OTP sent on Email",
                     StatusCodes.Status202Accepted,
                     ""
                 );
             }
-
-            throw new Exception("Email and PhoneNumber is Empty");
+            else
+            {
+                _loggerManager.LogWarn("SendOTP : " + "Account " + loginUserDto.Email + " not found");
+                return _responseManager.SuccessResponse(
+                    "Account " + loginUserDto.Email + " not found",
+                     StatusCodes.Status302Found,
+                     ""
+                );
+            }
             
         }
 

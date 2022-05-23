@@ -1,5 +1,6 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -14,7 +15,7 @@ namespace BBS.Interactors
         public ForgotPasscodeInteractor(
             IRepositoryWrapper repository,
             IEmailSender emailSender,
-            IApiResponseManager responseManager, 
+            IApiResponseManager responseManager,
             ILoggerManager loggerManager
         )
         {
@@ -29,12 +30,13 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo("ForgotPasscode : " + CommonUtils.JSONSerialize(forgotPassDto));
                 return TryGettingEmailAndSendingNewPasscode(forgotPassDto);
             }
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus(ex);
             }
         }
 
@@ -51,9 +53,9 @@ namespace BBS.Interactors
                     "Your new Passcode : " +
                     newPasscode
                 );
-
+                _loggerManager.LogInfo("ForgotPasscode : " + "If a matching account was found an email was sent to " + forgotPassDto.Email);
                 return _responseManager.SuccessResponse(
-                    "Passcode sent on Email",
+                    "If a matching account was found an email was sent to " + forgotPassDto.Email,
                      StatusCodes.Status202Accepted,
                      ""
                 );
@@ -61,15 +63,20 @@ namespace BBS.Interactors
             }
             else
             {
-                throw new Exception();
+                _loggerManager.LogInfo("ForgotPasscode : " + "Account " + forgotPassDto.Email + " not found");
+                return _responseManager.SuccessResponse(
+                    "Account " + forgotPassDto.Email + " not found",
+                     StatusCodes.Status302Found,
+                     ""
+                );
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(Exception ex)
         {
             return _responseManager.ErrorResponse(
-                "Passcode sent on Email",
-                StatusCodes.Status202Accepted
+                ex.Message.ToString(),
+                StatusCodes.Status400BadRequest
             );
         }
     }

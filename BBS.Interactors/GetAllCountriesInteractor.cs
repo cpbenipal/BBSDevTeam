@@ -49,7 +49,7 @@ namespace BBS.Interactors
             if (keyword != null)
             {
                 allCountries = allCountries.Where(
-                    n => n.Name.ToLower().Contains(keyword.ToLower()
+                    n => n.Name.ToLower().StartsWith(keyword.ToLower()
                 )).ToList();
             }
 

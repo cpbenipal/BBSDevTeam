@@ -49,7 +49,7 @@ namespace BBS.Interactors
 
             if(keyword != null)
             {
-                allNationalities = allNationalities.Where(n => n.Name.ToLower().Contains(keyword.ToLower())).ToList();
+                allNationalities = allNationalities.Where(n => n.Name.ToLower().StartsWith(keyword.ToLower())).ToList();
             }
             return _responseManager.SuccessResponse(
                 "Successfull",

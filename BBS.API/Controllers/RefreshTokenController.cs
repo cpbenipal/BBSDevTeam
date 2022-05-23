@@ -1,4 +1,5 @@
-﻿using BBS.Interactors;
+﻿using BBS.Dto;
+using BBS.Interactors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BBS.API.Controllers
@@ -15,9 +16,9 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login([FromQuery] string accessToken, string refreshToken)
+        public IActionResult Login([FromBody] RefreshTokenDto refreshTokenDto)
         {
-            var response = _refreshTokenInteractor.RefreshToken(accessToken, refreshToken);
+            var response = _refreshTokenInteractor.RefreshToken(refreshTokenDto);
             return Ok(response);
         }
     }

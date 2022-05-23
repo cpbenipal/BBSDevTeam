@@ -2,6 +2,7 @@
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -34,6 +35,7 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo("InsertOfferedShares : " + CommonUtils.JSONSerialize(offerShareDto));
                 return TryInsertingOfferedShare(offerShareDto, token);
             }
             catch (Exception ex)
@@ -53,11 +55,23 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryInsertingOfferedShare(OfferShareDto offerShareDto, string token)
         {
-            var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);            
+            var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
 
+            var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 
+            var userdigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
             var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
 
-            if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId)))
+            if (issueDigitalShares == null)
+            {
+                _loggerManager.LogWarn("This Digital Share does not exist");
+                return ReturnErrorStatus("This Digital Share does not exist");
+            }
+            else if (!userdigitalShares.Any(x => x.Id == offerShareDto.IssuedDigitalShareId))
+            {
+                _loggerManager.LogWarn("This Digital Share does not issued to user");
+                return ReturnErrorStatus("This Digital Share does not issued to user");
+            }
+            else if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId)))
             {
                 _loggerManager.LogInfo("This Digital Share already Offered");
                 return ReturnErrorStatus("This Digital Share already Offered");
@@ -65,6 +79,8 @@ namespace BBS.Interactors
             else
             {
                 var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
+                offeredShareToInsert.AddedById = extractedTokenValues.UserLoginId;
+                offeredShareToInsert.ModifiedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
                 _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 

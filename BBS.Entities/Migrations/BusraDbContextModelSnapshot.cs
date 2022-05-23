@@ -236,6 +236,12 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("CertificateKey")
                         .IsRequired()
                         .HasColumnType("text");
@@ -257,7 +263,13 @@ namespace BBS.Entities.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsCertified")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
@@ -269,6 +281,12 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("NumberOfShares")
                         .HasColumnType("integer");
@@ -324,8 +342,26 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("IssuedDigitalShareId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("OfferPrice")
                         .HasColumnType("numeric");
@@ -576,6 +612,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Restrictions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? "
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Are you a cofounder or employee at the company?"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Role", b =>
@@ -599,6 +647,11 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
                             Name = "Investor"
                         });
                 });
@@ -665,8 +718,11 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<int>("RestrictionId")
-                        .HasColumnType("integer");
+                    b.Property<bool>("Restriction1")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Restriction2")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("ShareOwnershipDocument")
                         .HasColumnType("text");

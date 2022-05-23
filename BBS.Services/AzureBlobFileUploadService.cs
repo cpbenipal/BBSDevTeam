@@ -125,6 +125,7 @@ namespace BBS.Services.Repository
 
         public string GetFilePublicUri(string fileName)
         {
+            fileName = GetFileName(fileName);
             CloudBlobClient serviceClient = _storageAccount.CreateCloudBlobClient();
 
             var container = serviceClient.GetContainerReference(ContainerName); 

@@ -48,7 +48,7 @@ namespace BBS.Interactors
             if (keyword != null)
             {
                 allCompanies = allCompanies.Where(
-                    n => n.Name.ToLower().Contains(keyword.ToLower()
+                    n => n.Name.ToLower().StartsWith(keyword.ToLower()
                 )).ToList();
             }
 

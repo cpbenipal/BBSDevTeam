@@ -13,5 +13,9 @@ namespace BBS.Constants
         {
             ".pdf"
         };
+        public static List<string> DOCUMENT = new List<string>
+        {
+            ".jpg", ".jpeg",".png",".pdf"
+        };
     }
 }

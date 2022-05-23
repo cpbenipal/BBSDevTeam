@@ -1,6 +1,7 @@
 ﻿using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -28,13 +29,14 @@ namespace BBS.Interactors
         public GenericApiResponse LoginUser(LoginUserDto loginUserDto)
         {
             try
-            {
+            { 
+                _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(loginUserDto));
                 return TryLoggingUser(loginUserDto);
             }
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex);
-                return ReturnErrorStatus();
+                throw new Exception();
             }
         }
 
@@ -52,7 +54,8 @@ namespace BBS.Interactors
                 var refreshToken = _tokenManager.GenerateRefreshToken();
 
                 userLogin.RefreshToken = refreshToken;
-
+                userLogin.ModifiedDate = DateTime.Now;
+                userLogin.ModifiedById = userLogin.Id;
                 _repository.UserLoginManager.UpdateUserLogin(userLogin);
 
                 var response = new Dictionary<string, string>()
@@ -60,7 +63,7 @@ namespace BBS.Interactors
                     ["AccessToken"] = generatedToken,
                     ["RefreshToken"] = refreshToken,
                 };
-
+                _loggerManager.LogInfo("User Login Successful!. Please continue..");
                 return _responseManager.SuccessResponse(
                     "User Login Successful!. Please continue..",
                     StatusCodes.Status202Accepted,
@@ -69,7 +72,8 @@ namespace BBS.Interactors
             }
             else
             {
-                throw new Exception();
+                _loggerManager.LogWarn("Authentication failed.The email or passcode you entered is incorrect.");
+                return ReturnErrorStatus("Authentication failed. The email or passcode you entered is incorrect.");
             }
         }
 
@@ -84,10 +88,10 @@ namespace BBS.Interactors
             return userLogin;
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Authentication failed. The email or passcode you entered is incorrect.",
+                message,
                 StatusCodes.Status400BadRequest
             );
         }

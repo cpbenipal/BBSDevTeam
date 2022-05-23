@@ -11,4 +11,12 @@ namespace BBS.Dto
         [StringLength(4)]
         public string Passcode { get; set; } 
     }
-}
+    public class RefreshTokenDto
+    {
+        [Required]
+        public string AccessToken { get; set; }
+
+        [Required]        
+        public string RefreshToken { get; set; }
+    }
+} 

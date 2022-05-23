@@ -31,8 +31,12 @@ namespace BBS.Utils
             var debtRound = _repository.DebtRoundManager.GetDebtRound(share.DebtRoundId);
             var equityRound = _repository.EquityRoundManager.GetEquityRound(share.EquityRoundId);
             var grantType = _repository.GrantTypeManager.GetGrantType(share.GrantTypeId);
-            var restriction = _repository.RestrictionManager.GetRestriction(share.RestrictionId);
+            var restriction = _repository.RestrictionManager.GetAllRestrictions();
             var storageLocation = _repository.StorageLocationManager.GetStorageLocation(share.GrantTypeId);
+
+            var restrictions = new List<RestrictionDto>();
+            restrictions.Add(new RestrictionDto() { Id = restriction[0].Id, Name = restriction[0].Name, Flag = share.Restriction1 });
+            restrictions.Add(new RestrictionDto() { Id = restriction[1].Id, Name = restriction[1].Name, Flag = share.Restriction2 });
 
             var registeredShare = new RegisteredShareDto
             {
@@ -41,8 +45,8 @@ namespace BBS.Utils
                 FirstName = share.FirstName,
                 LastName = share.LastName,
                 Email = share.Email,
-                DebtRound = debtRound.Name,
-                EquityRound = equityRound.Name,
+                DebtRound = debtRound.Name ?? "",
+                EquityRound = equityRound.Name ?? "",
                 ShareOwnerShipDocument = _uploadService.GetFilePublicUri(share.ShareOwnershipDocument!),
                 CompanyInformationDocument = _uploadService.GetFilePublicUri(share.CompanyInformationDocument!),
                 CompanyName = share.CompanyName,
@@ -50,7 +54,7 @@ namespace BBS.Utils
                 GrantType = grantType.Name,
                 NumberOfShares = share.NumberOfShares,
                 PhoneNumber = share.PhoneNumber,
-                Restriction = restriction?.Name ?? "",
+                Restriction = restrictions,
                 SharePrice = share.SharePrice,
                 StorageLocation = storageLocation.Name,
             };

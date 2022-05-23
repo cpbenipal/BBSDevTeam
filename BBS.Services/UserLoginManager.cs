@@ -44,7 +44,7 @@ namespace BBS.Services.Repository
             var userdetail = _repositoryBase.GetAll().Where(x => x.Id == userLoginId).FirstOrDefault();
             userdetail!.Passcode = _hashManager.EncryptPlainText(newPasscode);
             userdetail.ModifiedDate = DateTime.Now;
-
+            userdetail.ModifiedById = userdetail.AddedById = userLoginId;
             var addedUserLogin = _repositoryBase.Update(userdetail);
             _repositoryBase.Save();
 

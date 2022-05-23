@@ -17,8 +17,8 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+               // optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Staging;User Id=postgres;Password=7Xp2NGP45Wux");
+               optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");
             }
         }
 
@@ -42,9 +42,6 @@ namespace BBS.Entities
         public virtual DbSet<Share> Shares { get; set; }
         public virtual DbSet<State> States { get; set; }
 
-
-
-
         // Issuing Shares
         public virtual DbSet<IssuedDigitalShare> IssuedDigitalShares { get; set; }
 
@@ -52,6 +49,7 @@ namespace BBS.Entities
         // Offer Share
         public virtual DbSet<OfferedShare> OfferedShares { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
+        //public virtual DbSet<NlogDBLog> NlogDBLogs { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,7 +60,8 @@ namespace BBS.Entities
             );
 
             modelBuilder.Entity<Role>().HasData(
-                 new Role { Id = 1, Name = "Investor" });
+                 new Role { Id = 1, Name = "Admin" },
+                 new Role { Id = 2, Name = "Investor" });
 
             modelBuilder.Entity<Country>().HasData(
              new Country { Id = 1, Name = "India" }, new Country { Id = 2, Name = "UAE" });
@@ -117,7 +116,10 @@ namespace BBS.Entities
                 new DebtRound { Id = 1, Name = "Mezanine" },
                 new DebtRound { Id = 2, Name = "Growth" }
             );
-
+            modelBuilder.Entity<Restriction>().HasData(
+               new Restriction { Id = 1, Name = "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? " },
+               new Restriction { Id = 2, Name = "Are you a cofounder or employee at the company?" }
+           );
             modelBuilder.Entity<StorageLocation>().HasData(
                   new StorageLocation { Id = 1, Name = "Dropbox" },
                   new StorageLocation { Id = 2, Name = "One Drive" },
@@ -130,7 +132,7 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
-
+            
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

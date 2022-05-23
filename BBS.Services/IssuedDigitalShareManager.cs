@@ -37,5 +37,9 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
             return addedDigitalShare;
         }
+        public IssuedDigitalShare GetIssuedDigitalShare(int id)
+        {
+            return _repositoryBase.GetById(id); 
+        }
     }
 }

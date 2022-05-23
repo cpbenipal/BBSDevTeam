@@ -20,8 +20,8 @@ namespace BBS.Utils
                 GrantTypeId = registerShareDto.ShareInformation.GrantTypeId,
                 DebtRoundId = registerShareDto.ShareInformation.DebtRoundId,
                 EquityRoundId = registerShareDto.ShareInformation.EquityRoundId,
-                RestrictionId = registerShareDto.ShareInformation.RestrictionId,
-
+                Restriction1 = registerShareDto.ShareInformation.Restriction1,
+                Restriction2 = registerShareDto.ShareInformation.Restriction2,
                 FirstName = registerShareDto.ContactPerson.FirstName,
                 LastName = registerShareDto.ContactPerson.LastName,
                 Email = registerShareDto.ContactPerson.Email,

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class _0 : Migration
+    public partial class schemaChanged : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -303,7 +303,13 @@ namespace BBS.Entities.Migrations
                     IsCertified = table.Column<bool>(type: "boolean", nullable: false),
                     UserLoginId = table.Column<int>(type: "integer", nullable: false),
                     CertificateUrl = table.Column<string>(type: "text", nullable: false),
-                    CertificateKey = table.Column<string>(type: "text", nullable: false)
+                    CertificateKey = table.Column<string>(type: "text", nullable: false),
+                    AddedById = table.Column<int>(type: "integer", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedById = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -329,7 +335,8 @@ namespace BBS.Entities.Migrations
                     NumberOfShares = table.Column<int>(type: "integer", nullable: false),
                     DateOfGrant = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     SharePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    RestrictionId = table.Column<int>(type: "integer", nullable: false),
+                    Restriction1 = table.Column<bool>(type: "boolean", nullable: false),
+                    Restriction2 = table.Column<bool>(type: "boolean", nullable: false),
                     StorageLocationId = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
@@ -400,7 +407,13 @@ namespace BBS.Entities.Migrations
                     OfferPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     OfferTimeLimitInWeeks = table.Column<int>(type: "integer", nullable: false),
                     OfferTypeId = table.Column<int>(type: "integer", nullable: false),
-                    UserLoginId = table.Column<int>(type: "integer", nullable: false)
+                    UserLoginId = table.Column<int>(type: "integer", nullable: false),
+                    AddedById = table.Column<int>(type: "integer", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedById = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -496,9 +509,22 @@ namespace BBS.Entities.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Restrictions",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? " },
+                    { 2, "Are you a cofounder or employee at the company?" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Investor" });
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Investor" }
+                });
 
             migrationBuilder.InsertData(
                 table: "States",

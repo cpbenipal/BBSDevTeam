@@ -1,5 +1,6 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -25,11 +26,12 @@ namespace BBS.Interactors
 
         }
 
-        public GenericApiResponse RefreshToken(string accessToken, string refreshToken)
+        public GenericApiResponse RefreshToken(RefreshTokenDto model)
         {
             try
             {
-                return TryRefreshingToken(accessToken,refreshToken);
+                _loggerManager.LogInfo("InsertOfferedShares : " + CommonUtils.JSONSerialize(model));
+                return TryRefreshingToken(model.AccessToken, model.RefreshToken);
             }
             catch (Exception ex)
             {

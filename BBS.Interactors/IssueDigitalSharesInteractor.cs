@@ -45,6 +45,7 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo("IssueShareDigitally : " + CommonUtils.JSONSerialize(digitalShare));
                 return TryIssuingDigitalShare(digitalShare, token);
             }
             catch (Exception ex)
@@ -58,16 +59,23 @@ namespace BBS.Interactors
         {
             var valuesFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
-
-            if (!(share.UserLoginId.Equals(valuesFromToken.UserLoginId)))
+            var usershares = _repository.ShareManager.GetAllSharesForUser(valuesFromToken.UserLoginId);
+            var digitalShares = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(valuesFromToken.UserLoginId);
+            if (share == null)
             {
-                return ReturnErrorStatus("Digital Share already Issued by user");
+                _loggerManager.LogWarn("This Share does not exist");
+                return ReturnErrorStatus("This Share does not exist");
             }
-            else if (IsShareAlreadyIssued(digitalShare))
+            else if (!usershares.Any(x=>x.Id ==digitalShare.ShareId))
             {
-                return ReturnErrorStatus("This Digital Share already Issued for same company");
+                _loggerManager.LogWarn("This Share does not belong to user");
+                return ReturnErrorStatus("This Share does not belong to user");
             }
-
+            else if (digitalShares.Any(x => x.ShareId == digitalShare.ShareId))
+            {
+                _loggerManager.LogWarn("Share already Issued Digitally to user");
+                return ReturnErrorStatus("Share already Issued Digitally to user");
+            }
 
             BlobFile uploadedSignature = _uploadService.UploadFileToBlob(
                 digitalShare.Signature,
@@ -84,8 +92,8 @@ namespace BBS.Interactors
             var digitalShareToInsert = _digitalShareUtils.MapDigitalShareObjectFromRequest(
                 digitalShare,
                 valuesFromToken.UserLoginId,
-                uploadedHtml.FileName,
-                certificateKey
+                uploadedHtml.ImageUrl,
+                certificateKey                
             );
 
             _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
@@ -96,7 +104,7 @@ namespace BBS.Interactors
                 ["CertificateImageUrl"] = uploadedHtml.PublicPath,
                 ["CertificateKey"] = certificateKey,
             };
-
+            _loggerManager.LogInfo("Digitally Share Issued to user");
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
@@ -129,21 +137,6 @@ namespace BBS.Interactors
                 ,
                 StatusCodes.Status400BadRequest
             );
-        }
-
-        private bool ShareIsRegisteredByCurrentUser(int UserLoginId)
-        {
-            var duplicate = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(UserLoginId);
-            return duplicate.Count != 0;
-        }
-        private bool IsShareAlreadyIssued(IssueDigitalShareDto share)
-        {
-            var duplicate = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesByShareIdAndCompanyId(
-                share.ShareId,
-                share.CompanyName
-            );
-            return duplicate.Count != 0;
-        }
-
+        } 
     }
 }

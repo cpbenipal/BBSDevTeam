@@ -16,7 +16,8 @@ namespace BBS.Models
         public int NumberOfShares { get; set; }
         public DateTime DateOfGrant { get; set; }
         public decimal SharePrice { get; set; }
-        public int RestrictionId { get; set; }
+        public bool Restriction1 { get; set; }
+        public bool Restriction2 { get; set; }
         public int StorageLocationId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

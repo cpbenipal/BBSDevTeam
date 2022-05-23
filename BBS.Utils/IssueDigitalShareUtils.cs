@@ -23,7 +23,8 @@ namespace BBS.Utils
             mappedShare.UserLoginId = userLoginId;
             mappedShare.CertificateUrl = certificateUrl;
             mappedShare.CertificateKey = certificateKey;
-
+            mappedShare.AddedById = userLoginId;
+            mappedShare.ModifiedById = userLoginId;               
             return mappedShare;
         }
 

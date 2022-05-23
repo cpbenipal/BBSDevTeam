@@ -26,7 +26,7 @@ namespace BBS.Interactors
             IHashManager hashManager,
             IFileUploadService uploadService,
             IApiResponseManager responseManager,
-            ILoggerManager loggerManager, 
+            ILoggerManager loggerManager,
             IEmailSender emailSender
         )
         {
@@ -43,7 +43,7 @@ namespace BBS.Interactors
         {
             return _repository.PersonManager.IsUserExists(Email, PhoneNumber);
         }
-        private bool IsEmiratesIDExists(string EmiratesID)  
+        private bool IsEmiratesIDExists(string EmiratesID)
         {
             return _repository.PersonManager.IsEmiratesIDExists(EmiratesID);
         }
@@ -51,11 +51,12 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto));
                 return TryRegisteringUser(registerUserDto);
             }
             catch (RegisterUserException ex)
             {
-                return ReturnErrorStatus(ex,null);
+                return ReturnErrorStatus(ex, null);
             }
             catch (Exception ex)
             {
@@ -126,8 +127,8 @@ namespace BBS.Interactors
 
         private void SendEmailToAdminAboutRegisteredUser(RegisterUserDto registerUserDto)
         {
-            var recieverEmail = "nahomhab2626@gmail.com";
-            var subject = "Notifying Registration of " + registerUserDto.Person.FirstName + " " + registerUserDto.Person.LastName;
+            var recieverEmail = "cpbenipal@gmail.com"; // Admin Email
+            var subject = "Notifying Registration of " + CommonUtils.JSONSerialize(registerUserDto);
             var message = "This is the message";
 
 
@@ -176,10 +177,11 @@ namespace BBS.Interactors
             var personalAttachment = new PersonalAttachment();
             var uploadedFile = UploadFilesToAzureBlob(attachments);
 
-            personalAttachment.Front = uploadedFile[0].FileName;
-            personalAttachment.Back = uploadedFile[1].FileName;
+            personalAttachment.Front = uploadedFile[0].ImageUrl;
+            personalAttachment.Back = uploadedFile[1].ImageUrl;
             personalAttachment.ContentType = uploadedFile[0].ContentType;
             personalAttachment.PersonId = personId;
+            personalAttachment.AddedById = personalAttachment.ModifiedById = personId;
 
             _repository.PersonalAttachmentManager.InsertPersonalAttachment(
                 personalAttachment
@@ -194,11 +196,12 @@ namespace BBS.Interactors
                 List<BlobFile> uploadedFiles = new();
                 foreach (var item in files)
                 {
-                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.PDF);
+                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.DOCUMENT);
                     uploadedFiles.Add(
-                        new BlobFile { 
-                            ImageUrl = fileData.ImageUrl, 
-                            ContentType = fileData.ContentType ,
+                        new BlobFile
+                        {
+                            ImageUrl = fileData.ImageUrl,
+                            ContentType = fileData.ContentType,
                             FileName = fileData.FileName,
                             PublicPath = fileData.PublicPath,
                         }
@@ -231,7 +234,9 @@ namespace BBS.Interactors
                 PasswordSalt = hashed[1],
                 PersonId = personId,
                 Passcode = _hashManager.EncryptPlainText(userLogin.Passcode),
-                RefreshToken = ""
+                RefreshToken = "",
+                AddedById = personId,
+                ModifiedById = personId
             };
 
             var createdUserLoginProfile = _repository
