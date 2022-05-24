@@ -21,5 +21,12 @@ namespace BBS.API.Controllers
             var response = _registerUserInteractor.RegisterUser(registerUserDto);
             return Ok(response);
         }
+
+        [HttpPost("AdminRegister")]
+        public IActionResult AdminRegister([FromForm] RegisterUserDto registerUserDto)
+        {
+            var response = _registerUserInteractor.RegisterUserAdmin(registerUserDto, 1);
+            return Ok(response);
+        }
     }
 }

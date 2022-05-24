@@ -52,6 +52,7 @@ namespace BBS.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             modelBuilder.Entity<Person>().HasData(
                  new Person
                  {
@@ -108,7 +109,7 @@ namespace BBS.Entities
                  }
 
             );
-
+            */
             modelBuilder.Entity<State>().HasData(
                  new State { Id = 1, Name = "Pending", Value = 0 },
                  new State { Id = 2, Name = "Returned", Value = 1 },

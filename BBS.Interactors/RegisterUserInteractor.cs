@@ -39,6 +39,24 @@ namespace BBS.Interactors
             _emailSender = emailSender;
 
         }
+
+        public object RegisterUserAdmin(RegisterUserDto registerUserDto, int v)
+        {
+            try
+            {
+                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto));
+                return TryRegisteringUser(registerUserDto, v);
+            }
+            catch (RegisterUserException ex)
+            {
+                return ReturnErrorStatus(ex, null);
+            }
+            catch (Exception ex)
+            {
+                return ReturnErrorStatus(ex, "Couldn't Register User");
+            }
+        }
+
         private bool IsUserExists(string Email, string PhoneNumber)
         {
             return _repository.PersonManager.IsUserExists(Email, PhoneNumber);
@@ -73,7 +91,7 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto)
+        private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
             if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
             {
@@ -92,11 +110,11 @@ namespace BBS.Interactors
 
             else
             {
-                return HandleCreatingUser(registerUserDto);
+                return HandleCreatingUser(registerUserDto, roleId);
             }
         }
 
-        private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto)
+        private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
             var createdPerson = CreatePerson(registerUserDto);
             var createdUserLoginProfile = CreateUserLogin(
@@ -104,15 +122,17 @@ namespace BBS.Interactors
                 createdPerson.Id
             );
 
-            CreateUserRole(createdUserLoginProfile.Id);
+            CreateUserRole(createdUserLoginProfile.Id, roleId);
 
-            UploadFilesAndCreateAttachments(
-                registerUserDto.Attachments,
-                createdPerson.Id
-            );
+            if (roleId == 0)
+            {
+                UploadFilesAndCreateAttachments(
+                    registerUserDto.Attachments,
+                    createdPerson.Id
+                );
 
-            SendEmailToAdminAboutRegisteredUser(registerUserDto);
-
+                SendEmailToAdminAboutRegisteredUser(registerUserDto);
+            }
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
@@ -246,18 +266,18 @@ namespace BBS.Interactors
             return createdUserLoginProfile;
         }
 
-        private void CreateUserRole(int userLoginId)
+        private void CreateUserRole(int userLoginId, int roleId = 0)
         {
-            UserRoleDto userRole = InitUserRoleDto(userLoginId);
+            UserRoleDto userRole = InitUserRoleDto(userLoginId, roleId);
             var mappedRequest = _mapper.Map<UserRole>(userRole);
             _repository
                 .UserRoleManager
                 .InsertUserRole(mappedRequest);
         }
 
-        private static UserRoleDto InitUserRoleDto(int userLoginId)
+        private static UserRoleDto InitUserRoleDto(int userLoginId, int rId = 0)
         {
-            int roleId = (int)Roles.INVESTOR;
+            int roleId = rId == 0 ? (int)Roles.INVESTOR : (int)Roles.ADMIN;
 
             var userRole = new UserRoleDto
             {
