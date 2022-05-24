@@ -20,5 +20,11 @@ namespace BBS.API.Controllers
         {
             return Ok(_sendOtpInteractor.SendOTP(loginUserDto));
         }
+
+        [HttpPost("VerifyOTP")]
+        public IActionResult VerifyOTP([FromBody] VerifyOTPDto loginUserDto)
+        {
+            return Ok(_sendOtpInteractor.VerifyOTP(loginUserDto));
+        }
     }
 }

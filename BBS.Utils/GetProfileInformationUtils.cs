@@ -13,7 +13,6 @@ namespace BBS.Utils
             _fileUploadService = fileUploadService;
         }
 
-
         public UserProfileInformationDto ParseUserProfileFromDifferentObjects(
             Person person,
             Role role,

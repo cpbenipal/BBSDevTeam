@@ -2,6 +2,6 @@
 {
     public enum Roles
     {
-      ADMIN =1,  INVESTOR, COMPANY
+      ADMIN =2,  INVESTOR=1, COMPANY
     }
 }

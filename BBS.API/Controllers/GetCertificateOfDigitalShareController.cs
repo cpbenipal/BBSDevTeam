@@ -6,20 +6,21 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GetCertificateOfDigitalShare : ControllerBase
+    public class GetCertificateOfDigitalShareController : ControllerBase
     {
         private readonly GetDigitalCertificateOfIssuedShareInteractor _issueDigitalShareInteractor;
 
-        public GetCertificateOfDigitalShare(GetDigitalCertificateOfIssuedShareInteractor interactor)
+        public GetCertificateOfDigitalShareController(GetDigitalCertificateOfIssuedShareInteractor interactor)
         {
             _issueDigitalShareInteractor = interactor;
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult IssueDigitalShare([FromQuery] int digitallyIssuedShareId)
+        public IActionResult IssueDigitalShare([FromQuery] int? digitallyIssuedShareId)
         {
-            var response = _issueDigitalShareInteractor.GetCertificateUrl(digitallyIssuedShareId);
+            var token = HttpContext.Request.Headers["Authorization"];
+            var response = _issueDigitalShareInteractor.GetCertificateUrl(digitallyIssuedShareId, token);
             return Ok(response);
         }
     }

@@ -117,8 +117,8 @@ namespace BBS.Entities
             );
 
             modelBuilder.Entity<Role>().HasData(
-                 new Role { Id = 1, Name = "Admin" },
-                 new Role { Id = 2, Name = "Investor" });
+                 new Role { Id = 2, Name = "Admin" },
+                 new Role { Id = 1, Name = "Investor" });
 
             modelBuilder.Entity<Country>().HasData(
              new Country { Id = 1, Name = "India" }, new Country { Id = 2, Name = "UAE" });

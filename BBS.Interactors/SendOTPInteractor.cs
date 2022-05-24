@@ -27,6 +27,37 @@ namespace BBS.Interactors
             _repository = repository;   
         }
 
+        public GenericApiResponse VerifyOTP(VerifyOTPDto loginUserDto)
+        {
+            try
+            {
+                var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
+                if (personWithThisEmail != null)
+                {
+                    _loggerManager.LogInfo("VerifyOTP : " + CommonUtils.JSONSerialize(loginUserDto));
+                    return _responseManager.SuccessResponse(
+                        "Successfull",
+                        StatusCodes.Status202Accepted, new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
+                    );
+                }
+
+                else
+                {
+                    _loggerManager.LogWarn("SendOTP : " + "Account " + loginUserDto.Email + " not found");
+                    return _responseManager.SuccessResponse(
+                        "Account " + loginUserDto.Email + " not found",
+                         StatusCodes.Status302Found,
+                         ""
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex);
+                return ReturnErrorStatus();
+            }
+        }
+
         public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
         {
             try
