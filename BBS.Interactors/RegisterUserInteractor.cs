@@ -93,59 +93,63 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
-            if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
-            {
-                throw new UserAlreadyExistsException("Email or Phone already exists");
-            }
-            else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
-            {
-                throw new EmiratesIDExistsException("Emirates ID already exists");
-            }
-            else if (registerUserDto.Attachments.Count() < 2)
-            {
-                throw new AttachmentCountLowException(
-                    "Please Enter Both Front and Back Side Picture of Your Emirates Id"
-                );
-            }
-            else if (registerUserDto.PersonalInfo.VerificationState <= 0)
-            {
-                throw new RegisterUserException(
-                    "Invalid Verification State"
-                );
-            }
-            else
-            {
+            //if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
+            //{
+            //    throw new UserAlreadyExistsException("Email or Phone already exists");
+            //}
+            //else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
+            //{
+            //    throw new EmiratesIDExistsException("Emirates ID already exists");
+            //}
+            //else if (registerUserDto.Attachments.Count() < 2)
+            //{
+            //    throw new AttachmentCountLowException(
+            //        "Please Enter Both Front and Back Side Picture of Your Emirates Id"
+            //    );
+            //}
+            //else if (registerUserDto.PersonalInfo.VerificationState <= 0)
+            //{
+            //    throw new RegisterUserException(
+            //        "Invalid Verification State"
+            //    );
+            //}
+            //else
+            //{
                 return HandleCreatingUser(registerUserDto, roleId);
-            }
+            //}
         }
 
         private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
-            var createdPerson = CreatePerson(registerUserDto);
-            var createdUserLoginProfile = CreateUserLogin(
-                registerUserDto.UserLogin,
-                createdPerson.Id
-            );
 
-            CreateUserRole(createdUserLoginProfile.Id, roleId);
+            _emailSender.SendEmailAsync("nahomhab2626@gmail.com", "This is the message", "Test Message");
 
-            if (roleId == 0)
-            {
-                UploadFilesAndCreateAttachments(
-                    registerUserDto.Attachments,
-                    createdPerson.Id
-                );
+            //var createdPerson = CreatePerson(registerUserDto);
+            //var createdUserLoginProfile = CreateUserLogin(
+            //    registerUserDto.UserLogin,
+            //    createdPerson.Id
+            //);
 
-                SendEmailToAdminAboutRegisteredUser(registerUserDto);
-            }
+            //CreateUserRole(createdUserLoginProfile.Id, roleId);
+
+            //if (roleId == 0)
+            //{
+            //    UploadFilesAndCreateAttachments(
+            //        registerUserDto.Attachments,
+            //        createdPerson.Id
+            //    );
+
+            //    SendEmailToAdminAboutRegisteredUser(registerUserDto);
+            //}
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
                  new ResponseDTo
                  {
-                     Id = createdUserLoginProfile.Id,
-                     IBANNumber = createdPerson.IBANNumber,
-                     VaultNumber = createdPerson.VaultNumber,
+                     //Id = createdUserLoginProfile.Id,
+                     //IBANNumber = createdPerson.IBANNumber,
+                     //VaultNumber = createdPerson.VaultNumber,
+                     
                  }
             );
         }
@@ -180,7 +184,7 @@ namespace BBS.Interactors
                 },
             };
 
-            _emailSender.SendEmailAsync(recieverEmail, subject, message, attachments);
+            _emailSender.SendEmailAsync(recieverEmail, subject, message);
         }
 
 

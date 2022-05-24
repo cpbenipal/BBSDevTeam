@@ -150,18 +150,19 @@ namespace BBS.Swagger.Extensions
             );
 
             services.AddScoped<IFileUploadService>(uploader => azureFileUploader);
-            services.AddTransient<IEmailSender, SendGridEmailSender>();
+            services.AddTransient<IEmailSender, MailGunEmailSender>();
 
             var TwilioSID = Config["Twilio:SID"];
             var TwilioApiKey = Config["Twilio:ApiKey"];
             var twilioSMSSender = new TwilioSMSSender(TwilioSID, TwilioApiKey);
             services.AddTransient<ISMSSender>(sms => twilioSMSSender);
 
-            services.Configure<SendGridEmailSenderOptions>(options =>
+            services.Configure<MailGunSenderOptions>(options =>
             {
-                options.ApiKey = Config["ExternalProviders:SendGrid:ApiKey"];
-                options.SenderEmail = Config["ExternalProviders:SendGrid:SenderEmail"];
-                options.SenderName = Config["ExternalProviders:SendGrid:SenderName"];
+                options.ApiKey = Config["ExternalProviders:MailGun:ApiKey"];
+                options.BaseUri = Config["ExternalProviders:MailGun:BaseUri"];
+                options.RequestUri = Config["ExternalProviders:MailGun:RequestUri"];
+                options.From = Config["ExternalProviders:MailGun:From"];
             });
            
             services.AddTransient<SwaggerAuthenticationMiddleware>();
