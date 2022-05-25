@@ -4,6 +4,7 @@ using BBS.Middlewares;
 using BBS.Services.Contracts;
 using BBS.Services.Repository;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -152,6 +153,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<IFileUploadService>(uploader => azureFileUploader);
             services.AddTransient<IEmailSender, MailGunEmailSender>();
+            services.AddTransient<INewEmailSender, NewEmailSender>();
 
             var TwilioSID = Config["Twilio:SID"];
             var TwilioApiKey = Config["Twilio:ApiKey"];
@@ -165,7 +167,16 @@ namespace BBS.Swagger.Extensions
                 options.RequestUri = Config["ExternalProviders:MailGun:RequestUri"];
                 options.From = Config["ExternalProviders:MailGun:From"];
             });
-           
+
+            services.Configure<EmailHelperModel>(options =>
+            {
+                options.EmailProvider = Config["ExternalProviders:EmailHelperModel:EmailProvider"];
+                options.EmailFrom = Config["ExternalProviders:EmailHelperModel:EmailFrom"];
+                options.Password = Config["ExternalProviders:EmailHelperModel:Password"];
+                options.User = Config["ExternalProviders:EmailHelperModel:User"];
+                options.PortNumber = Config["ExternalProviders:EmailHelperModel:PortNumber"];
+            });
+
             services.AddTransient<SwaggerAuthenticationMiddleware>();
             
         }

@@ -1,20 +1,21 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
     public class SendOTPInteractor
     {
-        private readonly IEmailSender _emailSender;
+        private readonly INewEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
         private readonly ISMSSender _smsSender;
         private readonly ILoggerManager _loggerManager;
         private readonly IRepositoryWrapper _repository;
 
         public SendOTPInteractor(
-            IEmailSender emailSender,
+            INewEmailSender emailSender,
             IApiResponseManager responseManager,
             ISMSSender smsSender, 
             ILoggerManager loggerManager, IRepositoryWrapper repository
@@ -77,18 +78,12 @@ namespace BBS.Interactors
             var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
             if (personWithThisEmail != null)
             {
-                _emailSender.SendEmailAsync(
+                _emailSender.SendEmail(
                     loginUserDto.Email,
                     "OTP: Verify your login",
                     "One Time Passcode : " +
                     loginUserDto.OTP
                 );
-
-                //_smsSender.Send(
-                //    loginUserDto.PhoneNumber,
-                //    "One Time Passcode : " +
-                //    loginUserDto.OTP
-                //);
                 _loggerManager.LogInfo("SendOTP : " + "If a matching account was found, an OTP will send to " + loginUserDto.Email);
                 return _responseManager.SuccessResponse(
                     "OTP sent on Email",
