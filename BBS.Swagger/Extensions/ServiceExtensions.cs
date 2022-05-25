@@ -123,6 +123,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllCompaniesInteractor>();
             services.AddScoped<GetAllEmployementTypesInteractor>();
             services.AddScoped<GetDigitalCertificateOfIssuedShareInteractor>();
+            services.AddScoped<GetAllCertificatesIssuedByUserInteractor>();
             services.AddScoped<RefreshTokenInteractor>();
 
 

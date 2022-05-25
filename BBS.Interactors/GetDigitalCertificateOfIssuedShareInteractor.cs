@@ -33,7 +33,7 @@ namespace BBS.Interactors
         {
             try
             {
-                return TryGettingAllIssuedShares(issuedDigitalShareId, token);
+                return TryGettingAllCertificates(issuedDigitalShareId, token);
             }
             catch (Exception ex)
             {
@@ -49,16 +49,16 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllIssuedShares(int? issuedDigitalShareId, string token)
+        private GenericApiResponse TryGettingAllCertificates(int? issuedDigitalShareId, string token)
         {
             var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
 
             List<int> issuedDigitalShareIdList = GetCertificateIdList(issuedDigitalShareId, tokenValues);
-            List<string> certificates = new();
+            List<GetAllCertificateDto> certificates = new();
 
             foreach (var item in issuedDigitalShareIdList)
             {
-                string publicUrl = BuildPublicUrlForCertificate(item);
+                GetAllCertificateDto publicUrl = BuildIdAndUrlForCertificate(item);
                 certificates.Add(publicUrl);
             }
 
@@ -70,25 +70,33 @@ namespace BBS.Interactors
             );
         }
 
-        private object GetResponse(List<string> certificates)
+        private object GetResponse(List<GetAllCertificateDto> certificates)
         {
             return (certificates.Count == 1 ? certificates.FirstOrDefault() : certificates)!;
         }
 
-        private string BuildPublicUrlForCertificate(int item)
+        private GetAllCertificateDto BuildIdAndUrlForCertificate(int id)
         {
+            var issuedShare = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(id);
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginById(issuedShare.UserLoginId);
+
             var certificateFileName =
-                            _repositoryWrapper
-                            .IssuedDigitalShareManager
-                            .GetIssuedDigitalShareCertificateUrl(item);
+                _repositoryWrapper
+                .IssuedDigitalShareManager
+                .GetIssuedDigitalShareCertificateUrl(id);
             var publicUrl = _uploadService.GetFilePublicUri(certificateFileName);
-            return publicUrl;
+
+            return new GetAllCertificateDto
+            {
+                CertificateUrl = publicUrl,
+                UserId  = userLogin.PersonId
+            };
         }
 
         private List<int> GetCertificateIdList(int? issuedDigitalShareId, TokenValues tokenValues)
         {
             List<int> issuedDigitalShareIdList;
-            if (tokenValues.RoleId == (int)Roles.ADMIN)
+            if (tokenValues.RoleId == (int)Roles.ADMIN && issuedDigitalShareId == null)
             {
                 issuedDigitalShareIdList =
                     _repositoryWrapper
