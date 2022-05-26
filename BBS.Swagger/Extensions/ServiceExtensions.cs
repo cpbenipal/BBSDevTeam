@@ -175,6 +175,7 @@ namespace BBS.Swagger.Extensions
                 options.Password = Config["ExternalProviders:EmailHelperModel:Password"];
                 options.User = Config["ExternalProviders:EmailHelperModel:User"];
                 options.PortNumber = Config["ExternalProviders:EmailHelperModel:PortNumber"];
+                options.AdminEmail = Config["ExternalProviders:EmailHelperModel:AdminEmail"];
             });
 
             services.AddTransient<SwaggerAuthenticationMiddleware>();

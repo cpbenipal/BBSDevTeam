@@ -36,6 +36,7 @@ namespace BBS.Interactors
                 if (personWithThisEmail != null)
                 {
                     _loggerManager.LogInfo("VerifyOTP : " + CommonUtils.JSONSerialize(loginUserDto));
+
                     return _responseManager.SuccessResponse(
                         "Successfull",
                         StatusCodes.Status202Accepted, new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }

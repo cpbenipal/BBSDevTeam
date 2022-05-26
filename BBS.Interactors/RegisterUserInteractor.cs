@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using BBS.Constants;
 using BBS.CustomExceptions;
 using SendGrid.Helpers.Mail;
+using EmailSender;
 
 namespace BBS.Interactors
 {
@@ -18,8 +19,8 @@ namespace BBS.Interactors
         private readonly IFileUploadService _uploadService;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
-        private readonly IEmailSender _emailSender;
-
+        private readonly INewEmailSender _emailSender;
+        private readonly GetProfileInformationInteractor _getProfileInformationInteractor;
         public RegisterUserInteractor(
             IRepositoryWrapper repository,
             IMapper mapper,
@@ -27,7 +28,7 @@ namespace BBS.Interactors
             IFileUploadService uploadService,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            IEmailSender emailSender
+            INewEmailSender emailSender , GetProfileInformationInteractor getProfileInformationInteractor
         )
         {
             _repository = repository;
@@ -36,8 +37,8 @@ namespace BBS.Interactors
             _uploadService = uploadService;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
-            _emailSender = emailSender;
-
+            _emailSender = emailSender; 
+            _getProfileInformationInteractor= getProfileInformationInteractor;
         }
 
         public object RegisterUserAdmin(RegisterUserDto registerUserDto, int v)
@@ -93,98 +94,75 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
-            //if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
-            //{
-            //    throw new UserAlreadyExistsException("Email or Phone already exists");
-            //}
-            //else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
-            //{
-            //    throw new EmiratesIDExistsException("Emirates ID already exists");
-            //}
-            //else if (registerUserDto.Attachments.Count() < 2)
-            //{
-            //    throw new AttachmentCountLowException(
-            //        "Please Enter Both Front and Back Side Picture of Your Emirates Id"
-            //    );
-            //}
-            //else if (registerUserDto.PersonalInfo.VerificationState <= 0)
-            //{
-            //    throw new RegisterUserException(
-            //        "Invalid Verification State"
-            //    );
-            //}
-            //else
-            //{
+            if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
+            {
+                throw new UserAlreadyExistsException("Email or Phone already exists");
+            }
+            else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
+            {
+                throw new EmiratesIDExistsException("Emirates ID already exists");
+            }
+            else if (registerUserDto.Attachments.Count() < 2)
+            {
+                throw new AttachmentCountLowException(
+                    "Please Enter Both Front and Back Side Picture of Your Emirates Id"
+                );
+            }
+            else if (registerUserDto.PersonalInfo.VerificationState <= 0)
+            {
+                throw new RegisterUserException(
+                    "Invalid Verification State"
+                );
+            }
+            else
+            {
                 return HandleCreatingUser(registerUserDto, roleId);
-            //}
+            }
         }
 
         private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
 
-            _emailSender.SendEmailAsync("nahomhab2626@gmail.com", "This is the message", "Test Message");
+            //_emailSender.SendEmail("cpbenipal@gmail.com", "This is the message", "Test Message");
 
-            //var createdPerson = CreatePerson(registerUserDto);
-            //var createdUserLoginProfile = CreateUserLogin(
-            //    registerUserDto.UserLogin,
-            //    createdPerson.Id
-            //);
+            var createdPerson = CreatePerson(registerUserDto);
+            var createdUserLoginProfile = CreateUserLogin(
+                registerUserDto.UserLogin,
+                createdPerson.Id
+            );
 
-            //CreateUserRole(createdUserLoginProfile.Id, roleId);
+            CreateUserRole(createdUserLoginProfile.Id, roleId);
 
-            //if (roleId == 0)
-            //{
-            //    UploadFilesAndCreateAttachments(
-            //        registerUserDto.Attachments,
-            //        createdPerson.Id
-            //    );
+            if (roleId == 0)
+            {
+                UploadFilesAndCreateAttachments(
+                    registerUserDto.Attachments,
+                    createdPerson.Id
+                );
 
-            //    SendEmailToAdminAboutRegisteredUser(registerUserDto);
-            //}
+                SendEmailToAdminAboutRegisteredUser(createdPerson.Id);
+            }
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
                  new ResponseDTo
                  {
-                     //Id = createdUserLoginProfile.Id,
-                     //IBANNumber = createdPerson.IBANNumber,
-                     //VaultNumber = createdPerson.VaultNumber,
-                     
+                     Id = createdUserLoginProfile.Id,
+                     IBANNumber = createdPerson.IBANNumber,
+                     VaultNumber = createdPerson.VaultNumber,
+
                  }
             );
         }
 
-        private void SendEmailToAdminAboutRegisteredUser(RegisterUserDto registerUserDto)
-        {
-            var recieverEmail = "cpbenipal@gmail.com"; // Admin Email
-            var subject = "Notifying Registration of " + CommonUtils.JSONSerialize(registerUserDto);
-            var message = "This is the message";
+        private void SendEmailToAdminAboutRegisteredUser(int personId)
+        { 
+            var peronInfo = _getProfileInformationInteractor.BuildProfileForPerson(personId);
+            var recieverEmail = "farhal.live@gmail.com"; // Admin Email
+            var message = "New Register User Information : <br/><br/> " + CommonUtils.JSONSerialize(peronInfo);
+            var subject = "New Register User Information "; 
 
-
-            var companyDocument = registerUserDto.Attachments.FirstOrDefault();
-            var personalAttachment = registerUserDto.Attachments.LastOrDefault();
-
-            var attachments = new List<Attachment>()
-            {
-                new Attachment()
-                {
-                    Content = ReadFormFileAndGetContent(companyDocument!),
-                    ContentId = new Guid().ToString(),
-                    Disposition = companyDocument!.ContentDisposition,
-                    Filename = companyDocument.FileName,
-                    Type = companyDocument.ContentType,
-                },
-                new Attachment()
-                {
-                    Content = ReadFormFileAndGetContent(personalAttachment!),
-                    ContentId = new Guid().ToString(),
-                    Disposition = personalAttachment!.ContentDisposition,
-                    Filename = personalAttachment.FileName,
-                    Type = personalAttachment.ContentType,
-                },
-            };
-
-            _emailSender.SendEmailAsync(recieverEmail, subject, message);
+            _emailSender.SendEmail(recieverEmail, subject, message, true);
         }
 
 

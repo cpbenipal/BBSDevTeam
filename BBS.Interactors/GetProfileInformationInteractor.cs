@@ -87,7 +87,7 @@ namespace BBS.Interactors
             return allPersonIds;
         }
 
-        private UserProfileInformationDto BuildProfileForPerson(int personId)
+        public UserProfileInformationDto BuildProfileForPerson(int personId)
         {
             var person = _repositoryWrapper.PersonManager.GetPerson(personId);
             var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginByPerson(personId);

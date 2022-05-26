@@ -5,7 +5,8 @@
         void SendEmail(
             string emailAddress,
             string subject,
-            string message
+            string message,
+            bool Isadmin = false
         );
     }
 }

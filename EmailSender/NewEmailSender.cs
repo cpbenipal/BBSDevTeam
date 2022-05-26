@@ -16,16 +16,16 @@ namespace EmailSender
         public void SendEmail(
             string email,
             string subject,
-            string message
+            string message, bool Isadmin = false
         )
         {
-            Execute(subject, message, email);
+            Execute(subject, message, email, Isadmin);
         }
 
         private void Execute(
             string subject,
             string message,
-            string email
+            string email, bool Isadmin 
         )
         {
             var smtpProvider = _emailSettings.EmailProvider;
@@ -33,10 +33,11 @@ namespace EmailSender
             var user = _emailSettings.User;
             var password = _emailSettings.Password;
             var sender = _emailSettings.EmailFrom;
-
+            string EmailAddress = Isadmin ? _emailSettings.AdminEmail : email;
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("", sender));
-            emailMessage.To.Add(new MailboxAddress("", email));
+             
+            emailMessage.To.Add(new MailboxAddress("", EmailAddress));
             emailMessage.Subject = subject;
 
             emailMessage.Body = new TextPart("html")

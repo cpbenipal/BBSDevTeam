@@ -1,6 +1,7 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -8,13 +9,13 @@ namespace BBS.Interactors
     public class ForgotPasscodeInteractor
     {
         private readonly IRepositoryWrapper _repository;
-        private readonly IEmailSender _emailSender;
+        private readonly INewEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
         public ForgotPasscodeInteractor(
             IRepositoryWrapper repository,
-            IEmailSender emailSender,
+            INewEmailSender emailSender,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager
         )
@@ -47,12 +48,8 @@ namespace BBS.Interactors
             {
                 string newPasscode = _repository.UserLoginManager.UpdatePassCode(personWithThisEmail.Id);
 
-                _emailSender.SendEmailAsync(
-                    forgotPassDto.Email,
-                    "New passcode to login",
-                    "Your new Passcode : " +
-                    newPasscode
-                );
+                _emailSender.SendEmail(forgotPassDto.Email,"New passcode to login","Your new Passcode : " +newPasscode);
+
                 _loggerManager.LogInfo("ForgotPasscode : " + "If a matching account was found an email was sent to " + forgotPassDto.Email);
                 return _responseManager.SuccessResponse(
                     "If a matching account was found an email was sent to " + forgotPassDto.Email,
