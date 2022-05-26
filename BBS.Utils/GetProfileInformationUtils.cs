@@ -29,6 +29,7 @@ namespace BBS.Utils
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 Email = person.Email,
+                PhoneNumber = person.PhoneNumber,
                 DateOfBirth = person.DateOfBirth.ToString("yyyy-MM-dd"),
                 IsUSCitizen = person.IsUSCitizen,
                 IsPublicSectorEmployee = person.IsPublicSectorEmployee,
