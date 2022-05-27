@@ -26,7 +26,7 @@ namespace BBS.Utils
             return allMappedShares;
         }
 
-        private RegisteredShareDto BuildShareDtoObject(Share share)
+        public RegisteredShareDto BuildShareDtoObject(Share share)
         {
             var debtRound = _repository.DebtRoundManager.GetDebtRound(share.DebtRoundId);
             var equityRound = _repository.EquityRoundManager.GetEquityRound(share.EquityRoundId);

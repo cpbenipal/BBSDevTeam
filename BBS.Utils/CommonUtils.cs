@@ -1,16 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BBS.Dto;
+using Newtonsoft.Json;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BBS.Utils
 {
     public class CommonUtils
     {
-      public static string JSONSerializeFromList<T>(T obj)
+        public static string JSONSerializeFromList<T>(T obj)
         {
             string retVal = String.Empty;
             using (MemoryStream ms = new MemoryStream())

@@ -3,6 +3,7 @@ using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -14,13 +15,18 @@ namespace BBS.Interactors
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
-
+        private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly INewEmailSender _emailSender;
+        private readonly GetRegisteredSharesUtils _getRegisteredSharesUtils;
         public RegisterShareInteractor(
             IRepositoryWrapper repository,
             IFileUploadService uploadService,
             ITokenManager tokenManager,
-            IApiResponseManager responseManager, 
-            ILoggerManager loggerManager
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager,
+            EmailHelperUtils emailHelperUtils,
+            INewEmailSender emailSender, 
+            GetRegisteredSharesUtils getRegisteredSharesUtils
         )
         {
             _repository = repository;
@@ -28,6 +34,9 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
+            _emailHelperUtils = emailHelperUtils;
+            _emailSender = emailSender;
+            _getRegisteredSharesUtils = getRegisteredSharesUtils;
 
         }
 
@@ -67,10 +76,7 @@ namespace BBS.Interactors
         }
         private GenericApiResponse ReturnErrorStatus(string s)
         {
-            return _responseManager.ErrorResponse(s
-                ,
-                StatusCodes.Status400BadRequest
-            );
+            return _responseManager.ErrorResponse(s,StatusCodes.Status400BadRequest);
         }
 
         private GenericApiResponse HandleRegisteringShare(
@@ -87,15 +93,35 @@ namespace BBS.Interactors
             shareToInsert.ShareOwnershipDocument = uploadedFiles[1];
             shareToInsert.CompanyInformationDocument = uploadedFiles[2];
 
-            _repository.ShareManager.InsertShare(shareToInsert);
+            var insertedShare = 
+                _repository.ShareManager.InsertShare(shareToInsert);
 
             HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
+            NotifyAdminAndUserAboutShareRegistration(
+                insertedShare.Id, 
+                extractedTokenValues.PersonId
+            );
+
+
             _loggerManager.LogInfo("Share Registered");
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
                 1
             );
+        }
+
+        private void NotifyAdminAndUserAboutShareRegistration(int shareId, int personId)
+        {
+            var share = _repository.ShareManager.GetShare(shareId);
+            var shareHolder = _repository.PersonManager.GetPerson(personId);
+            var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
+
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
+            var subject = "New Share is Registered";
+
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
         }
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)

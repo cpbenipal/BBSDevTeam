@@ -15,7 +15,7 @@ namespace BBS.API.Controllers
             _refreshTokenInteractor = refreshTokenInteractor;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Login([FromBody] RefreshTokenDto refreshTokenDto)
         {
             var response = _refreshTokenInteractor.RefreshToken(refreshTokenDto);

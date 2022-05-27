@@ -136,7 +136,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllOfferedSharesUtils>();
 
             services.AddScoped<GenerateHtmlCertificate>();
-
+            services.AddScoped<EmailHelperUtils>();
 
 
             Config = BuildConfiguration();

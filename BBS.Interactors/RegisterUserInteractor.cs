@@ -6,7 +6,6 @@ using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using BBS.Constants;
 using BBS.CustomExceptions;
-using SendGrid.Helpers.Mail;
 using EmailSender;
 
 namespace BBS.Interactors
@@ -21,6 +20,7 @@ namespace BBS.Interactors
         private readonly ILoggerManager _loggerManager;
         private readonly INewEmailSender _emailSender;
         private readonly GetProfileInformationInteractor _getProfileInformationInteractor;
+        private readonly EmailHelperUtils _emailHelperUtils;
         public RegisterUserInteractor(
             IRepositoryWrapper repository,
             IMapper mapper,
@@ -28,7 +28,9 @@ namespace BBS.Interactors
             IFileUploadService uploadService,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            INewEmailSender emailSender , GetProfileInformationInteractor getProfileInformationInteractor
+            INewEmailSender emailSender,
+            GetProfileInformationInteractor getProfileInformationInteractor, 
+            EmailHelperUtils emailHelperUtils
         )
         {
             _repository = repository;
@@ -37,8 +39,10 @@ namespace BBS.Interactors
             _uploadService = uploadService;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
-            _emailSender = emailSender; 
-            _getProfileInformationInteractor= getProfileInformationInteractor;
+            _emailSender = emailSender;
+            _getProfileInformationInteractor = getProfileInformationInteractor;
+            _emailHelperUtils = emailHelperUtils;
+
         }
 
         public object RegisterUserAdmin(RegisterUserDto registerUserDto, int v)
@@ -122,9 +126,6 @@ namespace BBS.Interactors
 
         private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto, int roleId = 0)
         {
-
-            //_emailSender.SendEmail("cpbenipal@gmail.com", "This is the message", "Test Message");
-
             var createdPerson = CreatePerson(registerUserDto);
             var createdUserLoginProfile = CreateUserLogin(
                 registerUserDto.UserLogin,
@@ -140,43 +141,29 @@ namespace BBS.Interactors
                     createdPerson.Id
                 );
 
-                SendEmailToAdminAboutRegisteredUser(createdPerson.Id);
+                NotifyAdminAndUserAboutRegistration(createdPerson);
             }
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
                  new ResponseDTo
                  {
-                     Id = createdUserLoginProfile.Id,
+                     Id = createdPerson.Id,
                      IBANNumber = createdPerson.IBANNumber,
                      VaultNumber = createdPerson.VaultNumber,
-
                  }
             );
         }
 
-        private void SendEmailToAdminAboutRegisteredUser(int personId)
+        private void NotifyAdminAndUserAboutRegistration(Person person)
         { 
-            var peronInfo = _getProfileInformationInteractor.BuildProfileForPerson(personId);
-            var recieverEmail = "farhal.live@gmail.com"; // Admin Email
-            var message = "New Register User Information : <br/><br/> " + CommonUtils.JSONSerialize(peronInfo);
+            var peronInfo = _getProfileInformationInteractor.BuildProfileForPerson(person.Id);
+            var message = _emailHelperUtils.FillEmailContents(peronInfo, "register_user");
             var subject = "New Register User Information "; 
 
-            _emailSender.SendEmail(recieverEmail, subject, message, true);
+            _emailSender.SendEmail("farhal.live@gmail.com", subject, message, true);
+            _emailSender.SendEmail(person.Email!, subject, message, false);
         }
-
-
-        private static string ReadFormFileAndGetContent(IFormFile file)
-        {
-            using (var ms = new MemoryStream())
-            {
-                file.CopyTo(ms);
-                var fileBytes = ms.ToArray();
-                string contentRead = Convert.ToBase64String(fileBytes);
-                return contentRead;
-            }
-        }
-
 
         private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
         {
