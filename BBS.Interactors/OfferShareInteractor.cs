@@ -118,7 +118,7 @@ namespace BBS.Interactors
             var subject = "Share Is Offered";
 
             _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(shareOfferingPerson.Email!, subject, message, false);
+           // _emailSender.SendEmail(shareOfferingPerson.Email!, subject, message, false);
         }
     }
 }

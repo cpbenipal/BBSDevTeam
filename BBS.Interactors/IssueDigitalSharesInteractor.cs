@@ -134,7 +134,7 @@ namespace BBS.Interactors
             var subject = "Share Is Digitally Issued";
 
             _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(digitalShareHolder.Email!, subject, message, false);
+           // _emailSender.SendEmail(digitalShareHolder.Email!, subject, message, false);
         }
 
         private BlobFile HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)

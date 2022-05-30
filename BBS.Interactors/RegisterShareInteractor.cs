@@ -121,7 +121,7 @@ namespace BBS.Interactors
             var subject = "New Share is Registered";
 
             _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
+            //_emailSender.SendEmail(shareHolder.Email!, subject, message, false);
         }
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)

@@ -29,7 +29,7 @@ namespace BBS.Interactors
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             INewEmailSender emailSender,
-            GetProfileInformationInteractor getProfileInformationInteractor, 
+            GetProfileInformationInteractor getProfileInformationInteractor,
             EmailHelperUtils emailHelperUtils
         )
         {
@@ -156,12 +156,12 @@ namespace BBS.Interactors
         }
 
         private void NotifyAdminAndUserAboutRegistration(Person person)
-        { 
+        {
             var peronInfo = _getProfileInformationInteractor.BuildProfileForPerson(person.Id);
             var message = _emailHelperUtils.FillEmailContents(peronInfo, "register_user");
-            var subject = "New Register User Information "; 
+            var subject = "New Register User Information ";
 
-            _emailSender.SendEmail("farhal.live@gmail.com", subject, message, true);            
+            _emailSender.SendEmail("", subject, message, true);
             _emailSender.SendEmail(person.Email!, subject, message, false);
         }
 
