@@ -17,8 +17,6 @@ namespace BBS.API.Controllers
         }
 
         [HttpPost]
-       // [ProducesResponseType(typeof(GenericApiResponse), StatusCodes.Status200OK)]
-       // [ProducesResponseType(typeof(BadRequestObjectResult), 400)]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
             return Ok(_loginUserInteractor.LoginUser(loginUserDto));
