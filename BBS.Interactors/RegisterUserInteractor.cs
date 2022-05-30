@@ -161,7 +161,7 @@ namespace BBS.Interactors
             var message = _emailHelperUtils.FillEmailContents(peronInfo, "register_user");
             var subject = "New Register User Information "; 
 
-            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail("farhal.live@gmail.com", subject, message, true);            
             _emailSender.SendEmail(person.Email!, subject, message, false);
         }
 

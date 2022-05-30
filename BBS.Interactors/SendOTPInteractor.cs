@@ -32,25 +32,18 @@ namespace BBS.Interactors
         {
             try
             {
-                var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
-                if (personWithThisEmail != null)
+                // var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
+                if (loginUserDto.Email != String.Empty)
                 {
                     _loggerManager.LogInfo("VerifyOTP : " + CommonUtils.JSONSerialize(loginUserDto));
 
-                    return _responseManager.SuccessResponse(
-                        "Successfull",
-                        StatusCodes.Status202Accepted, new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
+                    return _responseManager.SuccessResponse("Successfull",StatusCodes.Status202Accepted, new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
                     );
                 }
-
                 else
                 {
-                    _loggerManager.LogWarn("SendOTP : " + "Account " + loginUserDto.Email + " not found");
-                    return _responseManager.SuccessResponse(
-                        "Account " + loginUserDto.Email + " not found",
-                         StatusCodes.Status302Found,
-                         ""
-                    );
+                    _loggerManager.LogWarn("SendOTP : Email is required");
+                    return _responseManager.SuccessResponse("Email should not empty",StatusCodes.Status302Found,"");
                 }
             }
             catch (Exception ex)
@@ -76,32 +69,18 @@ namespace BBS.Interactors
 
         private GenericApiResponse TrySendingOtp(LoginUserOTPDto loginUserDto)
         {
-            var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
-            if (personWithThisEmail != null)
+           // var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
+            if (loginUserDto.Email != String.Empty)
             {
-                _emailSender.SendEmail(
-                    loginUserDto.Email,
-                    "OTP: Verify your login",
-                    "One Time Passcode : " +
-                    loginUserDto.OTP
-                );
-                _loggerManager.LogInfo("SendOTP : " + "If a matching account was found, an OTP will send to " + loginUserDto.Email);
-                return _responseManager.SuccessResponse(
-                    "OTP sent on Email",
-                    StatusCodes.Status202Accepted,
-                    ""
-                );
+                _emailSender.SendEmail(loginUserDto.Email,"OTP: Verify your email","One Time Passcode : " +loginUserDto.OTP);
+                _loggerManager.LogInfo("SendOTP : OTP sent to " + loginUserDto.Email);
+                return _responseManager.SuccessResponse("OTP sent on Email",StatusCodes.Status202Accepted,"");
             }
             else
             {
-                _loggerManager.LogWarn("SendOTP : " + "Account " + loginUserDto.Email + " not found");
-                return _responseManager.SuccessResponse(
-                    "Account " + loginUserDto.Email + " not found",
-                     StatusCodes.Status302Found,
-                     ""
-                );
-            }
-            
+                _loggerManager.LogWarn("SendOTP : Email required");
+                return _responseManager.SuccessResponse("Email should not empty", StatusCodes.Status302Found, "");
+            }            
         }
 
         private GenericApiResponse ReturnErrorStatus()
