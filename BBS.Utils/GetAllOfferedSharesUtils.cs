@@ -23,13 +23,18 @@ namespace BBS.Utils
 
             foreach (var item in offeredShares)
             {
-                var offerType = _repositoryWrapper.OfferTypeManager.GetOfferType(item.OfferTypeId);
-
-                var mappedOfferedShare = _mapper.Map<GetOfferedSharesItemDto>(item);
-                mappedOfferedShare.OfferType = offerType.Name;
+                GetOfferedSharesItemDto mappedOfferedShare = BuildOfferedShare(item);
                 parsedList.Add(mappedOfferedShare);
             }
             return parsedList;
+        }
+
+        public GetOfferedSharesItemDto BuildOfferedShare(OfferedShare item)
+        {
+            var offerType = _repositoryWrapper.OfferTypeManager.GetOfferType(item.OfferTypeId);
+            var mappedOfferedShare = _mapper.Map<GetOfferedSharesItemDto>(item);
+            mappedOfferedShare.OfferType = offerType.Name;
+            return mappedOfferedShare;
         }
     }
 }

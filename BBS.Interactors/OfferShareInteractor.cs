@@ -3,6 +3,7 @@ using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -14,6 +15,9 @@ namespace BBS.Interactors
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
         private readonly IMapper _mapper;
+        private readonly GetAllOfferedSharesUtils _getAllOfferedSharesUtils;
+        private readonly INewEmailSender _emailSender;
+        private readonly EmailHelperUtils _emailHelperUtils;
 
 
         public OfferShareInteractor(
@@ -21,7 +25,10 @@ namespace BBS.Interactors
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
-            IMapper mapper
+            IMapper mapper,
+            GetAllOfferedSharesUtils getAllOfferedSharesUtils,
+            INewEmailSender emailSender, 
+            EmailHelperUtils emailHelperUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -29,6 +36,10 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
             _mapper = mapper;
+            _getAllOfferedSharesUtils = getAllOfferedSharesUtils;
+            _emailSender = emailSender;
+            _emailHelperUtils = emailHelperUtils;
+
         }
 
         public GenericApiResponse InsertOfferedShares(OfferShareDto offerShareDto, string token)
@@ -47,10 +58,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus(string s)
         {
-            return _responseManager.ErrorResponse(
-               s , 
-                StatusCodes.Status500InternalServerError
-            );
+            return _responseManager.ErrorResponse(s, StatusCodes.Status500InternalServerError);
         }
 
         private GenericApiResponse TryInsertingOfferedShare(OfferShareDto offerShareDto, string token)
@@ -82,7 +90,11 @@ namespace BBS.Interactors
                 offeredShareToInsert.AddedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.ModifiedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
-                _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
+                var insertedOfferedShare = 
+                    _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
+
+
+                NotifyAdminAndUserWhenShareIsOffered(extractedTokenValues, insertedOfferedShare);
 
                 return _responseManager.SuccessResponse(
                     "Successfull",
@@ -91,6 +103,22 @@ namespace BBS.Interactors
                 );
             }
         }
-        
+
+        private void NotifyAdminAndUserWhenShareIsOffered(
+            TokenValues extractedTokenValues, 
+            OfferedShare insertedOfferedShare
+        )
+        {
+            var shareOfferingPerson = _repositoryWrapper.PersonManager.GetPerson(
+                extractedTokenValues.PersonId
+            );
+            var contentToSend = _getAllOfferedSharesUtils.BuildOfferedShare(insertedOfferedShare);
+
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "offered_share");
+            var subject = "Share Is Offered";
+
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(shareOfferingPerson.Email!, subject, message, false);
+        }
     }
 }

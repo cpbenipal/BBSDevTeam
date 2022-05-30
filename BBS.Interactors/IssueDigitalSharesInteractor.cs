@@ -3,6 +3,7 @@ using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -18,6 +19,9 @@ namespace BBS.Interactors
         private readonly IFileUploadService _uploadService;
         private readonly ILoggerManager _loggerManager;
         private readonly IWebHostEnvironment _IHostEnvironment;
+        private readonly GetIssuedDigitalSharesUtils _getIssuedDigitalSharesUtils;
+        private readonly INewEmailSender _emailSender;
+        private readonly EmailHelperUtils _emailHelperUtils;
 
         public IssueDigitalSharesInteractor(
             IWebHostEnvironment IHostEnvironment,
@@ -27,7 +31,10 @@ namespace BBS.Interactors
             ILoggerManager loggerManager,
             IssueDigitalShareUtils digitalShareUtils,
             GenerateHtmlCertificate generateHtmlCertificate,
-            IFileUploadService uploadService
+            IFileUploadService uploadService,
+            INewEmailSender emailSender,
+            GetIssuedDigitalSharesUtils getIssuedDigitalSharesUtils, 
+            EmailHelperUtils emailHelperUtils
         )
         {
             _IHostEnvironment = IHostEnvironment;
@@ -38,6 +45,9 @@ namespace BBS.Interactors
             _generateHtmlCertificate = generateHtmlCertificate;
             _uploadService = uploadService;
             _loggerManager = loggerManager;
+            _getIssuedDigitalSharesUtils = getIssuedDigitalSharesUtils;
+            _emailSender = emailSender;
+            _emailHelperUtils = emailHelperUtils;
 
         }
 
@@ -66,7 +76,7 @@ namespace BBS.Interactors
                 _loggerManager.LogWarn("This Share does not exist");
                 return ReturnErrorStatus("This Share does not exist");
             }
-            else if (!usershares.Any(x=>x.Id ==digitalShare.ShareId))
+            else if (!usershares.Any(x => x.Id == digitalShare.ShareId))
             {
                 _loggerManager.LogWarn("This Share does not belong to user");
                 return ReturnErrorStatus("This Share does not belong to user");
@@ -83,8 +93,8 @@ namespace BBS.Interactors
             );
 
             BlobFile uploadedHtml = HandleIssuingCertificate(
-                digitalShare, 
-                share, 
+                digitalShare,
+                share,
                 uploadedSignature.PublicPath
             );
 
@@ -93,11 +103,13 @@ namespace BBS.Interactors
                 digitalShare,
                 valuesFromToken.UserLoginId,
                 uploadedHtml.ImageUrl,
-                certificateKey                
+                certificateKey
             );
 
-            _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(digitalShareToInsert);
-
+            var insertedDigitalShare = _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(
+                digitalShareToInsert
+            );
+            NotifyAdminAndUserWhenShareIsDigitallyIssued(valuesFromToken, insertedDigitalShare);
 
             var response = new Dictionary<string, string>()
             {
@@ -111,6 +123,18 @@ namespace BBS.Interactors
                 response
             );
 
+        }
+
+        private void NotifyAdminAndUserWhenShareIsDigitallyIssued(TokenValues valuesFromToken, IssuedDigitalShare insertedDigialShare)
+        {
+            var digitalShareHolder = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
+            var contentToSend = _getIssuedDigitalSharesUtils.BuildDigitalShareFromDto(insertedDigialShare);
+
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "issue_digital_share");
+            var subject = "Share Is Digitally Issued";
+
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(digitalShareHolder.Email!, subject, message, false);
         }
 
         private BlobFile HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)
@@ -133,10 +157,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus(string s)
         {
-            return _responseManager.ErrorResponse(s
-                ,
-                StatusCodes.Status400BadRequest
-            );
+            return _responseManager.ErrorResponse(s,StatusCodes.Status400BadRequest);
         } 
     }
 }
