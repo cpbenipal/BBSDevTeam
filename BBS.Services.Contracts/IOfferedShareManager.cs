@@ -8,6 +8,6 @@ namespace BBS.Services.Contracts
         List<OfferedShare> GetAllOfferedShares();
         OfferedShare GetOfferedShare(int id);
         OfferedShare InsertOfferedShare(OfferedShare offeredShare);
-        List<OfferedShare> GetOfferedSharesByUserLoginId(int userLoginId);
+        List<OfferedShare> GetAuctionTypeOfferedSharesByUserLoginId(int userLoginId);
     }
 }

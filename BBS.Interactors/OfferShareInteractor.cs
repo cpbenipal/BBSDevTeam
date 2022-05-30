@@ -67,7 +67,7 @@ namespace BBS.Interactors
 
             var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 
             var userdigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
-            var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
+            var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetAuctionTypeOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
 
             if (issueDigitalShares == null)
             {
@@ -87,6 +87,12 @@ namespace BBS.Interactors
             else
             {
                 var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
+
+                if(offeredShareToInsert.OfferTypeId == 2)
+                {
+                    offeredShareToInsert.PrivateShareKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper(); ;
+                }
+
                 offeredShareToInsert.AddedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.ModifiedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
@@ -94,7 +100,7 @@ namespace BBS.Interactors
                     _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 
 
-                NotifyAdminAndUserWhenShareIsOffered(extractedTokenValues, insertedOfferedShare);
+                NotifyAdminAndUserWhenShareIsOffered(insertedOfferedShare);
 
                 return _responseManager.SuccessResponse(
                     "Successfull",
@@ -105,20 +111,15 @@ namespace BBS.Interactors
         }
 
         private void NotifyAdminAndUserWhenShareIsOffered(
-            TokenValues extractedTokenValues, 
             OfferedShare insertedOfferedShare
         )
         {
-            var shareOfferingPerson = _repositoryWrapper.PersonManager.GetPerson(
-                extractedTokenValues.PersonId
-            );
             var contentToSend = _getAllOfferedSharesUtils.BuildOfferedShare(insertedOfferedShare);
 
             var message = _emailHelperUtils.FillEmailContents(contentToSend, "offered_share");
             var subject = "Share Is Offered";
 
             _emailSender.SendEmail("", subject, message, true);
-           // _emailSender.SendEmail(shareOfferingPerson.Email!, subject, message, false);
         }
     }
 }

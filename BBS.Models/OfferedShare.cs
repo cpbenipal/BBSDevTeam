@@ -17,6 +17,8 @@ namespace BBS.Models
         [Required]
         public int Quantity { get; set; }
 
+        public string? PrivateShareKey { get; set; }
+
         [Required]
         public decimal OfferPrice { get; set; }
 

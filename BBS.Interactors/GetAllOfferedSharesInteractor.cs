@@ -62,7 +62,7 @@ namespace BBS.Interactors
             {
                 allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
-                .GetOfferedSharesByUserLoginId(extractedFromToken.UserLoginId);
+                .GetAuctionTypeOfferedSharesByUserLoginId(extractedFromToken.UserLoginId);
             }
 
             var parsedOfferedShares = _getAllOfferedSharesUtils
