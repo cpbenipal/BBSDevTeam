@@ -127,6 +127,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllCertificatesIssuedByUserInteractor>();
             services.AddScoped<RefreshTokenInteractor>();         
             services.AddScoped<GetOfferLimitValuesInteractor>();
+            services.AddScoped<GetPrivatelyOfferedShareInteractor>();
 
 
 

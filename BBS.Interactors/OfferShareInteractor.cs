@@ -87,10 +87,10 @@ namespace BBS.Interactors
             else
             {
                 var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
-
-                if(offeredShareToInsert.OfferTypeId == 2)
+                var offeredSharePrivateKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper();
+                if (offeredShareToInsert.OfferTypeId == 2)
                 {
-                    offeredShareToInsert.PrivateShareKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper(); ;
+                    offeredShareToInsert.PrivateShareKey = offeredSharePrivateKey;
                 }
 
                 offeredShareToInsert.AddedById = extractedTokenValues.UserLoginId;
@@ -105,7 +105,7 @@ namespace BBS.Interactors
                 return _responseManager.SuccessResponse(
                     "Successfull",
                     StatusCodes.Status200OK,
-                    1
+                    offeredShareToInsert.OfferTypeId == 2 ? offeredSharePrivateKey : 1
                 );
             }
         }

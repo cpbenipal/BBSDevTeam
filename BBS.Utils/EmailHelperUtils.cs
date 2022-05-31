@@ -19,8 +19,8 @@ namespace BBS.Utils
 
             foreach (PropertyInfo prop in dataToFill.GetType().GetProperties())
             {
-                var propName = "@" + prop.Name.ToString();
-                var propValue = prop.GetValue(dataToFill, null)!.ToString();
+                var propName = "@" + Convert.ToString(prop.Name);
+                var propValue = Convert.ToString(prop.GetValue(dataToFill, null)!);
                 templateContent = templateContent.Replace(propName, propValue);
             }
 

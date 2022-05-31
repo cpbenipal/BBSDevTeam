@@ -9,5 +9,9 @@ namespace BBS.Services.Contracts
         OfferedShare GetOfferedShare(int id);
         OfferedShare InsertOfferedShare(OfferedShare offeredShare);
         List<OfferedShare> GetAuctionTypeOfferedSharesByUserLoginId(int userLoginId);
+        OfferedShare? GetPrivatelyOfferedSharesByUserLoginIdAndPrivateKey(
+            int userLoginId, 
+            string offerPrivateKey
+        );
     }
 }

@@ -5,9 +5,6 @@ namespace BBS.Dto
     public class GetOfferedSharesItemDto
     {
         [Required]
-        public int IssuedDigitalShareId { get; set; }
-
-        [Required]
         public string OfferType { get; set; }
 
         [Required]

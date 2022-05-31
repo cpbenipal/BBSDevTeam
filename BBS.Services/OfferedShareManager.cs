@@ -18,12 +18,28 @@ namespace BBS.Services.Repository
         }
         public List<OfferedShare> GetAuctionTypeOfferedSharesByUserLoginId(int userLoginId)
         {
-            return _repositoryBase.GetAll().Where(s => s.UserLoginId == userLoginId && s.OfferTypeId == 1).ToList();
+            return _repositoryBase.GetAll().Where(
+                s => s.UserLoginId == userLoginId && s.OfferTypeId == 1
+            ).ToList();
         }
 
         public OfferedShare GetOfferedShare(int id)
         {
             return _repositoryBase.GetById(id);
+        }
+
+        public OfferedShare? GetPrivatelyOfferedSharesByUserLoginIdAndPrivateKey(
+            int userLoginId, 
+            string offerPrivateKey
+        )
+        {
+            return _repositoryBase
+                .GetAll()
+                .Where(
+                    s => s.UserLoginId == userLoginId && 
+                    s.OfferTypeId == 2 && 
+                    s.PrivateShareKey!.Equals(offerPrivateKey)
+                ).FirstOrDefault();
         }
 
         public OfferedShare InsertOfferedShare(OfferedShare offeredShare)

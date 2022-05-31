@@ -67,7 +67,7 @@ namespace BBS.Interactors
             var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
             var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
             if (duplicates)
-            { 
+            {
                 _loggerManager.LogWarn("Share Already Registered");
                 return ReturnErrorStatus("Share already Issued Digitally to user");
             }
@@ -114,14 +114,12 @@ namespace BBS.Interactors
         private void NotifyAdminAndUserAboutShareRegistration(int shareId, int personId)
         {
             var share = _repository.ShareManager.GetShare(shareId);
-            var shareHolder = _repository.PersonManager.GetPerson(personId);
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
 
             var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
             var subject = "New Share is Registered";
 
             _emailSender.SendEmail("", subject, message, true);
-            //_emailSender.SendEmail(shareHolder.Email!, subject, message, false);
         }
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)
@@ -151,7 +149,8 @@ namespace BBS.Interactors
             {
                 _repository.CompanyManager.InsertCompany(new Company
                 {
-                    Name = registerShareDto.ShareInformation.CompanyName
+                    Name = registerShareDto.ShareInformation.CompanyName,
+                    Description = null
                 });
             }
         }

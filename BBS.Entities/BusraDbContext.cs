@@ -53,64 +53,6 @@ namespace BBS.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*
-            modelBuilder.Entity<Person>().HasData(
-                 new Person
-                 {
-                     FirstName = "Admin",
-                     LastName = "Admin",
-                     Email = "admin@gmail.com",
-                     DateOfBirth = DateTime.UtcNow,
-                     IsUSCitizen = false,
-                     IsPublicSectorEmployee = false,
-                     IsIndividual = false,
-                     HaveCriminalRecord = false,
-                     HaveConvicted = false,
-                     City = "Addis Ababa",
-                     AddressLine = "Addis Ababa",
-                     EmiratesID = "000000000000",
-                     VaultNumber = "00000000000",
-                     IBANNumber = "00000000000",
-                     EmployerName = "None",
-                     AnnualIncome = 1000,
-                     DateOfEmployement = DateTime.UtcNow,
-                     HavePriorExpirence = false,
-                     HaveTraining = false,
-                     HaveExperience = false,
-                     VerificationState = 1,
-                     CountryId = 1,
-                     NationalityId = 1,
-                     Id = 1,
-                     EmployementTypeId = 1,
-                     PhoneNumber = "0926849888"
-                 }
-
-            );
-
-            modelBuilder.Entity<UserLogin>().HasData(
-                 new UserLogin
-                 {
-                     Id = 1,
-                     Passcode = "MTIzNA==",
-                     PasswordHash = new byte[32],
-                     PasswordSalt = new byte[32],
-                     PersonId = 1,
-                     Username = "",
-                     RefreshToken = "",
-                 }
-
-            );
-
-            modelBuilder.Entity<UserRole>().HasData(
-                 new UserRole
-                 {
-                     Id = 1,
-                     RoleId = 1,
-                     UserLoginId = 1,
-                 }
-
-            );
-            */
             modelBuilder.Entity<State>().HasData(
                  new State { Id = 1, Name = "Pending", Value = 0 },
                  new State { Id = 2, Name = "Returned", Value = 1 },
