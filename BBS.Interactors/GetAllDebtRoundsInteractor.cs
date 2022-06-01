@@ -46,7 +46,11 @@ namespace BBS.Interactors
         private GenericApiResponse TryGettingAllDebtRounds()
         {
             var allDebtRounds = _repositoryWrapper.DebtRoundManager.GetAllDebtRounds();
-            return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, allDebtRounds);
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK, 
+                allDebtRounds
+            );
         }
     }
 }

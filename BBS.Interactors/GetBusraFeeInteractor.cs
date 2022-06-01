@@ -1,33 +1,33 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace BBS.Interactors
 {
-    public class GetAllRestrictionsInteractor
+    public class GetBusraFeeInteractor
     {
-        private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
+        private readonly IConfiguration _configuration;
 
-        public GetAllRestrictionsInteractor(
-            IRepositoryWrapper repositoryWrapper,
-            IApiResponseManager responseManager, 
-            ILoggerManager loggerManager
+
+        public GetBusraFeeInteractor(
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager,
+            IConfiguration configuration
         )
         {
-            _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
-
+            _configuration = configuration;
         }
 
-        public GenericApiResponse GetAllRestrictions()
+        public GenericApiResponse GetBusraFee()
         {
             try
             {
-                return TryGettingAllRestrictions();
+                return TryGettingBusraFee();
             }
             catch (Exception ex)
             {
@@ -45,13 +45,13 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllRestrictions()
+        private GenericApiResponse TryGettingBusraFee()
         {
-            var allRestrictions = _repositoryWrapper.RestrictionManager.GetAllRestrictions();
+            var busraFee = int.Parse(_configuration["AppSettings:BusraFee"]);
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
-                allRestrictions
+                busraFee
             );
         }
     }

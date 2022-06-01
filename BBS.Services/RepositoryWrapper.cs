@@ -280,5 +280,47 @@ namespace BBS.Services.Repository
                 return _offeredShare;
             }
         }
+
+        private IOfferTimeLimitManager _offerTimeLimit;
+        public IOfferTimeLimitManager OfferTimeLimitManager
+        {
+            get
+            {
+                if (_offerTimeLimit == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferTimeLimit>(_repoContext);
+                    _offerTimeLimit = new OfferTimeLimitManager(repositoryBase);
+                }
+                return _offerTimeLimit;
+            }
+        }
+
+        private IOfferPaymentManager _offerPayment;
+        public IOfferPaymentManager OfferPaymentManager
+        {
+            get
+            {
+                if (_offerPayment == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferPayment>(_repoContext);
+                    _offerPayment = new OfferPaymentManager(repositoryBase);
+                }
+                return _offerPayment;
+            }
+        }
+
+        private IPaymentTypeManager _paymentType;
+        public IPaymentTypeManager PaymentTypeManager
+        {
+            get
+            {
+                if (_paymentType == null)
+                {
+                    var repositoryBase = new RepositoryBase<PaymentType>(_repoContext);
+                    _paymentType = new PaymentTypeManager(repositoryBase);
+                }
+                return _paymentType;
+            }
+        }
     }
 }

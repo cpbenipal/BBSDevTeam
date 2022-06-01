@@ -22,8 +22,9 @@ namespace BBS.Models
         [Required]
         public decimal OfferPrice { get; set; }
 
-        [Required]
-        public int OfferTimeLimitInWeeks { get; set; }
+        [ForeignKey("OfferTimeLimitId")]
+        public int OfferTimeLimitId { get; set; }
+        public OfferTimeLimit? OfferTimeLimit { get; set; }
 
         [ForeignKey("OfferTypeId")]
         public int OfferTypeId { get; set; }

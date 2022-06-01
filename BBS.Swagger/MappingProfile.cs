@@ -40,6 +40,9 @@ namespace BBS.Swagger
 
             CreateMap<GetOfferedSharesItemDto, OfferedShare>();
             CreateMap<OfferedShare, GetOfferedSharesItemDto>();
+
+            CreateMap<OfferPaymentDto, OfferPayment>();
+            CreateMap<OfferPayment, OfferPaymentDto>();
         }
 
     }

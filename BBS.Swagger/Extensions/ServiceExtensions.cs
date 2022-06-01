@@ -126,10 +126,10 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetDigitalCertificateOfIssuedShareInteractor>();
             services.AddScoped<GetAllCertificatesIssuedByUserInteractor>();
             services.AddScoped<RefreshTokenInteractor>();         
-            services.AddScoped<GetOfferLimitValuesInteractor>();
+            services.AddScoped<GetOfferTimeLimitsInteractor>();
             services.AddScoped<GetPrivatelyOfferedShareInteractor>();
-
-
+            services.AddScoped<GetBusraFeeInteractor>();
+            services.AddScoped<GetAllPaymentTypesInteractor>();
 
             services.AddScoped<GetAllIssuedSharesInteractor>();
             services.AddScoped<GetIssuedDigitalSharesUtils>();
@@ -140,6 +140,13 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GenerateHtmlCertificate>();
             services.AddScoped<EmailHelperUtils>();
+
+
+            services.AddScoped<OfferPaymentInteractor>();
+            services.AddScoped<OfferPaymentUtils>();
+
+
+            services.AddScoped<GetAllOfferPaymentsInteractor>();
 
 
             Config = BuildConfiguration();

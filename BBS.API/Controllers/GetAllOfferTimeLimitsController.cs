@@ -5,11 +5,11 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GetOfferLimitValuesController : ControllerBase
+    public class GetAllOfferTimeLimitsController : ControllerBase
     {
-        private readonly GetOfferLimitValuesInteractor _getOfferLimitValuesInteractor;
+        private readonly GetOfferTimeLimitsInteractor _getOfferLimitValuesInteractor;
 
-        public GetOfferLimitValuesController(GetOfferLimitValuesInteractor interactor)
+        public GetAllOfferTimeLimitsController(GetOfferTimeLimitsInteractor interactor)
         {
             _getOfferLimitValuesInteractor = interactor;
         }

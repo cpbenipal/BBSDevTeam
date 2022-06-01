@@ -9,10 +9,16 @@ namespace BBS.Utils
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repositoryWrapper;
-        public GetAllOfferedSharesUtils(IMapper mapper, IRepositoryWrapper repositoryWrapper)
+        private readonly IFileUploadService _uploadService;
+        public GetAllOfferedSharesUtils(
+            IMapper mapper, 
+            IRepositoryWrapper repositoryWrapper, 
+            IFileUploadService uploadService
+        )
         {
             _mapper = mapper;
             _repositoryWrapper = repositoryWrapper;
+            _uploadService = uploadService;
         }
 
         public List<GetOfferedSharesItemDto> MapOfferedShareObjectFromRequest(
@@ -31,9 +37,20 @@ namespace BBS.Utils
 
         public GetOfferedSharesItemDto BuildOfferedShare(OfferedShare item)
         {
+
+            var digitallyIssuedShare = _repositoryWrapper
+                .IssuedDigitalShareManager
+                .GetIssuedDigitalShare(item.IssuedDigitalShareId);
+            var share = _repositoryWrapper.ShareManager.GetShare(digitallyIssuedShare.ShareId);
+            var offerLimit = _repositoryWrapper.OfferTimeLimitManager.GetOfferTimeLimit(item.OfferTimeLimitId);
             var offerType = _repositoryWrapper.OfferTypeManager.GetOfferType(item.OfferTypeId);
+
             var mappedOfferedShare = _mapper.Map<GetOfferedSharesItemDto>(item);
             mappedOfferedShare.OfferType = offerType.Name;
+            mappedOfferedShare.BusinessLogo = _uploadService.GetFilePublicUri(share.BusinessLogo!);
+            mappedOfferedShare.CompanyName = share.CompanyName;
+            mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
+
             return mappedOfferedShare;
         }
     }

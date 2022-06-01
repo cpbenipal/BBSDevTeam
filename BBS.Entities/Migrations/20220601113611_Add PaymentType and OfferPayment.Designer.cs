@@ -3,6 +3,7 @@ using System;
 using BBS.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    partial class BusraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220601113611_Add PaymentType and OfferPayment")]
+    partial class AddPaymentTypeandOfferPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,16 +305,11 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserLoginId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OfferedShareId");
 
                     b.HasIndex("PaymentTypeId");
-
-                    b.HasIndex("UserLoginId");
 
                     b.ToTable("OfferPayments");
                 });
@@ -332,28 +329,6 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OfferTimeLimits");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Value = "3 Days"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Value = "1 Week"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Value = "3 Months"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Value = "6 Months"
-                        });
                 });
 
             modelBuilder.Entity("BBS.Models.OfferType", b =>
@@ -388,6 +363,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PaymentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "PaymentType 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "PaymentType 2"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Person", b =>
@@ -879,17 +866,9 @@ namespace BBS.Entities.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
-                        .WithMany()
-                        .HasForeignKey("UserLoginId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("OfferedShare");
 
                     b.Navigation("PaymentType");
-
-                    b.Navigation("UserLogin");
                 });
 
             modelBuilder.Entity("BBS.Models.Person", b =>

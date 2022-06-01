@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class AddPrivateOfferTypeKeyinOfferShare : Migration
+    public partial class AddOfferTimeLimitEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,8 @@ namespace BBS.Entities.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,6 +101,19 @@ namespace BBS.Entities.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Nationality", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfferTimeLimits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Value = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OfferTimeLimits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -406,7 +420,7 @@ namespace BBS.Entities.Migrations
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     PrivateShareKey = table.Column<string>(type: "text", nullable: true),
                     OfferPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    OfferTimeLimitInWeeks = table.Column<int>(type: "integer", nullable: false),
+                    OfferTimeLimitId = table.Column<int>(type: "integer", nullable: false),
                     OfferTypeId = table.Column<int>(type: "integer", nullable: false),
                     UserLoginId = table.Column<int>(type: "integer", nullable: false),
                     AddedById = table.Column<int>(type: "integer", nullable: false),
@@ -426,6 +440,12 @@ namespace BBS.Entities.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_OfferedShares_OfferTimeLimits_OfferTimeLimitId",
+                        column: x => x.OfferTimeLimitId,
+                        principalTable: "OfferTimeLimits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_OfferedShares_OfferTypes_OfferTypeId",
                         column: x => x.OfferTypeId,
                         principalTable: "OfferTypes",
@@ -440,113 +460,14 @@ namespace BBS.Entities.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Country",
-                columns: new[] { "Id", "Name" },
+                table: "OfferTimeLimits",
+                columns: new[] { "Id", "Value" },
                 values: new object[,]
                 {
-                    { 1, "India" },
-                    { 2, "UAE" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "DebtRounds",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Mezanine" },
-                    { 2, "Growth" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "EmployementTypes",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Employed" },
-                    { 2, "Unemployed" },
-                    { 3, "Full-Time" },
-                    { 4, "Part-Time" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "EquityRounds",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Angel" },
-                    { 2, "Seed" },
-                    { 3, "Pre-Seed" },
-                    { 4, "Serie A" },
-                    { 5, "Serie B" },
-                    { 6, "Serie C" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "GrantTypes",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Normal Shares for ownership, voting, and share price appreciation", "Common" },
-                    { 2, "Hybrid shares for ownership, non-voting, but its shareholdres and paid dividends prior to other shareholders", "Preffered" },
-                    { 3, "An obligation to offer dividend or interest which typically includes a promise to convert to equity. Debt holdres get paid back before any other shareholder", "Debt" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Nationality",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Indian" },
-                    { 2, "Emirati" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "OfferTypes",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Auction" },
-                    { 2, "Private" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Restrictions",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? " },
-                    { 2, "Are you a cofounder or employee at the company?" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Investor" },
-                    { 2, "Admin" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "States",
-                columns: new[] { "Id", "Name", "Value" },
-                values: new object[,]
-                {
-                    { 1, "Pending", 0 },
-                    { 2, "Returned", 1 },
-                    { 3, "Completed", 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "StorageLocations",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Dropbox" },
-                    { 2, "One Drive" },
-                    { 3, "Google " },
-                    { 4, "iCloud" },
-                    { 5, "My Desktop" }
+                    { 1, "3 Days" },
+                    { 2, "1 Week" },
+                    { 3, "3 Months" },
+                    { 4, "6 Months" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -558,6 +479,11 @@ namespace BBS.Entities.Migrations
                 name: "IX_OfferedShares_IssuedDigitalShareId",
                 table: "OfferedShares",
                 column: "IssuedDigitalShareId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OfferedShares_OfferTimeLimitId",
+                table: "OfferedShares",
+                column: "OfferTimeLimitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OfferedShares_OfferTypeId",
@@ -647,6 +573,9 @@ namespace BBS.Entities.Migrations
 
             migrationBuilder.DropTable(
                 name: "IssuedDigitalShares");
+
+            migrationBuilder.DropTable(
+                name: "OfferTimeLimits");
 
             migrationBuilder.DropTable(
                 name: "OfferTypes");

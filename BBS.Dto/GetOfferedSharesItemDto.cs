@@ -5,6 +5,12 @@ namespace BBS.Dto
     public class GetOfferedSharesItemDto
     {
         [Required]
+        public string BusinessLogo { get; set; }
+        
+        [Required]
+        public string CompanyName { get; set; }
+        
+        [Required]
         public string OfferType { get; set; }
 
         [Required]
@@ -14,6 +20,6 @@ namespace BBS.Dto
         public decimal OfferPrice { get; set; }
 
         [Required]
-        public int OfferTimeLimitInWeeks { get; set; }
+        public string OfferTimeLimit { get; set; }
     }
 }

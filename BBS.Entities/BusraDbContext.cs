@@ -49,10 +49,25 @@ namespace BBS.Entities
         // Offer Share
         public virtual DbSet<OfferedShare> OfferedShares { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
-        //public virtual DbSet<NlogDBLog> NlogDBLogs { get; set; } 
+        public virtual DbSet<OfferTimeLimit> OfferTimeLimits { get; set; }
+        public virtual DbSet<OfferPayment> OfferPayments { get; set; }
+        public virtual DbSet<PaymentType> PaymentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<PaymentType>().HasData(
+                new PaymentType { Id = 1, Value = "PaymentType 1" },
+                new PaymentType { Id = 2, Value = "PaymentType 2" }
+            );
+
+            modelBuilder.Entity<OfferTimeLimit>().HasData(
+                new OfferTimeLimit { Id = 1, Value = "3 Days" },
+                new OfferTimeLimit { Id = 2, Value = "1 Week" },
+                new OfferTimeLimit { Id = 3, Value = "3 Months" },
+                new OfferTimeLimit { Id = 4, Value = "6 Months" }
+            );
+
             modelBuilder.Entity<State>().HasData(
                  new State { Id = 1, Name = "Pending", Value = 0 },
                  new State { Id = 2, Name = "Returned", Value = 1 },
@@ -64,7 +79,17 @@ namespace BBS.Entities
                  new Role { Id = 1, Name = "Investor" });
 
             modelBuilder.Entity<Country>().HasData(
-             new Country { Id = 1, Name = "India" }, new Country { Id = 2, Name = "UAE" });
+                new Country { Id = 1, Name = "United arab Emirates" },
+                new Country { Id = 2, Name = "Pakistan" },
+                new Country { Id = 3, Name = "British" }
+            );
+
+
+            modelBuilder.Entity<Nationality>().HasData(
+                new Nationality { Id = 1, Name = "Emirati" },
+                new Nationality { Id = 2, Name = "Pakistani" },
+                new Nationality { Id = 3, Name = "United Kingdom" }
+            );
 
 
             modelBuilder.Entity<Nationality>().HasData(
@@ -72,7 +97,7 @@ namespace BBS.Entities
 
 
             modelBuilder.Entity<EmployementType>().HasData(
-                new EmployementType { Id = 1, Name = "Employed" }, 
+                new EmployementType { Id = 1, Name = "Employed" },
                 new EmployementType { Id = 2, Name = "Unemployed" },
                 new EmployementType { Id = 3, Name = "Full-Time" },
                 new EmployementType { Id = 4, Name = "Part-Time" }
@@ -104,7 +129,7 @@ namespace BBS.Entities
             );
 
             modelBuilder.Entity<EquityRound>().HasData(
-                new EquityRound { Id = 1, Name = "Angel" }, 
+                new EquityRound { Id = 1, Name = "Angel" },
                 new EquityRound { Id = 2, Name = "Seed" },
                 new EquityRound { Id = 3, Name = "Pre-Seed" },
                 new EquityRound { Id = 4, Name = "Serie A" },
@@ -132,7 +157,7 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
-            
+
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

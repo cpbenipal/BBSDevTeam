@@ -17,7 +17,7 @@ namespace BBS.Dto
         public decimal OfferPrice { get; set; }
 
         [Required]
-        public int OfferTimeLimitInWeeks { get; set; }
+        public int OfferTimeLimitId { get; set; }
     }
     public class OfferType
     {        
