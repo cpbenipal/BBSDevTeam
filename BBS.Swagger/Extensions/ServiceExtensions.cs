@@ -148,6 +148,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GetAllOfferPaymentsInteractor>();
             services.AddScoped<GetCompaniesWithShareOfferedInteractor>();
+            services.AddScoped<BidShareInteractor>();
 
 
             Config = BuildConfiguration();

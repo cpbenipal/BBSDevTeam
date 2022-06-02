@@ -24,5 +24,6 @@
         public IOfferTimeLimitManager OfferTimeLimitManager { get; }
         public IOfferPaymentManager OfferPaymentManager { get; }
         public IPaymentTypeManager PaymentTypeManager { get; }
+        public IBidShareManager BidShareManager { get; }
     }
 }

@@ -322,5 +322,19 @@ namespace BBS.Services.Repository
                 return _paymentType;
             }
         }
+
+        private IBidShareManager _bidShare;
+        public IBidShareManager BidShareManager
+        {
+            get
+            {
+                if (_bidShare == null)
+                {
+                    var repositoryBase = new RepositoryBase<BidShare>(_repoContext);
+                    _bidShare = new BidShareManager(repositoryBase);
+                }
+                return _bidShare;
+            }
+        }
     }
 }
