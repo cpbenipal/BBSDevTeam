@@ -150,6 +150,8 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetCompaniesWithShareOfferedInteractor>();
             services.AddScoped<BidShareInteractor>();
 
+            services.AddScoped<GetAllBidSharesInteractor>();
+            services.AddScoped<GetBidShareUtils>();
 
             Config = BuildConfiguration();
 

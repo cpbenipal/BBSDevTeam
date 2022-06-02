@@ -52,6 +52,9 @@ namespace BBS.Entities
         public virtual DbSet<OfferTimeLimit> OfferTimeLimits { get; set; }
         public virtual DbSet<OfferPayment> OfferPayments { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
+
+
+        // Bid Shares 
         public virtual DbSet<BidShare> BidShares { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -161,6 +164,7 @@ namespace BBS.Entities
 
             OnModelCreatingPartial(modelBuilder);
         }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

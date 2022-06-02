@@ -6,6 +6,7 @@ namespace BBS.Services.Contracts
     {
         BidShare InsertBidShare(BidShare bidShare);
         BidShare GetBidShare(int bidShareId);
+        List<BidShare> GetAllBidSharesByUser(int userLoginId);
         List<BidShare> GetAllBidShares();
     }
 }
