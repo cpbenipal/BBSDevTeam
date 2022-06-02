@@ -79,10 +79,10 @@ namespace BBS.Interactors
                 _loggerManager.LogWarn("This Digital Share does not issued to user");
                 return ReturnErrorStatus("This Digital Share does not issued to user");
             }
-            else if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId)))
+            else if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId) && x.UserLoginId == extractedTokenValues.UserLoginId))
             {
-                _loggerManager.LogInfo("This Digital Share already Offered");
-                return ReturnErrorStatus("This Digital Share already Offered");
+                _loggerManager.LogInfo("This Digital Share already Offered By Current User");
+                return ReturnErrorStatus("This Digital Share already Offered By Current User");
             }
             else
             {

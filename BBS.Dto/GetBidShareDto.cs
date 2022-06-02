@@ -11,5 +11,6 @@
         public string VerificationState { get; set; }
         public string CompanyName { get; set; }
         public string BusinessLogo { get; set; }
+        public string LostValuation { get; set; } = "$ 55 mn";
     }
 }

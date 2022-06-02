@@ -51,7 +51,7 @@ namespace BBS.Utils
                 Quantity = bidShare.Quantity,
                 VerificationState = verificationState.Name,
                 CompanyName = share.CompanyName,
-                BusinessLogo = _uploadService.GetFilePublicUri(share.BusinessLogo!),
+                BusinessLogo = share.BusinessLogo != null ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
             };
         }
     }

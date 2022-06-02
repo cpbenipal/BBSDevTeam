@@ -8,7 +8,6 @@ namespace BBS.Models
     {
         [Key]
         public int Id { get; set; }
-        //public int CompanyId { get; set; }
         public string? CompanyName { get; set; }
         public int GrantTypeId { get; set; }
         public int EquityRoundId { get; set; }

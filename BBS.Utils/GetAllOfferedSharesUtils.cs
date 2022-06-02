@@ -47,8 +47,8 @@ namespace BBS.Utils
 
             var mappedOfferedShare = _mapper.Map<GetOfferedSharesItemDto>(item);
             mappedOfferedShare.OfferType = offerType.Name;
-            mappedOfferedShare.BusinessLogo = _uploadService.GetFilePublicUri(share.BusinessLogo!);
-            mappedOfferedShare.CompanyName = share.CompanyName;
+            mappedOfferedShare.BusinessLogo = share.BusinessLogo != null ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null; ; ;
+            mappedOfferedShare.CompanyName = digitallyIssuedShare.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
 
             return mappedOfferedShare;

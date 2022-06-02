@@ -89,7 +89,7 @@ namespace BBS.Interactors
             var shareToInsert = RegisterShareUtils.ParseShareObjectFromRegisterShareDto(registerShareDto);
             
             shareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
-            shareToInsert.BusinessLogo = uploadedFiles[0];
+            shareToInsert.BusinessLogo = string.IsNullOrEmpty(uploadedFiles[0]) ? null : uploadedFiles[0];
             shareToInsert.ShareOwnershipDocument = uploadedFiles[1];
             shareToInsert.CompanyInformationDocument = uploadedFiles[2];
 
@@ -101,7 +101,6 @@ namespace BBS.Interactors
                 insertedShare.Id, 
                 extractedTokenValues.PersonId
             );
-
 
             _loggerManager.LogInfo("Share Registered");
             return _responseManager.SuccessResponse(
@@ -124,7 +123,12 @@ namespace BBS.Interactors
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)
         {
-            var logo = UploadFileToAzureBlob(registerShareDto.BusinessLogo, FileUploadExtensions.IMAGE);
+
+            string logoUrl = "";
+            if(registerShareDto.BusinessLogo != null)
+            {
+                logoUrl = UploadFileToAzureBlob(registerShareDto.BusinessLogo, FileUploadExtensions.IMAGE).ImageUrl;
+            }
 
             var shareDocument = UploadFileToAzureBlob(
                 registerShareDto.ShareOwnershipDocument,
@@ -137,7 +141,7 @@ namespace BBS.Interactors
 
             return new List<string>
             {
-                logo.ImageUrl,
+                logoUrl,
                 shareDocument.ImageUrl,
                 companyDocument.ImageUrl
             };
