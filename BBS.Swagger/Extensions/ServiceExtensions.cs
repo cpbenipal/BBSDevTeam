@@ -101,7 +101,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<RegisterShareInteractor>();
             services.AddScoped<RegisterShareUtils>();
 
-            services.AddScoped<LoginUserInteractor>();
+            services.AddScoped<AuthInteractor>();
             services.AddScoped<ForgotPasscodeInteractor>();
             services.AddScoped<SendOTPInteractor>();
 

@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class LoginUserInteractor
+    public class AuthInteractor
     {
         private readonly IRepositoryWrapper _repository;
         private readonly ITokenManager _tokenManager;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-        public LoginUserInteractor(
+        public AuthInteractor(
             IRepositoryWrapper repository, 
             ITokenManager tokenManager,
             IApiResponseManager responseManager,
@@ -96,5 +96,32 @@ namespace BBS.Interactors
             );
         }
 
+        public GenericApiResponse CheckEmailOrPhone(string emailOrPhone)
+        {
+            try
+            {
+                _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(emailOrPhone));
+                return TryCheckingEmailOrPhone(emailOrPhone);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex);
+                return _responseManager.ErrorResponse(
+                    "Couldn't find User with this email or phone",
+                    500
+                );
+            }
+        }
+
+        private GenericApiResponse TryCheckingEmailOrPhone(string emailOrPhone)
+        {
+            var userWithThisEmailOrPhone = _repository.PersonManager.GetPersonByEmailOrPhone(emailOrPhone);
+
+            return _responseManager.SuccessResponse(
+                "Sucessfull", 
+                200, 
+                userWithThisEmailOrPhone != null
+            );
+        }
     }
 }

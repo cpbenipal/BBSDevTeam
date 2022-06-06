@@ -8,18 +8,24 @@ namespace BBS.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly LoginUserInteractor _loginUserInteractor;
+        private readonly AuthInteractor _loginUserInteractor;
 
-        public AuthController(LoginUserInteractor loginUserInteractor)
+        public AuthController(AuthInteractor loginUserInteractor)
         {
             _loginUserInteractor = loginUserInteractor;
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
             return Ok(_loginUserInteractor.LoginUser(loginUserDto));
         }
-         
+
+        [HttpGet("CheckEmailOrPhone")]
+        public IActionResult CheckEmailOrPhone(string emailOrPhone)
+        {
+            return Ok(_loginUserInteractor.CheckEmailOrPhone(emailOrPhone));
+        }
+
     }
 }
