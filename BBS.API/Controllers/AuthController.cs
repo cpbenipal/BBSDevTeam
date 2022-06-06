@@ -27,5 +27,10 @@ namespace BBS.API.Controllers
             return Ok(_loginUserInteractor.CheckEmailOrPhone(emailOrPhone));
         }
 
+        [HttpGet("CheckEmiratesId")]
+        public IActionResult CheckEmiratesId(string emiratesId)
+        {
+            return Ok(_loginUserInteractor.CheckEmiratesId(emiratesId));
+        }
     }
 }

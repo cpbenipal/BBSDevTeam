@@ -100,7 +100,7 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(emailOrPhone));
+                _loggerManager.LogInfo("Check Email or Phone : " + CommonUtils.JSONSerialize(emailOrPhone));
                 return TryCheckingEmailOrPhone(emailOrPhone);
             }
             catch (Exception ex)
@@ -121,6 +121,33 @@ namespace BBS.Interactors
                 "Sucessfull", 
                 200, 
                 userWithThisEmailOrPhone != null
+            );
+        }
+
+        public GenericApiResponse CheckEmiratesId(string emiratesId)
+        {
+            try
+            {
+                _loggerManager.LogInfo("Check Emirates Id : " + CommonUtils.JSONSerialize(emiratesId));
+                return TryCheckingEmiratesId(emiratesId);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex);
+                return _responseManager.ErrorResponse(
+                    "Couldn't find User with this emirates ID",
+                    500
+                );
+            }
+        }
+
+        private GenericApiResponse TryCheckingEmiratesId(string emiratesId)
+        {
+            var result = _repository.PersonManager.IsEmiratesIDExists(emiratesId);
+            return _responseManager.SuccessResponse(
+                "Sucessfull",
+                200,
+                result
             );
         }
     }
