@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,11 +11,7 @@ namespace BBS.Dto
 
         [Required]
         public int GrantTypeId { get; set; }
-
-        [Required]
         public int EquityRoundId { get; set; }
-
-        [Required]
         public int DebtRoundId { get; set; }
 
         [Required]
@@ -24,11 +19,12 @@ namespace BBS.Dto
         
         [DisplayName("DD/MM/YYYY")]
         public DateTime DateOfGrant { get; set; }        
-        public decimal SharePrice { get; set; }         
-        [Required]
+        public decimal SharePrice { get; set; } 
+        
         public bool Restriction1 { get; set; } = false;
-        [Required]
+
         public bool Restriction2 { get; set; } = false; 
+
         [Required]
         public int StorageLocationId { get; set; }
     } 

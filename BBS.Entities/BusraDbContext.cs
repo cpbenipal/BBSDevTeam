@@ -57,113 +57,113 @@ namespace BBS.Entities
         // Bid Shares 
         public virtual DbSet<BidShare> BidShares { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
 
-            modelBuilder.Entity<PaymentType>().HasData(
-                new PaymentType { Id = 1, Value = "PaymentType 1" },
-                new PaymentType { Id = 2, Value = "PaymentType 2" }
-            );
+        //    modelBuilder.Entity<PaymentType>().HasData(
+        //        new PaymentType { Id = 1, Value = "PaymentType 1" },
+        //        new PaymentType { Id = 2, Value = "PaymentType 2" }
+        //    );
 
-            modelBuilder.Entity<OfferTimeLimit>().HasData(
-                new OfferTimeLimit { Id = 1, Value = "3 Days" },
-                new OfferTimeLimit { Id = 2, Value = "1 Week" },
-                new OfferTimeLimit { Id = 3, Value = "3 Months" },
-                new OfferTimeLimit { Id = 4, Value = "6 Months" }
-            );
+        //    modelBuilder.Entity<OfferTimeLimit>().HasData(
+        //        new OfferTimeLimit { Id = 1, Value = "3 Days" },
+        //        new OfferTimeLimit { Id = 2, Value = "1 Week" },
+        //        new OfferTimeLimit { Id = 3, Value = "3 Months" },
+        //        new OfferTimeLimit { Id = 4, Value = "6 Months" }
+        //    );
 
-            modelBuilder.Entity<State>().HasData(
-                 new State { Id = 1, Name = "Pending", Value = 0 },
-                 new State { Id = 2, Name = "Returned", Value = 1 },
-                 new State { Id = 3, Name = "Completed", Value = 2 }
-            );
+        //    modelBuilder.Entity<State>().HasData(
+        //         new State { Id = 1, Name = "Pending", Value = 0 },
+        //         new State { Id = 2, Name = "Returned", Value = 1 },
+        //         new State { Id = 3, Name = "Completed", Value = 2 }
+        //    );
 
-            modelBuilder.Entity<Role>().HasData(
-                 new Role { Id = 2, Name = "Admin" },
-                 new Role { Id = 1, Name = "Investor" });
+        //    modelBuilder.Entity<Role>().HasData(
+        //         new Role { Id = 2, Name = "Admin" },
+        //         new Role { Id = 1, Name = "Investor" });
 
-            modelBuilder.Entity<Country>().HasData(
-                new Country { Id = 1, Name = "United arab Emirates" },
-                new Country { Id = 2, Name = "Pakistan" },
-                new Country { Id = 3, Name = "British" }
-            );
-
-
-            modelBuilder.Entity<Nationality>().HasData(
-                new Nationality { Id = 1, Name = "Emirati" },
-                new Nationality { Id = 2, Name = "Pakistani" },
-                new Nationality { Id = 3, Name = "United Kingdom" }
-            );
+        //    modelBuilder.Entity<Country>().HasData(
+        //        new Country { Id = 1, Name = "United arab Emirates" },
+        //        new Country { Id = 2, Name = "Pakistan" },
+        //        new Country { Id = 3, Name = "British" }
+        //    );
 
 
-            modelBuilder.Entity<Nationality>().HasData(
-                new Nationality { Id = 1, Name = "Indian" }, new Nationality { Id = 2, Name = "Emirati" });
+        //    modelBuilder.Entity<Nationality>().HasData(
+        //        new Nationality { Id = 1, Name = "Emirati" },
+        //        new Nationality { Id = 2, Name = "Pakistani" },
+        //        new Nationality { Id = 3, Name = "United Kingdom" }
+        //    );
 
 
-            modelBuilder.Entity<EmployementType>().HasData(
-                new EmployementType { Id = 1, Name = "Employed" },
-                new EmployementType { Id = 2, Name = "Unemployed" },
-                new EmployementType { Id = 3, Name = "Full-Time" },
-                new EmployementType { Id = 4, Name = "Part-Time" }
-            );
+        //    modelBuilder.Entity<Nationality>().HasData(
+        //        new Nationality { Id = 1, Name = "Indian" }, new Nationality { Id = 2, Name = "Emirati" });
 
 
-            modelBuilder.Entity<GrantType>().HasData(
-                 new GrantType
-                 {
-                     Id = 1,
-                     Name = "Common",
-                     Description = "Normal Shares for ownership, voting, and share price appreciation"
-                 },
-                 new GrantType
-                 {
-                     Id = 2,
-                     Name = "Preffered",
-                     Description = "Hybrid shares for ownership, non-voting, " +
-                     "but its shareholdres and paid dividends prior to other shareholders"
-                 },
-                 new GrantType
-                 {
-                     Id = 3,
-                     Name = "Debt",
-                     Description = "An obligation to offer dividend or interest which typically " +
-                     "includes a promise to convert to equity. " +
-                     "Debt holdres get paid back before any other shareholder"
-                 }
-            );
+        //    modelBuilder.Entity<EmployementType>().HasData(
+        //        new EmployementType { Id = 1, Name = "Employed" },
+        //        new EmployementType { Id = 2, Name = "Unemployed" },
+        //        new EmployementType { Id = 3, Name = "Full-Time" },
+        //        new EmployementType { Id = 4, Name = "Part-Time" }
+        //    );
 
-            modelBuilder.Entity<EquityRound>().HasData(
-                new EquityRound { Id = 1, Name = "Angel" },
-                new EquityRound { Id = 2, Name = "Seed" },
-                new EquityRound { Id = 3, Name = "Pre-Seed" },
-                new EquityRound { Id = 4, Name = "Serie A" },
-                new EquityRound { Id = 5, Name = "Serie B" },
-                new EquityRound { Id = 6, Name = "Serie C" }
-            );
 
-            modelBuilder.Entity<DebtRound>().HasData(
-                new DebtRound { Id = 1, Name = "Mezanine" },
-                new DebtRound { Id = 2, Name = "Growth" }
-            );
-            modelBuilder.Entity<Restriction>().HasData(
-               new Restriction { Id = 1, Name = "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? " },
-               new Restriction { Id = 2, Name = "Are you a cofounder or employee at the company?" }
-           );
-            modelBuilder.Entity<StorageLocation>().HasData(
-                  new StorageLocation { Id = 1, Name = "Dropbox" },
-                  new StorageLocation { Id = 2, Name = "One Drive" },
-                  new StorageLocation { Id = 3, Name = "Google " },
-                  new StorageLocation { Id = 4, Name = "iCloud" },
-                  new StorageLocation { Id = 5, Name = "My Desktop" }
-            );
+        //    modelBuilder.Entity<GrantType>().HasData(
+        //         new GrantType
+        //         {
+        //             Id = 1,
+        //             Name = "Common",
+        //             Description = "Normal Shares for ownership, voting, and share price appreciation"
+        //         },
+        //         new GrantType
+        //         {
+        //             Id = 2,
+        //             Name = "Prefered",
+        //             Description = "Hybrid shares for ownership, non-voting, " +
+        //             "but its shareholdres and paid dividends prior to other shareholders"
+        //         },
+        //         new GrantType
+        //         {
+        //             Id = 3,
+        //             Name = "Debt",
+        //             Description = "An obligation to offer dividend or interest which typically " +
+        //             "includes a promise to convert to equity. " +
+        //             "Debt holdres get paid back before any other shareholder"
+        //         }
+        //    );
 
-            modelBuilder.Entity<OfferType>().HasData(
-                  new OfferType { Id = 1, Name = "Auction" },
-                  new OfferType { Id = 2, Name = "Private" }
-            );
+        //    modelBuilder.Entity<EquityRound>().HasData(
+        //        new EquityRound { Id = 1, Name = "Angel" },
+        //        new EquityRound { Id = 2, Name = "Seed" },
+        //        new EquityRound { Id = 3, Name = "Pre-Seed" },
+        //        new EquityRound { Id = 4, Name = "Serie A" },
+        //        new EquityRound { Id = 5, Name = "Serie B" },
+        //        new EquityRound { Id = 6, Name = "Serie C" }
+        //    );
 
-            OnModelCreatingPartial(modelBuilder);
-        }
+        //    modelBuilder.Entity<DebtRound>().HasData(
+        //        new DebtRound { Id = 1, Name = "Mezanine" },
+        //        new DebtRound { Id = 2, Name = "Growth" }
+        //    );
+        //    modelBuilder.Entity<Restriction>().HasData(
+        //       new Restriction { Id = 1, Name = "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? " },
+        //       new Restriction { Id = 2, Name = "Are you a cofounder or employee at the company?" }
+        //   );
+        //    modelBuilder.Entity<StorageLocation>().HasData(
+        //          new StorageLocation { Id = 1, Name = "Dropbox" },
+        //          new StorageLocation { Id = 2, Name = "One Drive" },
+        //          new StorageLocation { Id = 3, Name = "Google " },
+        //          new StorageLocation { Id = 4, Name = "iCloud" },
+        //          new StorageLocation { Id = 5, Name = "My Desktop" }
+        //    );
+
+        //    modelBuilder.Entity<OfferType>().HasData(
+        //          new OfferType { Id = 1, Name = "Auction" },
+        //          new OfferType { Id = 2, Name = "Private" }
+        //    );
+
+        //    OnModelCreatingPartial(modelBuilder);
+        //}
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

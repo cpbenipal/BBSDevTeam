@@ -10,13 +10,13 @@ namespace BBS.Models
         public int Id { get; set; }
         public string? CompanyName { get; set; }
         public int GrantTypeId { get; set; }
-        public int EquityRoundId { get; set; }
-        public int DebtRoundId { get; set; }
+        public int? EquityRoundId { get; set; }
+        public int? DebtRoundId { get; set; }
         public int NumberOfShares { get; set; }
         public DateTime DateOfGrant { get; set; }
         public decimal SharePrice { get; set; }
-        public bool Restriction1 { get; set; }
-        public bool Restriction2 { get; set; }
+        public bool? Restriction1 { get; set; }
+        public bool? Restriction2 { get; set; }
         public int StorageLocationId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

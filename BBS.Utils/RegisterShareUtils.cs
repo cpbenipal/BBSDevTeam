@@ -11,7 +11,6 @@ namespace BBS.Utils
         {
             Share share = new()
             {
-               // CompanyId = registerShareDto.ShareInformation.CompanyId,
                 CompanyName = registerShareDto.ShareInformation.CompanyName,
                 SharePrice = registerShareDto.ShareInformation.SharePrice,
                 StorageLocationId = registerShareDto.ShareInformation.StorageLocationId,
@@ -22,10 +21,10 @@ namespace BBS.Utils
                 EquityRoundId = registerShareDto.ShareInformation.EquityRoundId,
                 Restriction1 = registerShareDto.ShareInformation.Restriction1,
                 Restriction2 = registerShareDto.ShareInformation.Restriction2,
-                FirstName = registerShareDto.ContactPerson.FirstName,
-                LastName = registerShareDto.ContactPerson.LastName,
-                Email = registerShareDto.ContactPerson.Email,
-                PhoneNumber = registerShareDto.ContactPerson.PhoneNumber
+                FirstName = registerShareDto.ContactPerson?.FirstName,
+                LastName = registerShareDto.ContactPerson?.LastName,
+                Email = registerShareDto.ContactPerson?.Email,
+                PhoneNumber = registerShareDto.ContactPerson?.PhoneNumber
             };
 
             return share;

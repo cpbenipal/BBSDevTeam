@@ -8,7 +8,6 @@ namespace BBS.Dto
         [Required]
         public InsertShareDto ShareInformation { get; set; }
 
-        [Required]
         public ContactPersonDto ContactPerson { get; set; }
 
         public IFormFile BusinessLogo { get; set; }
