@@ -29,13 +29,14 @@ namespace BBS.Interactors
         public GenericApiResponse LoginUser(LoginUserDto loginUserDto)
         {
             try
-            { 
-                _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(loginUserDto));
+            {
+                throw new Exception();
+                _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(loginUserDto), 0);
                 return TryLoggingUser(loginUserDto);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 throw;
             }
         }
@@ -63,7 +64,7 @@ namespace BBS.Interactors
                     ["AccessToken"] = generatedToken,
                     ["RefreshToken"] = refreshToken,
                 };
-                _loggerManager.LogInfo("User Login Successful!. Please continue..");
+                _loggerManager.LogInfo("User Login Successful!. Please continue..",0);
                 return _responseManager.SuccessResponse(
                     "User Login Successful!. Please continue..",
                     StatusCodes.Status202Accepted,
@@ -72,7 +73,7 @@ namespace BBS.Interactors
             }
             else
             {
-                _loggerManager.LogWarn("Authentication failed.The email or passcode you entered is incorrect.");
+                _loggerManager.LogWarn("Authentication failed.The email or passcode you entered is incorrect.", 0);
                 return ReturnErrorStatus("Authentication failed. The email or passcode you entered is incorrect.");
             }
         }
@@ -100,12 +101,12 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("Check Email or Phone : " + CommonUtils.JSONSerialize(emailOrPhone));
+                _loggerManager.LogInfo("Check Email or Phone : " + CommonUtils.JSONSerialize(emailOrPhone), 0);
                 return TryCheckingEmailOrPhone(emailOrPhone);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return _responseManager.ErrorResponse(
                     "Couldn't find User with this email or phone",
                     500
@@ -128,12 +129,12 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("Check Emirates Id : " + CommonUtils.JSONSerialize(emiratesId));
+                _loggerManager.LogInfo("Check Emirates Id : " + CommonUtils.JSONSerialize(emiratesId), 0);
                 return TryCheckingEmiratesId(emiratesId);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return _responseManager.ErrorResponse(
                     "Couldn't find User with this emirates ID",
                     500

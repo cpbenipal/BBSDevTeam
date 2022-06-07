@@ -53,37 +53,42 @@ namespace BBS.Interactors
 
         public GenericApiResponse IssueShareDigitally(IssueDigitalShareDto digitalShare, string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                _loggerManager.LogInfo("IssueShareDigitally : " + CommonUtils.JSONSerialize(digitalShare));
-                return TryIssuingDigitalShare(digitalShare, token);
+                _loggerManager.LogInfo(
+                    "IssueShareDigitally : " +
+                    CommonUtils.JSONSerialize(digitalShare),
+                    extractedFromToken.PersonId
+                );
+                return TryIssuingDigitalShare(digitalShare, extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus("Couldn't Issue Digital Share");
             }
         }
 
-        private GenericApiResponse TryIssuingDigitalShare(IssueDigitalShareDto digitalShare, string token)
+        private GenericApiResponse TryIssuingDigitalShare(IssueDigitalShareDto digitalShare, TokenValues valuesFromToken)
         {
-            var valuesFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
             var usershares = _repository.ShareManager.GetAllSharesForUser(valuesFromToken.UserLoginId);
             var digitalShares = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(valuesFromToken.UserLoginId);
             if (share == null)
             {
-                _loggerManager.LogWarn("This Share does not exist");
+                _loggerManager.LogWarn("This Share does not exist", valuesFromToken.PersonId);
                 return ReturnErrorStatus("This Share does not exist");
             }
             else if (!usershares.Any(x => x.Id == digitalShare.ShareId))
             {
-                _loggerManager.LogWarn("This Share does not belong to user");
+                _loggerManager.LogWarn("This Share does not belong to user", valuesFromToken.PersonId);
                 return ReturnErrorStatus("This Share does not belong to user");
             }
             else if (digitalShares.Any(x => x.ShareId == digitalShare.ShareId))
             {
-                _loggerManager.LogWarn("Share already Issued Digitally to user");
+                _loggerManager.LogWarn("Share already Issued Digitally to user", valuesFromToken.PersonId);
                 return ReturnErrorStatus("Share already Issued Digitally to user");
             }
 
@@ -116,7 +121,7 @@ namespace BBS.Interactors
                 ["CertificateImageUrl"] = uploadedHtml.PublicPath,
                 ["CertificateKey"] = certificateKey,
             };
-            _loggerManager.LogInfo("Digitally Share Issued to user");
+            _loggerManager.LogInfo("Digitally Share Issued to user", valuesFromToken.PersonId);
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,

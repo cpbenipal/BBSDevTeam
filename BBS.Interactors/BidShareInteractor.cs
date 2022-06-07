@@ -2,6 +2,7 @@
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -31,13 +32,19 @@ namespace BBS.Interactors
 
         public GenericApiResponse InsertBidShare(string token, BidShareDto bidShareDto)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             try
             {
-                return TryInsertingBidShare(token, bidShareDto);
+                _loggerManager.LogInfo(
+                    "InsertBidShare : " + 
+                    CommonUtils.JSONSerialize(bidShareDto), 
+                    extractedFromToken.PersonId
+                );
+                return TryInsertingBidShare(extractedFromToken, bidShareDto);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex,extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
@@ -49,9 +56,8 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryInsertingBidShare(string token, BidShareDto bidShareDto)
+        private GenericApiResponse TryInsertingBidShare(TokenValues extractedFromToken, BidShareDto bidShareDto)
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
             var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
             mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;

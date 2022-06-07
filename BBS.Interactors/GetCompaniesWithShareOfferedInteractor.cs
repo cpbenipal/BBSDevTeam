@@ -2,6 +2,7 @@
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -28,13 +29,20 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetCompaniesWithShareOffered(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingCompaniesWithShareOffered(token);
+                _loggerManager.LogInfo(
+                    "GetCompaniesWithShareOffered : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingCompaniesWithShareOffered(extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
@@ -47,9 +55,8 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingCompaniesWithShareOffered(string token)
+        private GenericApiResponse TryGettingCompaniesWithShareOffered(TokenValues extractedFromToken)
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var allIssuedShares = _repositoryWrapper
                 .IssuedDigitalShareManager
                 .GetAllIssuedDigitalShares();

@@ -31,12 +31,12 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("ForgotPasscode : " + CommonUtils.JSONSerialize(forgotPassDto));
+                _loggerManager.LogInfo("ForgotPasscode : " + CommonUtils.JSONSerialize(forgotPassDto), 0);
                 return TryGettingEmailAndSendingNewPasscode(forgotPassDto);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return ReturnErrorStatus(ex);
             }
         }
@@ -50,7 +50,7 @@ namespace BBS.Interactors
 
                 _emailSender.SendEmail(forgotPassDto.Email,"New passcode to login","Your new Passcode : " +newPasscode);
 
-                _loggerManager.LogInfo("ForgotPasscode : " + "If a matching account was found an email was sent to " + forgotPassDto.Email);
+                _loggerManager.LogInfo("ForgotPasscode : " + "If a matching account was found an email was sent to " + forgotPassDto.Email, 0);
                 return _responseManager.SuccessResponse(
                     "If a matching account was found an email was sent to " + forgotPassDto.Email,
                      StatusCodes.Status202Accepted,
@@ -60,7 +60,7 @@ namespace BBS.Interactors
             }
             else
             {
-                _loggerManager.LogInfo("ForgotPasscode : " + "Account " + forgotPassDto.Email + " not found");
+                _loggerManager.LogInfo("ForgotPasscode : " + "Account " + forgotPassDto.Email + " not found", 0);
                 return _responseManager.SuccessResponse(
                     "Account " + forgotPassDto.Email + " not found",
                      StatusCodes.Status302Found,

@@ -30,21 +30,27 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetAllOfferPayments(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingAllAllOfferPayments(token);
+                _loggerManager.LogInfo(
+                    "GetAllOfferPayments : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+
+                return TryGettingAllAllOfferPayments(extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
 
-        private GenericApiResponse TryGettingAllAllOfferPayments(string token)
+        private GenericApiResponse TryGettingAllAllOfferPayments(TokenValues extractedFromToken)
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
-
             var allOfferedPayment = _repository
                 .OfferPaymentManager
                 .GetOfferPaymentForUser(extractedFromToken.UserLoginId);

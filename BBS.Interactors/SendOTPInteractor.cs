@@ -35,20 +35,20 @@ namespace BBS.Interactors
                 // var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
                 if (loginUserDto.Email != String.Empty)
                 {
-                    _loggerManager.LogInfo("VerifyOTP : " + CommonUtils.JSONSerialize(loginUserDto));
+                    _loggerManager.LogInfo("VerifyOTP : " + CommonUtils.JSONSerialize(loginUserDto), 0);
 
                     return _responseManager.SuccessResponse("Successfull", StatusCodes.Status202Accepted, new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
                     );
                 }
                 else
                 {
-                    _loggerManager.LogWarn("SendOTP : Email is required");
+                    _loggerManager.LogWarn("SendOTP : Email is required", 0);
                     return _responseManager.SuccessResponse("Email should not empty", StatusCodes.Status302Found, "");
                 }
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return ReturnErrorStatus();
             }
         }
@@ -57,12 +57,12 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(loginUserDto));
+                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(loginUserDto), 0);
                 return TrySendingOtp(loginUserDto);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return ReturnErrorStatus();
             }
         }
@@ -73,12 +73,12 @@ namespace BBS.Interactors
             if (personWithThisEmail == null)
             {
                 _emailSender.SendEmail(loginUserDto.Email, "OTP: Verify your email", "One Time Passcode : " + loginUserDto.OTP);
-                _loggerManager.LogInfo("SendOTP : OTP sent to " + loginUserDto.Email);
+                _loggerManager.LogInfo("SendOTP : OTP sent to " + loginUserDto.Email, 0);
                 return _responseManager.SuccessResponse("OTP sent on Email", StatusCodes.Status202Accepted, "");
             }
             else
             {
-                _loggerManager.LogWarn("SendOTP : Seems this email already register.");
+                _loggerManager.LogWarn("SendOTP : Seems this email already register.", 0);
                 return _responseManager.SuccessResponse("Seems this email already register.", StatusCodes.Status302Found, "");
             }
         }

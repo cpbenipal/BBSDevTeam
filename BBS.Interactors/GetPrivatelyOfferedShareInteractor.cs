@@ -30,26 +30,35 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetPrivatelyOfferedShareByPrivateKey(string token, string offerPrivateKey)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingPrivatelyOfferedShareByPrivateKey(token, offerPrivateKey);
+                _loggerManager.LogInfo(
+                   "GetPrivatelyOfferedShareByPrivateKey : " +
+                   CommonUtils.JSONSerialize(offerPrivateKey),
+                   extractedFromToken.PersonId
+                );
+                return TryGettingPrivatelyOfferedShareByPrivateKey(extractedFromToken, offerPrivateKey);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
 
         private GenericApiResponse TryGettingPrivatelyOfferedShareByPrivateKey(
-            string token, 
+            TokenValues extractedFromToken, 
             string offerPrivateKey
         )
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var privatelyOfferedShare = _repositoryWrapper
                 .OfferedShareManager
-                .GetPrivatelyOfferedSharesByUserLoginIdAndPrivateKey(extractedFromToken.UserLoginId, offerPrivateKey);
+                .GetPrivatelyOfferedSharesByUserLoginIdAndPrivateKey(
+                    extractedFromToken.UserLoginId, 
+                    offerPrivateKey
+                );
 
             if(privatelyOfferedShare == null)
             {

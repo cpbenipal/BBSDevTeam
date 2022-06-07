@@ -32,20 +32,26 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetRegisteredShares(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingRegisteredShareForUser(token);
+                _loggerManager.LogInfo(
+                    "GetRegisteredShares : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingRegisteredShareForUser(extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
 
-        private GenericApiResponse TryGettingRegisteredShareForUser(string token)
+        private GenericApiResponse TryGettingRegisteredShareForUser(TokenValues tokenValues)
         {
-            var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
             var allShares = _repositoryWrapper.ShareManager.GetAllShares();
 
             if(tokenValues.RoleId != (int)Roles.ADMIN)

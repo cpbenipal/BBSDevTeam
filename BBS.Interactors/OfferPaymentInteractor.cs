@@ -31,13 +31,20 @@ namespace BBS.Interactors
 
         public GenericApiResponse InsertOfferPayment(string token, OfferPaymentDto offerPaymentDto)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryInsertOfferPayment(token,offerPaymentDto);
+                _loggerManager.LogInfo(
+                    "InsertOfferPayment : " +
+                    CommonUtils.JSONSerialize(offerPaymentDto),
+                    extractedFromToken.PersonId
+                );
+                return TryInsertOfferPayment(extractedFromToken, offerPaymentDto);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
@@ -49,9 +56,11 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryInsertOfferPayment(string token, OfferPaymentDto offerPaymentDto)
+        private GenericApiResponse TryInsertOfferPayment(
+            TokenValues extractedFromToken, 
+            OfferPaymentDto offerPaymentDto
+        )
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
             if (FindDuplicateOfferShare(offerPaymentDto) == null)
             {

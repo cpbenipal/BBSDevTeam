@@ -42,14 +42,20 @@ namespace BBS.Interactors
 
         public GenericApiResponse RegisterShare(RegisterShareDto registerShareDto, string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                _loggerManager.LogInfo("RegisterShare : " + CommonUtils.JSONSerialize(registerShareDto));
-                return TryRegisteringShare(registerShareDto, token);
+                _loggerManager.LogInfo(
+                    "RegisterShare : " + 
+                    CommonUtils.JSONSerialize(registerShareDto),
+                    extractedFromToken.PersonId
+                );
+                return TryRegisteringShare(registerShareDto, extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ErrorStatus(ex.Message);
             }
         }
@@ -62,13 +68,15 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryRegisteringShare(RegisterShareDto registerShareDto, string token)
+        private GenericApiResponse TryRegisteringShare(
+            RegisterShareDto registerShareDto,
+            TokenValues extractedTokenValues
+        )
         {
-            var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
             var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
             if (duplicates)
             {
-                _loggerManager.LogWarn("Share Already Registered");
+                _loggerManager.LogWarn("Share Already Registered", extractedTokenValues.PersonId);
                 return ReturnErrorStatus("Share already Issued Digitally to user");
             }
 
@@ -102,7 +110,7 @@ namespace BBS.Interactors
                 extractedTokenValues.PersonId
             );
 
-            _loggerManager.LogInfo("Share Registered");
+            _loggerManager.LogInfo("Share Registered",extractedTokenValues.PersonId);
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,

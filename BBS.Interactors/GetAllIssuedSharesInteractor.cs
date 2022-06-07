@@ -31,13 +31,20 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetAllIssuedShares(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingAllIssuedShares(token);
+                _loggerManager.LogInfo(
+                    "GetAllIssuedShares : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingAllIssuedShares(extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
@@ -49,9 +56,8 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllIssuedShares(string token)
+        private GenericApiResponse TryGettingAllIssuedShares(TokenValues extractedFromToken)
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var allIssuedShares = _repositoryWrapper
                 .IssuedDigitalShareManager
                 .GetAllIssuedDigitalShares();

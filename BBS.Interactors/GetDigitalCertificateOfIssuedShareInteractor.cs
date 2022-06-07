@@ -1,6 +1,7 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -31,13 +32,20 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetCertificateUrl(int? issuedDigitalShareId, string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingAllCertificates(issuedDigitalShareId, token);
+                _loggerManager.LogInfo(
+                    "GetAllOfferPayments : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingAllCertificates(issuedDigitalShareId, extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
@@ -49,10 +57,8 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllCertificates(int? issuedDigitalShareId, string token)
+        private GenericApiResponse TryGettingAllCertificates(int? issuedDigitalShareId, TokenValues tokenValues)
         {
-            var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
-
             List<int> issuedDigitalShareIdList = GetCertificateIdList(issuedDigitalShareId, tokenValues);
             List<GetAllCertificateDto> certificates = new();
 

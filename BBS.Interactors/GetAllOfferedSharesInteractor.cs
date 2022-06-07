@@ -31,13 +31,21 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetAllOfferedShares(string token)
         {
+
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingAllOfferedShares(token);
+                _loggerManager.LogInfo(
+                    "GetAllOfferedShares : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingAllOfferedShares(extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
 
@@ -51,9 +59,8 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllOfferedShares(string token)
+        private GenericApiResponse TryGettingAllOfferedShares(TokenValues extractedFromToken)
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             var allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
                 .GetAllOfferedShares();

@@ -1,5 +1,6 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -10,7 +11,6 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly IConfiguration _configuration;
-
 
         public GetBusraFeeInteractor(
             IApiResponseManager responseManager,
@@ -27,11 +27,17 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo(
+                    "GetBusraFee : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    0
+                );
+
                 return TryGettingBusraFee();
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return ReturnErrorStatus();
             }
 

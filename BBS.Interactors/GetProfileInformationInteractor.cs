@@ -32,30 +32,35 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetUserProfileInformation(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingUserProfile(token);
+                _loggerManager.LogInfo(
+                    "GetUserProfileInformation : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingUserProfile(extractedFromToken);
             }
 
             catch(SecurityTokenExpiredException ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus("Token Expired Please Refresh Before You Continue");
             }
 
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus(ex.Message);
             }
         }
 
-        private GenericApiResponse TryGettingUserProfile(string token)
+        private GenericApiResponse TryGettingUserProfile(TokenValues tokenValues)
         {
 
             List<UserProfileInformationDto> allUsersInformation = new();
-
-            var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
             List<int> allPersonIds = BuildListOfPersonToFetchProfile(tokenValues);
 
             foreach (var personId in allPersonIds)

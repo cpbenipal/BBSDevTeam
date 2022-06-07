@@ -1,5 +1,6 @@
 ﻿using BBS.Dto;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -25,11 +26,16 @@ namespace BBS.Interactors
         {
             try
             {
+                _loggerManager.LogInfo(
+                    "GetAllNationalities : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    0
+                );
                 return TryGettingAllNationalities(keyword);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return ReturnErrorStatus();
             }
 

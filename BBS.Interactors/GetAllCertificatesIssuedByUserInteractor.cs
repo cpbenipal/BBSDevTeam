@@ -2,6 +2,7 @@
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
+using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -32,20 +33,29 @@ namespace BBS.Interactors
 
         public GenericApiResponse GetAllCertificatesForUser(int? personId, string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingAllCertificatesForUser(personId, token);
+                _loggerManager.LogInfo(
+                    "GetAllCertificatesForUser : " +
+                    CommonUtils.JSONSerialize(personId ?? 0),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingAllCertificatesForUser(personId, extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
 
-        private GenericApiResponse TryGettingAllCertificatesForUser(int? personId, string token)
+        private GenericApiResponse TryGettingAllCertificatesForUser(
+            int? personId, 
+            TokenValues extractedFromToken
+        )
         {
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
             List<IssuedDigitalShare> allIssuedSharesForPerson = new();
 

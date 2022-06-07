@@ -49,7 +49,11 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto));
+                _loggerManager.LogInfo(
+                    "RegisterUser : " + 
+                    CommonUtils.JSONSerialize(registerUserDto),
+                    0
+                );
                 return TryRegisteringUser(registerUserDto, v);
             }
             catch (RegisterUserException ex)
@@ -74,7 +78,7 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto));
+                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto),0);
                 return TryRegisteringUser(registerUserDto);
             }
             catch (RegisterUserException ex)
@@ -89,7 +93,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus(Exception ex, string? message)
         {
-            _loggerManager.LogError(ex);
+            _loggerManager.LogError(ex,0);
             return _responseManager.ErrorResponse(
                 message ?? ex.Message,
                 StatusCodes.Status400BadRequest

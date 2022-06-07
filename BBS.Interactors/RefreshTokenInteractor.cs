@@ -30,12 +30,12 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("InsertOfferedShares : " + CommonUtils.JSONSerialize(model));
+                _loggerManager.LogInfo("InsertOfferedShares : " + CommonUtils.JSONSerialize(model), 0);
                 return TryRefreshingToken(model.AccessToken, model.RefreshToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, 0);
                 return ReturnErrorStatus();
             }
         }

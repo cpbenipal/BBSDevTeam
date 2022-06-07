@@ -44,14 +44,20 @@ namespace BBS.Interactors
 
         public GenericApiResponse InsertOfferedShares(OfferShareDto offerShareDto, string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                _loggerManager.LogInfo("InsertOfferedShares : " + CommonUtils.JSONSerialize(offerShareDto));
-                return TryInsertingOfferedShare(offerShareDto, token);
+                _loggerManager.LogInfo(
+                    "InsertOfferedShares : " + 
+                    CommonUtils.JSONSerialize(offerShareDto),
+                    extractedFromToken.PersonId
+                );
+                return TryInsertingOfferedShare(offerShareDto, extractedFromToken);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus("Error In Inserting Offered Share");
             }
         }
@@ -61,27 +67,28 @@ namespace BBS.Interactors
             return _responseManager.ErrorResponse(s, StatusCodes.Status500InternalServerError);
         }
 
-        private GenericApiResponse TryInsertingOfferedShare(OfferShareDto offerShareDto, string token)
+        private GenericApiResponse TryInsertingOfferedShare(
+            OfferShareDto offerShareDto, 
+            TokenValues extractedTokenValues
+        )
         {
-            var extractedTokenValues = _tokenManager.GetNeededValuesFromToken(token);
-
             var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 
             var userdigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
             var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetAuctionTypeOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
 
             if (issueDigitalShares == null)
             {
-                _loggerManager.LogWarn("This Digital Share does not exist");
+                _loggerManager.LogWarn("This Digital Share does not exist", extractedTokenValues.PersonId);
                 return ReturnErrorStatus("This Digital Share does not exist");
             }
             else if (!userdigitalShares.Any(x => x.Id == offerShareDto.IssuedDigitalShareId))
             {
-                _loggerManager.LogWarn("This Digital Share does not issued to user");
+                _loggerManager.LogWarn("This Digital Share does not issued to user", extractedTokenValues.PersonId);
                 return ReturnErrorStatus("This Digital Share does not issued to user");
             }
             else if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId) && x.UserLoginId == extractedTokenValues.UserLoginId))
             {
-                _loggerManager.LogInfo("This Digital Share already Offered By Current User");
+                _loggerManager.LogInfo("This Digital Share already Offered By Current User", extractedTokenValues.PersonId);
                 return ReturnErrorStatus("This Digital Share already Offered By Current User");
             }
             else
