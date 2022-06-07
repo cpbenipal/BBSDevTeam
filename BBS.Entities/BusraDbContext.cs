@@ -59,10 +59,9 @@ namespace BBS.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<PaymentType>().HasData(
-                new PaymentType { Id = 1, Value = "PaymentType 1" },
-                new PaymentType { Id = 2, Value = "PaymentType 2" }
+                new PaymentType { Id = 1, Value = "Bank Transfer" },
+                new PaymentType { Id = 2, Value = "Debit/Credit Cash" }
             );
 
             modelBuilder.Entity<OfferTimeLimit>().HasData(
@@ -94,12 +93,7 @@ namespace BBS.Entities
                 new Nationality { Id = 2, Name = "Pakistani" },
                 new Nationality { Id = 3, Name = "United Kingdom" }
             );
-
-
-            modelBuilder.Entity<Nationality>().HasData(
-                new Nationality { Id = 1, Name = "Indian" }, new Nationality { Id = 2, Name = "Emirati" });
-
-
+              
             modelBuilder.Entity<EmployementType>().HasData(
                 new EmployementType { Id = 1, Name = "Employed" },
                 new EmployementType { Id = 2, Name = "Unemployed" },
@@ -133,16 +127,16 @@ namespace BBS.Entities
             );
 
             modelBuilder.Entity<EquityRound>().HasData(
-                new EquityRound { Id = 1, Name = "Angel" },
-                new EquityRound { Id = 3, Name = "Pre-Seed" },
+                new EquityRound { Id = 1, Name = "Pre-Seed" },
                 new EquityRound { Id = 2, Name = "Seed" },
+                new EquityRound { Id = 3, Name = "Angel" },
                 new EquityRound { Id = 4, Name = "Serie A" },
                 new EquityRound { Id = 5, Name = "Serie B" },
                 new EquityRound { Id = 6, Name = "Serie C" }
             );
 
             modelBuilder.Entity<DebtRound>().HasData(
-                new DebtRound { Id = 1, Name = "Mezanine" },
+                new DebtRound { Id = 1, Name = "Mezzanine" },
                 new DebtRound { Id = 2, Name = "Growth" }
             );
             modelBuilder.Entity<Restriction>().HasData(

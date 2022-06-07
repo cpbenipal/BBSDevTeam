@@ -15,22 +15,22 @@ namespace BBS.API.Controllers
             _loginUserInteractor = loginUserInteractor;
         }
 
-        [HttpPost("Login")]
+        [HttpPost]
         public IActionResult Login([FromBody] LoginUserDto loginUserDto)
         {
             return Ok(_loginUserInteractor.LoginUser(loginUserDto));
         }
 
-        [HttpGet("CheckEmailOrPhone")]
-        public IActionResult CheckEmailOrPhone(string emailOrPhone)
+        [HttpPost("CheckEmailOrPhone")]
+        public IActionResult CheckEmailOrPhone([FromBody] CheckEmailOrPhoneDto checkEmailOrPhoneDto)
         {
-            return Ok(_loginUserInteractor.CheckEmailOrPhone(emailOrPhone));
+            return Ok(_loginUserInteractor.CheckEmailOrPhone(checkEmailOrPhoneDto.EmailOrPhone));
         }
 
-        [HttpGet("CheckEmiratesId")]
-        public IActionResult CheckEmiratesId(string emiratesId)
+        [HttpPost("CheckEmiratesId")]
+        public IActionResult CheckEmiratesId([FromBody] CheckEmiratesIdDto checkEmiratesId)
         {
-            return Ok(_loginUserInteractor.CheckEmiratesId(emiratesId));
+            return Ok(_loginUserInteractor.CheckEmiratesId(checkEmiratesId.EmiratesId));
         }
     }
 }
