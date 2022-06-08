@@ -1,5 +1,4 @@
-﻿
-using BBS.Models;
+﻿using BBS.Models;
 
 namespace BBS.Services.Contracts
 {
