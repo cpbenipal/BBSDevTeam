@@ -153,6 +153,8 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllBidSharesInteractor>();
             services.AddScoped<GetBidShareUtils>();
 
+            services.AddScoped<GetAllInvestorsDetailsInteractor>();
+
             Config = BuildConfiguration();
 
             var ConnectionString = Config["AzureStorage:ConnectionString"];

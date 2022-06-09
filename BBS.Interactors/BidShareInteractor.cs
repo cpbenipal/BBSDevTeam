@@ -56,7 +56,10 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryInsertingBidShare(TokenValues extractedFromToken, BidShareDto bidShareDto)
+        private GenericApiResponse TryInsertingBidShare(
+            TokenValues extractedFromToken, 
+            BidShareDto bidShareDto
+        )
         {
 
             var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);

@@ -169,7 +169,7 @@ namespace BBS.Interactors
             _repository.InvestorDetailManager.InsertInverstorDetail(investorDetail);
         }
 
-        private int GetInvestorRiskType(RegisterUserDto registerUserDto)
+        private static int GetInvestorRiskType(RegisterUserDto registerUserDto)
         {
             if (
                 registerUserDto.PersonalInfo.IsUSCitizen ||
@@ -183,7 +183,7 @@ namespace BBS.Interactors
             return (int)InvestorRiskTypes.NORMAL;
         }
 
-        private int GetInvestorType(RegisterUserDto registerUserDto)
+        private static int GetInvestorType(RegisterUserDto registerUserDto)
         {
             if(
                 registerUserDto.Experience.HaveExperience ||
