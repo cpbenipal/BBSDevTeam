@@ -24,4 +24,15 @@ namespace BBS.Dto
         public string OfferTimeLimit { get; set; }
         public bool IsCompleted { get; set; } 
     }
+
+    public class ShareCompaniesdto
+    {
+        public int Id { get; set; }
+        public string CompanyName { get; set; }
+    }
+    public class IssuedShareIdto
+    {
+        public int IssuedId { get; set; } 
+        public int ShareId { get; set; }  
+    }
 }

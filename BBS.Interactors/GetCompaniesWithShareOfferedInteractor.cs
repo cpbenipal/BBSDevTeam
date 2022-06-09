@@ -58,33 +58,61 @@ namespace BBS.Interactors
         private GenericApiResponse TryGettingCompaniesWithShareOffered(TokenValues extractedFromToken)
         {
             List<int> OfferShareIds = new List<int>();
-            List<int> IssuedDigitalShareIds = new List<int>();
-            List<Share> allIssuedDigitalShare = new List<Share>();
+            List<IssuedShareIdto> IssuedDigitalShareIds = new List<IssuedShareIdto>();
+            //List<Share> allIssuedDigitalShare = new List<Share>();
+            List<ShareCompaniesdto> companyInfo = new List<ShareCompaniesdto>(); 
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 OfferShareIds = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserId(extractedFromToken.UserLoginId).Select(x=>x.IssuedDigitalShareId).ToList();
-                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId).Select(x=>x.ShareId).ToList();
-                var issueShare = _repositoryWrapper.ShareManager.GetAllSharesForUser(extractedFromToken.UserLoginId);
-                allIssuedDigitalShare = issueShare.Where(x => IssuedDigitalShareIds.Contains(x.Id)).ToList();
+                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId).Select(x=> new IssuedShareIdto
+                { IssuedId = x.Id , ShareId = x.ShareId } ).ToList();
+
+                var objectShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(extractedFromToken.UserLoginId);
+
+                companyInfo = (from f in objectShares
+                               join ids in IssuedDigitalShareIds on f.Id equals ids.ShareId
+                               select new ShareCompaniesdto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList(); 
+                              
+                              
+                              //i , sh => sh.Id , ds => ds , (sh,ds) => new ShareCompaniesdto { CompanyName = sh.CompanyName, Id = ds.IssuedId } ).ToList();               
             }
             else
-            { 
+            {
                 OfferShareIds = _repositoryWrapper.OfferedShareManager.GetAllOfferedShares().Select(x => x.IssuedDigitalShareId).ToList();
-                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetAllIssuedDigitalShares().Select(x => x.ShareId).ToList();
-                var issueShare = _repositoryWrapper.ShareManager.GetAllShares();
-                allIssuedDigitalShare = issueShare.Where(x => IssuedDigitalShareIds.Contains(x.Id)).ToList();
+                //IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetAllIssuedDigitalShares().Select(x => x.ShareId).ToList();
+
+                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetAllIssuedDigitalShares().Select(x => new IssuedShareIdto
+                { IssuedId = x.Id, ShareId = x.ShareId }).ToList();
+
+                var objectShares = _repositoryWrapper.ShareManager.GetAllShares();
+
+                companyInfo = (from f in objectShares
+                               join ids in IssuedDigitalShareIds on f.Id equals ids.ShareId
+                               select new ShareCompaniesdto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList();
+
+                //companyInfo = objectShares.Join(IssuedDigitalShareIds, sh => sh.Id, ds => ds, (sh, ds) => new ShareCompaniesdto { CompanyName = sh.CompanyName, Id = ds }).ToList();
             }
 
-            var response = allIssuedDigitalShare.Select(
-                s => SelectIdAndCompanyNameFromIssuedDigitalShare(s)
-            ).ToList();
+            var response = companyInfo.Select(s => SelectIdAndCompanyNameFromIssuedDigitalShare(s)).ToList();
+
             return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, response);
         }
-
+         
         private Dictionary<string,object> SelectIdAndCompanyNameFromIssuedDigitalShare(
             Share issueDigitalShare
         )
+        {
+            return new Dictionary<string, object>
+            {
+                ["Id"] = issueDigitalShare.Id,
+                ["CompanyName"] = issueDigitalShare.CompanyName ?? "",
+            };
+        }
+
+        private Dictionary<string, object> SelectIdAndCompanyNameFromIssuedDigitalShare(
+           ShareCompaniesdto issueDigitalShare
+       )
         {
             return new Dictionary<string, object>
             {
