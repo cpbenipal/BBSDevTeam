@@ -16,6 +16,12 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetAll().ToList();
         }
+
+        public List<OfferedShare> GetOfferedSharesByUserId(int userLoginId) 
+        {
+            return _repositoryBase.GetAll().Where(s => s.UserLoginId == userLoginId ).ToList();
+        }
+
         public List<OfferedShare> GetAuctionTypeOfferedSharesByUserLoginId(int userLoginId)
         {
             return _repositoryBase.GetAll().Where(

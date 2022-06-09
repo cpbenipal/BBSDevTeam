@@ -6,6 +6,7 @@ namespace BBS.Dto
 {
     public class IssueDigitalShareDto
     {
+        [Required]
         public int ShareId { get; set; }
 
         [Required]

@@ -44,13 +44,15 @@ namespace BBS.Utils
             var share = _repositoryWrapper.ShareManager.GetShare(digitallyIssuedShare.ShareId);
             var offerLimit = _repositoryWrapper.OfferTimeLimitManager.GetOfferTimeLimit(item.OfferTimeLimitId);
             var offerType = _repositoryWrapper.OfferTypeManager.GetOfferType(item.OfferTypeId);
+            var PaymentStatus = _repositoryWrapper.OfferPaymentManager.GetOfferPaymentByOfferShareId(item.Id); 
 
             var mappedOfferedShare = _mapper.Map<GetOfferedSharesItemDto>(item);
+            mappedOfferedShare.Id = item.Id;
             mappedOfferedShare.OfferType = offerType.Name;
-            mappedOfferedShare.BusinessLogo = share.BusinessLogo != null ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null; ; ;
-            mappedOfferedShare.CompanyName = digitallyIssuedShare.CompanyName;
+            mappedOfferedShare.BusinessLogo = share.BusinessLogo != null ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null; 
+            mappedOfferedShare.CompanyName = share.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
-
+            mappedOfferedShare.IsCompleted = !(PaymentStatus == null);
             return mappedOfferedShare;
         }
     }

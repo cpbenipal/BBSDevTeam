@@ -4,6 +4,7 @@ namespace BBS.Dto
 {
     public class GetOfferedSharesItemDto
     {
+        public int Id { get; set; }
         [Required]
         public string BusinessLogo { get; set; }
         
@@ -21,5 +22,6 @@ namespace BBS.Dto
 
         [Required]
         public string OfferTimeLimit { get; set; }
+        public bool IsCompleted { get; set; } 
     }
 }
