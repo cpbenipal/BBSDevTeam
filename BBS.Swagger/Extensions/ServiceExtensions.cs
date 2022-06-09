@@ -154,6 +154,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetBidShareUtils>();
 
             services.AddScoped<GetAllInvestorsDetailsInteractor>();
+            services.AddScoped<ChangeUserStatusToCompletedInteractor>();
 
             Config = BuildConfiguration();
 

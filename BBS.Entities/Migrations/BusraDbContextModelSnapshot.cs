@@ -101,6 +101,23 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Country");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "United arab Emirates"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pakistan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "British"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.DebtRound", b =>
@@ -118,6 +135,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DebtRounds");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mezzanine"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Growth"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.EmployementType", b =>
@@ -135,6 +164,28 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmployementTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Employed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Unemployed"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Full-Time"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Part-Time"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.EquityRound", b =>
@@ -152,6 +203,38 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EquityRounds");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Pre-Seed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Seed"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Angel"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Serie A"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Serie B"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Serie C"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.GrantType", b =>
@@ -173,6 +256,108 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GrantTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Normal Shares for ownership, voting, and share price appreciation",
+                            Name = "Common"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Hybrid shares for ownership, non-voting, but its shareholdres and paid dividends prior to other shareholders",
+                            Name = "Prefered"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "An obligation to offer dividend or interest which typically includes a promise to convert to equity. Debt holdres get paid back before any other shareholder",
+                            Name = "Debt"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InvestorRiskType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("InvestorType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("InvestorDetails");
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorRiskType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InvestorRiskTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "High Risk"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Normal"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InvestorTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "Retail"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Qualified"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.IssuedDigitalShare", b =>
@@ -265,6 +450,23 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nationality");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Emirati"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pakistani"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "United Kingdom"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.OfferedShare", b =>
@@ -374,6 +576,28 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OfferTimeLimits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "3 Days"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "1 Week"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Value = "3 Months"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Value = "6 Months"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.OfferType", b =>
@@ -391,6 +615,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OfferTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Auction"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Private"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.PaymentType", b =>
@@ -408,6 +644,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PaymentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "Bank Transfer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Debit/Credit Cash"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Person", b =>
@@ -603,6 +851,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Restrictions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? "
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Are you a cofounder or employee at the company?"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Role", b =>
@@ -621,6 +881,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Investor"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Share", b =>
@@ -721,12 +993,26 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("States");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Pending"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Returned"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Completed"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.StorageLocation", b =>
@@ -744,6 +1030,33 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StorageLocations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Dropbox"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "One Drive"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Google "
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "iCloud"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "My Desktop"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.UserLogin", b =>
@@ -872,6 +1185,17 @@ namespace BBS.Entities.Migrations
                     b.Navigation("State");
 
                     b.Navigation("UserLogin");
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorDetail", b =>
+                {
+                    b.HasOne("BBS.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("BBS.Models.IssuedDigitalShare", b =>

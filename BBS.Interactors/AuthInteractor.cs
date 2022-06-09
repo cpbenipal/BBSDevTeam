@@ -30,7 +30,6 @@ namespace BBS.Interactors
         {
             try
             {
-                throw new Exception();
                 _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(loginUserDto), 0);
                 return TryLoggingUser(loginUserDto);
             }
