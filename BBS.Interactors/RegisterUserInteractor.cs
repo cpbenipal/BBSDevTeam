@@ -116,7 +116,7 @@ namespace BBS.Interactors
                     "Please Enter Both Front and Back Side Picture of Your Emirates Id"
                 );
             }
-            else if (registerUserDto.PersonalInfo.VerificationState <= 0)
+            else if (registerUserDto.PersonalInfo.VerificationState != 1)
             {
                 throw new RegisterUserException(
                     "Invalid Verification State"
@@ -144,19 +144,57 @@ namespace BBS.Interactors
                     registerUserDto.Attachments,
                     createdPerson.Id
                 );
-
+                InsertInvestorDetail(registerUserDto, createdPerson.Id);
                 NotifyAdminAndUserAboutRegistration(createdPerson);
             }
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status201Created,
-                 new ResponseDTo
+                 new RegisterUserResponseDto
                  {
                      Id = createdPerson.Id,
-                     IBANNumber = createdPerson.IBANNumber,
-                     VaultNumber = createdPerson.VaultNumber,
                  }
             );
+        }
+
+        private void InsertInvestorDetail(RegisterUserDto registerUserDto, int personId)
+        {
+            var investorDetail = new InvestorDetail
+            {
+                InvestorType = GetInvestorType(registerUserDto),
+                InvestorRiskType = GetInvestorRiskType(registerUserDto),
+                PersonId = personId
+            };
+
+            _repository.InvestorDetailManager.InsertInverstorDetail(investorDetail);
+        }
+
+        private static int GetInvestorRiskType(RegisterUserDto registerUserDto)
+        {
+            if (
+                registerUserDto.PersonalInfo.IsUSCitizen ||
+                registerUserDto.PersonalInfo.IsPublicSectorEmployee ||
+                registerUserDto.PersonalInfo.IsIndividual ||
+                registerUserDto.PersonalInfo.HaveCriminalRecord
+            )
+            {
+                return (int)InvestorRiskTypes.HIGH_RISK;
+            }
+            return (int)InvestorRiskTypes.NORMAL;
+        }
+
+        private static int GetInvestorType(RegisterUserDto registerUserDto)
+        {
+            if(
+                registerUserDto.Experience.HaveExperience ||
+                registerUserDto.Experience.HavePriorExpirence ||
+                registerUserDto.Experience.HaveTraining
+            )
+            {
+                return (int)InvestorTypes.RETAIL;
+            }
+
+            return (int)InvestorTypes.QUALIFIED;
         }
 
         private void NotifyAdminAndUserAboutRegistration(Person person)
@@ -169,9 +207,11 @@ namespace BBS.Interactors
             _emailSender.SendEmail(person.Email!, subject, message, false);
         }
 
-        private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
+        private void UploadFilesAndCreateAttachments(
+            IEnumerable<IFormFile> attachments, 
+            int personId
+        )
         {
-
             var personalAttachment = new PersonalAttachment();
             var uploadedFile = UploadFilesToAzureBlob(attachments);
 
@@ -253,7 +293,7 @@ namespace BBS.Interactors
                 .InsertUserRole(mappedRequest);
         }
 
-        private static UserRoleDto InitUserRoleDto(int userLoginId, int rId = 0)
+        private UserRoleDto InitUserRoleDto(int userLoginId, int rId = 0)
         {
             int roleId = rId == 0 ? (int)Roles.INVESTOR : (int)Roles.ADMIN;
 

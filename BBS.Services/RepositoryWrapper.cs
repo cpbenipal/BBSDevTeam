@@ -336,5 +336,47 @@ namespace BBS.Services.Repository
                 return _bidShare;
             }
         }
+
+        private IInvestorDetailManager _investorDetail;
+        public IInvestorDetailManager InvestorDetailManager
+        {
+            get
+            {
+                if (_investorDetail == null)
+                {
+                    var repositoryBase = new RepositoryBase<InvestorDetail>(_repoContext);
+                    _investorDetail = new InvestorDetailManager(repositoryBase);
+                }
+                return _investorDetail;
+            }
+        }
+
+        private IInvestorRiskTypeManager _investorRiskType;
+        public IInvestorRiskTypeManager InvestorRiskTypeManager
+        {
+            get
+            {
+                if (_investorRiskType == null)
+                {
+                    var repositoryBase = new RepositoryBase<InvestorRiskType>(_repoContext);
+                    _investorRiskType = new InvestorRiskTypeManager(repositoryBase);
+                }
+                return _investorRiskType;
+            }
+        }
+
+        private IInvestorTypeManager _investorType;
+        public IInvestorTypeManager InvestorTypeManager
+        {
+            get
+            {
+                if (_investorType == null)
+                {
+                    var repositoryBase = new RepositoryBase<InvestorType>(_repoContext);
+                    _investorType = new InvestorTypeManager(repositoryBase);
+                }
+                return _investorType;
+            }
+        }
     }
 }

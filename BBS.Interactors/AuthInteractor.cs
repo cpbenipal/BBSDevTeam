@@ -29,7 +29,7 @@ namespace BBS.Interactors
         public GenericApiResponse LoginUser(LoginUserDto loginUserDto)
         {
             try
-            {                
+            {
                 _loggerManager.LogInfo("LoginUser : " + CommonUtils.JSONSerialize(loginUserDto), 0);
                 return TryLoggingUser(loginUserDto);
             }

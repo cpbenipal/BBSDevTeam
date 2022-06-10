@@ -25,5 +25,8 @@
         public IOfferPaymentManager OfferPaymentManager { get; }
         public IPaymentTypeManager PaymentTypeManager { get; }
         public IBidShareManager BidShareManager { get; }
+        public IInvestorDetailManager InvestorDetailManager { get; }
+        public IInvestorTypeManager InvestorTypeManager { get; }
+        public IInvestorRiskTypeManager InvestorRiskTypeManager { get; }
     }
 }

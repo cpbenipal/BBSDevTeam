@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class AddOfferTimeLimitEntity : Migration
+    public partial class AddInvestorDetail : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,6 +91,32 @@ namespace BBS.Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InvestorRiskTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Value = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvestorRiskTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvestorTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Value = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvestorTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Nationality",
                 columns: table => new
                 {
@@ -130,6 +156,19 @@ namespace BBS.Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PaymentTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Value = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Restrictions",
                 columns: table => new
                 {
@@ -161,8 +200,7 @@ namespace BBS.Entities.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Value = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -239,6 +277,27 @@ namespace BBS.Entities.Migrations
                         name: "FK_Person_Nationality_NationalityId",
                         column: x => x.NationalityId,
                         principalTable: "Nationality",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvestorDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    InvestorType = table.Column<int>(type: "integer", nullable: false),
+                    InvestorRiskType = table.Column<int>(type: "integer", nullable: false),
+                    PersonId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvestorDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InvestorDetails_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -344,13 +403,13 @@ namespace BBS.Entities.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CompanyName = table.Column<string>(type: "text", nullable: true),
                     GrantTypeId = table.Column<int>(type: "integer", nullable: false),
-                    EquityRoundId = table.Column<int>(type: "integer", nullable: false),
-                    DebtRoundId = table.Column<int>(type: "integer", nullable: false),
+                    EquityRoundId = table.Column<int>(type: "integer", nullable: true),
+                    DebtRoundId = table.Column<int>(type: "integer", nullable: true),
                     NumberOfShares = table.Column<int>(type: "integer", nullable: false),
                     DateOfGrant = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     SharePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    Restriction1 = table.Column<bool>(type: "boolean", nullable: false),
-                    Restriction2 = table.Column<bool>(type: "boolean", nullable: false),
+                    Restriction1 = table.Column<bool>(type: "boolean", nullable: true),
+                    Restriction2 = table.Column<bool>(type: "boolean", nullable: true),
                     StorageLocationId = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
@@ -459,6 +518,164 @@ namespace BBS.Entities.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BidShares",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    MaximumBidPrice = table.Column<double>(type: "double precision", nullable: false),
+                    MinimumBidPrice = table.Column<double>(type: "double precision", nullable: false),
+                    PaymentTypeId = table.Column<int>(type: "integer", nullable: false),
+                    OfferedShareId = table.Column<int>(type: "integer", nullable: false),
+                    UserLoginId = table.Column<int>(type: "integer", nullable: false),
+                    VerificationStateId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BidShares", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BidShares_OfferedShares_OfferedShareId",
+                        column: x => x.OfferedShareId,
+                        principalTable: "OfferedShares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BidShares_PaymentTypes_PaymentTypeId",
+                        column: x => x.PaymentTypeId,
+                        principalTable: "PaymentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BidShares_States_VerificationStateId",
+                        column: x => x.VerificationStateId,
+                        principalTable: "States",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BidShares_UserLogin_UserLoginId",
+                        column: x => x.UserLoginId,
+                        principalTable: "UserLogin",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfferPayments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PaymentTypeId = table.Column<int>(type: "integer", nullable: false),
+                    OfferedShareId = table.Column<int>(type: "integer", nullable: false),
+                    UserLoginId = table.Column<int>(type: "integer", nullable: false),
+                    TransactionId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OfferPayments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OfferPayments_OfferedShares_OfferedShareId",
+                        column: x => x.OfferedShareId,
+                        principalTable: "OfferedShares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OfferPayments_PaymentTypes_PaymentTypeId",
+                        column: x => x.PaymentTypeId,
+                        principalTable: "PaymentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OfferPayments_UserLogin_UserLoginId",
+                        column: x => x.UserLoginId,
+                        principalTable: "UserLogin",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Country",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "United arab Emirates" },
+                    { 2, "Pakistan" },
+                    { 3, "British" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DebtRounds",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Mezzanine" },
+                    { 2, "Growth" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "EmployementTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Employed" },
+                    { 2, "Unemployed" },
+                    { 3, "Full-Time" },
+                    { 4, "Part-Time" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "EquityRounds",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Pre-Seed" },
+                    { 2, "Seed" },
+                    { 3, "Angel" },
+                    { 4, "Serie A" },
+                    { 5, "Serie B" },
+                    { 6, "Serie C" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GrantTypes",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Normal Shares for ownership, voting, and share price appreciation", "Common" },
+                    { 2, "Hybrid shares for ownership, non-voting, but its shareholdres and paid dividends prior to other shareholders", "Prefered" },
+                    { 3, "An obligation to offer dividend or interest which typically includes a promise to convert to equity. Debt holdres get paid back before any other shareholder", "Debt" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InvestorRiskTypes",
+                columns: new[] { "Id", "Value" },
+                values: new object[,]
+                {
+                    { 1, "High Risk" },
+                    { 2, "Normal" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InvestorTypes",
+                columns: new[] { "Id", "Value" },
+                values: new object[,]
+                {
+                    { 1, "Retail" },
+                    { 2, "Qualified" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Nationality",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Emirati" },
+                    { 2, "Pakistani" },
+                    { 3, "United Kingdom" }
+                });
+
             migrationBuilder.InsertData(
                 table: "OfferTimeLimits",
                 columns: new[] { "Id", "Value" },
@@ -469,6 +686,89 @@ namespace BBS.Entities.Migrations
                     { 3, "3 Months" },
                     { 4, "6 Months" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "OfferTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Auction" },
+                    { 2, "Private" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PaymentTypes",
+                columns: new[] { "Id", "Value" },
+                values: new object[,]
+                {
+                    { 1, "Bank Transfer" },
+                    { 2, "Debit/Credit Cash" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Restrictions",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? " },
+                    { 2, "Are you a cofounder or employee at the company?" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Role",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Investor" },
+                    { 2, "Admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "States",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Pending" },
+                    { 2, "Returned" },
+                    { 3, "Completed" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StorageLocations",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Dropbox" },
+                    { 2, "One Drive" },
+                    { 3, "Google " },
+                    { 4, "iCloud" },
+                    { 5, "My Desktop" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidShares_OfferedShareId",
+                table: "BidShares",
+                column: "OfferedShareId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidShares_PaymentTypeId",
+                table: "BidShares",
+                column: "PaymentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidShares_UserLoginId",
+                table: "BidShares",
+                column: "UserLoginId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidShares_VerificationStateId",
+                table: "BidShares",
+                column: "VerificationStateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InvestorDetails_PersonId",
+                table: "InvestorDetails",
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IssuedDigitalShares_UserLoginId",
@@ -493,6 +793,21 @@ namespace BBS.Entities.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OfferedShares_UserLoginId",
                 table: "OfferedShares",
+                column: "UserLoginId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OfferPayments_OfferedShareId",
+                table: "OfferPayments",
+                column: "OfferedShareId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OfferPayments_PaymentTypeId",
+                table: "OfferPayments",
+                column: "PaymentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OfferPayments_UserLoginId",
+                table: "OfferPayments",
                 column: "UserLoginId");
 
             migrationBuilder.CreateIndex(
@@ -539,6 +854,9 @@ namespace BBS.Entities.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BidShares");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
 
             migrationBuilder.DropTable(
@@ -551,7 +869,16 @@ namespace BBS.Entities.Migrations
                 name: "GrantTypes");
 
             migrationBuilder.DropTable(
-                name: "OfferedShares");
+                name: "InvestorDetails");
+
+            migrationBuilder.DropTable(
+                name: "InvestorRiskTypes");
+
+            migrationBuilder.DropTable(
+                name: "InvestorTypes");
+
+            migrationBuilder.DropTable(
+                name: "OfferPayments");
 
             migrationBuilder.DropTable(
                 name: "PersonalAttachments");
@@ -563,13 +890,22 @@ namespace BBS.Entities.Migrations
                 name: "Shares");
 
             migrationBuilder.DropTable(
-                name: "States");
-
-            migrationBuilder.DropTable(
                 name: "StorageLocations");
 
             migrationBuilder.DropTable(
                 name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "States");
+
+            migrationBuilder.DropTable(
+                name: "OfferedShares");
+
+            migrationBuilder.DropTable(
+                name: "PaymentTypes");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "IssuedDigitalShares");
@@ -579,9 +915,6 @@ namespace BBS.Entities.Migrations
 
             migrationBuilder.DropTable(
                 name: "OfferTypes");
-
-            migrationBuilder.DropTable(
-                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "UserLogin");

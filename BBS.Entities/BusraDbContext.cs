@@ -57,8 +57,25 @@ namespace BBS.Entities
         // Bid Shares 
         public virtual DbSet<BidShare> BidShares { get; set; }
 
+
+        // Investor
+        public virtual DbSet<InvestorDetail> InvestorDetails { get; set; }
+        public virtual DbSet<InvestorRiskType> InvestorRiskTypes { get; set; }
+        public virtual DbSet<InvestorType> InvestorTypes { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<InvestorType>().HasData(
+                new InvestorType { Id = 1, Value = "Retail" },
+                new InvestorType { Id = 2, Value = "Qualified" }
+            );
+
+            modelBuilder.Entity<InvestorRiskType>().HasData(
+                new InvestorRiskType { Id = 1, Value = "High Risk" },
+                new InvestorRiskType { Id = 2, Value = "Normal" }
+            );
+
             modelBuilder.Entity<PaymentType>().HasData(
                 new PaymentType { Id = 1, Value = "Bank Transfer" },
                 new PaymentType { Id = 2, Value = "Debit/Credit Cash" }
@@ -72,14 +89,15 @@ namespace BBS.Entities
             );
 
             modelBuilder.Entity<State>().HasData(
-                 new State { Id = 1, Name = "Pending", Value = 0 },
-                 new State { Id = 2, Name = "Returned", Value = 1 },
-                 new State { Id = 3, Name = "Completed", Value = 2 }
+                 new State { Id = 1, Name = "Pending" },
+                 new State { Id = 2, Name = "Returned" },
+                 new State { Id = 3, Name = "Completed" }
             );
 
             modelBuilder.Entity<Role>().HasData(
                  new Role { Id = 2, Name = "Admin" },
-                 new Role { Id = 1, Name = "Investor" });
+                 new Role { Id = 1, Name = "Investor" }
+            );
 
             modelBuilder.Entity<Country>().HasData(
                 new Country { Id = 1, Name = "United arab Emirates" },

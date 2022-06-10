@@ -27,11 +27,9 @@ namespace BBS.Dto
         [Required]
         public IEnumerable<IFormFile> Attachments { get; set; }
     }
-    public class ResponseDTo
+    public class RegisterUserResponseDto
     {
         public int Id { get; set; }
-        public string VaultNumber { get; set; }
-        public string IBANNumber { get; set; }
     }
 
 }
