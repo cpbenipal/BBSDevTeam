@@ -60,13 +60,15 @@ namespace BBS.Interactors
         {
             var allIssuedShares = _repositoryWrapper
                 .IssuedDigitalShareManager
-                .GetAllIssuedDigitalShares();
+                .GetAllIssuedDigitalShares()
+                .OrderByDescending(s => s.AddedDate).ToList();
                 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 allIssuedShares = _repositoryWrapper
                 .IssuedDigitalShareManager
-                .GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId);
+                .GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId)
+                .OrderByDescending(s => s.AddedDate).ToList();
             }
 
  

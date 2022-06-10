@@ -52,11 +52,11 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingRegisteredShareForUser(TokenValues tokenValues)
         {
-            var allShares = _repositoryWrapper.ShareManager.GetAllShares();
+            var allShares = _repositoryWrapper.ShareManager.GetAllShares().OrderByDescending(s => s.AddedDate).ToList();
 
             if(tokenValues.RoleId != (int)Roles.ADMIN)
             {
-                allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId);
+                allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId).OrderByDescending(s => s.AddedDate).ToList();
             }
 
             var allMappedShares = 

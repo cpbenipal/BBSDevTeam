@@ -3,6 +3,7 @@ using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -14,13 +15,19 @@ namespace BBS.Interactors
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
         private readonly IMapper _mapper;
+        private readonly GetBidShareUtils _getBidShareUtils;
+        private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly INewEmailSender _emailSender;
 
         public BidShareInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
-            IMapper mapper
+            INewEmailSender emailSender,
+            IMapper mapper,
+            GetBidShareUtils getBidShareUtils,
+            EmailHelperUtils emailHelperUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -28,6 +35,10 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
             _mapper = mapper;
+            _getBidShareUtils = getBidShareUtils;
+            _emailHelperUtils = emailHelperUtils;
+            _emailSender = emailSender;
+
         }
 
         public GenericApiResponse InsertBidShare(string token, BidShareDto bidShareDto)
@@ -65,15 +76,28 @@ namespace BBS.Interactors
             var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
             mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;
 
-            _repositoryWrapper
+            var insertedBidShare = _repositoryWrapper
                 .BidShareManager
                 .InsertBidShare(mappedBidShare);
+
+            NotifyAdminAboutBidShare(insertedBidShare.Id);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
                 1
             );
+        }
+
+        private void NotifyAdminAboutBidShare(int bidShareId)
+        {
+            var bidShare = _repositoryWrapper.BidShareManager.GetBidShare(bidShareId);
+            var contentToSend = _getBidShareUtils.BuildBidShareFromDto(bidShare);
+
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "bid_share");
+            var subject = "New Share is Registered";
+
+            _emailSender.SendEmail("", subject, message, true);
         }
     }
 }

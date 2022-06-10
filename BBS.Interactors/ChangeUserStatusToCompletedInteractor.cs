@@ -2,6 +2,7 @@
 using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -12,18 +13,24 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
-
+        private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly INewEmailSender _emailSender;
+       
         public ChangeUserStatusToCompletedInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            ITokenManager tokenManager
+            ITokenManager tokenManager,
+            EmailHelperUtils emailHelperUtils,
+            INewEmailSender emailSender
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
+            _emailHelperUtils = emailHelperUtils;
+            _emailSender = emailSender;
         }
 
         public GenericApiResponse ChangeUserStatusToCompleted(string token, int personId)
@@ -75,11 +82,30 @@ namespace BBS.Interactors
 
             _repositoryWrapper.PersonManager.UpdatePerson(person);
 
+            NotifyAdminAboutStatusChange(personId);
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status202Accepted,
                 1
             );
         }
+
+        private void NotifyAdminAboutStatusChange(int personWithStatusChangedId)
+        {
+            var person = _repositoryWrapper.PersonManager.GetPerson(personWithStatusChangedId);
+
+            var contentToSend = new Dictionary<string, string>
+            {
+                { "PersonEmail", person.Email! },
+                { "Status", "Complete" }
+            };
+
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "change_user_status");
+            var subject = "User Status Changed";
+
+            _emailSender.SendEmail("", subject, message, true);
+        }
     }
 }
+
