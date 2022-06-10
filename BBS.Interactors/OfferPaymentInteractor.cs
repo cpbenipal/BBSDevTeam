@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
@@ -61,6 +62,14 @@ namespace BBS.Interactors
             OfferPaymentDto offerPaymentDto
         )
         {
+
+            var person = _repositoryWrapper.PersonManager.GetPerson(
+                extractedFromToken.PersonId
+            );
+            if (person.VerificationState != (int)AccountStates.COMPLETED)
+            {
+                throw new Exception("Investor Account is not completed");
+            }
 
             if (FindDuplicateOfferShare(offerPaymentDto) == null)
             {

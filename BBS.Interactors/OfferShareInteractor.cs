@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BBS.Constants;
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
@@ -72,6 +73,12 @@ namespace BBS.Interactors
             TokenValues extractedTokenValues
         )
         {
+            var person = _repositoryWrapper.PersonManager.GetPerson(extractedTokenValues.PersonId);
+            if (person.VerificationState != (int)AccountStates.COMPLETED)
+            {
+                throw new Exception("Investor Account is not completed");
+            }
+
             var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 
             var userdigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
             var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetAuctionTypeOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);

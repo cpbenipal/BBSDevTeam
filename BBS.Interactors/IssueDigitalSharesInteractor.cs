@@ -71,8 +71,18 @@ namespace BBS.Interactors
             }
         }
 
-        private GenericApiResponse TryIssuingDigitalShare(IssueDigitalShareDto digitalShare, TokenValues valuesFromToken)
+        private GenericApiResponse TryIssuingDigitalShare(
+            IssueDigitalShareDto digitalShare, 
+            TokenValues valuesFromToken
+        )
         {
+
+            var person = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
+            if (person.VerificationState != (int)AccountStates.COMPLETED)
+            {
+                throw new Exception("Investor Account is not completed");
+            }
+
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
             var usershares = _repository.ShareManager.GetAllSharesForUser(valuesFromToken.UserLoginId);
             var digitalShares = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(valuesFromToken.UserLoginId);

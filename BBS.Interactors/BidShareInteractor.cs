@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BBS.Constants;
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
@@ -72,6 +73,11 @@ namespace BBS.Interactors
             BidShareDto bidShareDto
         )
         {
+            var person = _repositoryWrapper.PersonManager.GetPerson(extractedFromToken.PersonId);
+            if (person.VerificationState != (int)AccountStates.COMPLETED)
+            {
+                throw new Exception("Investor Account is not completed");
+            }
 
             var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
             mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;

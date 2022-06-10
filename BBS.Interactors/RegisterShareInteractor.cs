@@ -73,6 +73,13 @@ namespace BBS.Interactors
             TokenValues extractedTokenValues
         )
         {
+
+            var person = _repository.PersonManager.GetPerson(extractedTokenValues.PersonId);
+            if(person.VerificationState != (int)AccountStates.COMPLETED)
+            {
+                throw new Exception("Investor Account is not completed");
+            }
+
             var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
             if (duplicates)
             {
