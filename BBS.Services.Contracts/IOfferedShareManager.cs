@@ -13,5 +13,6 @@ namespace BBS.Services.Contracts
             int userLoginId, 
             string offerPrivateKey
         );
+        List<OfferedShare> GetOfferedSharesByUserId(int userLoginId);
     }
 }

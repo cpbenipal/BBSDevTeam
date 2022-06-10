@@ -104,7 +104,7 @@ namespace BBS.Interactors
             var insertedShare = 
                 _repository.ShareManager.InsertShare(shareToInsert);
 
-            HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
+            //HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
             NotifyAdminAndUserAboutShareRegistration(
                 insertedShare.Id, 
                 extractedTokenValues.PersonId
