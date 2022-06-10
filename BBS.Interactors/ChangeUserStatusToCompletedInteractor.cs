@@ -54,7 +54,7 @@ namespace BBS.Interactors
         private GenericApiResponse ReturnErrorStatus()
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Bid Share", StatusCodes.Status500InternalServerError
+                "Couldn't Change Status", StatusCodes.Status500InternalServerError
             );
         }
 

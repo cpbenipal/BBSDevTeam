@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BBS.Dto
 {
@@ -22,6 +23,7 @@ namespace BBS.Dto
 
         [Required]
         public string OfferTimeLimit { get; set; }
+        public DateTime AddedDate { get; set; } 
         public bool IsCompleted { get; set; } 
     }
 

@@ -32,7 +32,7 @@ namespace BBS.Utils
                 GetOfferedSharesItemDto mappedOfferedShare = BuildOfferedShare(item);
                 parsedList.Add(mappedOfferedShare);
             }
-            return parsedList;
+            return parsedList.OrderByDescending(x=>x.AddedDate).OrderBy(x=>x.IsCompleted).ToList();
         }
 
         public GetOfferedSharesItemDto BuildOfferedShare(OfferedShare item)
@@ -53,6 +53,7 @@ namespace BBS.Utils
             mappedOfferedShare.CompanyName = share.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
             mappedOfferedShare.IsCompleted = !(PaymentStatus == null);
+            mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate;
             return mappedOfferedShare;
         }
     }

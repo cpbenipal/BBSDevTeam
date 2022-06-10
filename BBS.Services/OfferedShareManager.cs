@@ -14,19 +14,19 @@ namespace BBS.Services.Repository
 
         public List<OfferedShare> GetAllOfferedShares()
         {
-            return _repositoryBase.GetAll().ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public List<OfferedShare> GetOfferedSharesByUserId(int userLoginId) 
         {
-            return _repositoryBase.GetAll().Where(s => s.UserLoginId == userLoginId ).ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).Where(s => s.UserLoginId == userLoginId ).ToList();
         }
 
         public List<OfferedShare> GetAuctionTypeOfferedSharesByUserLoginId(int userLoginId)
         {
             return _repositoryBase.GetAll().Where(
                 s => s.UserLoginId == userLoginId && s.OfferTypeId == 1
-            ).ToList();
+            ).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public OfferedShare GetOfferedShare(int id)

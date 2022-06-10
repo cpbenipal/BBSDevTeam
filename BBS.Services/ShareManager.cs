@@ -14,12 +14,12 @@ namespace BBS.Services.Repository
 
         public List<Share> GetAllShares()
         {
-            return _repositoryBase.GetAll().ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x=>x.AddedDate).ToList();
         }
 
         public List<Share> GetAllSharesForUser(int userLoginId)
         {
-            return _repositoryBase.GetAll().Where(share => share.UserLoginId == userLoginId).ToList();
+            return _repositoryBase.GetAll().Where(share => share.UserLoginId == userLoginId).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public Share GetShare(int id)

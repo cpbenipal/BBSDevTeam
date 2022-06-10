@@ -28,7 +28,7 @@ namespace BBS.Services.Repository
 
         public List<IssuedDigitalShare> GetIssuedDigitalSharesForPerson(int userLoginId)
         {
-            return _repositoryBase.GetAll().Where(s => s.UserLoginId == userLoginId).ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).Where(s => s.UserLoginId == userLoginId).ToList();
         }
 
         public IssuedDigitalShare InsertDigitallyIssuedShare(IssuedDigitalShare issuedShare)
@@ -44,7 +44,7 @@ namespace BBS.Services.Repository
 
         public List<IssuedDigitalShare> GetAllIssuedDigitalShares()
         {
-            return _repositoryBase.GetAll().ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).ToList();
         }
     }
 }
