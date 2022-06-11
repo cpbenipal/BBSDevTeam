@@ -1,5 +1,6 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -63,13 +64,15 @@ namespace BBS.Interactors
         {
             var allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
-                .GetAllOfferedShares();
+                .GetAllOfferedShares()
+                .Where(o => IsOfferShareCompleted(o)).ToList();
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
-                .GetAuctionTypeOfferedSharesByUserLoginId(extractedFromToken.UserLoginId);
+                .GetOfferedSharesByUserLoginId(extractedFromToken.UserLoginId)
+                .Where(o => IsOfferShareCompleted(o)).ToList();
             }
 
             var parsedOfferedShares = _getAllOfferedSharesUtils
@@ -80,6 +83,13 @@ namespace BBS.Interactors
                 StatusCodes.Status200OK,
                 parsedOfferedShares
             );
+        }
+
+        private bool IsOfferShareCompleted(OfferedShare offerShare)
+        {
+            return _repositoryWrapper
+                .OfferPaymentManager
+                .GetOfferPaymentByOfferShareId(offerShare.Id) != null;
         }
     }
 }

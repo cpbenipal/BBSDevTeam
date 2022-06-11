@@ -22,10 +22,10 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).Where(s => s.UserLoginId == userLoginId ).ToList();
         }
 
-        public List<OfferedShare> GetAuctionTypeOfferedSharesByUserLoginId(int userLoginId)
+        public List<OfferedShare> GetOfferedSharesByUserLoginId(int userLoginId)
         {
             return _repositoryBase.GetAll().Where(
-                s => s.UserLoginId == userLoginId && s.OfferTypeId == 1
+                s => s.UserLoginId == userLoginId
             ).OrderByDescending(x => x.AddedDate).ToList();
         }
 

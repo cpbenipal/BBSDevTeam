@@ -81,7 +81,7 @@ namespace BBS.Interactors
 
             var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 
             var userdigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
-            var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetAuctionTypeOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
+            var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
 
             if (issueDigitalShares == null)
             {
