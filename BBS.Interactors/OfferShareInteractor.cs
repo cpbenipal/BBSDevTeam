@@ -101,7 +101,7 @@ namespace BBS.Interactors
             else
             {
                 var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
-                var offeredSharePrivateKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper();
+                var offeredSharePrivateKey = RegisterUserUtils.GenerateVaultNumber(8);
                 if (offeredShareToInsert.OfferTypeId == 2)
                 {
                     offeredShareToInsert.PrivateShareKey = offeredSharePrivateKey;

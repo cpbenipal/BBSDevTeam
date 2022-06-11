@@ -77,7 +77,7 @@ namespace BBS.Interactors
 
             person.VerificationState = (int)AccountStates.COMPLETED;
             person.VaultNumber = RegisterUserUtils.GenerateVaultNumber(12);
-            person.IBANNumber = RegisterUserUtils.GenerateVaultNumber(22);
+            person.IBANNumber = RegisterUserUtils.GenerateIBANNumber(22);
 
 
             _repositoryWrapper.PersonManager.UpdatePerson(person);
