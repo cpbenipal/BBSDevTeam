@@ -15,7 +15,7 @@ namespace BBS.Utils
             var rndDigits = new System.Text.StringBuilder().Insert(0, "0123456789", length).ToString().ToCharArray();
             return "B" + string.Join("", rndDigits.OrderBy(o => Guid.NewGuid()).Take(length));
         }
-        public static string GenerateUniqueNumber(int length) 
+        public static string GenerateUniqueNumber(int length)
         {
             var rndDigits = new System.Text.StringBuilder().Insert(0, "0123456789", length).ToString().ToCharArray();
             return string.Join("", rndDigits.OrderBy(o => Guid.NewGuid()).Take(length));
@@ -51,9 +51,8 @@ namespace BBS.Utils
                 HavePriorExpirence = registerUserDto.Experience.HavePriorExpirence,
                 HaveTraining = registerUserDto.Experience.HaveTraining,
                 HaveExperience = registerUserDto.Experience.HaveExperience,
-
-                VaultNumber = String.Empty,
-                IBANNumber = String.Empty            
+                VaultNumber = RegisterUserUtils.GenerateVaultNumber(12),
+                IBANNumber = RegisterUserUtils.GenerateIBANNumber(22)
             };
 
             return person;

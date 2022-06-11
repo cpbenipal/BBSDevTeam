@@ -31,8 +31,4 @@
     <ProjectReference Include="..\EmailSender\EmailSender.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="email_templates\" />
-  </ItemGroup>
-
 </Project>

@@ -14,7 +14,7 @@ namespace BBS.Services.Repository
 
         public List<EquityRound> GetAllEquityRounds()
         {
-            return _repositoryBase.GetAll().ToList();
+            return _repositoryBase.GetAll().OrderBy(x=>x.Id).ToList();
         }
 
         public EquityRound GetEquityRound(int id)

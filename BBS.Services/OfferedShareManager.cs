@@ -25,7 +25,7 @@ namespace BBS.Services.Repository
         public List<OfferedShare> GetOfferedSharesByUserLoginId(int userLoginId)
         {
             return _repositoryBase.GetAll().Where(
-                s => s.UserLoginId == userLoginId
+                s => s.UserLoginId == userLoginId 
             ).OrderByDescending(x => x.AddedDate).ToList();
         }
 

@@ -115,15 +115,15 @@ namespace BBS.Interactors
                 throw new AttachmentCountLowException(
                     "Please Enter Both Front and Back Side Picture of Your Emirates Id"
                 );
-            }
-            else if (registerUserDto.PersonalInfo.VerificationState != 1)
-            {
-                throw new RegisterUserException(
-                    "Invalid Verification State"
-                );
-            }
+            }            
+            //else if (registerUserDto.PersonalInfo.VerificationState != 1)
+            //{
+            //    throw new RegisterUserException(
+            //        "Invalid Verification State"
+            //    );
+            //}
             else
-            {
+            { 
                 return HandleCreatingUser(registerUserDto, roleId);
             }
         }
