@@ -87,9 +87,10 @@ namespace BBS.Interactors
                     1
                 );
             }
-
-            throw new Exception("OfferShare is already Paid");
-            
+            else
+            {
+                return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
+            }
         }
 
         private OfferPayment? FindDuplicateOfferShare(OfferPaymentDto offerPaymentDto)

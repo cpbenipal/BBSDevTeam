@@ -73,7 +73,8 @@ namespace BBS.Services.Repository
             var blob = blobContainerClient.GetBlobClient(systemFileName);
 
             var converter = new HtmlConverter();
-            var content = converter.FromHtmlString(fileContent);
+
+            var content = converter.FromHtmlString(fileContent, 1024, ImageFormat.Png,100);
 
             using (var memoryStream = new MemoryStream())
             {
