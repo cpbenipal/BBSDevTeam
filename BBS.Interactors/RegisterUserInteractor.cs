@@ -148,13 +148,15 @@ namespace BBS.Interactors
                 NotifyAdminAndUserAboutRegistration(createdPerson);
             }
             return _responseManager.SuccessResponse(
-                "Successfull",
-                StatusCodes.Status201Created,
-                 new RegisterUserResponseDto
-                 {
-                     Id = createdPerson.Id,
-                 }
-            );
+               "Successfull",
+               StatusCodes.Status201Created,
+                new RegisterUserResponseDto
+                {
+                    Id = createdPerson.Id,
+                    IBANNumber = createdPerson.IBANNumber,
+                    VaultNumber = createdPerson.VaultNumber,
+                }
+           );
         }
 
         private void InsertInvestorDetail(RegisterUserDto registerUserDto, int personId)

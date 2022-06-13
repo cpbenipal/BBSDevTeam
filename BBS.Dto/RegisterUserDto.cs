@@ -30,6 +30,8 @@ namespace BBS.Dto
     public class RegisterUserResponseDto
     {
         public int Id { get; set; }
+        public string IBANNumber { get; set; }
+        public string VaultNumber { get; set; }
     }
 
 }

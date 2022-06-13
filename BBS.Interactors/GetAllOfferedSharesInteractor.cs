@@ -62,17 +62,23 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingAllOfferedShares(TokenValues extractedFromToken)
         {
-            var allOfferedShares = _repositoryWrapper
-                .OfferedShareManager
-                .GetAllOfferedShares()
-                .Where(o => IsOfferShareCompleted(o)).ToList();
+            List<OfferedShare> allOfferedShares = new List<OfferedShare>();
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
                 .GetOfferedSharesByUserLoginId(extractedFromToken.UserLoginId)
-                .Where(o => IsOfferShareCompleted(o)).ToList();
+                //.Where(o => IsOfferShareCompleted(o))
+                .ToList();
+            }
+            else
+            {
+                allOfferedShares = _repositoryWrapper
+               .OfferedShareManager
+               .GetAllOfferedShares()
+               //.Where(o => IsOfferShareCompleted(o))
+               .ToList();
             }
 
             var parsedOfferedShares = _getAllOfferedSharesUtils
