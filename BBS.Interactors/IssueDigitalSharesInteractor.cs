@@ -6,6 +6,7 @@ using BBS.Utils;
 using EmailSender;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using System.Globalization;
 
 namespace BBS.Interactors
 {
@@ -161,7 +162,7 @@ namespace BBS.Interactors
                 CompanyName = digitalShare.CompanyName,
                 Name = digitalShare.FirstName + " " + digitalShare.LastName,
                 NumberOfShares = share.NumberOfShares,
-                GrantTime = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year,
+                GrantTime = share.DateOfGrant.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
                 Signature = signature
             };
 

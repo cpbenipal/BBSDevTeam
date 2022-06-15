@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220610061453_1")]
+    [Migration("20220614111522_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,11 +32,29 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<double>("MaximumBidPrice")
                         .HasColumnType("double precision");
 
                     b.Property<double>("MinimumBidPrice")
                         .HasColumnType("double precision");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("OfferedShareId")
                         .HasColumnType("integer");
@@ -995,6 +1013,9 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int>("Value")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("States");
@@ -1003,17 +1024,20 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Pending"
+                            Name = "Pending",
+                            Value = 0
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Returned"
+                            Name = "Completed",
+                            Value = 0
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Completed"
+                            Name = "Returned",
+                            Value = 0
                         });
                 });
 

@@ -1011,6 +1011,9 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int>("Value")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("States");
@@ -1019,17 +1022,20 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Pending"
+                            Name = "Pending",
+                            Value = 0
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Returned"
+                            Name = "Completed",
+                            Value = 0
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Completed"
+                            Name = "Returned",
+                            Value = 0
                         });
                 });
 
