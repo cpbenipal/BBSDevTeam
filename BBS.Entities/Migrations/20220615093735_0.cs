@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class _1 : Migration
+    public partial class _0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -419,6 +419,7 @@ namespace BBS.Entities.Migrations
                     BusinessLogo = table.Column<string>(type: "text", nullable: true),
                     ShareOwnershipDocument = table.Column<string>(type: "text", nullable: true),
                     CompanyInformationDocument = table.Column<string>(type: "text", nullable: true),
+                    VerificationState = table.Column<int>(type: "integer", nullable: false),
                     UserLoginId = table.Column<int>(type: "integer", nullable: false),
                     AddedById = table.Column<int>(type: "integer", nullable: false),
                     AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),

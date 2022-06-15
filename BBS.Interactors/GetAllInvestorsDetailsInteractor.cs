@@ -69,11 +69,11 @@ namespace BBS.Interactors
             ).ToList();
 
             var pendingAccounts = allInvestors.Where(
-                i => i.VerificationState == (int)AccountStates.PENDING
+                i => i.VerificationState == (int)States.PENDING
             ).ToList();
 
             var approvedAccounts = allInvestors.Where(
-                i => i.VerificationState == (int)AccountStates.COMPLETED
+                i => i.VerificationState == (int)States.COMPLETED
             ).ToList();
 
             var highRiskAccounts = _repositoryWrapper.InvestorDetailManager

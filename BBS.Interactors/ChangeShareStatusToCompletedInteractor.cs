@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class ChangeUserStatusToCompletedInteractor
+    public class ChangeShareStatusToCompletedInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
@@ -15,16 +15,16 @@ namespace BBS.Interactors
         private readonly ITokenManager _tokenManager;
         private readonly EmailHelperUtils _emailHelperUtils;
         private readonly INewEmailSender _emailSender;
-        private readonly GetProfileInformationUtils _getProfileInformationUtils;
+        private readonly GetRegisteredSharesUtils _getRegisteredSharesUtils;
 
-        public ChangeUserStatusToCompletedInteractor(
+        public ChangeShareStatusToCompletedInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
             EmailHelperUtils emailHelperUtils,
             INewEmailSender emailSender,
-            GetProfileInformationUtils getProfileInformationUtils
+            GetRegisteredSharesUtils getRegisteredSharesUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -33,26 +33,26 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
             _emailHelperUtils = emailHelperUtils;
             _emailSender = emailSender;
-            _getProfileInformationUtils = getProfileInformationUtils;
+            _getRegisteredSharesUtils = getRegisteredSharesUtils;
         }
 
-        public GenericApiResponse ChangeUserStatusToCompleted(string token, int personId)
+        public GenericApiResponse ChangeShareStatusToCompleted(string token, int shareId)
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             try
             {
                 _loggerManager.LogInfo(
-                    "ChangeUserStatusToCompleted : " +
-                    CommonUtils.JSONSerialize("PersonId " + personId),
+                    "ChangeShareStatusToCompleted : " +
+                    CommonUtils.JSONSerialize("ShareId " + shareId),
                     extractedFromToken.PersonId
                 );
 
-                if(extractedFromToken.RoleId != (int)Roles.ADMIN)
+                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
                 {
                     throw new Exception("Access Denied");
                 }
 
-                return TryChangingUserStatusToCompleted(personId);
+                return TryChangingShareStatusToCompleted(shareId);
             }
             catch (Exception ex)
             {
@@ -64,28 +64,22 @@ namespace BBS.Interactors
         private GenericApiResponse ReturnErrorStatus()
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Change Status", StatusCodes.Status500InternalServerError
+                "Couldn't Change Share Status", StatusCodes.Status500InternalServerError
             );
         }
 
-        private GenericApiResponse TryChangingUserStatusToCompleted(
-            int personId
+        private GenericApiResponse TryChangingShareStatusToCompleted(
+            int shareId
         )
         {
-            var person = _repositoryWrapper.PersonManager.GetPerson(personId);
-            if(person == null)
-            {
-                throw new Exception("Person Doesnt exist");
-            }
 
-            person.VerificationState = (int)States.COMPLETED;
-            person.VaultNumber = RegisterUserUtils.GenerateVaultNumber(12);
-            person.IBANNumber = RegisterUserUtils.GenerateIBANNumber(22);
+            var share = _repositoryWrapper.ShareManager.GetShare(shareId);
 
+            share.VerificationState = (int) States.COMPLETED;
 
-            _repositoryWrapper.PersonManager.UpdatePerson(person);
+            _repositoryWrapper.ShareManager.UpdateShare(share);
 
-            NotifyAdminAboutStatusChange(personId);
+            NotifyAdminAboutStatusChange(shareId);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -94,14 +88,13 @@ namespace BBS.Interactors
             );
         }
 
-        private void NotifyAdminAboutStatusChange(int personWithStatusChangedId)
+        private void NotifyAdminAboutStatusChange(int shareId)
         {
-            UserProfileInformationDto personInfo =
-                _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    personWithStatusChangedId
-                );
-            var message = _emailHelperUtils.FillEmailContents(personInfo, "register_user");
-            var subject = "User Status Changed";
+            var share = _repositoryWrapper.ShareManager.GetShare(shareId);
+            var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
+
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
+            var subject = "Share Status is Changed";
 
             _emailSender.SendEmail("", subject, message, true);
         }

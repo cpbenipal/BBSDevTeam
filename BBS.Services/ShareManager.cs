@@ -38,5 +38,12 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
             return addedShare;
         }
+
+        public Share UpdateShare(Share share)
+        {
+            _repositoryBase.Update(share);
+            _repositoryBase.Save();
+            return share;
+        }
     }
 }

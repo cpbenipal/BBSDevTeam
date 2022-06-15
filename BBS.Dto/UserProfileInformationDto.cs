@@ -2,7 +2,6 @@
 {
     public class UserProfileInformationDto
     {
-        public int Id { get; set; }
         public int PersonId { get; set; } 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -32,5 +31,6 @@
         public string? EmiratesIdPictureFront { get; set; }
         public string? EmiratesIdPictureBack { get; set; }
         public string Role { get; set; }
+        public string InvestorType { get; set; }
     }
 }

@@ -19,8 +19,8 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly INewEmailSender _emailSender;
-        private readonly GetProfileInformationInteractor _getProfileInformationInteractor;
         private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly GetProfileInformationUtils _getProfileInformationUtils;
         public RegisterUserInteractor(
             IRepositoryWrapper repository,
             IMapper mapper,
@@ -29,8 +29,8 @@ namespace BBS.Interactors
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             INewEmailSender emailSender,
-            GetProfileInformationInteractor getProfileInformationInteractor,
-            EmailHelperUtils emailHelperUtils
+            EmailHelperUtils emailHelperUtils, 
+            GetProfileInformationUtils getProfileInformationUtils
         )
         {
             _repository = repository;
@@ -40,12 +40,12 @@ namespace BBS.Interactors
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _emailSender = emailSender;
-            _getProfileInformationInteractor = getProfileInformationInteractor;
             _emailHelperUtils = emailHelperUtils;
+            _getProfileInformationUtils = getProfileInformationUtils;
 
         }
 
-        public object RegisterUserAdmin(RegisterUserDto registerUserDto, int v)
+        public object RegisterUserAdmin(RegisterUserDto registerUserDto)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize(registerUserDto),
                     0
                 );
-                return TryRegisteringUser(registerUserDto, v);
+                return TryRegisteringUser(registerUserDto, (int)Roles.ADMIN);
             }
             catch (RegisterUserException ex)
             {
@@ -79,7 +79,7 @@ namespace BBS.Interactors
             try
             {
                 _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto),0);
-                return TryRegisteringUser(registerUserDto);
+                return TryRegisteringUser(registerUserDto, (int)Roles.INVESTOR);
             }
             catch (RegisterUserException ex)
             {
@@ -100,7 +100,10 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryRegisteringUser(RegisterUserDto registerUserDto, int roleId = 0)
+        private GenericApiResponse TryRegisteringUser(
+            RegisterUserDto registerUserDto, 
+            int roleId
+        )
         {
             if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
             {
@@ -116,21 +119,18 @@ namespace BBS.Interactors
                     "Please Enter Both Front and Back Side Picture of Your Emirates Id"
                 );
             }            
-            //else if (registerUserDto.PersonalInfo.VerificationState != 1)
-            //{
-            //    throw new RegisterUserException(
-            //        "Invalid Verification State"
-            //    );
-            //}
             else
             { 
                 return HandleCreatingUser(registerUserDto, roleId);
             }
         }
 
-        private GenericApiResponse HandleCreatingUser(RegisterUserDto registerUserDto, int roleId = 0)
+        private GenericApiResponse HandleCreatingUser(
+            RegisterUserDto registerUserDto, 
+            int roleId
+        )
         {
-            var createdPerson = CreatePerson(registerUserDto);
+            var createdPerson = CreatePerson(registerUserDto, roleId);
             var createdUserLoginProfile = CreateUserLogin(
                 registerUserDto.UserLogin,
                 createdPerson.Id
@@ -138,13 +138,24 @@ namespace BBS.Interactors
 
             CreateUserRole(createdUserLoginProfile.Id, roleId);
 
-            if (roleId == 0)
+            string investorType = "";
+
+            if (roleId == (int) Roles.INVESTOR)
             {
                 UploadFilesAndCreateAttachments(
                     registerUserDto.Attachments,
                     createdPerson.Id
                 );
-                InsertInvestorDetail(registerUserDto, createdPerson.Id);
+                var investor = InsertInvestorDetail(registerUserDto, createdPerson.Id);
+
+                if(investor != null)
+                {
+                    investorType = _repository
+                        .InvestorTypeManager
+                        .GetInvestorType(investor.InvestorType)?.Value ?? "";
+                }
+
+
                 NotifyAdminAndUserAboutRegistration(createdPerson);
             }
             return _responseManager.SuccessResponse(
@@ -155,11 +166,15 @@ namespace BBS.Interactors
                     Id = createdPerson.Id,
                     IBANNumber = createdPerson.IBANNumber,
                     VaultNumber = createdPerson.VaultNumber,
+                    InvestorType = roleId == (int)Roles.INVESTOR ? investorType : null
                 }
            );
         }
 
-        private void InsertInvestorDetail(RegisterUserDto registerUserDto, int personId)
+        private InvestorDetail InsertInvestorDetail(
+            RegisterUserDto registerUserDto, 
+            int personId
+        )
         {
             var investorDetail = new InvestorDetail
             {
@@ -168,7 +183,7 @@ namespace BBS.Interactors
                 PersonId = personId
             };
 
-            _repository.InvestorDetailManager.InsertInverstorDetail(investorDetail);
+            return _repository.InvestorDetailManager.InsertInverstorDetail(investorDetail);
         }
 
         private static int GetInvestorRiskType(RegisterUserDto registerUserDto)
@@ -201,7 +216,10 @@ namespace BBS.Interactors
 
         private void NotifyAdminAndUserAboutRegistration(Person person)
         {
-            var peronInfo = _getProfileInformationInteractor.BuildProfileForPerson(person.Id);
+            var peronInfo =
+                _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
+                    person.Id
+                );
             var message = _emailHelperUtils.FillEmailContents(peronInfo, "register_user");
             var subject = "New Register User Information ";
 
@@ -255,8 +273,12 @@ namespace BBS.Interactors
             }
         }
 
-        private Person CreatePerson(RegisterUserDto registerUserDto)
+        private Person CreatePerson(RegisterUserDto registerUserDto, int roleId)
         {
+            registerUserDto.PersonalInfo.VerificationState = 
+                    roleId == (int)Roles.INVESTOR ? 
+                    (int)States.PENDING : (int)States.COMPLETED;
+
             Person mappedRequest = RegisterUserUtils.ParsePersonFromRequest(registerUserDto);
 
             var createdPerson = _repository
@@ -286,7 +308,7 @@ namespace BBS.Interactors
             return createdUserLoginProfile;
         }
 
-        private void CreateUserRole(int userLoginId, int roleId = 0)
+        private void CreateUserRole(int userLoginId, int roleId)
         {
             UserRoleDto userRole = InitUserRoleDto(userLoginId, roleId);
             var mappedRequest = _mapper.Map<UserRole>(userRole);
@@ -295,10 +317,8 @@ namespace BBS.Interactors
                 .InsertUserRole(mappedRequest);
         }
 
-        private UserRoleDto InitUserRoleDto(int userLoginId, int rId = 0)
+        private static UserRoleDto InitUserRoleDto(int userLoginId, int roleId)
         {
-            int roleId = rId == 0 ? (int)Roles.INVESTOR : (int)Roles.ADMIN;
-
             var userRole = new UserRoleDto
             {
                 UserLoginId = userLoginId,

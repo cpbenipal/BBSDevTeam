@@ -52,7 +52,10 @@ namespace BBS.Interactors
 
         }
 
-        public GenericApiResponse IssueShareDigitally(IssueDigitalShareDto digitalShare, string token)
+        public GenericApiResponse IssueShareDigitally(
+            IssueDigitalShareDto digitalShare, 
+            string token
+        )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
@@ -68,7 +71,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus("Couldn't Issue Digital Share");
+                return ReturnErrorStatus(ex.Message);
             }
         }
 
@@ -79,12 +82,18 @@ namespace BBS.Interactors
         {
 
             var person = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
-            if (person.VerificationState != (int)AccountStates.COMPLETED)
+            if (person.VerificationState != (int)States.COMPLETED)
             {
                 throw new Exception("Investor Account is not completed");
             }
 
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
+
+            if (share.VerificationState != (int)States.COMPLETED)
+            {
+                throw new Exception("Share is Not Verified Or Completed");
+            }
+
             var usershares = _repository.ShareManager.GetAllSharesForUser(valuesFromToken.UserLoginId);
             var digitalShares = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(valuesFromToken.UserLoginId);
             if (share == null)

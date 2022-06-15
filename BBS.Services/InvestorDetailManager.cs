@@ -17,12 +17,17 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetById(investorDetailId);
         }
 
+        public InvestorDetail? GetInvestorDetailByPersonId(int personId)
+        {
+            return _repositoryBase.GetAll().Where(i => i.PersonId == personId).FirstOrDefault();
+        }
+
         public List<InvestorDetail> GetInvestorDetails()
         {
             return _repositoryBase.GetAll().ToList();
         }
 
-        public InvestorDetail? InsertInverstorDetail(InvestorDetail investorDetail)
+        public InvestorDetail InsertInverstorDetail(InvestorDetail investorDetail)
         {
             var insertedInvestorDetail = _repositoryBase.Insert(investorDetail);
             _repositoryBase.Save();

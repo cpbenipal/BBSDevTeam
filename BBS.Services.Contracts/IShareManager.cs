@@ -8,6 +8,7 @@ namespace BBS.Services.Contracts
         Share GetShare(int id);
         List<Share> GetAllSharesForUser(int userLoginId);
         List<Share> GetAllShares();
+        Share UpdateShare(Share share);
         List<Share> GetSharesByUserLoginAndCompanyId(int userLoginId,string company);
      }
 }

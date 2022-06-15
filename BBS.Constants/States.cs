@@ -1,6 +1,6 @@
 ﻿namespace BBS.Constants
 {
-    public enum AccountStates
+    public enum States
     {
         PENDING = 1, COMPLETED , RETURNED
     }

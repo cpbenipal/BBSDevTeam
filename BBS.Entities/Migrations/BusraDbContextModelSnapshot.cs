@@ -993,6 +993,9 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("UserLoginId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("VerificationState")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserLoginId");

@@ -6,7 +6,8 @@ namespace BBS.Services.Contracts
     public interface IInvestorDetailManager
     {
         InvestorDetail? GetInvestorDetail(int investorDetailId);
-        InvestorDetail? InsertInverstorDetail(InvestorDetail investorDetail);
+        InvestorDetail? GetInvestorDetailByPersonId(int personId);
+        InvestorDetail InsertInverstorDetail(InvestorDetail investorDetail);
         List<InvestorDetail> GetInvestorDetails();
     }
 }

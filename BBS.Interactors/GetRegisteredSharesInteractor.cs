@@ -56,7 +56,10 @@ namespace BBS.Interactors
 
             if(tokenValues.RoleId != (int)Roles.ADMIN)
             {
-                allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId).OrderByDescending(s => s.AddedDate).ToList();
+                allShares = _repositoryWrapper
+                    .ShareManager
+                    .GetAllSharesForUser(tokenValues.UserLoginId)
+                    .OrderByDescending(s => s.AddedDate).ToList();
             }
 
             var allMappedShares = 

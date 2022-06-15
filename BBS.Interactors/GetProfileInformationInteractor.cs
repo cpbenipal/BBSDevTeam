@@ -94,35 +94,9 @@ namespace BBS.Interactors
 
         public UserProfileInformationDto BuildProfileForPerson(int personId)
         {
-            var person = _repositoryWrapper.PersonManager.GetPerson(personId);
-            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginByPerson(personId);
-            var userRole = _repositoryWrapper.UserRoleManager.GetUserRoleByUserLoginId(userLogin!.Id);
-            var role = _repositoryWrapper.RoleManager.GetRole(userRole!.RoleId);
-
-            if (userLogin == null || userRole == null || person == null || role == null)
-            {
-                throw new Exception();
-            }
-            var attachment = _repositoryWrapper
-                .PersonalAttachmentManager
-                .GetAttachementByPerson(personId);
-
-            var nationality = _repositoryWrapper
-                .NationalityManager
-                .GetNationality(person.NationalityId);
-
-            var country = _repositoryWrapper
-                .CountryManager
-                .GetCountry(person.CountryId);
-
-            var state = _repositoryWrapper.StateManager.GetState(person.VerificationState);
-
-            var employementType =
-                _repositoryWrapper.EmployementTypeManager.GetEmployementType(person.EmployementTypeId);
-
             UserProfileInformationDto userProfileInformation =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    person, role, attachment, nationality, country, state, employementType, userLogin.Id
+                    personId
                 );
             return userProfileInformation;
         }

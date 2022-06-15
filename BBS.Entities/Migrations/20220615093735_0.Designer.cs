@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    [Migration("20220614111522_1")]
-    partial class _1
+    [Migration("20220615093735_0")]
+    partial class _0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -993,6 +993,9 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VerificationState")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

@@ -75,11 +75,10 @@ namespace BBS.Interactors
         {
 
             var person = _repository.PersonManager.GetPerson(extractedTokenValues.PersonId);
-            if(person.VerificationState != (int)AccountStates.COMPLETED)
+            if(person.VerificationState != (int)States.COMPLETED)
             {
                 throw new Exception("Investor Account is not completed");
             }
-
             var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
             if (duplicates)
             {
@@ -107,14 +106,14 @@ namespace BBS.Interactors
             shareToInsert.BusinessLogo = string.IsNullOrEmpty(uploadedFiles[0]) ? null : uploadedFiles[0];
             shareToInsert.ShareOwnershipDocument = uploadedFiles[1];
             shareToInsert.CompanyInformationDocument = uploadedFiles[2];
+            shareToInsert.VerificationState = (int)States.PENDING;
 
             var insertedShare = 
                 _repository.ShareManager.InsertShare(shareToInsert);
 
             //HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
             NotifyAdminAndUserAboutShareRegistration(
-                insertedShare.Id, 
-                extractedTokenValues.PersonId
+                insertedShare.Id            
             );
 
             _loggerManager.LogInfo("Share Registered",extractedTokenValues.PersonId);
@@ -125,7 +124,7 @@ namespace BBS.Interactors
             );
         }
 
-        private void NotifyAdminAndUserAboutShareRegistration(int shareId, int personId)
+        private void NotifyAdminAndUserAboutShareRegistration(int shareId)
         {
             var share = _repository.ShareManager.GetShare(shareId);
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
@@ -142,7 +141,10 @@ namespace BBS.Interactors
             string logoUrl = "";
             if(registerShareDto.BusinessLogo != null)
             {
-                logoUrl = UploadFileToAzureBlob(registerShareDto.BusinessLogo, FileUploadExtensions.IMAGE).ImageUrl;
+                logoUrl = UploadFileToAzureBlob(
+                    registerShareDto.BusinessLogo, 
+                    FileUploadExtensions.IMAGE
+                ).ImageUrl;
             }
 
             var shareDocument = UploadFileToAzureBlob(

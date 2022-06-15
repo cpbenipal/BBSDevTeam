@@ -8,7 +8,10 @@ namespace BBS.Utils
     {
         private IRepositoryWrapper _repository;
         private IFileUploadService _uploadService;
-        public GetRegisteredSharesUtils(IRepositoryWrapper repositoryWrapper, IFileUploadService fileUploadService)
+        public GetRegisteredSharesUtils(
+            IRepositoryWrapper repositoryWrapper, 
+            IFileUploadService fileUploadService
+        )
         {
             _repository = repositoryWrapper;
             _uploadService = fileUploadService;
@@ -33,6 +36,8 @@ namespace BBS.Utils
             var grantType = _repository.GrantTypeManager.GetGrantType(share.GrantTypeId);
             var restriction = _repository.RestrictionManager.GetAllRestrictions();
             var storageLocation = _repository.StorageLocationManager.GetStorageLocation(share.GrantTypeId);
+            var state = _repository.StateManager.GetState(share.VerificationState);
+
 
             var restrictions = new List<RestrictionDto>
             {
@@ -59,6 +64,7 @@ namespace BBS.Utils
                 Restriction = restrictions,
                 SharePrice = share!.SharePrice,
                 StorageLocation = storageLocation.Name,
+                VerficationStatus = state.Name
             };
             return registeredShare;
         }

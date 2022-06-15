@@ -32,6 +32,7 @@ namespace BBS.Dto
         public int Id { get; set; }
         public string IBANNumber { get; set; }
         public string VaultNumber { get; set; }
+        public string InvestorType { get; set; }
     }
 
 }
