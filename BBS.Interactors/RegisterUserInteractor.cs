@@ -203,8 +203,8 @@ namespace BBS.Interactors
         private static int GetInvestorType(RegisterUserDto registerUserDto)
         {
             if(
-                registerUserDto.Experience.HaveExperience ||
-                registerUserDto.Experience.HavePriorExpirence ||
+                registerUserDto.Experience.HaveExperience &&
+                registerUserDto.Experience.HavePriorExpirence &&
                 registerUserDto.Experience.HaveTraining
             )
             {

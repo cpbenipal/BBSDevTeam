@@ -66,8 +66,8 @@ namespace BBS.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<InvestorType>().HasData(
-                new InvestorType { Id = 1, Value = "Retail" },
-                new InvestorType { Id = 2, Value = "Qualified" }
+                new InvestorType { Id = 1, Value = "Retail Investor" },
+                new InvestorType { Id = 2, Value = "Qualified Investor" }
             );
 
             modelBuilder.Entity<InvestorRiskType>().HasData(
