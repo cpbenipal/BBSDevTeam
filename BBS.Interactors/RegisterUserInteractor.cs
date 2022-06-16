@@ -208,10 +208,10 @@ namespace BBS.Interactors
                 registerUserDto.Experience.HaveTraining
             )
             {
-                return (int)InvestorTypes.RETAIL;
+                return (int)InvestorTypes.QUALIFIED;
             }
 
-            return (int)InvestorTypes.QUALIFIED;
+            return (int)InvestorTypes.RETAIL;
         }
 
         private void NotifyAdminAndUserAboutRegistration(Person person)
