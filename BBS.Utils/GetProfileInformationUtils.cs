@@ -46,6 +46,10 @@ namespace BBS.Utils
                 .InvestorTypeManager
                 .GetInvestorType(investorDetail.InvestorType);
 
+            var investorRiskType = investorDetail == null ? null : _repositoryWrapper
+                .InvestorRiskTypeManager
+                .GetInvestorRiskType(investorDetail.InvestorRiskType);
+
             var nationality = _repositoryWrapper
                 .NationalityManager
                 .GetNationality(person.NationalityId);
@@ -90,7 +94,8 @@ namespace BBS.Utils
                 EmiratesIdPictureBack = attachment == null ? "" : _fileUploadService.GetFilePublicUri(attachment?.Back!) ?? "",
                 Role = role.Name,
                 PersonId = person.Id,
-                InvestorType = investorType?.Value ?? ""
+                InvestorType = investorType?.Value ?? "",
+                InvestorRiskType = investorRiskType?.Value ?? ""
             };
         }
     }

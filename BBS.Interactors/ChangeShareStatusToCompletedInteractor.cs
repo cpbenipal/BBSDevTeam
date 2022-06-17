@@ -79,7 +79,7 @@ namespace BBS.Interactors
 
             _repositoryWrapper.ShareManager.UpdateShare(share);
 
-            NotifyAdminAboutStatusChange(shareId);
+            NotifyAdminAndUserAboutStatusChange(shareId);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -88,15 +88,19 @@ namespace BBS.Interactors
             );
         }
 
-        private void NotifyAdminAboutStatusChange(int shareId)
+        private void NotifyAdminAndUserAboutStatusChange(int shareId)
         {
             var share = _repositoryWrapper.ShareManager.GetShare(shareId);
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginById(share.UserLoginId);
+            var shareHolder = _repositoryWrapper.PersonManager.GetPerson(userLogin.PersonId);
+            
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
 
             var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
             var subject = "Share Status is Changed";
 
             _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
         }
     }
 }

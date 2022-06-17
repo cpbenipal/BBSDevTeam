@@ -152,7 +152,7 @@ namespace BBS.Interactors
 
         private void NotifyAdminAndUserWhenShareIsDigitallyIssued(TokenValues valuesFromToken, IssuedDigitalShare insertedDigialShare)
         {
-            var digitalShareHolder = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
+            //var digitalShareHolder = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
             var contentToSend = _getIssuedDigitalSharesUtils.BuildDigitalShareFromDto(insertedDigialShare);
 
             var message = _emailHelperUtils.FillEmailContents(contentToSend, "issue_digital_share");

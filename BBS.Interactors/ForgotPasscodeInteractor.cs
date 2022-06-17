@@ -12,18 +12,21 @@ namespace BBS.Interactors
         private readonly INewEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
+        private readonly EmailHelperUtils _emailHelperUtils;
 
         public ForgotPasscodeInteractor(
             IRepositoryWrapper repository,
             INewEmailSender emailSender,
             IApiResponseManager responseManager,
-            ILoggerManager loggerManager
+            ILoggerManager loggerManager, 
+            EmailHelperUtils emailHelperUtils
         )
         {
             _repository = repository;
             _emailSender = emailSender;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
+            _emailHelperUtils = emailHelperUtils;
 
         }
 
@@ -46,9 +49,21 @@ namespace BBS.Interactors
             var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(forgotPassDto.Email);
             if (personWithThisEmail != null)
             {
-                string newPasscode = _repository.UserLoginManager.UpdatePassCode(personWithThisEmail.Id);
+                string newPasscode =
+                    _repository.UserLoginManager.UpdatePassCode(personWithThisEmail.Id);
 
-                _emailSender.SendEmail(forgotPassDto.Email,"New passcode to login","Your new Passcode : " +newPasscode);
+                var contentToSend = new OtpSendingSuccessDto
+                {
+                    NewPasscode = newPasscode,
+                };
+
+                var message = _emailHelperUtils.FillEmailContents(contentToSend, "change_passcode");
+
+                _emailSender.SendEmail(
+                    forgotPassDto.Email,
+                    "New passcode to login", 
+                    message
+                );
 
                 _loggerManager.LogInfo("ForgotPasscode : " + "If a matching account was found an email was sent to " + forgotPassDto.Email, 0);
                 return _responseManager.SuccessResponse(

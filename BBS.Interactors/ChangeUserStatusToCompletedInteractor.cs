@@ -85,7 +85,7 @@ namespace BBS.Interactors
 
             _repositoryWrapper.PersonManager.UpdatePerson(person);
 
-            NotifyAdminAboutStatusChange(personId);
+            NotifyAdminAndUserAboutStatusChange(personId);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -94,7 +94,7 @@ namespace BBS.Interactors
             );
         }
 
-        private void NotifyAdminAboutStatusChange(int personWithStatusChangedId)
+        private void NotifyAdminAndUserAboutStatusChange(int personWithStatusChangedId)
         {
             UserProfileInformationDto personInfo =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
@@ -104,6 +104,7 @@ namespace BBS.Interactors
             var subject = "User Status Changed";
 
             _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(personInfo.Email, subject, message, false);
         }
     }
 }

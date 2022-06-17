@@ -10,40 +10,50 @@ namespace BBS.Interactors
     {
         private readonly INewEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
-        private readonly ISMSSender _smsSender;
         private readonly ILoggerManager _loggerManager;
         private readonly IRepositoryWrapper _repository;
+        private readonly EmailHelperUtils _emailHelperUtils;
+
 
         public SendOTPInteractor(
             INewEmailSender emailSender,
             IApiResponseManager responseManager,
-            ISMSSender smsSender,
-            ILoggerManager loggerManager, IRepositoryWrapper repository
+            ILoggerManager loggerManager, 
+            IRepositoryWrapper repository,
+            EmailHelperUtils emailHelperUtils
         )
         {
             _emailSender = emailSender;
             _responseManager = responseManager;
-            _smsSender = smsSender;
             _loggerManager = loggerManager;
             _repository = repository;
+            _emailHelperUtils = emailHelperUtils;
         }
 
         public GenericApiResponse VerifyOTP(VerifyOTPDto loginUserDto)
         {
             try
             {
-                // var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
                 if (loginUserDto.Email != String.Empty)
                 {
-                    _loggerManager.LogInfo("VerifyOTP : " + CommonUtils.JSONSerialize(loginUserDto), 0);
-
-                    return _responseManager.SuccessResponse("Successfull", StatusCodes.Status202Accepted, new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
+                    _loggerManager.LogInfo(
+                        "VerifyOTP : " + 
+                        CommonUtils.JSONSerialize(loginUserDto), 0
+                    );
+                    return _responseManager.SuccessResponse(
+                        "Successfull", 
+                        StatusCodes.Status202Accepted, 
+                        new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
                     );
                 }
                 else
                 {
                     _loggerManager.LogWarn("SendOTP : Email is required", 0);
-                    return _responseManager.SuccessResponse("Email should not empty", StatusCodes.Status302Found, "");
+                    return _responseManager.SuccessResponse(
+                        "Email should not empty", 
+                        StatusCodes.Status302Found, 
+                        ""
+                    );
                 }
             }
             catch (Exception ex)
@@ -57,7 +67,9 @@ namespace BBS.Interactors
         {
             try
             {
-                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(loginUserDto), 0);
+                _loggerManager.LogInfo(
+                    "RegisterUser : " + 
+                    CommonUtils.JSONSerialize(loginUserDto), 0);
                 return TrySendingOtp(loginUserDto);
             }
             catch (Exception ex)
@@ -69,12 +81,27 @@ namespace BBS.Interactors
 
         private GenericApiResponse TrySendingOtp(LoginUserOTPDto loginUserDto)
         {
-            var personWithThisEmail = _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
+            var personWithThisEmail = 
+                _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
             if (personWithThisEmail == null)
             {
-                _emailSender.SendEmail(loginUserDto.Email, "OTP: Verify your email", "One Time Passcode : " + loginUserDto.OTP);
+                var contentToSend = new OtpSendingSuccessDto
+                {
+                    NewPasscode = loginUserDto.OTP,
+                };
+
+                var message = 
+                    _emailHelperUtils.FillEmailContents(contentToSend, "new_passcode");
+
+                _emailSender.SendEmail(
+                    loginUserDto.Email, 
+                    "OTP: Verify your email", 
+                    message
+                );
                 _loggerManager.LogInfo("SendOTP : OTP sent to " + loginUserDto.Email, 0);
-                return _responseManager.SuccessResponse("OTP sent on Email", StatusCodes.Status202Accepted, "");
+                return _responseManager.SuccessResponse(
+                    "OTP sent on Email", StatusCodes.Status202Accepted, ""
+                );
             }
             else
             {

@@ -101,7 +101,7 @@ namespace BBS.Interactors
             var contentToSend = _getBidShareUtils.BuildBidShareFromDto(bidShare);
 
             var message = _emailHelperUtils.FillEmailContents(contentToSend, "bid_share");
-            var subject = "New Share is Registered";
+            var subject = "Share is Bid by User";
 
             _emailSender.SendEmail("", subject, message, true);
         }

@@ -32,5 +32,6 @@
         public string? EmiratesIdPictureBack { get; set; }
         public string Role { get; set; }
         public string InvestorType { get; set; }
+        public string InvestorRiskType { get; set; }
     }
 }

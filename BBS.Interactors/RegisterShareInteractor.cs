@@ -83,7 +83,7 @@ namespace BBS.Interactors
             if (duplicates)
             {
                 _loggerManager.LogWarn("Share Already Registered", extractedTokenValues.PersonId);
-                return ReturnErrorStatus("Share already Issued Digitally to user");
+                return ReturnErrorStatus("Share Already Registered");
             }
 
             return HandleRegisteringShare(registerShareDto, extractedTokenValues);
@@ -108,12 +108,12 @@ namespace BBS.Interactors
             shareToInsert.CompanyInformationDocument = uploadedFiles[2];
             shareToInsert.VerificationState = (int)States.PENDING;
 
-            var insertedShare = 
+            var insertedShare =
                 _repository.ShareManager.InsertShare(shareToInsert);
 
             //HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
             NotifyAdminAndUserAboutShareRegistration(
-                insertedShare.Id            
+                insertedShare.Id          
             );
 
             _loggerManager.LogInfo("Share Registered",extractedTokenValues.PersonId);
@@ -127,12 +127,16 @@ namespace BBS.Interactors
         private void NotifyAdminAndUserAboutShareRegistration(int shareId)
         {
             var share = _repository.ShareManager.GetShare(shareId);
+            var userLogin = _repository.UserLoginManager.GetUserLoginById(share.UserLoginId);
+            var shareHolder = _repository.PersonManager.GetPerson(userLogin.PersonId);
+
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
 
             var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
             var subject = "New Share is Registered";
 
             _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
         }
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)

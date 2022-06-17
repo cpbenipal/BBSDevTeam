@@ -1,4 +1,5 @@
-﻿using BBS.Models;
+﻿using BBS.Constants;
+using BBS.Models;
 using BBS.Services.Contracts;
 
 namespace BBS.Services.Repository
@@ -19,7 +20,21 @@ namespace BBS.Services.Repository
 
         public List<Share> GetAllSharesForUser(int userLoginId)
         {
-            return _repositoryBase.GetAll().Where(share => share.UserLoginId == userLoginId).OrderByDescending(x => x.AddedDate).ToList();
+            return _repositoryBase
+                .GetAll()
+                .Where(share => share.UserLoginId == userLoginId)
+                .OrderByDescending(x => x.AddedDate).ToList();
+        }
+
+        public List<Share> GetCompletedSharesForUser(int userLoginId)
+        {
+            return _repositoryBase
+                .GetAll()
+                .Where(
+                    share => share.UserLoginId == userLoginId && 
+                    share.VerificationState == (int) States.COMPLETED
+                ).OrderByDescending(x => x.AddedDate)
+                .ToList();
         }
 
         public Share GetShare(int id)
