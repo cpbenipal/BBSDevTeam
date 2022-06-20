@@ -30,7 +30,7 @@ namespace BBS.Utils
             List<OfferPayment> offerPayments
         )
         {
-            List<GetOfferPaymentDto> offerPaymentDtoList = new List<GetOfferPaymentDto>();
+            List<GetOfferPaymentDto> offerPaymentDtoList = new();
             foreach (var offerPaymentDto in offerPayments)
             {
                 var parsed = BuildGetOfferPaymentDto(offerPaymentDto);
@@ -43,13 +43,17 @@ namespace BBS.Utils
         public GetOfferPaymentDto BuildGetOfferPaymentDto(OfferPayment offerPayment)
         {
             var paymentType = _repository.PaymentTypeManager.GetPaymentType(offerPayment.PaymentTypeId);
+            var offeredShare = _repository.OfferedShareManager.GetOfferedShare(offerPayment.OfferedShareId);
+            var issuedShare = _repository.IssuedDigitalShareManager.GetIssuedDigitalShare(offeredShare.IssuedDigitalShareId);
+            var share = _repository.ShareManager.GetShare(issuedShare.ShareId);
 
             return new GetOfferPaymentDto
             {
                 Id = offerPayment.Id,
                 OfferedShareId = offerPayment.OfferedShareId,
                 PaymentType = paymentType!.Value,
-                TransactionId = offerPayment.TransactionId
+                TransactionId = offerPayment.TransactionId,
+                CompanyName = share.CompanyName
             };
         }
     }
