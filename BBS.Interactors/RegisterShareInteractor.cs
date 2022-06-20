@@ -202,14 +202,18 @@ namespace BBS.Interactors
 
         private BlobFile UploadFileToAzureBlob(IFormFile file, List<string> validExtensions)
         {
-            var fileData = _uploadService.UploadFileToBlob(file, validExtensions);
-            var uploadedFileData = new BlobFile()
+            BlobFile uploadedFileData = new BlobFile();
+            if (file != null)
             {
-                ImageUrl = fileData.ImageUrl,
-                ContentType = fileData.ContentType,
-                FileName = fileData.FileName,
-                PublicPath = fileData.PublicPath,
-            };
+                var fileData = _uploadService.UploadFileToBlob(file, validExtensions);
+                uploadedFileData = new BlobFile()
+                {
+                    ImageUrl = fileData.ImageUrl,
+                    ContentType = fileData.ContentType,
+                    FileName = fileData.FileName,
+                    PublicPath = fileData.PublicPath,
+                };               
+            }
             return uploadedFileData;
         }
     }

@@ -11,11 +11,9 @@ namespace BBS.Dto
         public ContactPersonDto ContactPerson { get; set; }
 
         public IFormFile BusinessLogo { get; set; }
-
-        [Required]
+         
         public IFormFile ShareOwnershipDocument { get; set; }
-
-        [Required]
+         
         public IFormFile CompanyInformationDocument { get; set; }
 
     }

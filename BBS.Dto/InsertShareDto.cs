@@ -16,10 +16,11 @@ namespace BBS.Dto
 
         [Required]
         public int NumberOfShares { get; set; }
-        
         [Required]
+
         [DisplayName("DD/MM/YYYY")]
-        public DateTime DateOfGrant { get; set; }        
+        public DateTime DateOfGrant { get; set; }
+        [Required]
         public decimal SharePrice { get; set; } 
         
         public bool Restriction1 { get; set; } = false;
