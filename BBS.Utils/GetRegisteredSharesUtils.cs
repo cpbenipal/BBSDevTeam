@@ -48,14 +48,14 @@ namespace BBS.Utils
             var registeredShare = new RegisteredShareDto
             {
                 Id = share.Id,
-                BusinessLogo = share.BusinessLogo != null ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
+                BusinessLogo = !string.IsNullOrEmpty(share.BusinessLogo) ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
                 FirstName = share?.FirstName,
                 LastName = share?.LastName,
                 Email = share?.Email,
                 DebtRound = debtRound?.Name,
                 EquityRound = equityRound?.Name,
-                ShareOwnerShipDocument = _uploadService.GetFilePublicUri(share!.ShareOwnershipDocument!),
-                CompanyInformationDocument = _uploadService.GetFilePublicUri(share.CompanyInformationDocument!),
+                ShareOwnerShipDocument = !string.IsNullOrEmpty(share!.ShareOwnershipDocument) ? _uploadService.GetFilePublicUri(share!.ShareOwnershipDocument!) : null,
+                CompanyInformationDocument = !string.IsNullOrEmpty(share!.CompanyInformationDocument) ? _uploadService.GetFilePublicUri(share.CompanyInformationDocument!) : null,
                 CompanyName = share.CompanyName,
                 DateOfGrant = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year,
                 GrantType = grantType.Name,
