@@ -96,7 +96,7 @@ namespace BBS.Interactors
             
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
 
-            var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
+            var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share-approve");
             var subject = "Share Status is Changed";
 
             _emailSender.SendEmail("", subject, message, true);

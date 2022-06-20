@@ -55,9 +55,11 @@ namespace BBS.Interactors
                 var contentToSend = new OtpSendingSuccessDto
                 {
                     NewPasscode = newPasscode,
+                    FirstName = personWithThisEmail.FirstName,
+                    LastName = personWithThisEmail.LastName
                 };
 
-                var message = _emailHelperUtils.FillEmailContents(contentToSend, "change_passcode");
+                var message = _emailHelperUtils.FillEmailContents(contentToSend, "new_passcode");
 
                 _emailSender.SendEmail(
                     forgotPassDto.Email,

@@ -41,7 +41,7 @@ namespace BBS.Services.Repository
         public string UpdatePassCode(int userLoginId) 
         {
             var newPasscode = RegisterUserUtils.GenerateUniqueNumber(4);            
-            var userdetail = _repositoryBase.GetAll().Where(x => x.Id == userLoginId).FirstOrDefault();
+            var userdetail = _repositoryBase.GetAll().Where(x => x.PersonId == userLoginId).FirstOrDefault();
             userdetail!.Passcode = _hashManager.EncryptPlainText(newPasscode);
             userdetail.ModifiedDate = DateTime.Now;
             userdetail.ModifiedById = userdetail.AddedById = userLoginId;

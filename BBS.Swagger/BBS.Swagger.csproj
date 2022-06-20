@@ -12,6 +12,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="email_templates\bid_share.html" />
+    <None Remove="email_templates\change_passcode.html" />
+    <None Remove="email_templates\change_share_status.html" />
+    <None Remove="email_templates\change_user_status.html" />
+    <None Remove="email_templates\issue_digital_share.html" />
+    <None Remove="email_templates\new_passcode.html" />
+    <None Remove="email_templates\offered_share.html" />
+    <None Remove="email_templates\register_share-approve.html" />
+    <None Remove="email_templates\register_share.html" />
+    <None Remove="email_templates\register_user.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="email_templates\bid_share.html" />
+    <Content Include="email_templates\change_passcode.html" />
+    <Content Include="email_templates\change_share_status.html" />
+    <Content Include="email_templates\change_user_status.html" />
+    <Content Include="email_templates\issue_digital_share.html" />
+    <Content Include="email_templates\new_passcode.html" />
+    <Content Include="email_templates\offered_share.html" />
+    <Content Include="email_templates\register_share-approve.html" />
+    <Content Include="email_templates\register_share.html" />
+    <Content Include="email_templates\register_user.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />

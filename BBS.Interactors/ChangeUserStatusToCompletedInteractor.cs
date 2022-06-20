@@ -100,7 +100,7 @@ namespace BBS.Interactors
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
                     personWithStatusChangedId
                 );
-            var message = _emailHelperUtils.FillEmailContents(personInfo, "register_user");
+            var message = _emailHelperUtils.FillEmailContents(personInfo, "change_user_status");
             var subject = "User Status Changed";
 
             _emailSender.SendEmail("", subject, message, true);
