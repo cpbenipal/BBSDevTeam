@@ -100,11 +100,19 @@ namespace BBS.Interactors
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
                     personWithStatusChangedId
                 );
-            var message = _emailHelperUtils.FillEmailContents(personInfo, "change_user_status");
-            var subject = "User Status Changed";
 
-            _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(personInfo.Email, subject, message, false);
+            var message = _emailHelperUtils.FillEmailContents(
+                personInfo, 
+                "change_user_status", 
+                personInfo.FirstName, 
+                personInfo.LastName
+            );
+
+            var subjectAdmin = "New Request to change User Status";
+            var subjectUser = "Request to change User Status submitted";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(personInfo.Email, subjectUser, message);
         }
     }
 }

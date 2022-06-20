@@ -59,7 +59,9 @@ namespace BBS.Interactors
                     LastName = personWithThisEmail.LastName
                 };
 
-                var message = _emailHelperUtils.FillEmailContents(contentToSend, "new_passcode");
+                var message = _emailHelperUtils.FillEmailContents(
+                    contentToSend, "new_passcode", "User", ""
+                );
 
                 _emailSender.SendEmail(
                     forgotPassDto.Email,

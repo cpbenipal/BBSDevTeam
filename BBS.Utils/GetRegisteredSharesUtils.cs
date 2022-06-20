@@ -64,7 +64,9 @@ namespace BBS.Utils
                 Restriction = restrictions,
                 SharePrice = share!.SharePrice,
                 StorageLocation = storageLocation.Name,
-                VerficationStatus = state.Name
+                VerficationStatus = state.Name,
+                GrantValuation = share.GrantValuation ?? "",
+                LastValuation = share.LastValuation ?? ""
             };
             return registeredShare;
         }

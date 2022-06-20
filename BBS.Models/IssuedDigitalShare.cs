@@ -11,25 +11,6 @@ namespace BBS.Models
         public int ShareId { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string? FirstName { get; set; }
-
-        [MaxLength(50)]
-        public string? LastName { get; set; }
-
-        [MaxLength(50)]
-        public string? MiddleName { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
-        
-        [Required, MaxLength(50)]
-        public string CompanyName { get; set; }
-        [Required]
-        public int NumberOfShares { get; set; }
-
-        [Required]
         public bool IsCertified { get; set; }
 
         [ForeignKey("UserLoginId")]

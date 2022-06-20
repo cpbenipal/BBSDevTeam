@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BBS.Dto
 {
@@ -20,6 +19,8 @@ namespace BBS.Dto
         public int NumberOfShares { get; set; }
         public string DateOfGrant { get; set; }
         public decimal SharePrice { get; set; }
+        public string? LastValuation { get; set; }
+        public string? GrantValuation { get; set; }
         public List<RestrictionDto> Restriction { get; set; }
         public string StorageLocation { get; set; }
         public string VerficationStatus { get; set; }

@@ -17,13 +17,12 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().Where(s => s.Id == issuedDigitalShareId).Select(s => s.CertificateUrl).FirstOrDefault()!;    
         }
 
-        public List<IssuedDigitalShare> GetIssuedDigitalSharesByShareIdAndCompanyId(
-            int shareId,
-             string companyName
+        public List<IssuedDigitalShare> GetIssuedDigitalSharesByShareId(
+            int shareId
         )
         {
             return _repositoryBase.GetAll()
-                .Where(s => s.ShareId == shareId && s.CompanyName == companyName).ToList();
+                .Where(s => s.ShareId == shareId).ToList();
         }
 
         public List<IssuedDigitalShare> GetIssuedDigitalSharesForPerson(int userLoginId)

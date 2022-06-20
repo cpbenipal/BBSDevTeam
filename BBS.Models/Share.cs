@@ -25,6 +25,8 @@ namespace BBS.Models
         public string? BusinessLogo { get; set; }
         public string? ShareOwnershipDocument { get; set; }
         public string? CompanyInformationDocument { get; set; }
+        public string? LastValuation { get; set; }
+        public string? GrantValuation { get; set; }
         public int VerificationState { get; set; }
 
         [ForeignKey("UserLoginId")]

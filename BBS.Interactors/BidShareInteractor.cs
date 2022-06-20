@@ -86,7 +86,7 @@ namespace BBS.Interactors
                 .BidShareManager
                 .InsertBidShare(mappedBidShare);
 
-            NotifyAdminAboutBidShare(insertedBidShare.Id);
+            NotifyAdminAboutBidShare(insertedBidShare.Id, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -95,15 +95,25 @@ namespace BBS.Interactors
             );
         }
 
-        private void NotifyAdminAboutBidShare(int bidShareId)
+        private void NotifyAdminAboutBidShare(int bidShareId, int personId)
         {
             var bidShare = _repositoryWrapper.BidShareManager.GetBidShare(bidShareId);
             var contentToSend = _getBidShareUtils.BuildBidShareFromDto(bidShare);
+            var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
 
-            var message = _emailHelperUtils.FillEmailContents(contentToSend, "bid_share");
-            var subject = "Share is Bid by User";
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend,
+                "bid_share",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
 
-            _emailSender.SendEmail("", subject, message, true);
+            var subjectAdmin = "New request to bid share.";
+            var subjectUser = "Request to bid share submitted.";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
+
         }
     }
 }

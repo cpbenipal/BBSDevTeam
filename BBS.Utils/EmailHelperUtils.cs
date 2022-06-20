@@ -11,11 +11,22 @@ namespace BBS.Utils
             _env = env;
         }
 
-        public string FillEmailContents(object dataToFill, string fileName)
+        public string FillEmailContents(
+            object dataToFill, 
+            string fileName, 
+            string personFirstName, 
+            string personLastName
+        )
         {
+
             var templateContent = File.ReadAllText(
                 Path.Combine(_env.ContentRootPath, "email_templates/" +  fileName + ".html")
             );
+
+
+            templateContent = templateContent.Replace("@PersonFirstName", personFirstName);
+            templateContent = templateContent.Replace("@PersonLastName", personLastName);
+
 
             foreach (PropertyInfo prop in dataToFill.GetType().GetProperties())
             {

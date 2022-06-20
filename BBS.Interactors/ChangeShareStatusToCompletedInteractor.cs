@@ -96,11 +96,18 @@ namespace BBS.Interactors
             
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
 
-            var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share-approve");
-            var subject = "Share Status is Changed";
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend, 
+                "register_share-approve",
+                shareHolder.FirstName ?? "",
+                shareHolder.LastName ?? ""
+            );
 
-            _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
+            var subjectAdmin = "New Request to change share Status";
+            var subjectUser = "Request to change share Status submitted";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subjectUser, message, false);
         }
     }
 }

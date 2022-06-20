@@ -216,15 +216,23 @@ namespace BBS.Interactors
 
         private void NotifyAdminAndUserAboutRegistration(Person person)
         {
-            var peronInfo =
+            var personInfo =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
                     person.Id
                 );
-            var message = _emailHelperUtils.FillEmailContents(peronInfo, "register_user");
-            var subject = "New Register User Information ";
+     
+            var message = _emailHelperUtils.FillEmailContents(
+                personInfo,
+                "register_user",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
 
-            _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(person.Email!, subject, message, false);
+            var subjectAdmin = "New request to register share.";
+            var subjectUser = "Request to register share submitted.";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
         }
 
         private void UploadFilesAndCreateAttachments(

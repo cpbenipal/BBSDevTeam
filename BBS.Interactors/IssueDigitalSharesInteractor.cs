@@ -34,7 +34,7 @@ namespace BBS.Interactors
             GenerateHtmlCertificate generateHtmlCertificate,
             IFileUploadService uploadService,
             INewEmailSender emailSender,
-            GetIssuedDigitalSharesUtils getIssuedDigitalSharesUtils, 
+            GetIssuedDigitalSharesUtils getIssuedDigitalSharesUtils,
             EmailHelperUtils emailHelperUtils
         )
         {
@@ -53,7 +53,7 @@ namespace BBS.Interactors
         }
 
         public GenericApiResponse IssueShareDigitally(
-            IssueDigitalShareDto digitalShare, 
+            IssueDigitalShareDto digitalShare,
             string token
         )
         {
@@ -76,7 +76,7 @@ namespace BBS.Interactors
         }
 
         private GenericApiResponse TryIssuingDigitalShare(
-            IssueDigitalShareDto digitalShare, 
+            IssueDigitalShareDto digitalShare,
             TokenValues valuesFromToken
         )
         {
@@ -118,7 +118,6 @@ namespace BBS.Interactors
             );
 
             BlobFile uploadedHtml = HandleIssuingCertificate(
-                digitalShare,
                 share,
                 uploadedSignature.PublicPath
             );
@@ -134,7 +133,7 @@ namespace BBS.Interactors
             var insertedDigitalShare = _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(
                 digitalShareToInsert
             );
-            NotifyAdminAndUserWhenShareIsDigitallyIssued(valuesFromToken, insertedDigitalShare);
+            NotifyAdminWhenShareIsDigitallyIssued(insertedDigitalShare, valuesFromToken.PersonId);
 
             var response = new Dictionary<string, string>()
             {
@@ -150,26 +149,33 @@ namespace BBS.Interactors
 
         }
 
-        private void NotifyAdminAndUserWhenShareIsDigitallyIssued(TokenValues valuesFromToken, IssuedDigitalShare insertedDigialShare)
+        private void NotifyAdminWhenShareIsDigitallyIssued(IssuedDigitalShare insertedDigialShare, int personId)
         {
-            //var digitalShareHolder = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
             var contentToSend = _getIssuedDigitalSharesUtils.BuildDigitalShareFromDto(insertedDigialShare);
+            var personInfo = _repository.PersonManager.GetPerson(personId); 
 
-            var message = _emailHelperUtils.FillEmailContents(contentToSend, "issue_digital_share");
-            var subject = "Share Is Digitally Issued";
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend,
+                "issue_digital_share",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
 
-            _emailSender.SendEmail("", subject, message, true);
-           // _emailSender.SendEmail(digitalShareHolder.Email!, subject, message, false);
+            var subjectAdmin = "New request to Issue Digital Share.";
+            var subjectUser = "Request to Issue Digital Share submitted.";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
         }
 
-        private BlobFile HandleIssuingCertificate(IssueDigitalShareDto digitalShare, Share share, string signature)
+        private BlobFile HandleIssuingCertificate(Share share, string signature)
         {
             CertificateContent certificate = new()
             {
                 Side1 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side1.png"),
                 Side2 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side2.png"),
-                CompanyName = digitalShare.CompanyName,
-                Name = digitalShare.FirstName + " " + digitalShare.LastName,
+                CompanyName = share.CompanyName,
+                Name = share.FirstName + " " + share.LastName,
                 NumberOfShares = share.NumberOfShares,
                 GrantTime = share.DateOfGrant.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
                 Signature = signature
@@ -182,7 +188,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse ReturnErrorStatus(string s)
         {
-            return _responseManager.ErrorResponse(s,StatusCodes.Status400BadRequest);
-        } 
+            return _responseManager.ErrorResponse(s, StatusCodes.Status400BadRequest);
+        }
     }
 }

@@ -24,7 +24,9 @@ namespace BBS.Utils
                 FirstName = registerShareDto.ContactPerson?.FirstName,
                 LastName = registerShareDto.ContactPerson?.LastName,
                 Email = registerShareDto.ContactPerson?.Email,
-                PhoneNumber = registerShareDto.ContactPerson?.PhoneNumber
+                PhoneNumber = registerShareDto.ContactPerson?.PhoneNumber,
+                GrantValuation = registerShareDto.ShareInformation?.GrantValuation ?? "",
+                LastValuation = registerShareDto.ShareInformation?.LastValuation ?? "",
             };
 
             return share;

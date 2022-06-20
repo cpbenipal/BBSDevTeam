@@ -7,10 +7,15 @@ namespace BBS.Utils
     public class GetIssuedDigitalSharesUtils
     {
         private readonly IFileUploadService _uploadService;
+        private readonly IRepositoryWrapper _repository;
 
-        public GetIssuedDigitalSharesUtils(IFileUploadService uploadService)
+        public GetIssuedDigitalSharesUtils(
+            IFileUploadService uploadService, 
+            IRepositoryWrapper repository
+        )
         {
             _uploadService = uploadService;
+            _repository = repository;
         }
 
         public List<GetDigitalSharesItemDto> ParseDigitalSharesToDto(List<IssuedDigitalShare> digitalShares)
@@ -28,19 +33,20 @@ namespace BBS.Utils
 
         public GetDigitalSharesItemDto BuildDigitalShareFromDto(IssuedDigitalShare digitalShare)
         {
+
+            var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
+
             return new GetDigitalSharesItemDto
             {
                 Id = digitalShare.Id,
                 CertificateKey = digitalShare.CertificateKey,
                 CertificateUrl = _uploadService.GetFilePublicUri(digitalShare.CertificateUrl),
-                CompanyName = digitalShare.CompanyName,
-                DateOfBirth = digitalShare.DateOfBirth.ToString("yyyy-MM-dd"),
-                FirstName = digitalShare.FirstName,
-                MiddleName = digitalShare.MiddleName,
-                LastName = digitalShare.LastName,
+                FirstName = share.FirstName,
+                LastName = share.LastName,
                 IsCertified = digitalShare.IsCertified,
-                ShareId = digitalShare.ShareId,
-                NumberOfShares = digitalShare.NumberOfShares
+                ShareId = share.Id,
+                NumberOfShares = share.NumberOfShares,
+                CompanyName = share.CompanyName,
             };
         }
     }

@@ -5,7 +5,7 @@ namespace BBS.Services.Contracts
     public interface IIssuedDigitalShareManager
     {
         IssuedDigitalShare InsertDigitallyIssuedShare(IssuedDigitalShare issuedShare);
-        List<IssuedDigitalShare> GetIssuedDigitalSharesByShareIdAndCompanyId(int shareId, string companyName); 
+        List<IssuedDigitalShare> GetIssuedDigitalSharesByShareId(int shareId); 
         List<IssuedDigitalShare> GetIssuedDigitalSharesForPerson(int userLoginId);
         List<IssuedDigitalShare> GetAllIssuedDigitalShares();
         string GetIssuedDigitalShareCertificateUrl(int issuedDigitalShareId);

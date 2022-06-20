@@ -90,8 +90,8 @@ namespace BBS.Interactors
                     NewPasscode = loginUserDto.OTP,
                 };
 
-                var message = 
-                    _emailHelperUtils.FillEmailContents(contentToSend, "new_passcode");
+                var message =
+                    _emailHelperUtils.FillEmailContents(contentToSend, "new_passcode", "User", "");
 
                 _emailSender.SendEmail(
                     loginUserDto.Email, 

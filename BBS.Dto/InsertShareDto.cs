@@ -27,6 +27,9 @@ namespace BBS.Dto
 
         [Required]
         public int StorageLocationId { get; set; }
+
+        public string? LastValuation { get; set; }
+        public string? GrantValuation { get; set; }
     } 
 
 }

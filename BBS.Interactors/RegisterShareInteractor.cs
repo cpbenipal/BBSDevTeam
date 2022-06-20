@@ -132,11 +132,18 @@ namespace BBS.Interactors
 
             var contentToSend = _getRegisteredSharesUtils.BuildShareDtoObject(share);
 
-            var message = _emailHelperUtils.FillEmailContents(contentToSend, "register_share");
-            var subject = "New Share is Registered";
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend, 
+                "register_share", 
+                shareHolder.FirstName ?? "", 
+                shareHolder.LastName ?? ""
+            );
 
-            _emailSender.SendEmail("", subject, message, true);
-            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
+            var subjectAdmin = "New request to register share.";
+            var subjectUser = "Request to register share submitted.";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subjectUser, message, false);
         }
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)

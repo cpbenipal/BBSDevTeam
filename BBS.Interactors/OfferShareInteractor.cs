@@ -114,7 +114,10 @@ namespace BBS.Interactors
                     _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 
 
-                NotifyAdminAndUserWhenShareIsOffered(insertedOfferedShare);
+                NotifyAdminWhenShareIsOffered(
+                    insertedOfferedShare,
+                    extractedTokenValues.PersonId
+                );
 
                 return _responseManager.SuccessResponse(
                     "Successfull",
@@ -124,16 +127,27 @@ namespace BBS.Interactors
             }
         }
 
-        private void NotifyAdminAndUserWhenShareIsOffered(
-            OfferedShare insertedOfferedShare
+        private void NotifyAdminWhenShareIsOffered(
+            OfferedShare insertedOfferedShare, int personId
         )
         {
+
+            var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
             var contentToSend = _getAllOfferedSharesUtils.BuildOfferedShare(insertedOfferedShare);
 
-            var message = _emailHelperUtils.FillEmailContents(contentToSend, "offered_share");
-            var subject = "Share Is Offered";
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend,
+                "offered_share",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
 
-            _emailSender.SendEmail("", subject, message, true);
+            var subjectAdmin = "New request to offer share.";
+            var subjectUser = "Request to offer share submitted.";
+
+            _emailSender.SendEmail("", subjectAdmin, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
+
         }
     }
 }
