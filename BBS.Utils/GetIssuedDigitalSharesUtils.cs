@@ -47,6 +47,7 @@ namespace BBS.Utils
                 ShareId = share.Id,
                 NumberOfShares = share.NumberOfShares,
                 CompanyName = share.CompanyName,
+                MiddleName = ""
             };
         }
     }
