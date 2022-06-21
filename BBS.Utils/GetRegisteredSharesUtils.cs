@@ -38,7 +38,6 @@ namespace BBS.Utils
             var storageLocation = _repository.StorageLocationManager.GetStorageLocation(share.GrantTypeId);
             var state = _repository.StateManager.GetState(share.VerificationState);
 
-
             var restrictions = new List<RestrictionDto>
             {
                 new RestrictionDto() { Id = restriction[0].Id, Name = restriction[0].Name, Flag = share.Restriction1 },
@@ -66,7 +65,9 @@ namespace BBS.Utils
                 StorageLocation = storageLocation.Name,
                 VerficationStatus = state.Name,
                 GrantValuation = share.GrantValuation ?? "",
-                LastValuation = share.LastValuation ?? ""
+                LastValuation = share.LastValuation ?? "",
+                UserLoginId = share.UserLoginId,
+                AddedDate = share.AddedDate.ToString()
             };
             return registeredShare;
         }

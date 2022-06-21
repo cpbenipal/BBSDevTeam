@@ -4,7 +4,6 @@ namespace BBS.Dto
 {
     public class ContactPersonDto
     {
-        [Required]
         [MaxLength(50)]
         public string? FirstName { get; set; }
 

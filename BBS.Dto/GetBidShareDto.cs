@@ -12,5 +12,7 @@
         public string CompanyName { get; set; }
         public string BusinessLogo { get; set; }
         public string LostValuation { get; set; } = "$ 55 mn";
+        public string AddedDate { get; set; }
+        public int UserLoginId { get; set; }
     }
 }

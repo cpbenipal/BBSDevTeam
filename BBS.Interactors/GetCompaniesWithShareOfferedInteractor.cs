@@ -58,21 +58,21 @@ namespace BBS.Interactors
         private GenericApiResponse TryGettingCompaniesWithShareOffered(TokenValues extractedFromToken)
         {
             List<int> OfferShareIds = new List<int>();
-            List<IssuedShareIdto> IssuedDigitalShareIds = new List<IssuedShareIdto>();
+            List<IssuedShareIdDto> IssuedDigitalShareIds = new List<IssuedShareIdDto>();
             //List<Share> allIssuedDigitalShare = new List<Share>();
-            List<ShareCompaniesdto> companyInfo = new List<ShareCompaniesdto>(); 
+            List<ShareCompanyDto> companyInfo = new List<ShareCompanyDto>(); 
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 OfferShareIds = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserId(extractedFromToken.UserLoginId).Select(x=>x.IssuedDigitalShareId).ToList();
-                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId).Select(x=> new IssuedShareIdto
+                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedFromToken.UserLoginId).Select(x=> new IssuedShareIdDto
                 { IssuedId = x.Id , ShareId = x.ShareId } ).ToList();
 
                 var objectShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(extractedFromToken.UserLoginId);
 
                 companyInfo = (from f in objectShares
                                join ids in IssuedDigitalShareIds on f.Id equals ids.ShareId
-                               select new ShareCompaniesdto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList(); 
+                               select new ShareCompanyDto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList(); 
                               
                               
                               //i , sh => sh.Id , ds => ds , (sh,ds) => new ShareCompaniesdto { CompanyName = sh.CompanyName, Id = ds.IssuedId } ).ToList();               
@@ -82,14 +82,14 @@ namespace BBS.Interactors
                 OfferShareIds = _repositoryWrapper.OfferedShareManager.GetAllOfferedShares().Select(x => x.IssuedDigitalShareId).ToList();
                 //IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetAllIssuedDigitalShares().Select(x => x.ShareId).ToList();
 
-                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetAllIssuedDigitalShares().Select(x => new IssuedShareIdto
+                IssuedDigitalShareIds = _repositoryWrapper.IssuedDigitalShareManager.GetAllIssuedDigitalShares().Select(x => new IssuedShareIdDto
                 { IssuedId = x.Id, ShareId = x.ShareId }).ToList();
 
                 var objectShares = _repositoryWrapper.ShareManager.GetAllShares();
 
                 companyInfo = (from f in objectShares
                                join ids in IssuedDigitalShareIds on f.Id equals ids.ShareId
-                               select new ShareCompaniesdto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList();
+                               select new ShareCompanyDto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList();
 
                 //companyInfo = objectShares.Join(IssuedDigitalShareIds, sh => sh.Id, ds => ds, (sh, ds) => new ShareCompaniesdto { CompanyName = sh.CompanyName, Id = ds }).ToList();
             }
@@ -111,7 +111,7 @@ namespace BBS.Interactors
         }
 
         private Dictionary<string, object> SelectIdAndCompanyNameFromIssuedDigitalShare(
-           ShareCompaniesdto issueDigitalShare
+           ShareCompanyDto issueDigitalShare
        )
         {
             return new Dictionary<string, object>

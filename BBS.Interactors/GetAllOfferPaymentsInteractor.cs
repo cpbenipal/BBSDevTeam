@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -54,6 +55,11 @@ namespace BBS.Interactors
             var allOfferedPayment = _repository
                 .OfferPaymentManager
                 .GetOfferPaymentForUser(extractedFromToken.UserLoginId);
+
+            if (extractedFromToken.RoleId == (int) Roles.ADMIN)
+            {
+                allOfferedPayment = _repository.OfferPaymentManager.GetAllOfferPayments();
+            }
 
             var parsedResponse = _offerPaymentUtils.ParseGetOfferPaymentDtoList(allOfferedPayment);
 

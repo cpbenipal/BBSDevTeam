@@ -37,7 +37,6 @@ namespace BBS.Utils
 
         public GetOfferedSharesItemDto BuildOfferedShare(OfferedShare item)
         {
-
             var digitallyIssuedShare = _repositoryWrapper
                 .IssuedDigitalShareManager
                 .GetIssuedDigitalShare(item.IssuedDigitalShareId);
@@ -53,7 +52,8 @@ namespace BBS.Utils
             mappedOfferedShare.CompanyName = share.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
             mappedOfferedShare.IsCompleted = !(PaymentStatus == null);
-            mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate;
+            mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate.ToString();
+            mappedOfferedShare.UserLoginId = digitallyIssuedShare.UserLoginId;
             return mappedOfferedShare;
         }
     }

@@ -90,12 +90,14 @@ namespace BBS.Utils
                 VerificationState = state.Name,
                 Country = country.Name,
                 Nationality = nationality.Name,
-                EmiratesIdPictureFront = attachment == null ? "" :  _fileUploadService.GetFilePublicUri(attachment?.Front!) ?? "",
+                EmiratesIdPictureFront = attachment == null ? "" : _fileUploadService.GetFilePublicUri(attachment?.Front!) ?? "",
                 EmiratesIdPictureBack = attachment == null ? "" : _fileUploadService.GetFilePublicUri(attachment?.Back!) ?? "",
                 Role = role.Name,
                 PersonId = person.Id,
                 InvestorType = investorType?.Value ?? "",
-                InvestorRiskType = investorRiskType?.Value ?? ""
+                InvestorRiskType = investorRiskType?.Value ?? "",
+                AddedDate = person.AddedDate.ToString(),
+                UserLoginId = userLogin.Id
             };
         }
     }

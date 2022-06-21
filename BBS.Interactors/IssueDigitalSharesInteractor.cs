@@ -25,7 +25,7 @@ namespace BBS.Interactors
         private readonly EmailHelperUtils _emailHelperUtils;
 
         public IssueDigitalSharesInteractor(
-            IWebHostEnvironment IHostEnvironment,
+            IWebHostEnvironment hostEnvironment,
             IRepositoryWrapper repository,
             IApiResponseManager responseManager,
             ITokenManager tokenManager,
@@ -38,7 +38,7 @@ namespace BBS.Interactors
             EmailHelperUtils emailHelperUtils
         )
         {
-            _IHostEnvironment = IHostEnvironment;
+            _IHostEnvironment = hostEnvironment;
             _repository = repository;
             _responseManager = responseManager;
             _tokenManager = tokenManager;

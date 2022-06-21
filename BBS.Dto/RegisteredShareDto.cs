@@ -24,12 +24,7 @@ namespace BBS.Dto
         public List<RestrictionDto> Restriction { get; set; }
         public string StorageLocation { get; set; }
         public string VerficationStatus { get; set; }
-    }
-
-    public class RestrictionDto 
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool? Flag { get; set; } 
+        public string AddedDate { get; set; }
+        public int UserLoginId { get; set; }
     }
 }

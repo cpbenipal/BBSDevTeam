@@ -33,5 +33,7 @@
         public string Role { get; set; }
         public string InvestorType { get; set; }
         public string InvestorRiskType { get; set; }
+        public string AddedDate { get; set; }
+        public int UserLoginId { get; set; }
     }
 }

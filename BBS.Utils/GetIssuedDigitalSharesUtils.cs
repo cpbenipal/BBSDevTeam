@@ -41,13 +41,15 @@ namespace BBS.Utils
                 Id = digitalShare.Id,
                 CertificateKey = digitalShare.CertificateKey,
                 CertificateUrl = _uploadService.GetFilePublicUri(digitalShare.CertificateUrl),
-                FirstName = share.FirstName,
-                LastName = share.LastName,
+                FirstName = share.FirstName ?? "",
+                LastName = share.LastName ?? "",
                 IsCertified = digitalShare.IsCertified,
                 ShareId = share.Id,
                 NumberOfShares = share.NumberOfShares,
-                CompanyName = share.CompanyName,
-                MiddleName = ""
+                CompanyName = share.CompanyName ?? "",
+                MiddleName = "",
+                AddedDate = digitalShare.AddedDate.ToString(),
+                UserLoginId = share.UserLoginId
             };
         }
     }

@@ -62,14 +62,14 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingAllOfferedShares(TokenValues extractedFromToken)
         {
-            List<OfferedShare> allOfferedShares = new List<OfferedShare>();
+            List<OfferedShare> allOfferedShares = new();
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 allOfferedShares = _repositoryWrapper
                 .OfferedShareManager
                 .GetOfferedSharesByUserLoginId(extractedFromToken.UserLoginId)
-                //.Where(o => IsOfferShareCompleted(o))
+                .Where(o => IsOfferSharePaidOrAuctionTypeShare(o))
                 .ToList();
             }
             else
@@ -77,7 +77,7 @@ namespace BBS.Interactors
                 allOfferedShares = _repositoryWrapper
                .OfferedShareManager
                .GetAllOfferedShares()
-               //.Where(o => IsOfferShareCompleted(o))
+               .Where(o => IsOfferSharePaidOrAuctionTypeShare(o))
                .ToList();
             }
 
@@ -91,9 +91,10 @@ namespace BBS.Interactors
             );
         }
 
-        private bool IsOfferShareCompleted(OfferedShare offerShare)
+        private bool IsOfferSharePaidOrAuctionTypeShare(OfferedShare offerShare)
         {
-            return _repositoryWrapper
+            var isShareAuctionType = offerShare.OfferTypeId == (int)OfferTypes.AUCTION;
+            return isShareAuctionType || _repositoryWrapper
                 .OfferPaymentManager
                 .GetOfferPaymentByOfferShareId(offerShare.Id) != null;
         }

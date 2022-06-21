@@ -73,7 +73,6 @@ namespace BBS.Interactors
             TokenValues extractedTokenValues
         )
         {
-
             var person = _repository.PersonManager.GetPerson(extractedTokenValues.PersonId);
             if(person.VerificationState != (int)States.COMPLETED)
             {
