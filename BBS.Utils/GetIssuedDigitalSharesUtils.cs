@@ -18,7 +18,7 @@ namespace BBS.Utils
             _repository = repository;
         }
 
-        public List<GetDigitalSharesItemDto> ParseDigitalSharesToDto(List<IssuedDigitalShare> digitalShares)
+        public List<GetDigitalSharesItemDto> ParseDigitalSharesToDto(List<IssuedDigitalShare> digitalShares) 
         {
             List<GetDigitalSharesItemDto> result = new();
             foreach (IssuedDigitalShare digitalShare in digitalShares)
@@ -32,8 +32,7 @@ namespace BBS.Utils
         }
 
         public GetDigitalSharesItemDto BuildDigitalShareFromDto(IssuedDigitalShare digitalShare)
-        {
-
+        {  
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
 
             return new GetDigitalSharesItemDto
@@ -48,7 +47,7 @@ namespace BBS.Utils
                 NumberOfShares = share.NumberOfShares,
                 CompanyName = share.CompanyName ?? "",
                 MiddleName = "",
-                AddedDate = digitalShare.AddedDate.ToString(),
+                AddedDate = digitalShare.AddedDate.ToShortDateString(),
                 UserLoginId = share.UserLoginId
             };
         }

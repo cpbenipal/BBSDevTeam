@@ -54,7 +54,7 @@ namespace BBS.Utils
                 BusinessLogo = 
                     share.BusinessLogo != null ?
                         _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
-                AddedDate = bidShare.AddedDate.ToString(),
+                AddedDate = bidShare.AddedDate.ToShortDateString(),
                 UserLoginId = bidShare.UserLoginId,
             };
         }

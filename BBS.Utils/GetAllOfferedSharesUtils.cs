@@ -52,7 +52,7 @@ namespace BBS.Utils
             mappedOfferedShare.CompanyName = share.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
             mappedOfferedShare.IsCompleted = !(PaymentStatus == null);
-            mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate.ToString();
+            mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate.ToShortDateString();
             mappedOfferedShare.UserLoginId = digitallyIssuedShare.UserLoginId;
             return mappedOfferedShare;
         }
