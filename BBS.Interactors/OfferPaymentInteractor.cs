@@ -79,6 +79,10 @@ namespace BBS.Interactors
 
             if (FindDuplicateOfferShare(offerPaymentDto) == null)
             {
+                // Call payment gateway here in future , if payment successfull then insert to OfferPayments table
+
+                // For now generate fake transactionId
+
                 var offerPaymentToInsert =
                 _offerPaymentUtils.ParseOfferPaymentDtoForInsert(
                     offerPaymentDto, extractedFromToken.UserLoginId
@@ -88,14 +92,17 @@ namespace BBS.Interactors
                    .OfferPaymentManager
                    .InsertOfferPayment(offerPaymentToInsert);
 
+                var contentToSend = _offerPaymentUtils.BuildGetOfferPaymentDto(insertedOfferPayment);
+
                 NotifyAdminAndUserWhenOfferedShareIsPaid(
-                    insertedOfferPayment, 
+                    insertedOfferPayment,
+                    contentToSend,
                     extractedFromToken.PersonId
                 );
                 return _responseManager.SuccessResponse(
                     "Successfull",
                     StatusCodes.Status200OK,
-                    1
+                   contentToSend
                 );
             }
             else
@@ -105,12 +112,11 @@ namespace BBS.Interactors
         }
 
         private void NotifyAdminAndUserWhenOfferedShareIsPaid(
-            OfferPayment offerPayment, int personId
+            OfferPayment offerPayment, GetOfferPaymentDto contentToSend,  int personId
         )
         {
 
-            var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
-            var contentToSend = _offerPaymentUtils.BuildGetOfferPaymentDto(offerPayment);
+            var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId); 
 
             var message = _emailHelperUtils.FillEmailContents(
                 contentToSend,

@@ -80,11 +80,11 @@ namespace BBS.Interactors
             {
                 throw new Exception("Investor Account is not completed");
             }
-            if (CheckOtherUserPrivateOfferShare(extractedFromToken.UserLoginId, bidShareDto.OfferedShareId))
+            if (!CheckOtherUserPrivateOfferShare(extractedFromToken.UserLoginId, bidShareDto.OfferedShareId))
             {
                 throw new Exception("This Share is offered by other user privately");
             }
-            if (FindDuplicateOfferShare(new OfferPaymentDto { OfferedShareId = bidShareDto.OfferedShareId, PaymentTypeId = bidShareDto.PaymentTypeId }) == null)
+           // if (FindDuplicateOfferShare(new OfferPaymentDto { OfferedShareId = bidShareDto.OfferedShareId, PaymentTypeId = bidShareDto.PaymentTypeId }) == null)
             {
                 var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
                 mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;
@@ -101,10 +101,10 @@ namespace BBS.Interactors
                     1
                 );
             }
-            else
-            {
-                return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
-            }
+            //else
+            //{
+            //    return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
+            //}
         }
 
         private bool CheckOtherUserPrivateOfferShare(int userLoginId, int offeredShareId)
