@@ -63,7 +63,7 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryInsertOfferPayment(
+        public GenericApiResponse TryInsertOfferPayment(
             TokenValues extractedFromToken, 
             OfferPaymentDto offerPaymentDto
         )
