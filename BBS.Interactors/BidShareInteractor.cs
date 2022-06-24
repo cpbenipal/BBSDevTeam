@@ -29,7 +29,7 @@ namespace BBS.Interactors
             IMapper mapper,
             GetBidShareUtils getBidShareUtils,
             EmailHelperUtils emailHelperUtils,
-            OfferPaymentUtils offerPaymentUtils 
+             OfferPaymentUtils offerPaymentUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -50,15 +50,15 @@ namespace BBS.Interactors
             try
             {
                 _loggerManager.LogInfo(
-                    "InsertBidShare : " + 
-                    CommonUtils.JSONSerialize(bidShareDto), 
+                    "InsertBidShare : " +
+                    CommonUtils.JSONSerialize(bidShareDto),
                     extractedFromToken.PersonId
                 );
                 return TryInsertingBidShare(extractedFromToken, bidShareDto);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError(ex,extractedFromToken.PersonId);
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus(ex.Message);
             }
         }
@@ -71,16 +71,11 @@ namespace BBS.Interactors
         }
 
         private GenericApiResponse TryInsertingBidShare(
-            TokenValues extractedFromToken, 
+            TokenValues extractedFromToken,
             BidShareDto bidShareDto
         )
         {
             var person = _repositoryWrapper.PersonManager.GetPerson(extractedFromToken.PersonId);
-            var offerPaymentDto = new OfferPaymentDto { 
-                OfferedShareId = bidShareDto.OfferedShareId, 
-                PaymentTypeId = bidShareDto.PaymentTypeId 
-            };
-            
             if (person.VerificationState != (int)States.COMPLETED)
             {
                 throw new Exception("Investor Account is not completed");
@@ -89,7 +84,7 @@ namespace BBS.Interactors
             {
                 throw new Exception("This Share is offered by other user privately");
             }
-           // if (FindDuplicateOfferShare(new OfferPaymentDto { OfferedShareId = bidShareDto.OfferedShareId, PaymentTypeId = bidShareDto.PaymentTypeId }) == null)
+            // if (FindDuplicateOfferShare(new OfferPaymentDto { OfferedShareId = bidShareDto.OfferedShareId, PaymentTypeId = bidShareDto.PaymentTypeId }) == null)
             {
                 var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
                 mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;
@@ -98,19 +93,7 @@ namespace BBS.Interactors
                     .BidShareManager
                     .InsertBidShare(mappedBidShare);
 
-                var offerPaymentToInsert =
-                _offerPaymentUtils.ParseOfferPaymentDtoForInsert(
-                    offerPaymentDto,extractedFromToken.UserLoginId
-                );
-
-                _repositoryWrapper
-                   .OfferPaymentManager
-                   .InsertOfferPayment(offerPaymentToInsert);
-
-                NotifyAdminAboutBidShare(
-                    insertedBidShare.Id, 
-                    extractedFromToken.PersonId
-                );
+                NotifyAdminAboutBidShare(insertedBidShare.Id, extractedFromToken.PersonId);
 
                 return _responseManager.SuccessResponse(
                     "Successfull",
@@ -118,17 +101,15 @@ namespace BBS.Interactors
                     1
                 );
             }
-            else
-            {
-                return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
-            }
+            //else
+            //{
+            //    return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
+            //}
         }
 
         private bool CheckOtherUserPrivateOfferShare(int userLoginId, int offeredShareId)
         {
-            var privateShares = _repositoryWrapper
-                .OfferedShareManager
-                .GetPrivateOfferedSharesByUserId(userLoginId);
+            var privateShares = _repositoryWrapper.OfferedShareManager.GetPrivateOfferedSharesByUserId(userLoginId);
             return privateShares.Any(x => x.Id == offeredShareId);
         }
 
@@ -138,7 +119,7 @@ namespace BBS.Interactors
                 .OfferPaymentManager
                 .GetOfferPaymentByOfferShareId(offerPaymentDto.OfferedShareId);
         }
-         
+
 
         private void NotifyAdminAboutBidShare(int bidShareId, int personId)
         {
