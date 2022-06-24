@@ -62,25 +62,25 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingAllOfferedShares(TokenValues extractedFromToken)
         {
-            List<OfferedShare> allOfferedShares = new();
+            List<OfferedShare> allOfferedShares = _repositoryWrapper
+                    .OfferedShareManager
+                    .GetAllOfferedShares().ToList();
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                var OfferedShares = _repositoryWrapper.OfferedShareManager.GetAllOfferedShares().ToList();
-
-                var AllAuctionOffers = OfferedShares.Where(x => x.OfferTypeId == (int)OfferTypes.AUCTION).ToList();
-
-                var UserPrivateOffers = OfferedShares.Where(x => x.UserLoginId == extractedFromToken.UserLoginId && x.OfferTypeId == (int)OfferTypes.PRIVATE).ToList();
-                 
-                allOfferedShares.AddRange(AllAuctionOffers);
-                allOfferedShares.AddRange(UserPrivateOffers);
+                allOfferedShares = _repositoryWrapper
+                    .OfferedShareManager
+                    .GetAllOfferedShares()
+                    .Where(x =>
+                        IsAuctionType(x) ||
+                        IsPrivateAndCreatedByCurrentUser(extractedFromToken.UserLoginId, x)
+                    ).ToList();
             }
             else
             {
                 allOfferedShares = _repositoryWrapper
                .OfferedShareManager
                .GetAllOfferedShares()
-               //.Where(o => IsOfferSharePaidOrAuctionTypeShare(o))
                .ToList();
             }
 
@@ -94,12 +94,17 @@ namespace BBS.Interactors
             );
         }
 
-        private bool IsOfferSharePaidOrAuctionTypeShare(OfferedShare offerShare)
+        private static bool IsPrivateAndCreatedByCurrentUser(int userLoginId, OfferedShare x)
         {
-            var isShareAuctionType = offerShare.OfferTypeId == (int)OfferTypes.AUCTION;
-            return isShareAuctionType || _repositoryWrapper
-                .OfferPaymentManager
-                .GetOfferPaymentByOfferShareId(offerShare.Id) != null;
+            return (
+                x.UserLoginId == userLoginId &&
+                x.OfferTypeId == (int)OfferTypes.PRIVATE
+            );
+        }
+
+        private static bool IsAuctionType(OfferedShare x)
+        {
+            return x.OfferTypeId == (int)OfferTypes.AUCTION;
         }
     }
 }

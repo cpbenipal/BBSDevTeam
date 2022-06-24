@@ -1,4 +1,6 @@
-﻿namespace BBS.Dto
+﻿using System.Collections.Generic;
+
+namespace BBS.Dto
 {
     public class GetOfferedSharesItemDto
     {
@@ -9,8 +11,8 @@
         public int Quantity { get; set; }
         public decimal OfferPrice { get; set; }
         public string OfferTimeLimit { get; set; }
-        public bool IsCompleted { get; set; }
         public string AddedDate { get; set; }
         public int UserLoginId { get; set; }
+        public List<int> BidUsers { get; set; }
     }
 }

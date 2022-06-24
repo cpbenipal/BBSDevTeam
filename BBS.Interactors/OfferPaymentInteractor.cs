@@ -52,14 +52,14 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus(ex.Message);
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Offer Payment", StatusCodes.Status500InternalServerError
+                message, StatusCodes.Status500InternalServerError
             );
         }
 
@@ -75,6 +75,13 @@ namespace BBS.Interactors
             if (person.VerificationState != (int)States.COMPLETED)
             {
                 throw new Exception("Investor Account is not completed");
+            }
+
+            if (!CheckOtherUserPrivateOfferShare(
+                extractedFromToken.UserLoginId, offerPaymentDto.OfferedShareId
+            ))            
+            {
+                throw new Exception("This Share is offered by other user privately");
             }
 
             if (FindDuplicateOfferShare(offerPaymentDto) == null)
@@ -95,7 +102,6 @@ namespace BBS.Interactors
                 var contentToSend = _offerPaymentUtils.BuildGetOfferPaymentDto(insertedOfferPayment);
 
                 NotifyAdminAndUserWhenOfferedShareIsPaid(
-                    insertedOfferPayment,
                     contentToSend,
                     extractedFromToken.PersonId
                 );
@@ -112,10 +118,9 @@ namespace BBS.Interactors
         }
 
         private void NotifyAdminAndUserWhenOfferedShareIsPaid(
-            OfferPayment offerPayment, GetOfferPaymentDto contentToSend,  int personId
+            GetOfferPaymentDto contentToSend,  int personId
         )
         {
-
             var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId); 
 
             var message = _emailHelperUtils.FillEmailContents(
@@ -133,7 +138,13 @@ namespace BBS.Interactors
 
         }
 
-        private OfferPayment? FindDuplicateOfferShare(OfferPaymentDto offerPaymentDto)
+    private bool CheckOtherUserPrivateOfferShare(int userLoginId, int offeredShareId)
+    {
+        var privateShares = _repositoryWrapper.OfferedShareManager.GetPrivateOfferedSharesByUserId(userLoginId);
+        return privateShares.Any(x => x.Id == offeredShareId);
+    }
+
+    private OfferPayment? FindDuplicateOfferShare(OfferPaymentDto offerPaymentDto)
         {
             return _repositoryWrapper
                 .OfferPaymentManager
