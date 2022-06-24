@@ -67,7 +67,7 @@ namespace BBS.Utils
                 GrantValuation = share.GrantValuation ?? "",
                 LastValuation = share.LastValuation ?? "",
                 UserLoginId = share.UserLoginId,
-                AddedDate = share.AddedDate.ToString()
+                AddedDate = share.AddedDate.ToShortDateString()
             };
             return registeredShare;
         }

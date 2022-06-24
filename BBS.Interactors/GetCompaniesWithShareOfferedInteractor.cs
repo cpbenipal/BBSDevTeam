@@ -72,7 +72,7 @@ namespace BBS.Interactors
 
                 companyInfo = (from f in objectShares
                                join ids in IssuedDigitalShareIds on f.Id equals ids.ShareId
-                               select new ShareCompanyDto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList(); 
+                               select new ShareCompanyDto() { CompanyName = f.CompanyName, Id = ids.IssuedId, NumberOfShares = f.NumberOfShares, OfferPrice = f.SharePrice }).ToList(); 
                               
                               
                               //i , sh => sh.Id , ds => ds , (sh,ds) => new ShareCompaniesdto { CompanyName = sh.CompanyName, Id = ds.IssuedId } ).ToList();               
@@ -89,7 +89,7 @@ namespace BBS.Interactors
 
                 companyInfo = (from f in objectShares
                                join ids in IssuedDigitalShareIds on f.Id equals ids.ShareId
-                               select new ShareCompanyDto() { CompanyName = f.CompanyName, Id = ids.IssuedId }).ToList();
+                               select new ShareCompanyDto() { CompanyName = f.CompanyName, Id = ids.IssuedId, NumberOfShares = f.NumberOfShares, OfferPrice = f.SharePrice }).ToList();
 
                 //companyInfo = objectShares.Join(IssuedDigitalShareIds, sh => sh.Id, ds => ds, (sh, ds) => new ShareCompaniesdto { CompanyName = sh.CompanyName, Id = ds }).ToList();
             }
@@ -98,17 +98,7 @@ namespace BBS.Interactors
 
             return _responseManager.SuccessResponse("Successfull", StatusCodes.Status200OK, response);
         }
-         
-        private Dictionary<string,object> SelectIdAndCompanyNameFromIssuedDigitalShare(
-            Share issueDigitalShare
-        )
-        {
-            return new Dictionary<string, object>
-            {
-                ["Id"] = issueDigitalShare.Id,
-                ["CompanyName"] = issueDigitalShare.CompanyName ?? "",
-            };
-        }
+          
 
         private Dictionary<string, object> SelectIdAndCompanyNameFromIssuedDigitalShare(
            ShareCompanyDto issueDigitalShare
@@ -118,6 +108,8 @@ namespace BBS.Interactors
             {
                 ["Id"] = issueDigitalShare.Id,
                 ["CompanyName"] = issueDigitalShare.CompanyName ?? "",
+                ["NumberOfShares"] = issueDigitalShare.NumberOfShares,
+                ["SharePrice"] = issueDigitalShare.OfferPrice
             };
         }
     }

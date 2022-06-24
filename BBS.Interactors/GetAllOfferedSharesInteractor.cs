@@ -66,18 +66,21 @@ namespace BBS.Interactors
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                allOfferedShares = _repositoryWrapper
-                .OfferedShareManager
-                .GetOfferedSharesByUserLoginId(extractedFromToken.UserLoginId)
-                .Where(o => IsOfferSharePaidOrAuctionTypeShare(o))
-                .ToList();
+                var OfferedShares = _repositoryWrapper.OfferedShareManager.GetAllOfferedShares().ToList();
+
+                var AllAuctionOffers = OfferedShares.Where(x => x.OfferTypeId == (int)OfferTypes.AUCTION).ToList();
+
+                var UserPrivateOffers = OfferedShares.Where(x => x.UserLoginId == extractedFromToken.UserLoginId && x.OfferTypeId == (int)OfferTypes.PRIVATE).ToList();
+                 
+                allOfferedShares.AddRange(AllAuctionOffers);
+                allOfferedShares.AddRange(UserPrivateOffers);
             }
             else
             {
                 allOfferedShares = _repositoryWrapper
                .OfferedShareManager
                .GetAllOfferedShares()
-               .Where(o => IsOfferSharePaidOrAuctionTypeShare(o))
+               //.Where(o => IsOfferSharePaidOrAuctionTypeShare(o))
                .ToList();
             }
 

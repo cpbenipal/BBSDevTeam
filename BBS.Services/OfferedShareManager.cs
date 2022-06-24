@@ -1,4 +1,5 @@
-﻿using BBS.Models;
+﻿using BBS.Constants;
+using BBS.Models;
 using BBS.Services.Contracts;
 
 namespace BBS.Services.Repository
@@ -20,6 +21,11 @@ namespace BBS.Services.Repository
         public List<OfferedShare> GetOfferedSharesByUserId(int userLoginId) 
         {
             return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).Where(s => s.UserLoginId == userLoginId ).ToList();
+        }
+
+        public List<OfferedShare> GetPrivateOfferedSharesByUserId(int userLoginId) 
+        {
+            return _repositoryBase.GetAll().OrderByDescending(x => x.AddedDate).Where(s => s.UserLoginId == userLoginId && s.OfferTypeId == (int)OfferTypes.PRIVATE).ToList();
         }
 
         public List<OfferedShare> GetOfferedSharesByUserLoginId(int userLoginId)

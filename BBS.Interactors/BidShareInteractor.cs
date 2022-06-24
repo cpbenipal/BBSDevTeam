@@ -19,7 +19,7 @@ namespace BBS.Interactors
         private readonly GetBidShareUtils _getBidShareUtils;
         private readonly EmailHelperUtils _emailHelperUtils;
         private readonly INewEmailSender _emailSender;
-
+        private readonly OfferPaymentUtils _offerPaymentUtils;
         public BidShareInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
@@ -28,7 +28,8 @@ namespace BBS.Interactors
             INewEmailSender emailSender,
             IMapper mapper,
             GetBidShareUtils getBidShareUtils,
-            EmailHelperUtils emailHelperUtils
+            EmailHelperUtils emailHelperUtils,
+             OfferPaymentUtils offerPaymentUtils 
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -39,6 +40,7 @@ namespace BBS.Interactors
             _getBidShareUtils = getBidShareUtils;
             _emailHelperUtils = emailHelperUtils;
             _emailSender = emailSender;
+            _offerPaymentUtils = offerPaymentUtils;
 
         }
 
@@ -78,22 +80,46 @@ namespace BBS.Interactors
             {
                 throw new Exception("Investor Account is not completed");
             }
+            if (CheckOtherUserPrivateOfferShare(extractedFromToken.UserLoginId, bidShareDto.OfferedShareId))
+            {
+                throw new Exception("This Share is offered by other user privately");
+            }
+            if (FindDuplicateOfferShare(new OfferPaymentDto { OfferedShareId = bidShareDto.OfferedShareId, PaymentTypeId = bidShareDto.PaymentTypeId }) == null)
+            {
+                var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
+                mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;
 
-            var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
-            mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;
+                var insertedBidShare = _repositoryWrapper
+                    .BidShareManager
+                    .InsertBidShare(mappedBidShare);
 
-            var insertedBidShare = _repositoryWrapper
-                .BidShareManager
-                .InsertBidShare(mappedBidShare);
+                NotifyAdminAboutBidShare(insertedBidShare.Id, extractedFromToken.PersonId);
 
-            NotifyAdminAboutBidShare(insertedBidShare.Id, extractedFromToken.PersonId);
-
-            return _responseManager.SuccessResponse(
-                "Successfull",
-                StatusCodes.Status200OK,
-                1
-            );
+                return _responseManager.SuccessResponse(
+                    "Successfull",
+                    StatusCodes.Status200OK,
+                    1
+                );
+            }
+            else
+            {
+                return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
+            }
         }
+
+        private bool CheckOtherUserPrivateOfferShare(int userLoginId, int offeredShareId)
+        {
+            var privateShares = _repositoryWrapper.OfferedShareManager.GetPrivateOfferedSharesByUserId(userLoginId);
+            return privateShares.Any(x => x.Id == offeredShareId);
+        }
+
+        private OfferPayment? FindDuplicateOfferShare(OfferPaymentDto offerPaymentDto)
+        {
+            return _repositoryWrapper
+                .OfferPaymentManager
+                .GetOfferPaymentByOfferShareId(offerPaymentDto.OfferedShareId);
+        }
+         
 
         private void NotifyAdminAboutBidShare(int bidShareId, int personId)
         {

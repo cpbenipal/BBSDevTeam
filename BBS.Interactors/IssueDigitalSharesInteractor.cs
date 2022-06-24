@@ -117,9 +117,12 @@ namespace BBS.Interactors
                 FileUploadExtensions.IMAGE
             );
 
+            var personInfo = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
+
             BlobFile uploadedHtml = HandleIssuingCertificate(
-                share,
-                uploadedSignature.PublicPath
+                share,                
+                uploadedSignature.PublicPath,
+                personInfo
             );
 
             var certificateKey = Guid.NewGuid().ToString("N").Replace("-", "").ToUpper();
@@ -133,7 +136,7 @@ namespace BBS.Interactors
             var insertedDigitalShare = _repository.IssuedDigitalShareManager.InsertDigitallyIssuedShare(
                 digitalShareToInsert
             );
-            NotifyAdminWhenShareIsDigitallyIssued(insertedDigitalShare, valuesFromToken.PersonId);
+            NotifyAdminWhenShareIsDigitallyIssued(insertedDigitalShare, personInfo);
 
             var response = new Dictionary<string, string>()
             {
@@ -149,11 +152,10 @@ namespace BBS.Interactors
 
         }
 
-        private void NotifyAdminWhenShareIsDigitallyIssued(IssuedDigitalShare insertedDigialShare, int personId)
+        private void NotifyAdminWhenShareIsDigitallyIssued(IssuedDigitalShare insertedDigialShare, Person personInfo)
         {
             var contentToSend = _getIssuedDigitalSharesUtils.BuildDigitalShareFromDto(insertedDigialShare);
-            var personInfo = _repository.PersonManager.GetPerson(personId); 
-
+             
             var message = _emailHelperUtils.FillEmailContents(
                 contentToSend,
                 "issue_digital_share",
@@ -168,14 +170,14 @@ namespace BBS.Interactors
             _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
         }
 
-        private BlobFile HandleIssuingCertificate(Share share, string signature)
+        private BlobFile HandleIssuingCertificate(Share share, string signature, Person personInfo)
         {
             CertificateContent certificate = new()
             {
                 Side1 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side1.png"),
                 Side2 = Path.Combine(_IHostEnvironment.ContentRootPath, "certificate/assets/img/side2.png"),
                 CompanyName = share.CompanyName,
-                Name = share.FirstName + " " + share.LastName,
+                Name = personInfo.FirstName + " " + personInfo.LastName,
                 NumberOfShares = share.NumberOfShares,
                 GrantTime = share.DateOfGrant.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
                 Signature = signature
