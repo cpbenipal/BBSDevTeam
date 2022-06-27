@@ -77,14 +77,14 @@ namespace BBS.Interactors
                 throw new Exception("Investor Account is not completed");
             }
 
-            if (!CheckOtherUserPrivateOfferShare(
-                extractedFromToken.UserLoginId, offerPaymentDto.OfferedShareId
-            ))            
-            {
-                throw new Exception("This Share is offered by other user privately");
-            }
+            //if (CheckOtherUserPrivateOfferShare(
+            //    extractedFromToken.UserLoginId, offerPaymentDto.OfferedShareId
+            //))            
+            //{
+            //    throw new Exception("This Share is offered by other user privately");
+            //}
 
-            if (FindDuplicateOfferShare(offerPaymentDto) == null)
+            if (FindDuplicateOfferShare(offerPaymentDto.OfferedShareId, extractedFromToken.UserLoginId))
             {
                 // Call payment gateway here in future , if payment successfull then insert to OfferPayments table
 
@@ -144,11 +144,11 @@ namespace BBS.Interactors
         return privateShares.Any(x => x.Id == offeredShareId);
     }
 
-    private OfferPayment? FindDuplicateOfferShare(OfferPaymentDto offerPaymentDto)
+    private bool FindDuplicateOfferShare(int offeredShareId, int userLoginId)
         {
-            return _repositoryWrapper
-                .OfferPaymentManager
-                .GetOfferPaymentByOfferShareId(offerPaymentDto.OfferedShareId);
+            var payemtns =  _repositoryWrapper.OfferPaymentManager.GetOfferPaymentForUser(userLoginId);
+              
+            return !payemtns.Any(x=>x.OfferedShareId == offeredShareId);
         }
     }
 }

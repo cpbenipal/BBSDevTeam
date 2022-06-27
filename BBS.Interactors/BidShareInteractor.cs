@@ -78,7 +78,7 @@ namespace BBS.Interactors
                 throw new Exception("Investor Account is not completed");
             }
 
-            if (CheckIfPaymentIsCompleted(bidShareDto.OfferedShareId)){
+            if (!CheckIfPaymentIsCompleted(bidShareDto.OfferedShareId)){
                 throw new Exception("Payment is not completed");
             }
 
@@ -86,7 +86,12 @@ namespace BBS.Interactors
             {
                 throw new Exception("This Share is offered by other user privately");
             }
-            
+
+            if (IsShareAlreadyBid(bidShareDto.OfferedShareId, extractedFromToken.UserLoginId))
+            {
+                throw new Exception("Offer already bid");
+            }
+
             var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);
             mappedBidShare.UserLoginId = extractedFromToken.UserLoginId;
 
@@ -143,5 +148,12 @@ namespace BBS.Interactors
             _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
 
         }
+
+        private bool IsShareAlreadyBid(int offeredShareId, int userLoginId)  
+        {
+            var payemtns = _repositoryWrapper.BidShareManager.GetAllBidSharesByUser(userLoginId);
+
+            return payemtns.Any(x => x.OfferedShareId == offeredShareId);
+        }
     }
-}
+} 
