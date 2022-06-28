@@ -60,12 +60,12 @@ namespace BBS.Interactors
                 };
 
                 var message = _emailHelperUtils.FillEmailContents(
-                    contentToSend, "new_passcode", "User", ""
+                    contentToSend, "new_passcode", contentToSend.FirstName, contentToSend.LastName
                 );
 
                 _emailSender.SendEmail(
                     forgotPassDto.Email,
-                    "OTP busra verification code", 
+                    "Busra : Your passcode has been reset.", 
                     message
                 );
 

@@ -91,16 +91,16 @@ namespace BBS.Interactors
                 };
 
                 var message =
-                    _emailHelperUtils.FillEmailContents(contentToSend, "new_passcode", "User", "");
+                    _emailHelperUtils.FillEmailContents(contentToSend, "verify_email", "User", "");
 
                 _emailSender.SendEmail(
-                    loginUserDto.Email, 
-                    "OTP: Verify your email", 
+                    loginUserDto.Email,
+                    "OTP: Bursa Verification code.", 
                     message
                 );
                 _loggerManager.LogInfo("SendOTP : OTP sent to " + loginUserDto.Email, 0);
                 return _responseManager.SuccessResponse(
-                    "OTP sent on Email", StatusCodes.Status202Accepted, ""
+                    "Bursa Verification code sent on Email", StatusCodes.Status202Accepted, ""
                 );
             }
             else

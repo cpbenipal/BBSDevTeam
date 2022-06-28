@@ -163,7 +163,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Busra <> your digital share request is created.";
+            var subject = "Busra <> Your digital share request is created.";
 
             _emailSender.SendEmail("", subject, message!, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message!, false);

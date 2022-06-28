@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <None Remove="email_templates\bid_share.html" />
-    <None Remove="email_templates\change_passcode.html" />
     <None Remove="email_templates\change_share_status.html" />
     <None Remove="email_templates\change_user_status.html" />
     <None Remove="email_templates\issue_digital_share.html" />
@@ -22,11 +21,12 @@
     <None Remove="email_templates\register_share-approve.html" />
     <None Remove="email_templates\register_share.html" />
     <None Remove="email_templates\register_user.html" />
+    <None Remove="email_templates\verify_email.html" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="email_templates\bid_share.html" />
-    <Content Include="email_templates\change_passcode.html" />
+    <Content Include="email_templates\verify_email.html" />
     <Content Include="email_templates\change_share_status.html" />
     <Content Include="email_templates\change_user_status.html" />
     <Content Include="email_templates\issue_digital_share.html" />
