@@ -35,6 +35,14 @@ namespace BBS.Utils
 
             var offeredShare = _repository.OfferedShareManager.GetOfferedShare(bidShare.OfferedShareId);
 
+            var offerLimit = _repository
+               .OfferTimeLimitManager
+               .GetOfferTimeLimit(offeredShare.OfferTimeLimitId);
+
+            var offerType = _repository
+                .OfferTypeManager
+                .GetOfferType(offeredShare.OfferTypeId);
+
             var digitallyIssuedShare = _repository
                 .IssuedDigitalShareManager
                 .GetIssuedDigitalShare(offeredShare.IssuedDigitalShareId);
@@ -56,6 +64,8 @@ namespace BBS.Utils
                         _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
                 AddedDate = bidShare.AddedDate.ToShortDateString(),
                 UserLoginId = bidShare.UserLoginId,
+                OfferTimeLimit = offerLimit.Value,
+                OfferType = offerType.Name, 
             };
         }
     }
