@@ -76,7 +76,7 @@ namespace BBS.Interactors
             var share = _repositoryWrapper.ShareManager.GetShare(shareId);
 
             share.VerificationState = (int) States.COMPLETED;
-
+            share.ModifiedDate = DateTime.Now;
             _repositoryWrapper.ShareManager.UpdateShare(share);
 
             NotifyAdminAndUserAboutStatusChange(shareId);
@@ -103,11 +103,10 @@ namespace BBS.Interactors
                 shareHolder.LastName ?? ""
             );
 
-            var subjectAdmin = "New Request to change share Status";
-            var subjectUser = "Request to change share Status submitted";
+            var subject = "Busra <> your investor share is approved";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(shareHolder.Email!, subjectUser, message, false);
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
         }
     }
 }

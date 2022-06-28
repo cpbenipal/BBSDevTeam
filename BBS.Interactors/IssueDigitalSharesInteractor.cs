@@ -163,11 +163,10 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subjectAdmin = "New request to Issue Digital Share.";
-            var subjectUser = "Request to Issue Digital Share submitted.";
+            var subject = "Busra <> your digital share request is created.";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
+            _emailSender.SendEmail("", subject, message!, true);
+            _emailSender.SendEmail(personInfo.Email!, subject, message!, false);
         }
 
         private BlobFile HandleIssuingCertificate(Share share, string signature, Person personInfo)

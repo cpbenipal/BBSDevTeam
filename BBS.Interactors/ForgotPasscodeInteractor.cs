@@ -65,7 +65,7 @@ namespace BBS.Interactors
 
                 _emailSender.SendEmail(
                     forgotPassDto.Email,
-                    "New passcode to login", 
+                    "OTP busra verification code", 
                     message
                 );
 

@@ -1,4 +1,6 @@
-﻿namespace BBS.Dto
+﻿using System;
+
+namespace BBS.Dto
 {
     public class UserProfileInformationDto
     {
@@ -35,5 +37,6 @@
         public string InvestorRiskType { get; set; }
         public string AddedDate { get; set; }
         public int UserLoginId { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }

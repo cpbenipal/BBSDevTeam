@@ -69,9 +69,12 @@ namespace BBS.Interactors
                 allUsersInformation.Add(userProfileInformation);
             }
 
+
+            var sortedProfileList = SortedProfileInformationList(allUsersInformation).ToList();
+
             object response =
                 allUsersInformation.Count == 1 ?
-                allUsersInformation.FirstOrDefault()! : allUsersInformation;
+                allUsersInformation.FirstOrDefault()! : sortedProfileList;
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -80,9 +83,18 @@ namespace BBS.Interactors
             );
         }
 
+        private static IOrderedEnumerable<UserProfileInformationDto> SortedProfileInformationList(List<UserProfileInformationDto> allUsersInformation)
+        {
+            return allUsersInformation.OrderByDescending(x => x.ModifiedDate).OrderByDescending(x => x.VerificationState.ToUpper() == States.PENDING.ToString());
+        }
+
         private List<int> BuildListOfPersonToFetchProfile(TokenValues tokenValues)
         {
-            var allPersonIds = _repositoryWrapper.PersonManager.GetAllPerson().Select(p => p.Id).ToList();
+            var allPersonIds = 
+                _repositoryWrapper.PersonManager
+                .GetAllPerson()
+                .Select(p => p.Id)
+                .ToList();
 
             if (tokenValues.RoleId != (int)Roles.ADMIN)
             {

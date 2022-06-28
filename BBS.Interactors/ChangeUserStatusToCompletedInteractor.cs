@@ -78,6 +78,7 @@ namespace BBS.Interactors
                 throw new Exception("Person Doesnt exist");
             }
 
+            person.ModifiedDate = DateTime.Now;
             person.VerificationState = (int)States.COMPLETED;
             person.VaultNumber = RegisterUserUtils.GenerateVaultNumber(12);
             person.IBANNumber = RegisterUserUtils.GenerateIBANNumber(22);
@@ -108,11 +109,10 @@ namespace BBS.Interactors
                 personInfo.LastName
             );
 
-            var subjectAdmin = "New Request to change User Status";
-            var subjectUser = "Request to change User Status submitted";
+            var subject = "Busra <> your investor profile is approved";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(personInfo.Email, subjectUser, message);
+            _emailSender.SendEmail("", subject, message!, true);
+            _emailSender.SendEmail(personInfo.Email, subject, message!);
         }
     }
 }

@@ -228,11 +228,10 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subjectAdmin = "New request to register share.";
-            var subjectUser = "Request to register share submitted.";
+            var subject = "Busra <> your investor profile is pending";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subject, message, false);
         }
 
         private void UploadFilesAndCreateAttachments(

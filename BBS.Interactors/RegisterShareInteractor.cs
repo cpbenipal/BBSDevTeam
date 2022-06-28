@@ -138,11 +138,10 @@ namespace BBS.Interactors
                 shareHolder.LastName ?? ""
             );
 
-            var subjectAdmin = "New request to register share.";
-            var subjectUser = "Request to register share submitted.";
+            var subject = "Busra <> your investor share is pending";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(shareHolder.Email!, subjectUser, message, false);
+            _emailSender.SendEmail("", subject, message!, true);
+            _emailSender.SendEmail(shareHolder.Email!, subject, message!, false);
         }
 
         private List<string> UploadShareRelatedFiles(RegisterShareDto registerShareDto)

@@ -130,11 +130,10 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subjectAdmin = "New request to offer share.";
-            var subjectUser = "Request to offer share submitted.";
+            var subject = "Busra <> your offer payment request is submitted.";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subject, message, false);
 
         }
 

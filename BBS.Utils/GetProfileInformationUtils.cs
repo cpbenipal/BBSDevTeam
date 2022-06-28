@@ -97,7 +97,8 @@ namespace BBS.Utils
                 InvestorType = investorType?.Value ?? "",
                 InvestorRiskType = investorRiskType?.Value ?? "",
                 AddedDate = person.AddedDate.ToShortDateString(),
-                UserLoginId = userLogin.Id
+                UserLoginId = userLogin.Id,
+                ModifiedDate = person.ModifiedDate,
             };
         }
     }
