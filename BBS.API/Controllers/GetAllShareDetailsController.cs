@@ -16,7 +16,7 @@ namespace BBS.API.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public IActionResult GetAllShareDetails()
         {
             var token = HttpContext.Request.Headers["Authorization"];

@@ -76,14 +76,6 @@ namespace BBS.Interactors
                         IsPrivateAndCreatedByCurrentUser(extractedFromToken.UserLoginId, x)
                     ).ToList();
             }
-            //else
-            //{
-            //    allOfferedShares = _repositoryWrapper
-            //   .OfferedShareManager
-            //   .GetAllOfferedShares()
-            //   .ToList();
-            //}
-
             var parsedOfferedShares = _getAllOfferedSharesUtils
                 .MapOfferedShareObjectFromRequest(allOfferedShares);
 
