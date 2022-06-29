@@ -109,7 +109,7 @@ namespace BBS.Interactors
                 personInfo.LastName
             );
 
-            var subject = "Bursa <> your investor profile is approved";
+            var subject = "Bursa <> Your investor profile is approved";
 
             _emailSender.SendEmail("", subject, message!, true);
             _emailSender.SendEmail(personInfo.Email, subject, message!);

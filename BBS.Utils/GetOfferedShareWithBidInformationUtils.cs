@@ -84,6 +84,7 @@ namespace BBS.Utils
                 BidRequests = ParseBidSharesToFullBidInformation(bidShares, offerTimeLimit?.Value ?? ""),
                 NumberOfShares = share.NumberOfShares,
                 SharePrice = share.SharePrice,
+                OfferShareId = item.Id
             };
 
             return buildData;
@@ -123,7 +124,8 @@ namespace BBS.Utils
                 Name = person?.FirstName ?? "" + " " + person?.LastName ?? "",
                 PhoneNumber = person?.PhoneNumber ?? "",
                 BidDate = item.AddedDate.ToShortDateString(),
-                OfferLimit = offerLimit
+                OfferLimit = offerLimit,
+                OfferShareId = item.OfferedShareId
             };
             return bidShareInformation;
         }

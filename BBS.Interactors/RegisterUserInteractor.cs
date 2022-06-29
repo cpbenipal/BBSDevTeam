@@ -228,7 +228,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> your investor profile is pending";
+            var subject = "Bursa <> Your investor profile is pending";
 
             _emailSender.SendEmail("", subject, message, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message, false);
