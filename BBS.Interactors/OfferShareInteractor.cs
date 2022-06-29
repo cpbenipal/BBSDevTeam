@@ -142,7 +142,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Busra <> your offer share request is submitted.";
+            var subject = "Bursa <> your offer share request is submitted.";
 
             _emailSender.SendEmail("", subject, message, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message, false);

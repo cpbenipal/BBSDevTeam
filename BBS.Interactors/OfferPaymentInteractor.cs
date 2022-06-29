@@ -77,13 +77,6 @@ namespace BBS.Interactors
                 throw new Exception("Investor Account is not completed");
             }
 
-            //if (CheckOtherUserPrivateOfferShare(
-            //    extractedFromToken.UserLoginId, offerPaymentDto.OfferedShareId
-            //))            
-            //{
-            //    throw new Exception("This Share is offered by other user privately");
-            //}
-
             if (FindDuplicateOfferShare(offerPaymentDto.OfferedShareId, extractedFromToken.UserLoginId))
             {
                 // Call payment gateway here in future , if payment successfull then insert to OfferPayments table
@@ -130,7 +123,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Busra <> your offer payment request is submitted.";
+            var subject = "Bursa <> your offer payment request is submitted.";
 
             _emailSender.SendEmail("", subject, message, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message, false);

@@ -141,11 +141,10 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subjectAdmin = "New request to bid share.";
-            var subjectUser = "Request to bid share submitted.";
+            var subject = "Bursa <> Your Bid Share Request is Submitted";
 
-            _emailSender.SendEmail("", subjectAdmin, message, true);
-            _emailSender.SendEmail(personInfo.Email!, subjectUser, message, false);
+            _emailSender.SendEmail("", subject, message!, true);
+            _emailSender.SendEmail(personInfo.Email!, subject, message!, false);
 
         }
 

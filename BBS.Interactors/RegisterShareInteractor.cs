@@ -138,7 +138,7 @@ namespace BBS.Interactors
                 shareHolder.LastName ?? ""
             );
 
-            var subject = "Busra <> your investor share is pending";
+            var subject = "Bursa <> Your Register Share Request is pending";
 
             _emailSender.SendEmail("", subject, message!, true);
             _emailSender.SendEmail(shareHolder.Email!, subject, message!, false);

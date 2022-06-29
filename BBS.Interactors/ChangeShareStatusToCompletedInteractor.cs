@@ -103,7 +103,7 @@ namespace BBS.Interactors
                 shareHolder.LastName ?? ""
             );
 
-            var subject = "Busra <> your investor share is approved";
+            var subject = "Bursa <> Your Register Share Request is Approved";
 
             _emailSender.SendEmail("", subject, message, true);
             _emailSender.SendEmail(shareHolder.Email!, subject, message, false);

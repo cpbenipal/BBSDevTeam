@@ -4,7 +4,10 @@ namespace BBS.Dto
 {
     public class GetOfferedShareWithBidInformationDto
     {
+        public int ShareId { get; set; }
         public string CompanyName { get; set; }
+        public int NumberOfShares { get; set; }
+        public decimal SharePrice { get; set; }
         public string GrantType { get; set; }
         public string EquityRound { get; set; }
         public string DebtRound { get; set; }
@@ -15,7 +18,7 @@ namespace BBS.Dto
         public decimal OfferPrice { get; set; }
         public string LimitOffer { get; set; }
         public string OfferType { get; set; }
-        public List<GetBidShareDto> BidRequests { get; set; }
+        public List<BidShareWithSubjectDataDto> BidRequests { get; set; }
     }
 
 }
