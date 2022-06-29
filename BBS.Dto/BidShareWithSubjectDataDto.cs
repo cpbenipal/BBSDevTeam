@@ -8,5 +8,7 @@
         public double MaximumBidPrice { get; set; }
         public double MinimumBidPrice { get; set; }
         public int UserLoginId { get; set; }
+        public string BidDate { get; set; }
+        public string OfferLimit { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace BBS.Utils
                 OfferPrice = item.OfferPrice,
                 OfferType = offerType.Name ?? "",
                 TotalBidsCount = bidShares.Count,
-                BidRequests = ParseBidSharesToFullBidInformation(bidShares),
+                BidRequests = ParseBidSharesToFullBidInformation(bidShares, offerTimeLimit?.Value ?? ""),
                 NumberOfShares = share.NumberOfShares,
                 SharePrice = share.SharePrice,
             };
@@ -90,14 +90,15 @@ namespace BBS.Utils
         }
 
         private List<BidShareWithSubjectDataDto> ParseBidSharesToFullBidInformation(
-            List<BidShare> bidShares
+            List<BidShare> bidShares,
+            string offerLimit
         )
         {
             List<BidShareWithSubjectDataDto> buildInfo = new();
 
             foreach (var item in bidShares)
             {
-                BidShareWithSubjectDataDto bidShareInformation = ParseBidShareToFullBidInfo(item);
+                BidShareWithSubjectDataDto bidShareInformation = ParseBidShareToFullBidInfo(item, offerLimit);
 
                 buildInfo.Add(bidShareInformation);
             }
@@ -105,7 +106,7 @@ namespace BBS.Utils
             return buildInfo;
         }
 
-        private BidShareWithSubjectDataDto ParseBidShareToFullBidInfo(BidShare item)
+        private BidShareWithSubjectDataDto ParseBidShareToFullBidInfo(BidShare item, string offerLimit)
         {
             var userLogin = _repositoryWrapper
                 .UserLoginManager
@@ -121,6 +122,8 @@ namespace BBS.Utils
                 MinimumBidPrice = item.MaximumBidPrice,
                 Name = person?.FirstName ?? "" + " " + person?.LastName ?? "",
                 PhoneNumber = person?.PhoneNumber ?? "",
+                BidDate = item.AddedDate.ToShortDateString(),
+                OfferLimit = offerLimit
             };
             return bidShareInformation;
         }
