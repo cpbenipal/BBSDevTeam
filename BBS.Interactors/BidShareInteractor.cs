@@ -141,7 +141,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> Your Bid Share Request is Submitted";
+            var subject = "Bursa <> Your Bid is Completed";
 
             _emailSender.SendEmail("", subject, message!, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message!, false);

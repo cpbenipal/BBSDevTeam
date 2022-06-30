@@ -5,6 +5,7 @@ namespace BBS.Dto
     public class GetOfferedShareWithBidInformationDto
     {
         public int ShareId { get; set; }
+        public int OfferShareId { get; set; }
         public string CompanyName { get; set; }
         public int NumberOfShares { get; set; }
         public decimal SharePrice { get; set; }
