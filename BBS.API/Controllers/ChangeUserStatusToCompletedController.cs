@@ -7,6 +7,8 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+
     public class ChangeUserStatusToCompletedController : ControllerBase
     {
         private readonly ChangeUserStatusToCompletedInteractor 
