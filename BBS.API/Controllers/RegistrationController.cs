@@ -22,7 +22,7 @@ namespace BBS.API.Controllers
             return Ok(response);
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("AdminRegister")]
         public IActionResult AdminRegister([FromForm] RegisterUserDto registerUserDto)
         {

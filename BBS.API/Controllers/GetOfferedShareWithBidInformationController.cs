@@ -6,7 +6,7 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [ApiExplorerSettings(IgnoreApi = true)]
+    //[ApiExplorerSettings(IgnoreApi = true)]
 
     public class GetOfferedShareWithBidInformationController : ControllerBase
     {

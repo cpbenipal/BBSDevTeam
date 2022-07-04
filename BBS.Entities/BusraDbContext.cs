@@ -18,7 +18,7 @@ namespace BBS.Entities
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Staging;User Id=postgres;Password=7Xp2NGP45Wux");                
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");                
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
             }
         }
 
@@ -63,9 +63,21 @@ namespace BBS.Entities
         public virtual DbSet<InvestorRiskType> InvestorRiskTypes { get; set; }
         public virtual DbSet<InvestorType> InvestorTypes { get; set; }
 
+        // Category
+        public virtual DbSet<Category> Categories { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Category>().HasData(
+               new Category { Id = 1, Name = "Information", Content = "" },
+               new Category { Id = 2, Name = "Deal Teaser", Content = "" },
+               new Category { Id = 3, Name = "Team", Content = "" },
+               new Category { Id = 4, Name = "Interviews", Content = "" },
+               new Category { Id = 5, Name = "News", Content = "" }
+           );
+
             modelBuilder.Entity<InvestorType>().HasData(
                 new InvestorType { Id = 1, Value = "Retail" },
                 new InvestorType { Id = 2, Value = "Qualified" }
@@ -111,7 +123,7 @@ namespace BBS.Entities
                 new Nationality { Id = 2, Name = "Pakistani" },
                 new Nationality { Id = 3, Name = "United Kingdom" }
             );
-              
+
             modelBuilder.Entity<EmployementType>().HasData(
                 new EmployementType { Id = 1, Name = "Employed" },
                 new EmployementType { Id = 2, Name = "Unemployed" },
