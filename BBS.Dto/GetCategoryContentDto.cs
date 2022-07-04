@@ -2,6 +2,6 @@
 {
     public class GetCategoryContentDto
     {
-        public int categoryId { get; set; }
+        public int? categoryId { get; set; }
     }
 }

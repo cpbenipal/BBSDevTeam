@@ -1,5 +1,5 @@
-﻿using BBS.Constants;
-using BBS.Dto;
+﻿using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -11,22 +11,19 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
-        private readonly ITokenManager _tokenManager;
 
         public GetCategoryContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
-            ILoggerManager loggerManager,
-            ITokenManager tokenManager
+            ILoggerManager loggerManager
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
-            _tokenManager = tokenManager;
         }
 
-        public GenericApiResponse GetCategoryContent(string token , int? categoryId)
+        public GenericApiResponse GetCategoryContent(int? categoryId)
         {
             try
             {
@@ -35,7 +32,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryGettingCategoryContent(token,categoryId);
+                return TryGettingCategoryContent(categoryId);
             }
             catch (Exception ex)
             {
@@ -53,42 +50,41 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingCategoryContent(string token, int? categoryId)
+        private GenericApiResponse TryGettingCategoryContent(int? categoryId)
         {
 
-            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
-
-            var categoriesContent = _repositoryWrapper
+            var categories = _repositoryWrapper
                 .CategoryManager
                 .GetCategories();
 
-
-            if(extractedFromToken.RoleId != (int)Roles.ADMIN)
+            if (categoryId != null)
             {
-                if(categoryId == null)
-                {
-                    throw new Exception("Invalid Category");
-                }
-
-                var catFound = _repositoryWrapper
-                    .CategoryManager
-                    .GetCategoryById((int)categoryId!);
-
-                if(catFound == null)
-                {
-                    throw new Exception("Category With this Id Not Found");
-                }
-
-                categoriesContent = new List<Models.Category> { catFound  };
-            
+                categories = BuildCategoryWithCurrentId(categoryId);
             }
 
-            var response = categoriesContent.Select(c => c.Content).ToList();
+            object response = categories.Count == 0 ? 
+                categories[0].Content! : 
+                categories.Select(c => c.Content).ToList();
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
-                response.Count == 1 ? response[0]! : response 
+                response
             );
+        }
+
+        private List<Category> BuildCategoryWithCurrentId(int? categoryId)
+        {
+            var categoryFound = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById((int)categoryId!);
+
+            if (categoryFound == null)
+            {
+                throw new Exception("Category With this Id Not Found");
+            }
+            var categories = new List<Category> { categoryFound! };
+            return categories;
         }
     }
 }

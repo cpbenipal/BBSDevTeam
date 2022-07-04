@@ -2,6 +2,7 @@
 using BBS.Interactors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BBS.API.Controllers
 {
@@ -19,12 +20,11 @@ namespace BBS.API.Controllers
         [Authorize]
         [HttpPost]
         public IActionResult GetCategoryContentInteractor(
-            GetCategoryContentDto getCategoryContentDto
+            GetCategoryContentDto? getCategoryContentDto = null
         )
         {
-            var token = HttpContext.Request.Headers["Authorization"];
             var response = _getCategoryContentInteractor
-                .GetCategoryContent(token, getCategoryContentDto.categoryId);
+                .GetCategoryContent(getCategoryContentDto?.categoryId);
             return Ok(response);
         }
     }
