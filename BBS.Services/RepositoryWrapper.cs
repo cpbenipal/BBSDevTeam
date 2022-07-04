@@ -378,5 +378,19 @@ namespace BBS.Services.Repository
                 return _investorType;
             }
         }
+
+        private ICategoryManager _category;
+        public ICategoryManager CategoryManager
+        {
+            get
+            {
+                if (_category == null)
+                {
+                    var repositoryBase = new RepositoryBase<Category>(_repoContext);
+                    _category = new CategoryManager(repositoryBase);
+                }
+                return _category;
+            }
+        }
     }
 }
