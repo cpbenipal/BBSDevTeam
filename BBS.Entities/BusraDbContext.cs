@@ -1,5 +1,6 @@
 ﻿using BBS.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace BBS.Entities
 {
@@ -17,7 +18,7 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Staging;User Id=postgres;Password=7Xp2NGP45Wux");                
+                // optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");                
                 optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
             }
         }
@@ -184,7 +185,77 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
+            /*            
+            modelBuilder.Entity<Person>().HasData(
+                new Person
+                {
+                    Id = 1,
+                    IsUSCitizen = false,
+                    DateOfBirth = DateTime.Parse(DateTime.Now.ToString(), CultureInfo.InvariantCulture),
+                    AnnualIncome = 1111111111111,
+                    FirstName = "admin",
+                    IsIndividual = true,
+                    Email = "admin@bursa.com",
+                    City = "Dubai",
+                    HaveTraining = true,
+                    IsPublicSectorEmployee = false,
+                    EmiratesID = "00000000000000000",
+                    AddressLine = "Dubai",
+                    EmployementTypeId = 1,
+                    HavePriorExpirence = true,
+                    VerificationState = 2,
+                    HaveExperience = true,
+                    CountryId = 1,
+                    DateOfEmployement = DateTime.Parse(DateTime.Now.ToString(), CultureInfo.InvariantCulture),
+                    HaveCriminalRecord = false,
+                    HaveConvicted = false,
+                    NationalityId = 1,
+                    PhoneNumber = "0000000000",
+                    EmployerName = "Bursa",
+                    AddedById = 1,
+                    IBANNumber = "B" + string.Join("", new System.Text.StringBuilder().Insert(0, "0123456789", 22).ToString().ToCharArray().OrderBy(o => Guid.NewGuid()).Take(12)),
+                    VaultNumber = Guid.NewGuid().ToString("n")[..12].ToUpper(),
+                    ModifiedById = 1
+                });
 
+            var hash = new List<byte[]>();
+            string password = "MDAwMA==";
+            if (password == null)
+                throw new ArgumentNullException(nameof(password), "Password Is Empty");
+            if (string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("Value cannot be empty or whitespace only string.", nameof(password));
+
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                var hashOne = hmac.Key;
+                var hashTwo = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                hash.Add(hashOne);
+                hash.Add(hashTwo);
+            }
+
+            modelBuilder.Entity<UserLogin>().HasData(
+               new UserLogin
+               {
+                   Id = 1,
+                   PasswordHash = hash[0],
+                   PasswordSalt = hash[1],
+                   PersonId = 1,
+                   Passcode = password,
+                   RefreshToken = "",
+                   AddedById = 1,
+                   ModifiedById = 1
+               });
+
+            modelBuilder.Entity<UserRole>().HasData(
+              new UserRole
+              {
+                  Id = 1,
+                  UserLoginId = 1,
+                  RoleId = 2,
+                  AddedById = 1,
+                  ModifiedById = 1
+              }); 
+            */
             OnModelCreatingPartial(modelBuilder);
         }
 

@@ -833,6 +833,41 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("NationalityId");
 
                     b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 1,
+                            AddedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(4207),
+                            AddressLine = "Dubai",
+                            AnnualIncome = 1111111111111m,
+                            City = "Dubai",
+                            CountryId = 1,
+                            DateOfBirth = new DateTime(2022, 7, 6, 5, 44, 53, 508, DateTimeKind.Utc).AddTicks(4219),
+                            DateOfEmployement = new DateTime(2022, 7, 6, 5, 44, 53, 508, DateTimeKind.Utc).AddTicks(4223),
+                            Email = "admin@bursa.com",
+                            EmiratesID = "00000000000000000",
+                            EmployementTypeId = 1,
+                            EmployerName = "Bursa",
+                            FirstName = "admin",
+                            HaveConvicted = false,
+                            HaveCriminalRecord = false,
+                            HaveExperience = true,
+                            HavePriorExpirence = true,
+                            HaveTraining = true,
+                            IBANNumber = "B982258962793",
+                            IsDeleted = false,
+                            IsIndividual = true,
+                            IsPublicSectorEmployee = false,
+                            IsUSCitizen = false,
+                            ModifiedById = 1,
+                            ModifiedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(4218),
+                            NationalityId = 1,
+                            PhoneNumber = "0000000000",
+                            VaultNumber = "D0E115F6C19E",
+                            VerificationState = 2
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
@@ -1171,6 +1206,22 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("UserLogin");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 1,
+                            AddedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5776),
+                            IsDeleted = false,
+                            ModifiedById = 1,
+                            ModifiedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5778),
+                            Passcode = "MDAwMA==",
+                            PasswordHash = new byte[] { 244, 218, 238, 6, 22, 146, 62, 253, 15, 128, 112, 84, 189, 104, 36, 16, 35, 6, 44, 46, 28, 42, 202, 75, 233, 26, 51, 114, 253, 70, 51, 252, 224, 126, 167, 234, 132, 26, 131, 93, 224, 177, 194, 22, 219, 229, 199, 137, 2, 159, 55, 63, 175, 96, 39, 116, 78, 107, 159, 230, 94, 6, 160, 197, 157, 54, 14, 113, 95, 89, 28, 0, 95, 247, 15, 242, 224, 205, 202, 22, 67, 164, 37, 132, 188, 41, 27, 104, 118, 188, 238, 194, 107, 52, 156, 8, 137, 148, 253, 34, 78, 208, 32, 5, 172, 249, 185, 144, 20, 220, 196, 168, 174, 85, 121, 253, 135, 200, 148, 8, 195, 159, 74, 253, 236, 247, 47, 185 },
+                            PasswordSalt = new byte[] { 74, 161, 235, 17, 78, 66, 132, 213, 248, 117, 120, 231, 49, 238, 230, 55, 197, 1, 8, 153, 169, 79, 239, 25, 17, 249, 78, 105, 36, 109, 165, 254, 19, 177, 80, 60, 3, 14, 168, 184, 30, 14, 197, 169, 234, 162, 232, 87, 170, 164, 79, 211, 183, 59, 249, 150, 180, 171, 198, 32, 141, 147, 219, 31 },
+                            PersonId = 1,
+                            RefreshToken = ""
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.UserRole", b =>
@@ -1212,6 +1263,19 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("UserLoginId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 1,
+                            AddedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5793),
+                            IsDeleted = false,
+                            ModifiedById = 1,
+                            ModifiedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5793),
+                            RoleId = 2,
+                            UserLoginId = 1
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.BidShare", b =>
