@@ -12,6 +12,16 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public List<StorageLocation> GetAllStorageLocations()
+        {
+            return _repositoryBase.GetAll().ToList();
+        }
+
+        public StorageLocation GetStorageLocation(int id)
+        {
+            return _repositoryBase.GetById(id);
+        }
+
         public StorageLocation InsertStorageLocation(StorageLocation storageLocation)
         {
             var addedStorageLocation = _repositoryBase.Insert(storageLocation);

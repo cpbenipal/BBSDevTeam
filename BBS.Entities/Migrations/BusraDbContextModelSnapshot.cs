@@ -22,7 +22,7 @@ namespace BBS.Entities.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BBS.Models.Attachment", b =>
+            modelBuilder.Entity("BBS.Models.BidShare", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,23 +36,17 @@ namespace BBS.Entities.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Back")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Front")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("IPAddress")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<double>("MaximumBidPrice")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("MinimumBidPrice")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("ModifiedById")
                         .HasColumnType("integer");
@@ -60,30 +54,85 @@ namespace BBS.Entities.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("OfferedShareId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PaymentTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VerificationStateId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("OfferedShareId");
 
-                    b.ToTable("PersonalAttachments");
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("UserLoginId");
+
+                    b.HasIndex("VerificationStateId");
+
+                    b.ToTable("BidShares");
                 });
 
-            modelBuilder.Entity("BBS.Models.CertificateType", b =>
+            modelBuilder.Entity("BBS.Models.Category", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TypeName")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CertificateType");
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "",
+                            Name = "Information"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "",
+                            Name = "Deal Teaser"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "",
+                            Name = "Team"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "",
+                            Name = "Interviews"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "",
+                            Name = "News"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Company", b =>
@@ -93,6 +142,9 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -125,12 +177,17 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "India"
+                            Name = "United arab Emirates"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "UAE"
+                            Name = "Pakistan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "British"
                         });
                 });
 
@@ -154,12 +211,51 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Mezanine"
+                            Name = "Mezzanine"
                         },
                         new
                         {
                             Id = 2,
                             Name = "Growth"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.EmployementType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployementTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Employed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Unemployed"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Full-Time"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Part-Time"
                         });
                 });
 
@@ -183,7 +279,7 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Angel"
+                            Name = "Pre-Seed"
                         },
                         new
                         {
@@ -193,7 +289,7 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 3,
-                            Name = "Pre-Seed"
+                            Name = "Angel"
                         },
                         new
                         {
@@ -243,7 +339,7 @@ namespace BBS.Entities.Migrations
                         {
                             Id = 2,
                             Description = "Hybrid shares for ownership, non-voting, but its shareholdres and paid dividends prior to other shareholders",
-                            Name = "Preffered"
+                            Name = "Prefered"
                         },
                         new
                         {
@@ -251,6 +347,138 @@ namespace BBS.Entities.Migrations
                             Description = "An obligation to offer dividend or interest which typically includes a promise to convert to equity. Debt holdres get paid back before any other shareholder",
                             Name = "Debt"
                         });
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InvestorRiskType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("InvestorType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("InvestorDetails");
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorRiskType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InvestorRiskTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "High Risk"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Normal"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InvestorTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "Retail"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Qualified"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.IssuedDigitalShare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CertificateKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CertificateUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsCertified")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ShareId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserLoginId");
+
+                    b.ToTable("IssuedDigitalShares");
                 });
 
             modelBuilder.Entity("BBS.Models.Nationality", b =>
@@ -274,12 +502,206 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Indian"
+                            Name = "Emirati"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Emirati"
+                            Name = "Pakistani"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "United Kingdom"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferedShare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("IssuedDigitalShareId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("OfferPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("OfferTimeLimitId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OfferTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PrivateShareKey")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IssuedDigitalShareId");
+
+                    b.HasIndex("OfferTimeLimitId");
+
+                    b.HasIndex("OfferTypeId");
+
+                    b.HasIndex("UserLoginId");
+
+                    b.ToTable("OfferedShares");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferPayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OfferedShareId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PaymentTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TransactionId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferedShareId");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("UserLoginId");
+
+                    b.ToTable("OfferPayments");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferTimeLimit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OfferTimeLimits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "3 Days"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "1 Week"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Value = "3 Months"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Value = "6 Months"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OfferTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Auction"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Private"
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.PaymentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "Bank Transfer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Debit/Credit Cash"
                         });
                 });
 
@@ -313,8 +735,7 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("DateOfBirth")
-                        .IsRequired()
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateOfEmployement")
@@ -329,6 +750,14 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<int>("EmployementTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("EmployerName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -361,9 +790,6 @@ namespace BBS.Entities.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsEmployed")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("IsIndividual")
                         .HasColumnType("boolean");
 
@@ -374,7 +800,6 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -386,6 +811,10 @@ namespace BBS.Entities.Migrations
 
                     b.Property<int>("NationalityId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("VaultNumber")
                         .IsRequired()
@@ -399,9 +828,94 @@ namespace BBS.Entities.Migrations
 
                     b.HasIndex("CountryId");
 
+                    b.HasIndex("EmployementTypeId");
+
                     b.HasIndex("NationalityId");
 
                     b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 1,
+                            AddedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(4207),
+                            AddressLine = "Dubai",
+                            AnnualIncome = 1111111111111m,
+                            City = "Dubai",
+                            CountryId = 1,
+                            DateOfBirth = new DateTime(2022, 7, 6, 5, 44, 53, 508, DateTimeKind.Utc).AddTicks(4219),
+                            DateOfEmployement = new DateTime(2022, 7, 6, 5, 44, 53, 508, DateTimeKind.Utc).AddTicks(4223),
+                            Email = "admin@bursa.com",
+                            EmiratesID = "00000000000000000",
+                            EmployementTypeId = 1,
+                            EmployerName = "Bursa",
+                            FirstName = "admin",
+                            HaveConvicted = false,
+                            HaveCriminalRecord = false,
+                            HaveExperience = true,
+                            HavePriorExpirence = true,
+                            HaveTraining = true,
+                            IBANNumber = "B982258962793",
+                            IsDeleted = false,
+                            IsIndividual = true,
+                            IsPublicSectorEmployee = false,
+                            IsUSCitizen = false,
+                            ModifiedById = 1,
+                            ModifiedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(4218),
+                            NationalityId = 1,
+                            PhoneNumber = "0000000000",
+                            VaultNumber = "D0E115F6C19E",
+                            VerificationState = 2
+                        });
+                });
+
+            modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Back")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Front")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("PersonalAttachments");
                 });
 
             modelBuilder.Entity("BBS.Models.Restriction", b =>
@@ -419,6 +933,18 @@ namespace BBS.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Restrictions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "To the best of your knwledge, are there any sale or transfer restrictions related to these shares ? Are you a cofounder or employee at the company ? "
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Are you a cofounder or employee at the company?"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Role", b =>
@@ -439,6 +965,11 @@ namespace BBS.Entities.Migrations
                     b.ToTable("Role");
 
                     b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Name = "Admin"
+                        },
                         new
                         {
                             Id = 1,
@@ -463,8 +994,8 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("BusinessLogo")
                         .HasColumnType("text");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyInformationDocument")
+                        .HasColumnType("text");
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("text");
@@ -472,13 +1003,13 @@ namespace BBS.Entities.Migrations
                     b.Property<DateTime>("DateOfGrant")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DebtRoundId")
+                    b.Property<int?>("DebtRoundId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<int>("EquityRoundId")
+                    b.Property<int?>("EquityRoundId")
                         .HasColumnType("integer");
 
                     b.Property<string>("FirstName")
@@ -487,6 +1018,9 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("GrantTypeId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("GrantValuation")
+                        .HasColumnType("text");
+
                     b.Property<string>("IPAddress")
                         .HasColumnType("text");
 
@@ -494,6 +1028,9 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastValuation")
                         .HasColumnType("text");
 
                     b.Property<int>("ModifiedById")
@@ -508,8 +1045,14 @@ namespace BBS.Entities.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<int>("RestrictionId")
-                        .HasColumnType("integer");
+                    b.Property<bool?>("Restriction1")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Restriction2")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ShareOwnershipDocument")
+                        .HasColumnType("text");
 
                     b.Property<decimal>("SharePrice")
                         .HasColumnType("numeric");
@@ -518,6 +1061,9 @@ namespace BBS.Entities.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("UserLoginId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VerificationState")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -555,14 +1101,14 @@ namespace BBS.Entities.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "Returned",
-                            Value = 1
+                            Name = "Completed",
+                            Value = 0
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Completed",
-                            Value = 2
+                            Name = "Returned",
+                            Value = 0
                         });
                 });
 
@@ -602,6 +1148,11 @@ namespace BBS.Entities.Migrations
                         {
                             Id = 4,
                             Name = "iCloud"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "My Desktop"
                         });
                 });
 
@@ -643,6 +1194,10 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Username")
                         .HasColumnType("text");
 
@@ -651,6 +1206,22 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("UserLogin");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 1,
+                            AddedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5776),
+                            IsDeleted = false,
+                            ModifiedById = 1,
+                            ModifiedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5778),
+                            Passcode = "MDAwMA==",
+                            PasswordHash = new byte[] { 244, 218, 238, 6, 22, 146, 62, 253, 15, 128, 112, 84, 189, 104, 36, 16, 35, 6, 44, 46, 28, 42, 202, 75, 233, 26, 51, 114, 253, 70, 51, 252, 224, 126, 167, 234, 132, 26, 131, 93, 224, 177, 194, 22, 219, 229, 199, 137, 2, 159, 55, 63, 175, 96, 39, 116, 78, 107, 159, 230, 94, 6, 160, 197, 157, 54, 14, 113, 95, 89, 28, 0, 95, 247, 15, 242, 224, 205, 202, 22, 67, 164, 37, 132, 188, 41, 27, 104, 118, 188, 238, 194, 107, 52, 156, 8, 137, 148, 253, 34, 78, 208, 32, 5, 172, 249, 185, 144, 20, 220, 196, 168, 174, 85, 121, 253, 135, 200, 148, 8, 195, 159, 74, 253, 236, 247, 47, 185 },
+                            PasswordSalt = new byte[] { 74, 161, 235, 17, 78, 66, 132, 213, 248, 117, 120, 231, 49, 238, 230, 55, 197, 1, 8, 153, 169, 79, 239, 25, 17, 249, 78, 105, 36, 109, 165, 254, 19, 177, 80, 60, 3, 14, 168, 184, 30, 14, 197, 169, 234, 162, 232, 87, 170, 164, 79, 211, 183, 59, 249, 150, 180, 171, 198, 32, 141, 147, 219, 31 },
+                            PersonId = 1,
+                            RefreshToken = ""
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.UserRole", b =>
@@ -692,9 +1263,57 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("UserLoginId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 1,
+                            AddedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5793),
+                            IsDeleted = false,
+                            ModifiedById = 1,
+                            ModifiedDate = new DateTime(2022, 7, 6, 11, 14, 53, 508, DateTimeKind.Local).AddTicks(5793),
+                            RoleId = 2,
+                            UserLoginId = 1
+                        });
                 });
 
-            modelBuilder.Entity("BBS.Models.Attachment", b =>
+            modelBuilder.Entity("BBS.Models.BidShare", b =>
+                {
+                    b.HasOne("BBS.Models.OfferedShare", "OfferedShare")
+                        .WithMany()
+                        .HasForeignKey("OfferedShareId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
+                        .WithMany()
+                        .HasForeignKey("UserLoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("VerificationStateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OfferedShare");
+
+                    b.Navigation("PaymentType");
+
+                    b.Navigation("State");
+
+                    b.Navigation("UserLogin");
+                });
+
+            modelBuilder.Entity("BBS.Models.InvestorDetail", b =>
                 {
                     b.HasOne("BBS.Models.Person", "Person")
                         .WithMany()
@@ -705,11 +1324,90 @@ namespace BBS.Entities.Migrations
                     b.Navigation("Person");
                 });
 
+            modelBuilder.Entity("BBS.Models.IssuedDigitalShare", b =>
+                {
+                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
+                        .WithMany()
+                        .HasForeignKey("UserLoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserLogin");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferedShare", b =>
+                {
+                    b.HasOne("BBS.Models.IssuedDigitalShare", "IssuedDigitalShare")
+                        .WithMany()
+                        .HasForeignKey("IssuedDigitalShareId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.OfferTimeLimit", "OfferTimeLimit")
+                        .WithMany()
+                        .HasForeignKey("OfferTimeLimitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.OfferType", "OfferType")
+                        .WithMany()
+                        .HasForeignKey("OfferTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
+                        .WithMany()
+                        .HasForeignKey("UserLoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IssuedDigitalShare");
+
+                    b.Navigation("OfferTimeLimit");
+
+                    b.Navigation("OfferType");
+
+                    b.Navigation("UserLogin");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferPayment", b =>
+                {
+                    b.HasOne("BBS.Models.OfferedShare", "OfferedShare")
+                        .WithMany()
+                        .HasForeignKey("OfferedShareId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.UserLogin", "UserLogin")
+                        .WithMany()
+                        .HasForeignKey("UserLoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OfferedShare");
+
+                    b.Navigation("PaymentType");
+
+                    b.Navigation("UserLogin");
+                });
+
             modelBuilder.Entity("BBS.Models.Person", b =>
                 {
                     b.HasOne("BBS.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBS.Models.EmployementType", "EmployementType")
+                        .WithMany()
+                        .HasForeignKey("EmployementTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -721,7 +1419,20 @@ namespace BBS.Entities.Migrations
 
                     b.Navigation("Country");
 
+                    b.Navigation("EmployementType");
+
                     b.Navigation("Nationality");
+                });
+
+            modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
+                {
+                    b.HasOne("BBS.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("BBS.Models.Share", b =>

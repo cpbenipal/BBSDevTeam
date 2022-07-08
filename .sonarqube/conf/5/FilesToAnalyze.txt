@@ -1,5 +1,37 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\GetProfileInformationUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\GetRegisteredSharesUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\RegisterShareUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\RegisterUserUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\SecureUtil.cs
+=======
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\BidShare.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Category.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\CertificateType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Company.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Country.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\DebtRound.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\EmployementType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\EquityRound.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\GrantType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\InvestorDetail.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\InvestorRiskType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\InvestorType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\IssuedDigitalShare.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Nationality.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\NlogDBLog.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\OfferedShare.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\OfferPayment.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\OfferTimeLimit.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\OfferType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\PaymentType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Person.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\PersonalAttachment.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Restriction.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Role.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Share.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\State.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\StorageLocation.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\UserLogin.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\UserRole.cs
+>>>>>>> API7

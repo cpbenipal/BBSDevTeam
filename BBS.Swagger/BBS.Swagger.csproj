@@ -5,10 +5,38 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <CodeAnalysisRuleSet>..\.sonarlint\bbscsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Remove="log4net.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="email_templates\bid_share.html" />
+    <None Remove="email_templates\change_share_status.html" />
+    <None Remove="email_templates\change_user_status.html" />
+    <None Remove="email_templates\issue_digital_share.html" />
+    <None Remove="email_templates\new_passcode.html" />
+    <None Remove="email_templates\offered_share.html" />
+    <None Remove="email_templates\register_share-approve.html" />
+    <None Remove="email_templates\register_share.html" />
+    <None Remove="email_templates\register_user.html" />
+    <None Remove="email_templates\verify_email.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\bbs\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+    <Content Include="email_templates\bid_share.html" />
+    <Content Include="email_templates\verify_email.html" />
+    <Content Include="email_templates\change_share_status.html" />
+    <Content Include="email_templates\change_user_status.html" />
+    <Content Include="email_templates\issue_digital_share.html" />
+    <Content Include="email_templates\new_passcode.html" />
+    <Content Include="email_templates\offered_share.html" />
+    <Content Include="email_templates\register_share-approve.html" />
+    <Content Include="email_templates\register_share.html" />
+    <Content Include="email_templates\register_user.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,9 +51,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BBS.API\BBS.API.csproj" />
+    <ProjectReference Include="..\BBS.Middlewares\BBS.Middlewares.csproj" />
+    <ProjectReference Include="..\BBS.Models\BBS.Models.csproj" />
     <ProjectReference Include="..\BBS.Services.Contracts\BBS.Services.Contracts.csproj" />
     <ProjectReference Include="..\BBS.Services\BBS.Services.Repository.csproj" />
     <ProjectReference Include="..\BBS.Utils\BBS.Utils.csproj" />
+    <ProjectReference Include="..\EmailSender\EmailSender.csproj" />
   </ItemGroup>
 
 </Project>

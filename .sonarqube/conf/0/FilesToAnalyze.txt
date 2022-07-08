@@ -1,4 +1,6 @@
-﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\AddressDto.cs
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Middlewares\LogRequest.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Middlewares\SwaggerAuthenticationMiddleware.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\AddressDto.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\AttachmentsDto.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\ContactPersonDto.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\CountryDto.cs

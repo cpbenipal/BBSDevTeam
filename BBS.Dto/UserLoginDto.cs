@@ -1,12 +1,12 @@
-﻿namespace BBS.Dto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BBS.Dto
 {
     public class UserLoginDto
     {
-        public int Id { get; set; }
-
-        //public string Username { get; set; }
-        //public string Password { get; set; }
+        [Required]
+        [RegularExpression("^[0-9]*$")]
+        [StringLength(4)]
         public string Passcode { get; set; }
-        public int PersonId { get; set; }
     }
 }

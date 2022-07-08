@@ -6,5 +6,6 @@ namespace BBS.Services.Contracts
     {
         Country InsertCountry(Country country);
         Country GetCountry(int countryId);
+        List<Country> GetCountries();
     }
 }

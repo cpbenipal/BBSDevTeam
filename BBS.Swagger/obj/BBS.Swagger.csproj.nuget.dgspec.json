@@ -40,9 +40,6 @@
               },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
-              },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               }
             }
           }
@@ -64,6 +61,10 @@
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
+            },
+            "NSwag.Annotations": {
+              "target": "Package",
+              "version": "[13.15.10, )"
             }
           },
           "imports": [
@@ -127,6 +128,67 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.CustomExceptions\\BBS.CustomExceptions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.CustomExceptions\\BBS.CustomExceptions.csproj",
+        "projectName": "BBS.CustomExceptions",
+        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.CustomExceptions\\BBS.CustomExceptions.csproj",
+        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.CustomExceptions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",
@@ -335,14 +397,23 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.CustomExceptions\\BBS.CustomExceptions.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.CustomExceptions\\BBS.CustomExceptions.csproj"
+              },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
               },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               },
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj"
+              },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
+              },
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj"
               }
             }
           }
@@ -364,6 +435,77 @@
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj",
+        "projectName": "BBS.Middlewares",
+        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj",
+        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Middlewares\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.15, )"
             }
           },
           "imports": [
@@ -502,6 +644,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.27.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -581,6 +729,10 @@
               "target": "Package",
               "version": "[12.11.0, )"
             },
+            "CoreHtmlToImage": {
+              "target": "Package",
+              "version": "[1.0.6, )"
+            },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[6.17.0, )"
@@ -589,6 +741,10 @@
               "target": "Package",
               "version": "[4.7.15, )"
             },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.27.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.3.0, )"
@@ -596,6 +752,10 @@
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.17.0, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[5.75.0, )"
             },
             "WindowsAzure.Storage": {
               "target": "Package",
@@ -655,6 +815,12 @@
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.API\\BBS.API.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.API\\BBS.API.csproj"
               },
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Middlewares\\BBS.Middlewares.csproj"
+              },
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               },
@@ -663,6 +829,9 @@
               },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
+              },
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj"
               }
             }
           }
@@ -764,6 +933,9 @@
               },
               "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
                 "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              },
+              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               }
             }
           }
@@ -789,6 +961,81 @@
             "WindowsAzure.Storage": {
               "target": "Package",
               "version": "[9.3.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj",
+        "projectName": "EmailSender",
+        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\EmailSender.csproj",
+        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\EmailSender\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[3.2.0, )"
             }
           },
           "imports": [

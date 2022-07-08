@@ -1,24 +1,75 @@
-﻿using BBS.Dto;
-using BBS.Models;
+﻿using BBS.Constants;
+using BBS.Dto;
+using BBS.Services.Contracts;
 
 namespace BBS.Utils
 {
     public class GetProfileInformationUtils
     {
-        public UserProfileInformationDto ParseUserProfileFromDifferentObjects(
-            Person person,
-            Role role,
-            Attachment? attachment,
-            Nationality nationality,
-            Country country
+        private readonly IFileUploadService _fileUploadService;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+
+        public GetProfileInformationUtils(
+            IFileUploadService fileUploadService,
+            IRepositoryWrapper repository
         )
         {
+            _repositoryWrapper = repository;
+            _fileUploadService = fileUploadService;
+        }
+
+        public UserProfileInformationDto ParseUserProfileFromDifferentObjects(
+            int personId
+        )
+        {
+            var person = _repositoryWrapper.PersonManager.GetPerson(personId);
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginByPerson(personId);
+            var userRole = _repositoryWrapper.UserRoleManager.GetUserRoleByUserLoginId(userLogin!.Id);
+            var role = _repositoryWrapper.RoleManager.GetRole(userRole!.RoleId);
+            var investorDetail = _repositoryWrapper.InvestorDetailManager.GetInvestorDetailByPersonId(personId);
+
+            if (
+                userLogin == null || 
+                userRole == null || 
+                person == null || 
+                role == null || 
+                role.Id == (int)Roles.INVESTOR && investorDetail == null
+            )
+            {
+                throw new Exception();
+            }
+            var attachment = _repositoryWrapper
+                .PersonalAttachmentManager
+                .GetAttachementByPerson(personId);
+
+            var investorType = investorDetail == null ? null : _repositoryWrapper
+                .InvestorTypeManager
+                .GetInvestorType(investorDetail.InvestorType);
+
+            var investorRiskType = investorDetail == null ? null : _repositoryWrapper
+                .InvestorRiskTypeManager
+                .GetInvestorRiskType(investorDetail.InvestorRiskType);
+
+            var nationality = _repositoryWrapper
+                .NationalityManager
+                .GetNationality(person.NationalityId);
+
+            var country = _repositoryWrapper
+                .CountryManager
+                .GetCountry(person.CountryId);
+
+            var state = _repositoryWrapper.StateManager.GetState(person.VerificationState);
+
+            var employementType =
+                _repositoryWrapper.EmployementTypeManager.GetEmployementType(person.EmployementTypeId);
+
             return new UserProfileInformationDto
             {
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 Email = person.Email,
-                DateOfBirth = person.DateOfBirth,
+                PhoneNumber = person.PhoneNumber,
+                DateOfBirth = person.DateOfBirth.ToString("yyyy-MM-dd"),
                 IsUSCitizen = person.IsUSCitizen,
                 IsPublicSectorEmployee = person.IsPublicSectorEmployee,
                 IsIndividual = person.IsIndividual,
@@ -27,20 +78,27 @@ namespace BBS.Utils
                 City = person.City,
                 AddressLine = person.AddressLine,
                 EmiratesID = person.EmiratesID,
-                VaultNumber = person.VaultNumber,
-                IBANNumber = person.IBANNumber,
-                IsEmployed = person.IsEmployed,
+                VaultNumber = person?.VaultNumber ?? "",
+                IBANNumber = person?.IBANNumber ?? "",
+                EmployementId = employementType.Name,
+                EmployerName = person!.EmployerName,
                 AnnualIncome = person.AnnualIncome,
-                DateOfEmployement = person.DateOfEmployement,
+                DateOfEmployement = person.DateOfEmployement.ToString("yyyy-MM-dd"),
                 HavePriorExpirence = person.HavePriorExpirence,
                 HaveTraining = person.HaveTraining,
                 HaveExperience = person.HaveExperience,
-                VerificationState = person.VerificationState,
+                VerificationState = state.Name,
                 Country = country.Name,
                 Nationality = nationality.Name,
-                EmiratesIdPictureFront = attachment?.Front ?? "",
-                EmiratesIdPictureBack = attachment?.Back ?? "",
-                Role = role.Name
+                EmiratesIdPictureFront = attachment == null ? "" : _fileUploadService.GetFilePublicUri(attachment?.Front!) ?? "",
+                EmiratesIdPictureBack = attachment == null ? "" : _fileUploadService.GetFilePublicUri(attachment?.Back!) ?? "",
+                Role = role.Name,
+                PersonId = person.Id,
+                InvestorType = investorType?.Value ?? "",
+                InvestorRiskType = investorRiskType?.Value ?? "",
+                AddedDate = person.AddedDate.ToShortDateString(),
+                UserLoginId = userLogin.Id,
+                ModifiedDate = person.ModifiedDate,
             };
         }
     }

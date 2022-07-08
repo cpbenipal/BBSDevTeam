@@ -1,4 +1,5 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -9,63 +10,77 @@ namespace BBS.Interactors
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly ITokenManager _tokenManager;
+        private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
         private readonly GetRegisteredSharesUtils _getRegisteredSharesUtil;
 
         public GetRegisteredSharesInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager,
             GetRegisteredSharesUtils getRegisteredSharesUtil
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _tokenManager = tokenManager;
-            _getRegisteredSharesUtil = getRegisteredSharesUtil; 
+            _responseManager = responseManager;
+            _getRegisteredSharesUtil = getRegisteredSharesUtil;
+            _loggerManager = loggerManager;
+
         }
 
         public GenericApiResponse GetRegisteredShares(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingRegisteredShareForUser(token);
+                _loggerManager.LogInfo(
+                    "GetRegisteredShares : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingRegisteredShareForUser(extractedFromToken);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
                 return ReturnErrorStatus();
             }
         }
 
-        private GenericApiResponse TryGettingRegisteredShareForUser(string token)
+        private GenericApiResponse TryGettingRegisteredShareForUser(TokenValues tokenValues)
         {
-            var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
-            var allShares = _repositoryWrapper.ShareManager.GetAllSharesForUser(tokenValues.UserLoginId);
+            var allShares = 
+                _repositoryWrapper
+                .ShareManager.GetAllShares().OrderByDescending(s => s.AddedDate).ToList();
 
+            if(tokenValues.RoleId != (int)Roles.ADMIN)
+            {
+                allShares = _repositoryWrapper
+                    .ShareManager
+                    .GetAllSharesForUser(tokenValues.UserLoginId)
+                    .OrderByDescending(s => s.AddedDate).ToList();
+            }
 
             var allMappedShares = 
                 _getRegisteredSharesUtil
                 .MapListOfSharesToListOfRegisteredSharesDto(allShares);
 
-            var response = new GenericApiResponse
-            {
-                ReturnCode = StatusCodes.Status200OK,
-                ReturnMessage = "Successfull",
-                ReturnData = allMappedShares,
-                ReturnStatus = false
-            };
-
-            return response;
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                allMappedShares
+            );
         }
 
         private GenericApiResponse ReturnErrorStatus()
         {
-            var response = new GenericApiResponse();
-
-            response.ReturnCode = StatusCodes.Status500InternalServerError;
-            response.ReturnMessage = "Couldn't Fetch Shares";
-            response.ReturnData = "";
-            response.ReturnStatus = false;
-
-            return response;
+            return _responseManager.ErrorResponse(
+                "Couldn't Fetch Shares",
+                StatusCodes.Status500InternalServerError
+            );
         }
     }
 }

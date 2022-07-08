@@ -1,7 +1,10 @@
-﻿using BBS.Interactors;
+﻿using BBS.Dto;
+using BBS.Interactors;
+using BBS.Middlewares;
 using BBS.Services.Contracts;
 using BBS.Services.Repository;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -61,6 +64,17 @@ namespace BBS.Swagger.Extensions
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+
+                x.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context => {
+                        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                        {
+                            context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
         }
 
@@ -79,6 +93,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<ITokenManager, JwtTokenManager>();
             services.AddScoped<IHashManager, HashManager>();
+            services.AddScoped<IApiResponseManager, ApiResponseManager>();
 
             services.AddScoped<RegisterUserInteractor>();
             services.AddScoped<RegisterUserUtils>();
@@ -86,14 +101,70 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<RegisterShareInteractor>();
             services.AddScoped<RegisterShareUtils>();
 
-            services.AddScoped<LoginUserInteractor>();
+            services.AddScoped<AuthInteractor>();
+            services.AddScoped<ForgotPasscodeInteractor>();
+            services.AddScoped<SendOTPInteractor>();
 
             services.AddScoped<GetProfileInformationInteractor>();
             services.AddScoped<GetProfileInformationUtils>();
 
             services.AddScoped<GetRegisteredSharesInteractor>();
             services.AddScoped<GetRegisteredSharesUtils>();
+            
+            services.AddScoped<IssueDigitalSharesInteractor>();
+            services.AddScoped<IssueDigitalShareUtils>();
 
+            services.AddScoped<GetAllCountriesInteractor>();
+            services.AddScoped<GetAllDebtRoundsInteractor>();
+            services.AddScoped<GetAllEquityRoundsInteractor>();
+            services.AddScoped<GetAllGrantTypesInteractor>();
+            services.AddScoped<GetAllNationalitiesInteractor>();
+            services.AddScoped<GetAllRestrictionsInteractor>();
+            services.AddScoped<GetAllStorageLocationsInteractor>();
+            services.AddScoped<GetAllCompaniesInteractor>();
+            services.AddScoped<GetAllEmployementTypesInteractor>();
+            services.AddScoped<GetDigitalCertificateOfIssuedShareInteractor>();
+            services.AddScoped<GetAllCertificatesIssuedByUserInteractor>();
+            services.AddScoped<RefreshTokenInteractor>();         
+            services.AddScoped<GetOfferTimeLimitsInteractor>();
+            services.AddScoped<GetPrivatelyOfferedShareInteractor>();
+            services.AddScoped<GetBusraFeeInteractor>();
+            services.AddScoped<GetAllPaymentTypesInteractor>();
+
+            services.AddScoped<GetAllIssuedSharesInteractor>();
+            services.AddScoped<GetIssuedDigitalSharesUtils>();
+
+            services.AddScoped<OfferShareInteractor>();
+            services.AddScoped<GetAllOfferedSharesInteractor>();
+            services.AddScoped<GetAllOfferedSharesUtils>();
+
+            services.AddScoped<GenerateHtmlCertificate>();
+            services.AddScoped<EmailHelperUtils>();
+
+
+            services.AddScoped<OfferPaymentInteractor>();
+            services.AddScoped<OfferPaymentUtils>();
+
+
+            services.AddScoped<GetAllOfferPaymentsInteractor>();
+            services.AddScoped<GetCompaniesWithShareOfferedInteractor>();
+            services.AddScoped<BidShareInteractor>();
+
+            services.AddScoped<GetAllBidSharesInteractor>();
+            services.AddScoped<GetBidShareUtils>();
+
+            services.AddScoped<GetAllInvestorsDetailsInteractor>();
+            services.AddScoped<GetAllShareDetailsInteractor>();
+            services.AddScoped<ChangeUserStatusToCompletedInteractor>();
+            services.AddScoped<ChangeShareStatusToCompletedInteractor>();
+            services.AddScoped<GetAllBidsForShareInteractor>();
+
+            services.AddScoped<GetOfferedShareWithBidInformationInteractor>();
+            services.AddScoped<GetOfferedShareWithBidInformationUtils>();
+
+            services.AddScoped<GetAllCategoriesInteractor>();
+            services.AddScoped<GetCategoryContentInteractor>();
+            services.AddScoped<AddCategoryContentInteractor>();
 
             Config = BuildConfiguration();
 
@@ -108,6 +179,34 @@ namespace BBS.Swagger.Extensions
             );
 
             services.AddScoped<IFileUploadService>(uploader => azureFileUploader);
+            services.AddTransient<IEmailSender, MailGunEmailSender>();
+            services.AddTransient<INewEmailSender, NewEmailSender>();
+
+            var TwilioSID = Config["Twilio:SID"];
+            var TwilioApiKey = Config["Twilio:ApiKey"];
+            var twilioSMSSender = new TwilioSMSSender(TwilioSID, TwilioApiKey);
+            services.AddTransient<ISMSSender>(sms => twilioSMSSender);
+
+            services.Configure<MailGunSenderOptions>(options =>
+            {
+                options.ApiKey = Config["ExternalProviders:MailGun:ApiKey"];
+                options.BaseUri = Config["ExternalProviders:MailGun:BaseUri"];
+                options.RequestUri = Config["ExternalProviders:MailGun:RequestUri"];
+                options.From = Config["ExternalProviders:MailGun:From"];
+            });
+
+            services.Configure<EmailHelperModel>(options =>
+            {
+                options.EmailProvider = Config["ExternalProviders:EmailHelperModel:EmailProvider"];
+                options.EmailFrom = Config["ExternalProviders:EmailHelperModel:EmailFrom"];
+                options.Password = Config["ExternalProviders:EmailHelperModel:Password"];
+                options.User = Config["ExternalProviders:EmailHelperModel:User"];
+                options.PortNumber = Config["ExternalProviders:EmailHelperModel:PortNumber"];
+                options.AdminEmail = Config["ExternalProviders:EmailHelperModel:AdminEmail"];
+            });
+
+            services.AddTransient<SwaggerAuthenticationMiddleware>();
+            
         }
     }
 
@@ -136,7 +235,7 @@ namespace BBS.Swagger.Extensions
             JsonSerializerOptions options
             )
         {
-            string assemblyQualifiedName = value.AssemblyQualifiedName;
+            string assemblyQualifiedName = value.AssemblyQualifiedName!;
             // Use this with caution, since you are disclosing type information.
             writer.WriteStringValue(assemblyQualifiedName);
         }

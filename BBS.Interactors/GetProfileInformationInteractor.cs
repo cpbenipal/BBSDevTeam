@@ -1,7 +1,9 @@
-﻿using BBS.Dto;
+﻿using BBS.Constants;
+using BBS.Dto;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BBS.Interactors
 {
@@ -10,73 +12,113 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly GetProfileInformationUtils _getProfileInformationUtils;
         private readonly ITokenManager _tokenManager;
+        private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
 
         public GetProfileInformationInteractor(
             IRepositoryWrapper repositoryWrapper,
             ITokenManager tokenManager,
-            GetProfileInformationUtils getProfileInformationUtils
+            IApiResponseManager responseManager,
+            GetProfileInformationUtils getProfileInformationUtils, 
+            ILoggerManager loggerManager
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _tokenManager = tokenManager;
+            _responseManager = responseManager;
             _getProfileInformationUtils = getProfileInformationUtils;
+            _loggerManager = loggerManager;
         }
 
         public GenericApiResponse GetUserProfileInformation(string token)
         {
+            var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
             try
             {
-                return TryGettingUserProfile(token);
+                _loggerManager.LogInfo(
+                    "GetUserProfileInformation : " +
+                    CommonUtils.JSONSerialize("No Body"),
+                    extractedFromToken.PersonId
+                );
+                return TryGettingUserProfile(extractedFromToken);
             }
-            catch (Exception)
+
+            catch(SecurityTokenExpiredException ex)
             {
-                return ReturnErrorStatus();
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
+                return ReturnErrorStatus("Token Expired Please Refresh Before You Continue");
+            }
+
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex, extractedFromToken.PersonId);
+                return ReturnErrorStatus(ex.Message);
             }
         }
 
-        private GenericApiResponse TryGettingUserProfile(string token)
+        private GenericApiResponse TryGettingUserProfile(TokenValues tokenValues)
         {
-            var tokenValues = _tokenManager.GetNeededValuesFromToken(token);
 
-            var person = _repositoryWrapper.PersonManager.GetPerson(tokenValues.PersonId);
-            var role = _repositoryWrapper.RoleManager.GetRole(tokenValues.RoleId);
+            List<UserProfileInformationDto> allUsersInformation = new();
+            List<int> allPersonIds = BuildListOfPersonToFetchProfile(tokenValues);
 
-            var attachements = _repositoryWrapper
-                .PersonalAttachmentManager
-                .GetAttachementByPerson(tokenValues.PersonId);
+            foreach (var personId in allPersonIds)
+            {
+                UserProfileInformationDto userProfileInformation = BuildProfileForPerson(personId);
+                allUsersInformation.Add(userProfileInformation);
+            }
 
-            var nationality = _repositoryWrapper
-                .NationalityManager
-                .GetNationality(person.NationalityId);
 
-            var country = _repositoryWrapper
-                .CountryManager
-                .GetCountry(person.CountryId);
+            var sortedProfileList = SortedProfileInformationList(allUsersInformation).ToList();
 
+            object response =
+                allUsersInformation.Count == 1 ?
+                allUsersInformation.FirstOrDefault()! : sortedProfileList;
+
+            return _responseManager.SuccessResponse(
+                "Successfull",
+                StatusCodes.Status200OK,
+                response
+            );
+        }
+
+        private static IOrderedEnumerable<UserProfileInformationDto> SortedProfileInformationList(List<UserProfileInformationDto> allUsersInformation)
+        {
+            return allUsersInformation.OrderByDescending(x => x.ModifiedDate).OrderByDescending(x => x.VerificationState.ToUpper() == States.PENDING.ToString());
+        }
+
+        private List<int> BuildListOfPersonToFetchProfile(TokenValues tokenValues)
+        {
+            var allPersonIds = 
+                _repositoryWrapper.PersonManager
+                .GetAllPerson()
+                .Select(p => p.Id)
+                .ToList();
+
+            if (tokenValues.RoleId != (int)Roles.ADMIN)
+            {
+                allPersonIds = new List<int> { tokenValues.PersonId };
+            }
+
+            return allPersonIds;
+        }
+
+        public UserProfileInformationDto BuildProfileForPerson(int personId)
+        {
             UserProfileInformationDto userProfileInformation =
                 _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
-                    person, role, attachements, nationality, country
+                    personId
                 );
-
-            var response = new GenericApiResponse();
-            response.ReturnCode = StatusCodes.Status200OK;
-            response.ReturnMessage = "Successfull";
-            response.ReturnData = userProfileInformation;
-            response.ReturnStatus = false;
-
-            return response;
+            return userProfileInformation;
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
-            var response = new GenericApiResponse();
-
-            response.ReturnCode = StatusCodes.Status500InternalServerError;
-            response.ReturnMessage = "Couldnot get user Profile Information";
-            response.ReturnData = "";
-            response.ReturnStatus = false;
-
-            return response;
+            return _responseManager.ErrorResponse(
+                message,
+                StatusCodes.Status500InternalServerError
+            );
         }
     }
 }

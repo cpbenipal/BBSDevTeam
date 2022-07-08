@@ -12,6 +12,11 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public List<Country> GetCountries()
+        {
+            return _repositoryBase.GetAll().ToList();
+        }
+
         public Country GetCountry(int countryId)
         {
             return _repositoryBase.GetById(countryId);

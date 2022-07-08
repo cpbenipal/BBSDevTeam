@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace BBS.Constants
+﻿namespace BBS.Constants
 {
     public enum Roles
     {
-        INVESTOR = 1, COMPANY
+      ADMIN =2,  INVESTOR=1, COMPANY
     }
 }

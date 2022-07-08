@@ -331,6 +331,28 @@
           }
         }
       },
+      "SendGrid/9.27.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1",
+          "starkbank-ecdsa": "[1.3.3, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
+      "starkbank-ecdsa/1.3.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/StarkbankEcdsa.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/StarkbankEcdsa.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore/6.3.0": {
         "type": "package",
         "dependencies": {
@@ -1515,6 +1537,22 @@
         "runtime": {
           "bin/placeholder/BBS.Models.dll": {}
         }
+      },
+      "BBS.Services.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BBS.Constants": "1.0.0",
+          "BBS.Dto": "1.0.0",
+          "BBS.Models": "1.0.0",
+          "SendGrid": "9.27.0"
+        },
+        "compile": {
+          "bin/placeholder/BBS.Services.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BBS.Services.Contracts.dll": {}
+        }
       }
     }
   },
@@ -2021,6 +2059,45 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "SendGrid/9.27.0": {
+      "sha512": "kMyXRQ8hmN2bG3tYZ7T31Ufl1kXkpuP5+WBh1BJ32WY31DTnBTCVGURoIqfbTo/tRuQfAYLxra6C8cQGN6kk+A==",
+      "type": "package",
+      "path": "sendgrid/9.27.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/SendGrid.dll",
+        "lib/net40/SendGrid.pdb",
+        "lib/net40/SendGrid.xml",
+        "lib/net452/SendGrid.dll",
+        "lib/net452/SendGrid.pdb",
+        "lib/net452/SendGrid.xml",
+        "lib/netstandard1.3/SendGrid.dll",
+        "lib/netstandard1.3/SendGrid.pdb",
+        "lib/netstandard1.3/SendGrid.xml",
+        "lib/netstandard2.0/SendGrid.dll",
+        "lib/netstandard2.0/SendGrid.pdb",
+        "lib/netstandard2.0/SendGrid.xml",
+        "sendgrid.9.27.0.nupkg.sha512",
+        "sendgrid.nuspec"
+      ]
+    },
+    "starkbank-ecdsa/1.3.3": {
+      "sha512": "OblOaKb1enXn+dSp7tsx9yjwV+/BEKM9jFhshIkZTwCk7LuTFTp+wSon6rFzuPiIiTGtvVWQNUw2slHjGktJog==",
+      "type": "package",
+      "path": "starkbank-ecdsa/1.3.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/StarkbankEcdsa.dll",
+        "lib/net452/StarkbankEcdsa.dll",
+        "lib/netstandard1.3/StarkbankEcdsa.dll",
+        "lib/netstandard2.0/StarkbankEcdsa.dll",
+        "lib/netstandard2.1/StarkbankEcdsa.dll",
+        "starkbank-ecdsa.1.3.3.nupkg.sha512",
+        "starkbank-ecdsa.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.3.0": {
@@ -5502,6 +5579,11 @@
       "type": "project",
       "path": "../BBS.Models/BBS.Models.csproj",
       "msbuildProject": "../BBS.Models/BBS.Models.csproj"
+    },
+    "BBS.Services.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../BBS.Services.Contracts/BBS.Services.Contracts.csproj",
+      "msbuildProject": "../BBS.Services.Contracts/BBS.Services.Contracts.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5509,6 +5591,7 @@
       "AutoMapper >= 11.0.1",
       "BBS.Dto >= 1.0.0",
       "BBS.Models >= 1.0.0",
+      "BBS.Services.Contracts >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.3.0",
       "WindowsAzure.Storage >= 9.3.3"
     ]
@@ -5552,6 +5635,9 @@
             },
             "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
               "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+            },
+            "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
             }
           }
         }

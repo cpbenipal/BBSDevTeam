@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Extensions\ServiceExtensions.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\MappingProfile.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Program.cs
@@ -14,3 +15,41 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\launchSettings.jso
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile.pubxml
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile1.pubxml
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile2.pubxml
+=======
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\ApiResponseManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\AzureBlobFileUploadService.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\BidShareManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\CategoryManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\CompanyManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\CountryManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\DebtRoundManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\EmployementTypeManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\EquityRoundManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\GrantTypeManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\HashManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\InvestorDetailManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\InvestorRiskTypeManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\InvestorTypeManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\IssuedDigitalShareManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\JwtTokenManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\LoggerManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\MailGunEmailSender.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\NationalityManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\OfferedShareManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\OfferPaymentManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\OfferTimeLimitManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\OfferTypeManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\PaymentTypeManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\PersonalAttachmentManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\PersonManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\RepositoryBase.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\RepositoryWrapper.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\RestrictionManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\RoleManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\ShareManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\StateManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\StorageLocationManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\TwilioSMSSender.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\UserLoginManager.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\UserRoleManager.cs
+>>>>>>> API7

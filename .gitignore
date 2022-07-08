@@ -29,6 +29,7 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+/[Oo]bj/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
@@ -452,3 +453,17 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+##
+vs
+/BBS.Entities/Migrations/20220517124621_Add UserLogin To Offered Shares.Designer.cs
+/BBS.Entities/Migrations/20220517124621_Add UserLogin To Offered Shares.cs
+/BBS.Entities/Migrations/20220517114756_Add OfferedShare.Designer.cs
+/BBS.Entities/Migrations/20220517114756_Add OfferedShare.cs
+/BBS.Entities/Migrations/20220513083854_Add Certificate Key To Share.Designer.cs
+/BBS.Entities/Migrations/20220513083854_Add Certificate Key To Share.cs
+/BBS.Entities/Migrations/20220510091740_Add Missing Attributes.Designer.cs
+/BBS.Entities/Migrations/20220510091740_Add Missing Attributes.cs
+/BBS.Entities/Migrations/20220509130646_After Adding Employement Type Table.Designer.cs
+/BBS.Entities/Migrations/20220509130646_After Adding Employement Type Table.cs

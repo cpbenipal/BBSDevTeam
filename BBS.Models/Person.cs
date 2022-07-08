@@ -14,7 +14,6 @@ namespace BBS.Models
         [MaxLength(50)]
         public string? FirstName { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string? LastName { get; set; }
 
@@ -24,8 +23,12 @@ namespace BBS.Models
         public string? Email { get; set; }
 
         [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         public bool IsUSCitizen { get; set; }
@@ -69,8 +72,14 @@ namespace BBS.Models
         public int NationalityId { get; set; }
         public Nationality? Nationality { get; set; }
 
+        [ForeignKey("EmployementType")]
         [Required]
-        public bool IsEmployed { get; set; }
+        public int EmployementTypeId { get; set; }
+        public EmployementType? EmployementType { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string EmployerName { get; set; }
 
         [Required]
         public decimal AnnualIncome { get; set; }
@@ -90,6 +99,5 @@ namespace BBS.Models
         
         [Required]
         public int VerificationState { get; set; }
-
     }
 }

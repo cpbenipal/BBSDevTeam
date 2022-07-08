@@ -5,6 +5,8 @@ using BBS.Models;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using BBS.Constants;
+using BBS.CustomExceptions;
+using EmailSender;
 
 namespace BBS.Interactors
 {
@@ -14,100 +16,237 @@ namespace BBS.Interactors
         private readonly IMapper _mapper;
         private readonly IHashManager _hashManager;
         private readonly IFileUploadService _uploadService;
-        private readonly RegisterUserUtils _registerUserUtils;
-
+        private readonly IApiResponseManager _responseManager;
+        private readonly ILoggerManager _loggerManager;
+        private readonly INewEmailSender _emailSender;
+        private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly GetProfileInformationUtils _getProfileInformationUtils;
         public RegisterUserInteractor(
             IRepositoryWrapper repository,
             IMapper mapper,
             IHashManager hashManager,
             IFileUploadService uploadService,
-            RegisterUserUtils registerUserUtils
+            IApiResponseManager responseManager,
+            ILoggerManager loggerManager,
+            INewEmailSender emailSender,
+            EmailHelperUtils emailHelperUtils, 
+            GetProfileInformationUtils getProfileInformationUtils
         )
         {
             _repository = repository;
             _mapper = mapper;
             _hashManager = hashManager;
             _uploadService = uploadService;
-            _registerUserUtils = registerUserUtils;
+            _responseManager = responseManager;
+            _loggerManager = loggerManager;
+            _emailSender = emailSender;
+            _emailHelperUtils = emailHelperUtils;
+            _getProfileInformationUtils = getProfileInformationUtils;
+
         }
-        private bool IsUserExists(string Email)
+
+        public object RegisterUserAdmin(RegisterUserDto registerUserDto)
         {
-            return _repository.PersonManager.IsUserExists(Email);
+            try
+            {
+                _loggerManager.LogInfo(
+                    "RegisterUser : " + 
+                    CommonUtils.JSONSerialize(registerUserDto),
+                    0
+                );
+                return TryRegisteringUser(registerUserDto, (int)Roles.ADMIN);
+            }
+            catch (RegisterUserException ex)
+            {
+                return ReturnErrorStatus(ex, null);
+            }
+            catch (Exception ex)
+            {
+                return ReturnErrorStatus(ex, "Couldn't Register User");
+            }
         }
-        private bool IsEmiratesIDExists(string EmiratesID)  
+
+        private bool IsUserExists(string Email, string PhoneNumber)
+        {
+            return _repository.PersonManager.IsUserExists(Email, PhoneNumber);
+        }
+        private bool IsEmiratesIDExists(string EmiratesID)
         {
             return _repository.PersonManager.IsEmiratesIDExists(EmiratesID);
         }
         public GenericApiResponse RegisterUser(RegisterUserDto registerUserDto)
         {
-            var response = new GenericApiResponse();
             try
             {
-
-                if (IsUserExists(registerUserDto.Person.Email))
-                {
-                    response.ReturnCode = StatusCodes.Status200OK;
-                    response.ReturnMessage = "Email already exists";
-                    response.ReturnData = "";
-                    response.ReturnStatus = false;
-
-                }
-               else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
-                {
-                    response.ReturnCode = StatusCodes.Status200OK;
-                    response.ReturnMessage = "Emirates ID already exists";
-                    response.ReturnData = "";
-                    response.ReturnStatus = false;
-                }
-                else if (registerUserDto.Attachments.Count() < 2)
-                {
-                    response.ReturnCode = StatusCodes.Status200OK;
-                    response.ReturnMessage = "Please Enter Both Front and Back Side Picture of Your Emirates Id";
-                    response.ReturnData = "";
-                    response.ReturnStatus = false;
-                }
-
-                else
-                {
-                    var createdPerson = CreatePerson(registerUserDto);
-                    var createdUserLoginProfile = CreateUserLogin(
-                        registerUserDto.UserLogin,
-                        createdPerson.Id
-                    );
-
-                    CreateUserRole(createdUserLoginProfile.Id);
-
-                    UploadFilesAndCreateAttachments(
-                        registerUserDto.Attachments,
-                        createdPerson.Id
-                    );
-
-                    response.ReturnCode = StatusCodes.Status201Created;
-                    response.ReturnMessage = "Successful";
-                    response.ReturnData = "";
-                    response.ReturnStatus = true;
-                }
+                _loggerManager.LogInfo("RegisterUser : " + CommonUtils.JSONSerialize(registerUserDto),0);
+                return TryRegisteringUser(registerUserDto, (int)Roles.INVESTOR);
+            }
+            catch (RegisterUserException ex)
+            {
+                return ReturnErrorStatus(ex, null);
             }
             catch (Exception ex)
             {
-                response.ReturnData = "";
-                response.ReturnCode = StatusCodes.Status400BadRequest;
-                response.ReturnMessage = ex.Message;
-                response.ReturnStatus = false;
+                return ReturnErrorStatus(ex, "Couldn't Register User");
             }
-            return response;
         }
 
-        private void UploadFilesAndCreateAttachments(IEnumerable<IFormFile> attachments, int personId)
+        private GenericApiResponse ReturnErrorStatus(Exception ex, string? message)
         {
+            _loggerManager.LogError(ex,0);
+            return _responseManager.ErrorResponse(
+                message ?? ex.Message,
+                StatusCodes.Status400BadRequest
+            );
+        }
 
-            var personalAttachment = new Attachment();
+        private GenericApiResponse TryRegisteringUser(
+            RegisterUserDto registerUserDto, 
+            int roleId
+        )
+        {
+            if (IsUserExists(registerUserDto.Person.Email, registerUserDto.Person.PhoneNumber))
+            {
+                throw new UserAlreadyExistsException("Email or Phone already exists");
+            }
+            else if (IsEmiratesIDExists(registerUserDto.PersonalInfo.EmiratesID))
+            {
+                throw new EmiratesIDExistsException("Emirates ID already exists");
+            }
+            else if (registerUserDto.Attachments.Count() < 2)
+            {
+                throw new AttachmentCountLowException(
+                    "Please Enter Both Front and Back Side Picture of Your Emirates Id"
+                );
+            }            
+            else
+            { 
+                return HandleCreatingUser(registerUserDto, roleId);
+            }
+        }
+
+        private GenericApiResponse HandleCreatingUser(
+            RegisterUserDto registerUserDto, 
+            int roleId
+        )
+        {
+            var createdPerson = CreatePerson(registerUserDto, roleId);
+            var createdUserLoginProfile = CreateUserLogin(
+                registerUserDto.UserLogin,
+                createdPerson.Id
+            );
+
+            CreateUserRole(createdUserLoginProfile.Id, roleId);
+
+            string investorType = "";
+
+            if (roleId == (int) Roles.INVESTOR)
+            {
+                UploadFilesAndCreateAttachments(
+                    registerUserDto.Attachments,
+                    createdPerson.Id
+                );
+                var investor = InsertInvestorDetail(registerUserDto, createdPerson.Id);
+
+                if(investor != null)
+                {
+                    investorType = _repository
+                        .InvestorTypeManager
+                        .GetInvestorType(investor.InvestorType)?.Value ?? "";
+                }
+
+
+                NotifyAdminAndUserAboutRegistration(createdPerson);
+            }
+            return _responseManager.SuccessResponse(
+               "Successfull",
+               StatusCodes.Status201Created,
+                new RegisterUserResponseDto
+                {
+                    Id = createdPerson.Id,
+                    IBANNumber = createdPerson.IBANNumber,
+                    VaultNumber = createdPerson.VaultNumber,
+                    InvestorType = roleId == (int)Roles.INVESTOR ? investorType : null
+                }
+           );
+        }
+
+        private InvestorDetail InsertInvestorDetail(
+            RegisterUserDto registerUserDto, 
+            int personId
+        )
+        {
+            var investorDetail = new InvestorDetail
+            {
+                InvestorType = GetInvestorType(registerUserDto),
+                InvestorRiskType = GetInvestorRiskType(registerUserDto),
+                PersonId = personId
+            };
+
+            return _repository.InvestorDetailManager.InsertInverstorDetail(investorDetail);
+        }
+
+        private static int GetInvestorRiskType(RegisterUserDto registerUserDto)
+        {
+            if (
+                registerUserDto.PersonalInfo.IsUSCitizen ||
+                registerUserDto.PersonalInfo.IsPublicSectorEmployee ||
+                registerUserDto.PersonalInfo.IsIndividual ||
+                registerUserDto.PersonalInfo.HaveCriminalRecord
+            )
+            {
+                return (int)InvestorRiskTypes.HIGH_RISK;
+            }
+            return (int)InvestorRiskTypes.NORMAL;
+        }
+
+        private static int GetInvestorType(RegisterUserDto registerUserDto)
+        {
+            if(
+                registerUserDto.Experience.HaveExperience ||
+                registerUserDto.Experience.HavePriorExpirence ||
+                registerUserDto.Experience.HaveTraining
+            )
+            {
+                return (int)InvestorTypes.QUALIFIED;
+            }
+
+            return (int)InvestorTypes.RETAIL;
+        }
+
+        private void NotifyAdminAndUserAboutRegistration(Person person)
+        {
+            var personInfo =
+                _getProfileInformationUtils.ParseUserProfileFromDifferentObjects(
+                    person.Id
+                );
+     
+            var message = _emailHelperUtils.FillEmailContents(
+                personInfo,
+                "register_user",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
+
+            var subject = "Bursa <> Your investor profile is pending";
+
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(personInfo.Email!, subject, message, false);
+        }
+
+        private void UploadFilesAndCreateAttachments(
+            IEnumerable<IFormFile> attachments, 
+            int personId
+        )
+        {
+            var personalAttachment = new PersonalAttachment();
             var uploadedFile = UploadFilesToAzureBlob(attachments);
 
             personalAttachment.Front = uploadedFile[0].ImageUrl;
             personalAttachment.Back = uploadedFile[1].ImageUrl;
             personalAttachment.ContentType = uploadedFile[0].ContentType;
             personalAttachment.PersonId = personId;
+            personalAttachment.AddedById = personalAttachment.ModifiedById = personId;
 
             _repository.PersonalAttachmentManager.InsertPersonalAttachment(
                 personalAttachment
@@ -115,19 +254,23 @@ namespace BBS.Interactors
 
         }
 
-        private List<BlobFiles> UploadFilesToAzureBlob(IEnumerable<IFormFile> files)
+        private List<BlobFile> UploadFilesToAzureBlob(IEnumerable<IFormFile> files)
         {
             try
             {
-                List<BlobFiles> uploadedFiles = new List<BlobFiles>();
+                List<BlobFile> uploadedFiles = new();
                 foreach (var item in files)
                 {
-                    var fileData = _uploadService.UploadFileToBlob(item);
+                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.DOCUMENT);
                     uploadedFiles.Add(
-                        new BlobFiles { 
-                            ImageUrl = fileData.ImageUrl, 
-                            ContentType = fileData.ContentType 
-                        });
+                        new BlobFile
+                        {
+                            ImageUrl = fileData.ImageUrl,
+                            ContentType = fileData.ContentType,
+                            FileName = fileData.FileName,
+                            PublicPath = fileData.PublicPath,
+                        }
+                    );
                 }
                 return uploadedFiles;
             }
@@ -137,27 +280,32 @@ namespace BBS.Interactors
             }
         }
 
-        private PersonDto CreatePerson(RegisterUserDto registerUserDto)
+        private Person CreatePerson(RegisterUserDto registerUserDto, int roleId)
         {
-            Person mappedRequest = _registerUserUtils.ParsePersonFromRequest(registerUserDto);
+            registerUserDto.PersonalInfo.VerificationState = 
+                    roleId == (int)Roles.INVESTOR ? 
+                    (int)States.PENDING : (int)States.COMPLETED;
+
+            Person mappedRequest = RegisterUserUtils.ParsePersonFromRequest(registerUserDto);
 
             var createdPerson = _repository
                 .PersonManager
                 .InsertPerson(mappedRequest);
-            var mappedResponse = _mapper.Map<PersonDto>(createdPerson);
-            return mappedResponse;
+            return createdPerson;
         }
 
         private UserLogin CreateUserLogin(UserLoginDto userLogin, int personId)
         {
-            userLogin.PersonId = personId;
             var hashed = _hashManager.HashWithSalt(userLogin.Passcode);
             var mappedRequest = new UserLogin()
             {
                 PasswordHash = hashed[0],
                 PasswordSalt = hashed[1],
                 PersonId = personId,
-                Passcode = _hashManager.EncryptPlainText(userLogin.Passcode)
+                Passcode = _hashManager.EncryptPlainText(userLogin.Passcode),
+                RefreshToken = "",
+                AddedById = personId,
+                ModifiedById = personId
             };
 
             var createdUserLoginProfile = _repository
@@ -167,22 +315,22 @@ namespace BBS.Interactors
             return createdUserLoginProfile;
         }
 
-        private void CreateUserRole(int userLoginId)
+        private void CreateUserRole(int userLoginId, int roleId)
         {
-            UserRoleDto userRole = InitUserRoleDto(userLoginId);
+            UserRoleDto userRole = InitUserRoleDto(userLoginId, roleId);
             var mappedRequest = _mapper.Map<UserRole>(userRole);
             _repository
                 .UserRoleManager
                 .InsertUserRole(mappedRequest);
         }
 
-        private UserRoleDto InitUserRoleDto(int userLoginId)
+        private static UserRoleDto InitUserRoleDto(int userLoginId, int roleId)
         {
-            int roleId = (int)Roles.INVESTOR;
-
-            var userRole = new UserRoleDto();
-            userRole.UserLoginId = userLoginId;
-            userRole.RoleId = roleId;
+            var userRole = new UserRoleDto
+            {
+                UserLoginId = userLoginId,
+                RoleId = roleId
+            };
 
             return userRole;
         }

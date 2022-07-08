@@ -1,6 +1,6 @@
 using BBS.Entities;
+using BBS.Middlewares;
 using BBS.Swagger.Extensions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using NLog; 
@@ -17,6 +17,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<BusraDbContext>(options => options.UseNpgsql(connectionString));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+/*
+services.Configure<SendGridEmailSenderOptions>(options =>
+{
+    options.ApiKey = Configuration["ExternalProviders:SendGrid:ApiKey"];
+    options.SenderEMail = Configuration["ExternalProviders:SendGrid:SenderEmail"]; 
+    options.SenderName = Configuration["ExternalProviders:SendGrid:SenderName"];
+});
+*/
 builder.Services.ConfigureJWTToken();
 builder.Services.ConfigureRepositoryWrapper();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -25,7 +33,10 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => { 
+
+    
+});
 
 
 var app = builder.Build();
@@ -33,6 +44,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging())
 {
+    app.UseMiddleware<SwaggerAuthenticationMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();    
     app.UseDeveloperExceptionPage();

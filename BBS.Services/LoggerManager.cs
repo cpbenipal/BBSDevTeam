@@ -6,35 +6,35 @@ namespace BBS.Services.Repository
     public class LoggerManager : ILoggerManager
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
-        public void LogDebug(string message)
+        public void LogDebug(string message, int personId)
         {
-            logger.Debug(message);
+            logger.Debug("{" + message + " { personId : " + personId + "}, } \n");
         }
-        public void LogError(Exception ex)
+        public void LogError(Exception ex, int personId)
         {
-            logger.Error(ex, ExeptionHelper.GetaAllErrors(ex));
+            logger.Error(ex, "{" + ExeptionHelper.GetAllErrors(ex) + " { personId : " + personId + "}, } \n");
         }
-        public void LogError_Wrapper(string api, string errorMessage)
+        public void LogError_Wrapper(string api, string errorMessage, int personId)
         {
-            logger.Error("ERROR from .net core wrapper :: " + api + " | Message:" + errorMessage);
+            logger.Error("ERROR from .net core wrapper :: " + api + " | Message:" + errorMessage + " | personId:" + personId + "\n");
         }
-        public void LogError(string api, string errorCode, string errorMessage)
+        public void LogError(string api, string errorCode, string errorMessage, int personId)
         {
-            logger.Error("ERROR from Legacy API :: " + api + " | ErrorCode:" + errorCode + " | Message:" + errorMessage);
+            logger.Error("ERROR from Legacy API :: " + api + " | ErrorCode:" + errorCode + " | Message:" + errorMessage + " | personId:" + personId + "\n");
         }
-        public void LogError(string api, string errorCode, string errorMessage, string errorCommendation, string errorRecordId)
+        public void LogError(string api, string errorCode, string errorMessage, string errorCommendation, string errorRecordId, int personId)
         {
             logger.Error("ERROR from Legacy API :: " + api + " | ErrorCode:" + errorCode + " | Message:" + errorMessage
                 + (errorCommendation != null ? " | ERRORRECOMMENDATION:" + errorCommendation : "")
-                + (errorRecordId != null ? " | ERRORRECORDID:" + errorRecordId : ""));
+                + (errorRecordId != null ? " | ERRORRECORDID:" + errorRecordId : "" + " | personId:" + personId + "\n"));
         }
-        public void LogInfo(string message)
+        public void LogInfo(string message, int personId)
         {
-            logger.Info(message);
+            logger.Info("{" + message + " { personId : " + personId + "}, } \n");
         }
-        public void LogWarn(string message)
+        public void LogWarn(string message, int personId)
         {
-            logger.Warn(message);
+            logger.Warn("{" + message + " { personId : " + personId + "}, } \n");
         }
     }
 
@@ -62,9 +62,9 @@ namespace BBS.Services.Repository
             return FromHierarchy(source, nextItem, s => s != null);
         }
 
-        public static string GetaAllErrors(this Exception exception)
+        public static string GetAllErrors(this Exception exception)
         {
-            var messages = exception.FromHierarchy(ex => ex.InnerException)
+            var messages = exception.FromHierarchy(ex => ex.InnerException!)
                 .Select(ex => ex.Message);
             return String.Join(Environment.NewLine, messages);
         }

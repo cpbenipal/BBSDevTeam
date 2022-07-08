@@ -6,8 +6,8 @@ namespace BBS.Services.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private BusraDbContext _repoContext;
-        private IHashManager _hashManager;
+        private readonly BusraDbContext _repoContext;
+        private readonly IHashManager _hashManager;
         public RepositoryWrapper(BusraDbContext repositoryContext, IHashManager hashManager)
         {
             _repoContext = repositoryContext;
@@ -105,7 +105,7 @@ namespace BBS.Services.Repository
             {
                 if (_personalAttachmentManager == null)
                 {
-                    var repositoryBase = new RepositoryBase<Attachment>(_repoContext);
+                    var repositoryBase = new RepositoryBase<PersonalAttachment>(_repoContext);
                     _personalAttachmentManager = new PersonalAttachmentManager(repositoryBase);
                 }
                 return _personalAttachmentManager;
@@ -194,6 +194,202 @@ namespace BBS.Services.Repository
                     _share = new ShareManager(repositoryBase);
                 }
                 return _share;
+            }
+        }
+
+        private IIssuedDigitalShareManager _issuedShare;
+        public IIssuedDigitalShareManager IssuedDigitalShareManager
+        {
+            get
+            {
+                if (_issuedShare == null)
+                {
+                    var repositoryBase = new RepositoryBase<IssuedDigitalShare>(_repoContext);
+                    _issuedShare = new IssuedDigitalShareManager(repositoryBase);
+                }
+                return _issuedShare;
+            }
+        }
+
+        private IEmployementTypeManager _employementType;
+        public IEmployementTypeManager EmployementTypeManager
+        {
+            get
+            {
+                if (_employementType == null)
+                {
+                    var repositoryBase = new RepositoryBase<EmployementType>(_repoContext);
+                    _employementType = new EmployementTypeManager(repositoryBase);
+                }
+                return _employementType;
+            }
+        }
+
+        private ICompanyManager _company;
+        public ICompanyManager CompanyManager
+        {
+            get
+            {
+                if (_company == null)
+                {
+                    var repositoryBase = new RepositoryBase<Company>(_repoContext);
+                    _company = new CompanyManager(repositoryBase);
+                }
+                return _company;
+            }
+        }
+
+        private IStateManager _state;
+        public IStateManager StateManager
+        {
+            get
+            {
+                if (_state == null)
+                {
+                    var repositoryBase = new RepositoryBase<State>(_repoContext);
+                    _state = new StateManager(repositoryBase);
+                }
+                return _state;
+            }
+        }
+
+        private IOfferTypeManager _offerType;
+        public IOfferTypeManager OfferTypeManager
+        {
+            get
+            {
+                if (_offerType == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferType>(_repoContext);
+                    _offerType = new OfferTypeManager(repositoryBase);
+                }
+                return _offerType;
+            }
+        }
+
+        private IOfferedShareManager _offeredShare;
+        public IOfferedShareManager OfferedShareManager
+        {
+            get
+            {
+                if (_offeredShare == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferedShare>(_repoContext);
+                    _offeredShare = new OfferedShareManager(repositoryBase);
+                }
+                return _offeredShare;
+            }
+        }
+
+        private IOfferTimeLimitManager _offerTimeLimit;
+        public IOfferTimeLimitManager OfferTimeLimitManager
+        {
+            get
+            {
+                if (_offerTimeLimit == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferTimeLimit>(_repoContext);
+                    _offerTimeLimit = new OfferTimeLimitManager(repositoryBase);
+                }
+                return _offerTimeLimit;
+            }
+        }
+
+        private IOfferPaymentManager _offerPayment;
+        public IOfferPaymentManager OfferPaymentManager
+        {
+            get
+            {
+                if (_offerPayment == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferPayment>(_repoContext);
+                    _offerPayment = new OfferPaymentManager(repositoryBase);
+                }
+                return _offerPayment;
+            }
+        }
+
+        private IPaymentTypeManager _paymentType;
+        public IPaymentTypeManager PaymentTypeManager
+        {
+            get
+            {
+                if (_paymentType == null)
+                {
+                    var repositoryBase = new RepositoryBase<PaymentType>(_repoContext);
+                    _paymentType = new PaymentTypeManager(repositoryBase);
+                }
+                return _paymentType;
+            }
+        }
+
+        private IBidShareManager _bidShare;
+        public IBidShareManager BidShareManager
+        {
+            get
+            {
+                if (_bidShare == null)
+                {
+                    var repositoryBase = new RepositoryBase<BidShare>(_repoContext);
+                    _bidShare = new BidShareManager(repositoryBase);
+                }
+                return _bidShare;
+            }
+        }
+
+        private IInvestorDetailManager _investorDetail;
+        public IInvestorDetailManager InvestorDetailManager
+        {
+            get
+            {
+                if (_investorDetail == null)
+                {
+                    var repositoryBase = new RepositoryBase<InvestorDetail>(_repoContext);
+                    _investorDetail = new InvestorDetailManager(repositoryBase);
+                }
+                return _investorDetail;
+            }
+        }
+
+        private IInvestorRiskTypeManager _investorRiskType;
+        public IInvestorRiskTypeManager InvestorRiskTypeManager
+        {
+            get
+            {
+                if (_investorRiskType == null)
+                {
+                    var repositoryBase = new RepositoryBase<InvestorRiskType>(_repoContext);
+                    _investorRiskType = new InvestorRiskTypeManager(repositoryBase);
+                }
+                return _investorRiskType;
+            }
+        }
+
+        private IInvestorTypeManager _investorType;
+        public IInvestorTypeManager InvestorTypeManager
+        {
+            get
+            {
+                if (_investorType == null)
+                {
+                    var repositoryBase = new RepositoryBase<InvestorType>(_repoContext);
+                    _investorType = new InvestorTypeManager(repositoryBase);
+                }
+                return _investorType;
+            }
+        }
+
+        private ICategoryManager _category;
+        public ICategoryManager CategoryManager
+        {
+            get
+            {
+                if (_category == null)
+                {
+                    var repositoryBase = new RepositoryBase<Category>(_repoContext);
+                    _category = new CategoryManager(repositoryBase);
+                }
+                return _category;
             }
         }
     }

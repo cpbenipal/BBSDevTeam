@@ -1,3 +1,7 @@
-﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BaseEntity.cs
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\AttachmentCountLowException.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\EmiratesIDExistsException.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\RegisterUserException.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\UserAlreadyExistsException.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BaseEntity.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BlobFiles.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\Roles.cs

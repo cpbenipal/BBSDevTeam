@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Attachment.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\CertificateType.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Company.cs
@@ -14,3 +15,13 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\State.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\StorageLocation.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\UserLogin.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\UserRole.cs
+=======
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BaseEntity.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BlobFile.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\CertificateContent.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\FileUploadExtensions.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\InvestorTypes.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\OfferTypes.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\Roles.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\States.cs
+>>>>>>> API7
