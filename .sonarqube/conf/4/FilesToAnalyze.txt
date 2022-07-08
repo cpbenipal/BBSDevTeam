@@ -1,0 +1,4 @@
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\BusraDbContext.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220421092019_1.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220421092019_1.Designer.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\BusraDbContextModelSnapshot.cs

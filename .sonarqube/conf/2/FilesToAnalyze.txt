@@ -1,0 +1,16 @@
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Attachment.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\CertificateType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Company.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Country.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\DebtRound.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\EquityRound.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\GrantType.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Nationality.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Person.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Restriction.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Role.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\Share.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\State.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\StorageLocation.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\UserLogin.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Models\UserRole.cs

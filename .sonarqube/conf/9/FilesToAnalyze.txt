@@ -1,0 +1,16 @@
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Extensions\ServiceExtensions.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\MappingProfile.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Program.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.GlobalUsings.g.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.AssemblyInfo.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.MvcApplicationPartsAssemblyInfo.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\nlog.config
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\appsettings.Development.json
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\appsettings.json
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\busrafiles\createStockTable.PNG
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\busrafiles\dummytokengenerator.PNG
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\launchSettings.json
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile.pubxml
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile1.pubxml
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile2.pubxml

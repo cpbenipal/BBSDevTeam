@@ -1,0 +1,5 @@
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\AuthController.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\GetProfileInformationController.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\GetRegisteredSharesController.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\RegisterShareController.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\RegistrationController.cs

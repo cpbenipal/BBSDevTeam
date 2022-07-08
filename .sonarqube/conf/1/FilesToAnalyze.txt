@@ -1,0 +1,3 @@
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BaseEntity.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BlobFiles.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\Roles.cs
