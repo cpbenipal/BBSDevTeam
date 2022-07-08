@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\AuthController.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\GetProfileInformationController.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\GetRegisteredSharesController.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\RegisterShareController.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\Controllers\RegistrationController.cs
-=======
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\CommonUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\EmailHelperUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\GenerateHtmlCertificate.cs
@@ -18,4 +11,3 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\IssueDigitalShareUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\OfferPaymentUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\RegisterShareUtils.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\RegisterUserUtils.cs
->>>>>>> API7

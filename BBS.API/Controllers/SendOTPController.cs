@@ -6,11 +6,11 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SendOTPController : ControllerBase
+    public class SendOtpController : ControllerBase
     {
         private readonly SendOTPInteractor _sendOtpInteractor;
 
-        public SendOTPController(SendOTPInteractor sendOtpInteractor)
+        public SendOtpController(SendOTPInteractor sendOtpInteractor) 
         {
             _sendOtpInteractor = sendOtpInteractor;
         }

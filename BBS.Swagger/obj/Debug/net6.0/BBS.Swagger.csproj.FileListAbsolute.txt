@@ -277,3 +277,17 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\refint\BBS.S
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.pdb
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.genruntimeconfig.cache
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\ref\BBS.Swagger.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\CoreHtmlToImage.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\MailKit.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\MimeKit.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\NSwag.Annotations.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\SendGrid.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\StarkbankEcdsa.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\Twilio.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.CustomExceptions.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\EmailSender.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.Middlewares.pdb
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\EmailSender.pdb
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\bin\Debug\net6.0\BBS.CustomExceptions.pdb

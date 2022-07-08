@@ -55,3 +55,5 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\obj\Debug\net6.0\BBS.Utils.dll
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\obj\Debug\net6.0\refint\BBS.Utils.dll
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\obj\Debug\net6.0\BBS.Utils.pdb
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\obj\Debug\net6.0\ref\BBS.Utils.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\bin\Debug\net6.0\BBS.Services.Contracts.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Utils\bin\Debug\net6.0\BBS.Services.Contracts.pdb

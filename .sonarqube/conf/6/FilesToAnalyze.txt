@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Interactors\GetProfileInformationInteractor.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Interactors\GetRegisteredSharesInteractor.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Interactors\LoginUserInteractor.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Interactors\RegisterShareInteractor.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Interactors\RegisterUserInteractor.cs
-=======
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\BusraDbContext.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220615093735_0.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220615093735_0.Designer.cs
@@ -13,4 +6,3 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220620084130_1.
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220704080054_Add Category Table.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\20220704080054_Add Category Table.Designer.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Entities\Migrations\BusraDbContextModelSnapshot.cs
->>>>>>> API7
