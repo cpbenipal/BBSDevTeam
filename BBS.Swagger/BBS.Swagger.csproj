@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <CodeAnalysisRuleSet>..\.sonarlint\bbscsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\bbs\CSharp\SonarLint.xml" Link="SonarLint.xml" />
     <Content Include="email_templates\bid_share.html" />
     <Content Include="email_templates\verify_email.html" />
     <Content Include="email_templates\change_share_status.html" />

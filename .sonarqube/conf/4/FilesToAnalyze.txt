@@ -1,0 +1,3 @@
+﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\EmailSender\EmailHelperModel.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\EmailSender\INewEmailSender.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\EmailSender\NewEmailSender.cs

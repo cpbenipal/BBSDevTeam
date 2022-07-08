@@ -1,0 +1,12 @@
+{
+  "ServerUri": " http://localhost:9000",
+  "Organization": null,
+  "ProjectKey": "BBS",
+  "ProjectName": "BBS",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AYHYeWt_OjjNAlT9vQzi",
+      "ProfileTimestamp": "2022-07-07T11:44:04Z"
+    }
+  }
+}
