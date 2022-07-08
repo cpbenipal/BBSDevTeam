@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+      "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
       "projectName": "BBS.Models",
-      "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+      "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
       "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\obj\\",
+      "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -60,8 +60,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+            "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
             }
           }
         }
@@ -90,7 +90,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

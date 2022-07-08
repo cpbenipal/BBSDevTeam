@@ -6532,11 +6532,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
+      "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
       "projectName": "BBS.API",
-      "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
+      "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.API\\BBS.API.csproj",
       "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.API\\obj\\",
+      "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
@@ -6559,14 +6559,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj"
+            "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Interactors\\BBS.Interactors.csproj"
             },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+            "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
             },
-            "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-              "projectPath": "D:\\Projects\\DevTeam\\Nahom\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+            "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+              "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
             }
           }
         }
@@ -6605,7 +6605,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
