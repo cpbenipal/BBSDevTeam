@@ -76,7 +76,8 @@ namespace BBS.Interactors
             var person = _repositoryWrapper.PersonManager.GetPerson(extractedTokenValues.PersonId);
             if (person.VerificationState != (int)States.COMPLETED)
             {
-                throw new Exception("Investor Account is not completed");
+                _loggerManager.LogWarn("Investor Account is not completed", extractedTokenValues.PersonId);
+                return ReturnErrorStatus("Investor Account is not completed");
             }
 
             var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 

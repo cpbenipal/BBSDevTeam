@@ -256,28 +256,21 @@ namespace BBS.Interactors
 
         private List<BlobFile> UploadFilesToAzureBlob(IEnumerable<IFormFile> files)
         {
-            try
+            List<BlobFile> uploadedFiles = new();
+            foreach (var item in files)
             {
-                List<BlobFile> uploadedFiles = new();
-                foreach (var item in files)
-                {
-                    var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.DOCUMENT);
-                    uploadedFiles.Add(
-                        new BlobFile
-                        {
-                            ImageUrl = fileData.ImageUrl,
-                            ContentType = fileData.ContentType,
-                            FileName = fileData.FileName,
-                            PublicPath = fileData.PublicPath,
-                        }
-                    );
-                }
-                return uploadedFiles;
+                var fileData = _uploadService.UploadFileToBlob(item, FileUploadExtensions.DOCUMENT);
+                uploadedFiles.Add(
+                    new BlobFile
+                    {
+                        ImageUrl = fileData.ImageUrl,
+                        ContentType = fileData.ContentType,
+                        FileName = fileData.FileName,
+                        PublicPath = fileData.PublicPath,
+                    }
+                );
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            return uploadedFiles;
         }
 
         private Person CreatePerson(RegisterUserDto registerUserDto, int roleId)

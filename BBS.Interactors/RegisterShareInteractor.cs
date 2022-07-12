@@ -1,6 +1,5 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
-using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using EmailSender;
@@ -56,11 +55,11 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ErrorStatus(ex.Message);
+                return ReturnErrorStatus(ex.Message);
             }
         }
 
-        private GenericApiResponse ErrorStatus(string message)
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
                 message,
@@ -76,9 +75,14 @@ namespace BBS.Interactors
             var person = _repository.PersonManager.GetPerson(extractedTokenValues.PersonId);
             if(person.VerificationState != (int)States.COMPLETED)
             {
-                throw new Exception("Investor Account is not completed");
+                _loggerManager.LogWarn("Investor Account is not completed", extractedTokenValues.PersonId);
+                return ReturnErrorStatus("Investor Account is not completed");
             }
-            var duplicates = CheckDuplicateShares(extractedTokenValues.UserLoginId, registerShareDto.ShareInformation.CompanyName);
+            var duplicates = CheckDuplicateShares(
+                extractedTokenValues.UserLoginId, 
+                registerShareDto.ShareInformation.CompanyName
+            );
+
             if (duplicates)
             {
                 _loggerManager.LogWarn("Share Already Registered", extractedTokenValues.PersonId);
@@ -87,10 +91,7 @@ namespace BBS.Interactors
 
             return HandleRegisteringShare(registerShareDto, extractedTokenValues);
         }
-        private GenericApiResponse ReturnErrorStatus(string s)
-        {
-            return _responseManager.ErrorResponse(s,StatusCodes.Status400BadRequest);
-        }
+
 
         private GenericApiResponse HandleRegisteringShare(
             RegisterShareDto registerShareDto, 
@@ -110,7 +111,6 @@ namespace BBS.Interactors
             var insertedShare =
                 _repository.ShareManager.InsertShare(shareToInsert);
 
-            //HandleInsertingCompanyIfNotAlreadyRegistered(registerShareDto);
             NotifyAdminAndUserAboutShareRegistration(
                 insertedShare.Id          
             );
@@ -173,18 +173,6 @@ namespace BBS.Interactors
             };
         }
 
-        private void HandleInsertingCompanyIfNotAlreadyRegistered(RegisterShareDto registerShareDto)
-        {
-            if (_repository.CompanyManager.GetCompanyByName(registerShareDto.ShareInformation.CompanyName) == null)
-            {
-                _repository.CompanyManager.InsertCompany(new Company
-                {
-                    Name = registerShareDto.ShareInformation.CompanyName,
-                    Description = "ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-                });
-            }
-        }
-
         private bool CheckDuplicateShares(int userLoginId, string company)
         {
             var duplicates = _repository.ShareManager.GetSharesByUserLoginAndCompanyId(
@@ -200,7 +188,7 @@ namespace BBS.Interactors
 
         private BlobFile UploadFileToAzureBlob(IFormFile file, List<string> validExtensions)
         {
-            BlobFile uploadedFileData = new BlobFile();
+            BlobFile uploadedFileData = new();
             if (file != null)
             {
                 var fileData = _uploadService.UploadFileToBlob(file, validExtensions);

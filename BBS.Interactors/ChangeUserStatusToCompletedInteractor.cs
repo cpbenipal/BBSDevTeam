@@ -49,7 +49,7 @@ namespace BBS.Interactors
 
                 if(extractedFromToken.RoleId != (int)Roles.ADMIN)
                 {
-                    throw new Exception("Access Denied");
+                    return ReturnErrorStatus("Access Denied");
                 }
 
                 return TryChangingUserStatusToCompleted(personId);
@@ -57,14 +57,14 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't Change Status");
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Change Status", StatusCodes.Status500InternalServerError
+                message, StatusCodes.Status500InternalServerError
             );
         }
 
@@ -75,7 +75,7 @@ namespace BBS.Interactors
             var person = _repositoryWrapper.PersonManager.GetPerson(personId);
             if(person == null)
             {
-                throw new Exception("Person Doesnt exist");
+                return ReturnErrorStatus("Person Doesnt exist");
             }
 
             person.ModifiedDate = DateTime.Now;

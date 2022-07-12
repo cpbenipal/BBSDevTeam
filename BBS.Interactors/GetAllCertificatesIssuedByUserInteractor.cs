@@ -47,7 +47,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't get certificate ");
             }
         }
 
@@ -57,7 +57,7 @@ namespace BBS.Interactors
         )
         {
 
-            List<IssuedDigitalShare> allIssuedSharesForPerson = new();
+            List<IssuedDigitalShare> allIssuedSharesForPerson;
 
             if (extractedFromToken.RoleId == (int)Roles.INVESTOR)
             {
@@ -66,6 +66,11 @@ namespace BBS.Interactors
 
             else
             {
+                if(personId == null)
+                {
+                    return ReturnErrorStatus("Person Not Found");
+                }
+
                 allIssuedSharesForPerson = GetSharesToDisplayForAdmin(personId);
             }
 
@@ -81,19 +86,8 @@ namespace BBS.Interactors
         private List<IssuedDigitalShare> GetSharesToDisplayForAdmin(int? personId)
         {
             List<IssuedDigitalShare> allIssuedSharesForPerson;
-            if (personId == null)
-            {
-                throw new Exception("User Not Found");
-            }
-
-            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginByPerson((int)personId);
-
-            if (userLogin == null)
-            {
-                throw new Exception("Invalid User");
-            }
-
-            allIssuedSharesForPerson = GetAllSharesForPerson(userLogin.Id);
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginByPerson((int)personId!);
+            allIssuedSharesForPerson = GetAllSharesForPerson(userLogin!.Id);
             return allIssuedSharesForPerson;
         }
 
@@ -108,10 +102,10 @@ namespace BBS.Interactors
             return _uploadService.GetFilePublicUri(s.CertificateUrl);
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't get certificate ", StatusCodes.Status500InternalServerError
+                message, StatusCodes.Status500InternalServerError
             );
         }
     }

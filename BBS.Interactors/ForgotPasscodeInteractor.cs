@@ -60,7 +60,10 @@ namespace BBS.Interactors
                 };
 
                 var message = _emailHelperUtils.FillEmailContents(
-                    contentToSend, "new_passcode", contentToSend.FirstName, contentToSend.LastName
+                    contentToSend, 
+                    "new_passcode", 
+                    contentToSend.FirstName!, 
+                    contentToSend.LastName!
                 );
 
                 _emailSender.SendEmail(

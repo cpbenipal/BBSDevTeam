@@ -49,7 +49,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus(ex.Message);
             }
 
         }
@@ -60,7 +60,7 @@ namespace BBS.Interactors
         {
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                throw new Exception("Access Denied!");
+                return ReturnErrorStatus("Access Denied!");
             }
 
             List<OfferedShare> allOfferedShares = _repositoryWrapper
@@ -80,10 +80,10 @@ namespace BBS.Interactors
 
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Error In Fetching Offered Shares",
+                message,
                 StatusCodes.Status500InternalServerError
             );
         }

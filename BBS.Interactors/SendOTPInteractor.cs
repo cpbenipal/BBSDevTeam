@@ -106,7 +106,10 @@ namespace BBS.Interactors
             else
             {
                 _loggerManager.LogWarn("SendOtp : Seems this email already register.", 0);
-                return _responseManager.SuccessResponse("Seems this email already register.", StatusCodes.Status302Found, "");
+                return _responseManager.SuccessResponse(
+                    "Seems this email already register.", 
+                    StatusCodes.Status302Found, ""
+                );
             }
         }
 

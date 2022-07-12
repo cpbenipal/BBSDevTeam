@@ -28,7 +28,10 @@ namespace BBS.Interactors
 
         }
 
-        public GenericApiResponse GetPrivatelyOfferedShareByPrivateKey(string token, string offerPrivateKey)
+        public GenericApiResponse GetPrivatelyOfferedShareByPrivateKey(
+            string token, 
+            string offerPrivateKey
+        )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
@@ -39,12 +42,15 @@ namespace BBS.Interactors
                    CommonUtils.JSONSerialize(offerPrivateKey),
                    extractedFromToken.PersonId
                 );
-                return TryGettingPrivatelyOfferedShareByPrivateKey(extractedFromToken, offerPrivateKey);
+                return TryGettingPrivatelyOfferedShareByPrivateKey(
+                    extractedFromToken, 
+                    offerPrivateKey
+                );
             }
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus(ex.Message);
             }
         }
 
@@ -62,7 +68,7 @@ namespace BBS.Interactors
 
             if(privatelyOfferedShare == null)
             {
-                throw new Exception("Couldn't fetch private auction with that link");
+                return ReturnErrorStatus("Couldn't fetch private auction with that link");
             }
 
             var response = _getAllOfferedSharesUtils.BuildOfferedShare(privatelyOfferedShare);
@@ -73,10 +79,10 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Error In Getting OfferedShare By Private Key",
+                message,
                 StatusCodes.Status500InternalServerError
             );
         }

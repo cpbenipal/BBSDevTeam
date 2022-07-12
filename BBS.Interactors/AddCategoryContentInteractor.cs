@@ -64,7 +64,7 @@ namespace BBS.Interactors
          
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                throw new Exception("Access Denied");
+                return ReturnErrorStatus("Access Denied");
             }
 
             var categoryToUpdate = _repositoryWrapper
@@ -74,7 +74,7 @@ namespace BBS.Interactors
 
             if(categoryToUpdate == null)
             {
-                throw new Exception("Category With the Id you Entered is not found");
+                return ReturnErrorStatus("Category With the Id you Entered is not found");
             }
 
 

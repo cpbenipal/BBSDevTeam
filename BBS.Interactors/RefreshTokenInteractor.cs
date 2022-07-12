@@ -31,22 +31,22 @@ namespace BBS.Interactors
             try
             {
                 _loggerManager.LogInfo("InsertOfferedShares : " + CommonUtils.JSONSerialize(model), 0);
-                return TryRefreshingToken(model.AccessToken, model.RefreshToken);
+                return TryRefreshingToken(model.AccessToken);
             }
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, 0);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't Refresh Token");
             }
         }
 
-        private GenericApiResponse TryRefreshingToken(string accessToken, string refreshToken)
+        private GenericApiResponse TryRefreshingToken(string accessToken)
         {
 
             var principal = _tokenManager.GetPrincipalFromExpiredToken(accessToken);
             if(principal == null)
             {
-                throw new Exception("Invalid access token or refresh token");
+                return ReturnErrorStatus("Invalid access token or refresh token");
             }
 
             int userLoginId = int.Parse(principal!.Claims.First(x => x.Type == "UserLoginId").Value);
@@ -54,7 +54,7 @@ namespace BBS.Interactors
 
             if (userLogin == null)
             {
-                throw new Exception("Unauthorized Access");
+                return ReturnErrorStatus("Unauthorized Access");
             }
 
             var userRole = _repository.UserRoleManager.GetUserRoleByUserLoginId(userLogin.Id);
@@ -83,10 +83,10 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Refresh Token",
+                message,
                 StatusCodes.Status202Accepted
             );
         }

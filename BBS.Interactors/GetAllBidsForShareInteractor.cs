@@ -47,7 +47,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't get bids for this share");
             }
         }
 
@@ -58,7 +58,7 @@ namespace BBS.Interactors
         {
             if(extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                throw new Exception("Unauthorized Access");
+                return ReturnErrorStatus("Access Denied");
             }
 
             var allBidShares = _repositoryWrapper.BidShareManager.GetAllBidShares();
@@ -91,10 +91,10 @@ namespace BBS.Interactors
             return false;
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't get bids for this share", StatusCodes.Status500InternalServerError
+                message, StatusCodes.Status500InternalServerError
             );
         }
     }

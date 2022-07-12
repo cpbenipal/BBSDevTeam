@@ -41,7 +41,7 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't Get Investors Detail");
             }
         }
 
@@ -49,7 +49,7 @@ namespace BBS.Interactors
         {
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                throw new Exception("Access Denied.");
+                return ReturnErrorStatus("Access Denied.");
             }
 
             var allShares = _repositoryWrapper.ShareManager.GetAllShares();
@@ -75,10 +75,10 @@ namespace BBS.Interactors
 
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Get Investors Detail",
+                message,
                 StatusCodes.Status500InternalServerError
             );
         }

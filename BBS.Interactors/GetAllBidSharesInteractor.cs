@@ -44,14 +44,14 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Error In Fetching Bid Shares");
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Error In Fetching Bid Shares", 
+                message, 
                 StatusCodes.Status500InternalServerError
             );
         }

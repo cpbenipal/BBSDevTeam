@@ -57,9 +57,13 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllCertificates(int? issuedDigitalShareId, TokenValues tokenValues)
+        private GenericApiResponse TryGettingAllCertificates(
+            int? issuedDigitalShareId, 
+            TokenValues tokenValues
+        )
         {
-            List<int> issuedDigitalShareIdList = GetCertificateIdList(issuedDigitalShareId, tokenValues);
+            List<int> issuedDigitalShareIdList = 
+                GetCertificateIdList(issuedDigitalShareId, tokenValues);
             List<GetAllCertificateDto> certificates = new();
 
             foreach (var item in issuedDigitalShareIdList)
@@ -76,21 +80,27 @@ namespace BBS.Interactors
             );
         }
 
-        private object GetResponse(List<GetAllCertificateDto> certificates)
+        private static object GetResponse(List<GetAllCertificateDto> certificates)
         {
             return (certificates.Count == 1 ? certificates.FirstOrDefault() : certificates)!;
         }
 
         private GetAllCertificateDto BuildIdAndUrlForCertificate(int id)
         {
-            var issuedShare = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(id);
-            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginById(issuedShare.UserLoginId);
+            var issuedShare = _repositoryWrapper
+                .IssuedDigitalShareManager
+                .GetIssuedDigitalShare(id);
+            var userLogin = _repositoryWrapper
+                .UserLoginManager
+                .GetUserLoginById(issuedShare.UserLoginId);
 
             var certificateFileName =
                 _repositoryWrapper
                 .IssuedDigitalShareManager
                 .GetIssuedDigitalShareCertificateUrl(id);
-            var publicUrl = _uploadService.GetFilePublicUri(certificateFileName);
+
+            var publicUrl = _uploadService
+                .GetFilePublicUri(certificateFileName);
 
             return new GetAllCertificateDto
             {
@@ -99,9 +109,12 @@ namespace BBS.Interactors
             };
         }
 
-        private List<int> GetCertificateIdList(int? issuedDigitalShareId, TokenValues tokenValues)
+        private List<int> GetCertificateIdList(
+            int? issuedDigitalShareId, 
+            TokenValues tokenValues
+        )
         {
-            List<int> issuedDigitalShareIdList;
+            List<int> issuedDigitalShareIdList = new();
             if (tokenValues.RoleId == (int)Roles.ADMIN && issuedDigitalShareId == null)
             {
                 issuedDigitalShareIdList =
@@ -113,11 +126,6 @@ namespace BBS.Interactors
             else if (issuedDigitalShareId != null)
             {
                 issuedDigitalShareIdList = new() { (int)issuedDigitalShareId };
-            }
-
-            else
-            {
-                throw new Exception("Please enter issuedDigitalShareId");
             }
 
             return issuedDigitalShareIdList;

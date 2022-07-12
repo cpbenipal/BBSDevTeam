@@ -84,24 +84,26 @@ namespace BBS.Interactors
             var person = _repository.PersonManager.GetPerson(valuesFromToken.PersonId);
             if (person.VerificationState != (int)States.COMPLETED)
             {
-                throw new Exception("Investor Account is not completed");
+                return ReturnErrorStatus("Investor Account is not completed");
             }
 
             var share = _repository.ShareManager.GetShare(digitalShare.ShareId);
 
-            if (share.VerificationState != (int)States.COMPLETED)
-            {
-                throw new Exception("Share is Not Verified Or Completed");
-            }
-
-            var usershares = _repository.ShareManager.GetAllSharesForUser(valuesFromToken.UserLoginId);
-            var digitalShares = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(valuesFromToken.UserLoginId);
             if (share == null)
             {
                 _loggerManager.LogWarn("This Share does not exist", valuesFromToken.PersonId);
                 return ReturnErrorStatus("This Share does not exist");
             }
-            else if (!usershares.Any(x => x.Id == digitalShare.ShareId))
+
+            if (share.VerificationState != (int)States.COMPLETED)
+            {
+                return ReturnErrorStatus("Share is Not Verified Or Completed");
+            }
+
+            var usershares = _repository.ShareManager.GetAllSharesForUser(valuesFromToken.UserLoginId);
+            var digitalShares = _repository.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(valuesFromToken.UserLoginId);
+
+            if (!usershares.Any(x => x.Id == digitalShare.ShareId))
             {
                 _loggerManager.LogWarn("This Share does not belong to user", valuesFromToken.PersonId);
                 return ReturnErrorStatus("This Share does not belong to user");
@@ -152,9 +154,13 @@ namespace BBS.Interactors
 
         }
 
-        private void NotifyAdminWhenShareIsDigitallyIssued(IssuedDigitalShare insertedDigialShare, Person personInfo)
+        private void NotifyAdminWhenShareIsDigitallyIssued(
+            IssuedDigitalShare insertedDigialShare, 
+            Person personInfo
+        )
         {
-            var contentToSend = _getIssuedDigitalSharesUtils.BuildDigitalShareFromDto(insertedDigialShare);
+            var contentToSend = 
+                _getIssuedDigitalSharesUtils.BuildDigitalShareFromDto(insertedDigialShare);
              
             var message = _emailHelperUtils.FillEmailContents(
                 contentToSend,
@@ -169,7 +175,11 @@ namespace BBS.Interactors
             _emailSender.SendEmail(personInfo.Email!, subject, message!, false);
         }
 
-        private BlobFile HandleIssuingCertificate(Share share, string signature, Person personInfo)
+        private BlobFile HandleIssuingCertificate(
+            Share share, 
+            string signature, 
+            Person personInfo
+        )
         {
             CertificateContent certificate = new()
             {
@@ -187,9 +197,9 @@ namespace BBS.Interactors
             return uploadedFile;
         }
 
-        private GenericApiResponse ReturnErrorStatus(string s)
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
-            return _responseManager.ErrorResponse(s, StatusCodes.Status400BadRequest);
+            return _responseManager.ErrorResponse(message, StatusCodes.Status400BadRequest);
         }
     }
 }

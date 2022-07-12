@@ -36,15 +36,15 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, 0);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Error in fetching Categories");
             }
 
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Error in fetching Categories",
+                message,
                 StatusCodes.Status500InternalServerError
             );
         }

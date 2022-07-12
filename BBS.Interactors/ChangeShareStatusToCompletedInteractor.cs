@@ -49,7 +49,7 @@ namespace BBS.Interactors
 
                 if (extractedFromToken.RoleId != (int)Roles.ADMIN)
                 {
-                    throw new Exception("Access Denied");
+                    return ReturnErrorStatus("Access Denied");
                 }
 
                 return TryChangingShareStatusToCompleted(shareId);
@@ -57,14 +57,14 @@ namespace BBS.Interactors
             catch (Exception ex)
             {
                 _loggerManager.LogError(ex, extractedFromToken.PersonId);
-                return ReturnErrorStatus();
+                return ReturnErrorStatus("Couldn't Change Share Status");
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus()
+        private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
-                "Couldn't Change Share Status", StatusCodes.Status500InternalServerError
+                message, StatusCodes.Status500InternalServerError
             );
         }
 

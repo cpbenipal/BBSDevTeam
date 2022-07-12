@@ -75,21 +75,22 @@ namespace BBS.Interactors
             var person = _repositoryWrapper.PersonManager.GetPerson(extractedFromToken.PersonId);
             if (person.VerificationState != (int)States.COMPLETED)
             {
-                throw new Exception("Investor Account is not completed");
+                return ReturnErrorStatus("Investor Account is not completed");
             }
 
             if (!CheckIfPaymentIsCompleted(bidShareDto.OfferedShareId)){
-                throw new Exception("Payment is not completed");
+
+                return ReturnErrorStatus("Payment is not completed");
             }
 
             if (!CheckOtherUserPrivateOfferShare(extractedFromToken.UserLoginId, bidShareDto.OfferedShareId))
             {
-                throw new Exception("This Share is offered by other user privately");
+                return ReturnErrorStatus("This Share is offered by other user privately");
             }
 
             if (IsShareAlreadyBid(bidShareDto.OfferedShareId, extractedFromToken.UserLoginId))
             {
-                throw new Exception("Offer already bid");
+                return ReturnErrorStatus("Offer already bid");
             }
 
             var mappedBidShare = _mapper.Map<BidShare>(bidShareDto);

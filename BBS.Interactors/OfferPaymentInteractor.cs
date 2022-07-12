@@ -74,15 +74,16 @@ namespace BBS.Interactors
             );
             if (person.VerificationState != (int)States.COMPLETED)
             {
-                throw new Exception("Investor Account is not completed");
+                return ReturnErrorStatus("Investor Account is not completed");
             }
 
-            if (FindDuplicateOfferShare(offerPaymentDto.OfferedShareId, extractedFromToken.UserLoginId))
+            if (
+                FindDuplicateOfferShare(
+                    offerPaymentDto.OfferedShareId, 
+                    extractedFromToken.UserLoginId
+                )
+            )
             {
-                // Call payment gateway here in future , if payment successfull then insert to OfferPayments table
-
-                // For now generate fake transactionId
-
                 var offerPaymentToInsert =
                 _offerPaymentUtils.ParseOfferPaymentDtoForInsert(
                     offerPaymentDto, extractedFromToken.UserLoginId
@@ -106,7 +107,10 @@ namespace BBS.Interactors
             }
             else
             {
-                return _responseManager.ErrorResponse("OfferShare is already Paid", StatusCodes.Status400BadRequest);
+                return _responseManager.ErrorResponse(
+                    "OfferShare is already Paid", 
+                    StatusCodes.Status400BadRequest
+                );
             }
         }
 
@@ -130,17 +134,11 @@ namespace BBS.Interactors
 
         }
 
-    private bool CheckOtherUserPrivateOfferShare(int userLoginId, int offeredShareId)
-    {
-        var privateShares = _repositoryWrapper.OfferedShareManager.GetPrivateOfferedSharesByUserId(userLoginId);
-        return privateShares.Any(x => x.Id == offeredShareId);
-    }
-
-    private bool FindDuplicateOfferShare(int offeredShareId, int userLoginId)
-        {
-            var payemtns =  _repositoryWrapper.OfferPaymentManager.GetOfferPaymentForUser(userLoginId);
+        private bool FindDuplicateOfferShare(int offeredShareId, int userLoginId)
+            {
+                var payemtns =  _repositoryWrapper.OfferPaymentManager.GetOfferPaymentForUser(userLoginId);
               
-            return !payemtns.Any(x=>x.OfferedShareId == offeredShareId);
+                return !payemtns.Any(x=>x.OfferedShareId == offeredShareId);
+            }
         }
-    }
 }

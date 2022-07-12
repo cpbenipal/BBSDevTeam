@@ -79,10 +79,6 @@ namespace BBS.Interactors
                 .CategoryManager
                 .GetCategoryById((int)categoryId!);
 
-            if (categoryFound == null)
-            {
-                throw new Exception("Category With this Id Not Found");
-            }
             var categories = new List<Category> { categoryFound! };
             return categories;
         }
