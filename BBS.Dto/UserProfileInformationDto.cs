@@ -17,9 +17,9 @@ namespace BBS.Dto
         public bool HaveConvicted { get; set; }
         public string City { get; set; }
         public string AddressLine { get; set; }
-        public string? EmiratesID { get; set; }
-        public string? VaultNumber { get; set; }
-        public string? IBANNumber { get; set; }
+        public string EmiratesID { get; set; }
+        public string VaultNumber { get; set; }
+        public string IBANNumber { get; set; }
         public string Country { get; set; }
         public string Nationality { get; set; }
         public string EmployementId { get; set; }
@@ -30,8 +30,8 @@ namespace BBS.Dto
         public bool HaveTraining { get; set; }
         public bool HaveExperience { get; set; }
         public string VerificationState { get; set; }
-        public string? EmiratesIdPictureFront { get; set; }
-        public string? EmiratesIdPictureBack { get; set; }
+        public string EmiratesIdPictureFront { get; set; }
+        public string EmiratesIdPictureBack { get; set; }
         public string Role { get; set; }
         public string InvestorType { get; set; }
         public string InvestorRiskType { get; set; }

@@ -10,7 +10,7 @@ namespace BBS.Dto
         public string FirstName { get; set; }
         
         [MaxLength(50)]
-        public string? LastName { get; set; }       
+        public string LastName { get; set; }       
         
         [Required]
         [EmailAddress]
