@@ -175,10 +175,6 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

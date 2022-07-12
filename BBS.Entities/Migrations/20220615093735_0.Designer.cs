@@ -13,7 +13,7 @@ namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
     [Migration("20220615093735_0")]
-    partial class _0
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
