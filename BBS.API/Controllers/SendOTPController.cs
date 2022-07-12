@@ -6,25 +6,25 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SendOTPController : ControllerBase
+    public class SendOtpController : ControllerBase
     {
-        private readonly SendOTPInteractor _sendOtpInteractor;
+        private readonly SendOtpInteractor _sendOtpInteractor;
 
-        public SendOTPController(SendOTPInteractor sendOtpInteractor)
+        public SendOtpController(SendOtpInteractor sendOtpInteractor)
         {
             _sendOtpInteractor = sendOtpInteractor;
         }
 
-        [HttpPost("SendOTP")]
-        public IActionResult SendOTP([FromBody] LoginUserOTPDto loginUserDto)
+        [HttpPost("SendOtp")]
+        public IActionResult SendOtp([FromBody] LoginUserOtpDto loginUserDto)
         {
-            return Ok(_sendOtpInteractor.SendOTP(loginUserDto));
+            return Ok(_sendOtpInteractor.SendOtp(loginUserDto));
         }
 
-        [HttpPost("VerifyOTP")]
-        public IActionResult VerifyOTP([FromBody] VerifyOTPDto loginUserDto)
+        [HttpPost("VerifyOtp")]
+        public IActionResult VerifyOtp([FromBody] VerifyOtpDto loginUserDto)
         {
-            return Ok(_sendOtpInteractor.VerifyOTP(loginUserDto));
+            return Ok(_sendOtpInteractor.VerifyOtp(loginUserDto));
         }
     }
 }

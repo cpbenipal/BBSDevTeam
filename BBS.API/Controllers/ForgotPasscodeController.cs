@@ -16,7 +16,7 @@ namespace BBS.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendOTP([FromBody] ForgotPasscodeDto forgotPassDto)
+        public IActionResult SendOtp([FromBody] ForgotPasscodeDto forgotPassDto)
         {
             return Ok(_forgotPasswordInteractor.ForgotPasscode(forgotPassDto));
         }

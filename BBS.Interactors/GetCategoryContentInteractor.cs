@@ -62,7 +62,7 @@ namespace BBS.Interactors
                 categories = BuildCategoryWithCurrentId(categoryId);
             }
 
-            object response = categories.Count == 0 ? 
+            object response = categories.Count == 1 ? 
                 categories[0].Content! : 
                 categories.Select(c => c.Content).ToList();
 

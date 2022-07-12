@@ -1,6 +1,6 @@
 ﻿namespace BBS.Dto
 {
-    public class SendOTPSuccessfullDto
+    public class SendOtpSuccessfullDto
     {
         public string NewPasscode { get; set; }
     }

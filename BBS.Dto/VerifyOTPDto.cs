@@ -2,11 +2,11 @@
 
 namespace BBS.Dto
 {
-    public class VerifyOTPDto
+    public class VerifyOtpDto
     {
         public string Email { get; set; }
 
         [MaxLength(4)]
-        public string OTP { get; set; }
+        public string Otp { get; set; }
     }
 }

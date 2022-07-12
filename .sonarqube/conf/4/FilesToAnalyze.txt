@@ -1,0 +1,4 @@
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\AttachmentCountLowException.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\EmiratesIDExistsException.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\RegisterUserException.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\UserAlreadyExistsException.cs

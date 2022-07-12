@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class SendOTPInteractor
+    public class SendOtpInteractor
     {
         private readonly INewEmailSender _emailSender;
         private readonly IApiResponseManager _responseManager;
@@ -15,7 +15,7 @@ namespace BBS.Interactors
         private readonly EmailHelperUtils _emailHelperUtils;
 
 
-        public SendOTPInteractor(
+        public SendOtpInteractor(
             INewEmailSender emailSender,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager, 
@@ -30,25 +30,25 @@ namespace BBS.Interactors
             _emailHelperUtils = emailHelperUtils;
         }
 
-        public GenericApiResponse VerifyOTP(VerifyOTPDto loginUserDto)
+        public GenericApiResponse VerifyOtp(VerifyOtpDto loginUserDto)
         {
             try
             {
                 if (loginUserDto.Email != String.Empty)
                 {
                     _loggerManager.LogInfo(
-                        "VerifyOTP : " + 
+                        "VerifyOtp : " + 
                         CommonUtils.JSONSerialize(loginUserDto), 0
                     );
                     return _responseManager.SuccessResponse(
                         "Successfull", 
                         StatusCodes.Status202Accepted, 
-                        new VerifyResponseDto { IsVerified = loginUserDto.OTP == "2604" }
+                        new VerifyResponseDto { IsVerified = loginUserDto.Otp == "2604" }
                     );
                 }
                 else
                 {
-                    _loggerManager.LogWarn("SendOTP : Email is required", 0);
+                    _loggerManager.LogWarn("SendOtp : Email is required", 0);
                     return _responseManager.SuccessResponse(
                         "Email should not empty", 
                         StatusCodes.Status302Found, 
@@ -63,7 +63,7 @@ namespace BBS.Interactors
             }
         }
 
-        public GenericApiResponse SendOTP(LoginUserOTPDto loginUserDto)
+        public GenericApiResponse SendOtp(LoginUserOtpDto loginUserDto)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace BBS.Interactors
             }
         }
 
-        private GenericApiResponse TrySendingOtp(LoginUserOTPDto loginUserDto)
+        private GenericApiResponse TrySendingOtp(LoginUserOtpDto loginUserDto)
         {
             var personWithThisEmail = 
                 _repository.PersonManager.GetPersonByEmailOrPhone(loginUserDto.Email);
@@ -87,7 +87,7 @@ namespace BBS.Interactors
             {
                 var contentToSend = new OtpSendingSuccessDto
                 {
-                    NewPasscode = loginUserDto.OTP,
+                    NewPasscode = loginUserDto.Otp,
                 };
 
                 var message =
@@ -95,17 +95,17 @@ namespace BBS.Interactors
 
                 _emailSender.SendEmail(
                     loginUserDto.Email,
-                    "OTP: Bursa Verification code.", 
+                    "Otp: Bursa Verification code.", 
                     message
                 );
-                _loggerManager.LogInfo("SendOTP : OTP sent to " + loginUserDto.Email, 0);
+                _loggerManager.LogInfo("SendOtp : Otp sent to " + loginUserDto.Email, 0);
                 return _responseManager.SuccessResponse(
                     "Bursa Verification code sent on Email", StatusCodes.Status202Accepted, ""
                 );
             }
             else
             {
-                _loggerManager.LogWarn("SendOTP : Seems this email already register.", 0);
+                _loggerManager.LogWarn("SendOtp : Seems this email already register.", 0);
                 return _responseManager.SuccessResponse("Seems this email already register.", StatusCodes.Status302Found, "");
             }
         }
