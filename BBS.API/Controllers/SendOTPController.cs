@@ -9,12 +9,9 @@ namespace BBS.API.Controllers
     public class SendOtpController : ControllerBase
     {
         private readonly SendOtpInteractor _sendOtpInteractor;
-
-<<<<<<< HEAD
-        public SendOtpController(SendOTPInteractor sendOtpInteractor) 
-=======
+         
         public SendOtpController(SendOtpInteractor sendOtpInteractor)
->>>>>>> RefactoredAPI7
+ 
         {
             _sendOtpInteractor = sendOtpInteractor;
         }

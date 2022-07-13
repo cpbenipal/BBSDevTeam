@@ -13,19 +13,8 @@ namespace BBS.Entities
             : base(options)
         {
         }
-
-<<<<<<< HEAD
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                // optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");                
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
-            }
-        }
-
-=======
->>>>>>> RefactoredAPI7
+          
+         
         // OnBoarding
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
@@ -188,7 +177,7 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
-<<<<<<< HEAD
+ 
             /*            
             modelBuilder.Entity<Person>().HasData(
                 new Person
@@ -261,8 +250,7 @@ namespace BBS.Entities
               }); 
             */
             OnModelCreatingPartial(modelBuilder);
-=======
->>>>>>> RefactoredAPI7
+ 
         }
     }
 }

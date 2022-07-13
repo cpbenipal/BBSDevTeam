@@ -52,3 +52,8 @@ D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Services\obj\Debug\net6.0\ref
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.pdb
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.genruntimeconfig.cache
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Services\obj\Debug\net6.0\ref\BBS.Services.Repository.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.AssemblyInfo.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services\obj\Debug\net6.0\BBS.Services.Repository.csproj.CoreCompileInputs.cache

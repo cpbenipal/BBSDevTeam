@@ -184,3 +184,9 @@ D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\refi
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.pdb
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.genruntimeconfig.cache
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Swagger\obj\Debug\net6.0\ref\BBS.Swagger.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.AssemblyInfo.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.csproj.CoreCompileInputs.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.MvcApplicationPartsAssemblyInfo.cache

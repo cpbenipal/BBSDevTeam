@@ -48,3 +48,8 @@ D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\refint\BBS.API.dll
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\BBS.API.pdb
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.API\obj\Debug\net6.0\ref\BBS.API.dll
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.AssemblyReference.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfoInputs.cache
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.AssemblyInfo.cs
+D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.API\obj\Debug\net6.0\BBS.API.csproj.CoreCompileInputs.cache
