@@ -18,13 +18,3 @@ D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Dto\obj\Debug\netcoreapp3.1\B
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.csproj.CoreCompileInputs.cache
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.dll
 D:\Projects\Farhal\Projects\BURSASYSTEMAPI\API\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.pdb
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\bin\Debug\netcoreapp3.1\BBS.Dto.deps.json
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\bin\Debug\netcoreapp3.1\BBS.Dto.dll
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\bin\Debug\netcoreapp3.1\BBS.Dto.pdb
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.csproj.AssemblyReference.cache
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.AssemblyInfoInputs.cache
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.AssemblyInfo.cs
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.csproj.CoreCompileInputs.cache
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.dll
-D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Dto\obj\Debug\netcoreapp3.1\BBS.Dto.pdb
