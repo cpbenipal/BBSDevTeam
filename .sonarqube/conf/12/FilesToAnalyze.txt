@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Extensions\ServiceExtensions.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\MappingProfile.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Program.cs
@@ -28,3 +29,35 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\launchSettings.jso
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile.pubxml
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile1.pubxml
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Swagger\Properties\PublishProfiles\FolderProfile2.pubxml
+=======
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\Extensions\ServiceExtensions.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\MappingProfile.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\Program.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.GlobalUsings.g.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.AssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\obj\Debug\net6.0\BBS.Swagger.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\nlog.config
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\appsettings.Development.json
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\appsettings.json
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\bid_share.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\verify_email.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\change_share_status.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\change_user_status.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\issue_digital_share.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\new_passcode.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\offered_share.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\register_share-approve.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\register_share.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\register_user.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\busrafiles\createStockTable.PNG
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\busrafiles\dummytokengenerator.PNG
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\certificate\assets\img\side1.png
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\certificate\assets\img\side2.png
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\certificate\index.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\email_templates\offer_payment.html
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\logs\2022-05-23\logfile.txt
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\logs\2022-05-24\logfile.txt
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\logs\2022-05-25\logfile.txt
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Swagger\Properties\launchSettings.json
+>>>>>>> RefactoredAPI7

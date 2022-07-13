@@ -14,6 +14,7 @@ namespace BBS.Entities
         {
         }
 
+<<<<<<< HEAD
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -23,6 +24,8 @@ namespace BBS.Entities
             }
         }
 
+=======
+>>>>>>> RefactoredAPI7
         // OnBoarding
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
@@ -185,6 +188,7 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
+<<<<<<< HEAD
             /*            
             modelBuilder.Entity<Person>().HasData(
                 new Person
@@ -257,8 +261,8 @@ namespace BBS.Entities
               }); 
             */
             OnModelCreatingPartial(modelBuilder);
+=======
+>>>>>>> RefactoredAPI7
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

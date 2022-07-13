@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
+<<<<<<< HEAD
   <AnalysisConfigPath>D:\Projects\DevTeam\Benipal\BBSDevTeam\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
   <ProjectPath>D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BBS.Constants.csproj</ProjectPath>
   <FilesToAnalyzePath>D:\Projects\DevTeam\Benipal\BBSDevTeam\.sonarqube\conf\1\FilesToAnalyze.txt</FilesToAnalyzePath>
   <OutPath>D:\Projects\DevTeam\Benipal\BBSDevTeam\.sonarqube\out\1</OutPath>
+=======
+  <AnalysisConfigPath>C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
+  <ProjectPath>C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\BBS.Constants.csproj</ProjectPath>
+  <FilesToAnalyzePath>C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\.sonarqube\conf\1\FilesToAnalyze.txt</FilesToAnalyzePath>
+  <OutPath>C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\.sonarqube\out\1</OutPath>
+>>>>>>> RefactoredAPI7
   <ProjectType>Product</ProjectType>
   <TargetFramework>netcoreapp3.1</TargetFramework>
 </SonarProjectConfig>

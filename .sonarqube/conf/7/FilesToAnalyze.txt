@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\IApiResponseManager.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\IBidShareManager.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\ICategoryManager.cs
@@ -34,3 +35,41 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\IStorageLocationMa
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\ITokenManager.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\IUserLoginManager.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Services.Contracts\IUserRoleManager.cs
+=======
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IApiResponseManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IBidShareManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\ICategoryManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\ICompanyManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\ICountryManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IDebtRoundManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IEmailSender.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IEmployementTypeManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IEquityRoundManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IFileUploadService.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IGrantTypeManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IHashManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IInvestorDetailManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IInvestorRiskTypeManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IInvestorTypeManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IIssuedDigitalShareManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\ILoggerManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\INationalityManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IOfferedShareManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IOfferPaymentManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IOfferTimeLimitManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IOfferTypeManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IPaymentTypeManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IPersonalAttachmentManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IPersonManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IRepositoryBase.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IRepositoryWrapper.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IRestrictionManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IRoleManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IShareManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\ISMSSender.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IStateManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IStorageLocationManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\ITokenManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IUserLoginManager.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Services.Contracts\IUserRoleManager.cs
+>>>>>>> RefactoredAPI7

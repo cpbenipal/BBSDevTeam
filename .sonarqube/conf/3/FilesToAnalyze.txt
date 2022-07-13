@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\AttachmentCountLowException.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\EmiratesIDExistsException.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\RegisterUserException.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.CustomExceptions\RegisterUserExceptions\UserAlreadyExistsException.cs
+=======
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\EmailSender\EmailHelperModel.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\EmailSender\INewEmailSender.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\EmailSender\NewEmailSender.cs
+>>>>>>> RefactoredAPI7

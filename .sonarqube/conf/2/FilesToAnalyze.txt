@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Middlewares\LogRequest.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Middlewares\SwaggerAuthenticationMiddleware.cs
+=======
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Middlewares\LogRequest.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Middlewares\SwaggerAuthenticationMiddleware.cs
+>>>>>>> RefactoredAPI7

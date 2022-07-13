@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 D:\Projects\DevTeam\Benipal\BBSDevTeam\.sonarqube\out\6
+=======
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\.sonarqube\out\6
+>>>>>>> RefactoredAPI7

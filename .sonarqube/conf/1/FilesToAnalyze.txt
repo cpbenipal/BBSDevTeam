@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BaseEntity.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\BlobFile.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\CertificateContent.cs
@@ -6,3 +7,13 @@ D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\InvestorTypes.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\OfferTypes.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\Roles.cs
 D:\Projects\DevTeam\Benipal\BBSDevTeam\BBS.Constants\States.cs
+=======
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\BaseEntity.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\BlobFile.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\CertificateContent.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\FileUploadExtensions.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\InvestorTypes.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\OfferTypes.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\Roles.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Constants\States.cs
+>>>>>>> RefactoredAPI7
