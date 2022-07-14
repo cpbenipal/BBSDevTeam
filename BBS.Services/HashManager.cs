@@ -13,7 +13,6 @@ namespace BBS.Services.Repository
             int charCount = Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
             char[] decoded_char = new char[charCount];
             Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
-          //  string decryptpwd = new(decoded_char);
             return string.Join("", decoded_char);
         }
 

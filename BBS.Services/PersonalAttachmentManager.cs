@@ -17,9 +17,9 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().FirstOrDefault(a => a.PersonId == personId);
         }
 
-        public PersonalAttachment InsertPersonalAttachment(PersonalAttachment p)
+        public PersonalAttachment InsertPersonalAttachment(PersonalAttachment personalAttachment)
         {
-            var addedPersonalAttachment = _repositoryBase.Insert(p);
+            var addedPersonalAttachment = _repositoryBase.Insert(personalAttachment);
             _repositoryBase.Save();
             return addedPersonalAttachment;
         }

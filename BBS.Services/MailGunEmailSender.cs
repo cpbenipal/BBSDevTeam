@@ -15,12 +15,12 @@ namespace BBS.Services.Repository
         }
 
         public async Task SendEmailAsync(
-            string email,
+            string emailAddress,
             string subject,
             string message
         )
         {
-            await Execute(subject, message, email);
+            await Execute(subject, message, emailAddress);
         }
 
         private async Task Execute(

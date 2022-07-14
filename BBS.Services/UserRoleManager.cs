@@ -14,7 +14,7 @@ namespace BBS.Services.Repository
 
         public UserRole? GetUserRoleByUserLoginId(int userLoginId)
         {
-            var userRole = _repositoryBase.GetAll().Where(x => x.UserLoginId == userLoginId).FirstOrDefault();
+            var userRole = _repositoryBase.GetAll().FirstOrDefault(x => x.UserLoginId == userLoginId);
             return userRole;
         }
 

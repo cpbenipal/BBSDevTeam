@@ -19,7 +19,7 @@ namespace BBS.Services.Repository
 
         public OfferType GetOfferType(int id)
         {
-            return _repositoryBase.GetAll().Where(c => c.Id == id).FirstOrDefault()!;
+            return _repositoryBase.GetAll().FirstOrDefault(c => c.Id == id)!;
         }
 
         public OfferType InsertOfferType(OfferType company)

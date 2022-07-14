@@ -44,7 +44,9 @@ namespace BBS.Services.Repository
 
         public List<Share> GetSharesByUserLoginAndCompanyId(int userLoginId, string company)
         {
-            return GetAllSharesForUser(userLoginId).Where(s => s.CompanyName == company && s.UserLoginId == userLoginId).ToList();
+            return GetAllSharesForUser(userLoginId).Where(
+                s => s.CompanyName == company && s.UserLoginId == userLoginId
+            ).ToList();
         }
 
         public Share InsertShare(Share share)

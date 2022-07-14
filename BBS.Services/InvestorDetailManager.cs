@@ -19,7 +19,7 @@ namespace BBS.Services.Repository
 
         public InvestorDetail? GetInvestorDetailByPersonId(int personId)
         {
-            return _repositoryBase.GetAll().Where(i => i.PersonId == personId).FirstOrDefault();
+            return _repositoryBase.GetAll().FirstOrDefault(i => i.PersonId == personId);
         }
 
         public List<InvestorDetail> GetInvestorDetails()

@@ -17,14 +17,14 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
-        public OfferPayment? GetOfferPayment(int id)
+        public OfferPayment? GetOfferPayment(int offerPaymentId)
         {
-            return _repositoryBase.GetById(id);
+            return _repositoryBase.GetById(offerPaymentId);
         }
 
         public OfferPayment? GetOfferPaymentByOfferShareId(int offerShareId)
         {
-            return _repositoryBase.GetAll().Where(op => op.OfferedShareId == offerShareId).FirstOrDefault();
+            return _repositoryBase.GetAll().FirstOrDefault(op => op.OfferedShareId == offerShareId);
         }
 
         public List<OfferPayment> GetOfferPaymentForUser(int userLoginId)

@@ -34,37 +34,31 @@ namespace BBS.Services.Repository
             }
         }
 
-        public BlobFile UploadFileToBlob(IFormFile item, List<string> validFileExtensions)
+        public BlobFile UploadFileToBlob(IFormFile files, List<string> validExtensions)
         {
             var blobfile = new BlobFile();
-            var extension = Path.GetExtension(item.FileName);
-            if (validFileExtensions.Contains(extension))
+            var extension = Path.GetExtension(files.FileName);
+            if (validExtensions.Contains(extension))
             {
                 string systemFileName = (Guid.NewGuid().ToString().Replace("-", "") + extension).ToLower();
                 blobfile.FileName = systemFileName;
                 var blob = blobContainerClient.GetBlobClient(systemFileName);
                 using (var memoryStream = new MemoryStream())
                 {
-                    item.CopyTo(memoryStream);
+                    files.CopyTo(memoryStream);
                     memoryStream.Position = 0;
                     blob.Upload(memoryStream, true);
                 }
 
-                blobfile.ContentType = item.ContentType;
+                blobfile.ContentType = files.ContentType;
                 blobfile.ImageUrl = blob.Uri.AbsoluteUri;
                 blobfile.FileName = GetFileName(blob.Uri.AbsoluteUri);
                 blobfile.PublicPath = GetFilePublicUri(blob.Uri.AbsoluteUri);
-
-                return blobfile;
             }
-            else
-            {
-                throw new Exception("Invalid File Format");
-            }
-
+            return blobfile;
         }
 
-        public BlobFile UploadCertificate(string fileContent)
+        public BlobFile UploadCertificate(string content)
         {
             var blobfile = new BlobFile();
 
@@ -74,11 +68,11 @@ namespace BBS.Services.Repository
 
             var converter = new HtmlConverter();
 
-            var content = converter.FromHtmlString(fileContent, 1024, ImageFormat.Png,100);
+            var fileContent = converter.FromHtmlString(content, 1024, ImageFormat.Png,100);
 
             using (var memoryStream = new MemoryStream())
             {
-                memoryStream.Write(content, 0, content.Length);
+                memoryStream.Write(fileContent, 0, fileContent.Length);
                 memoryStream.Position = 0;
                 blob.Upload(memoryStream, true);
             }
@@ -96,11 +90,11 @@ namespace BBS.Services.Repository
             return String.IsNullOrEmpty(path.Trim()) || !path.Contains('.') ? string.Empty : Path.GetFileName(new Uri(path).AbsolutePath);
         }
 
-        public async Task<List<string>> DownloadBlob(string downloadFolder)
+        public async Task<List<string>> DownloadBlob(string downloadPath)
         {
             var downloadedFiles = new List<string>();
-            if (!Directory.Exists(downloadFolder))
-                Directory.CreateDirectory(downloadFolder);
+            if (!Directory.Exists(downloadPath))
+                Directory.CreateDirectory(downloadPath);
 
             var blobs = blobContainerClient.GetBlobsAsync();
             IAsyncEnumerator<BlobItem> enumerator = blobs.GetAsyncEnumerator();
@@ -112,7 +106,7 @@ namespace BBS.Services.Repository
                 Console.WriteLine($"{blob.Name} ({blob.Properties.ContentLength} bytes) Downloading ...", ConsoleColor.Green);
                 var blobClient = blobContainerClient.GetBlobClient(blob.Name);
 
-                using (var fileStream = File.Create($"{downloadFolder}\\{blob.Name}"))
+                using (var fileStream = File.Create($"{downloadPath}\\{blob.Name}"))
                 {
                     await blobClient.DownloadToAsync(fileStream);
                 }
@@ -129,24 +123,18 @@ namespace BBS.Services.Repository
             fileName = GetFileName(fileName);
             CloudBlobClient serviceClient = _storageAccount.CreateCloudBlobClient();
 
-            var container = serviceClient.GetContainerReference(ContainerName); 
+            var container = serviceClient.GetContainerReference(ContainerName);
             container.CreateIfNotExistsAsync().Wait();
 
             CloudBlockBlob blob = container.GetBlockBlobReference(fileName);
 
             SharedAccessBlobPolicy policy = new()
             {
-                // define the expiration time
                 SharedAccessExpiryTime = DateTime.UtcNow.AddDays(1),
-
-                // define the permission
                 Permissions = SharedAccessBlobPermissions.Read
             };
 
-            // create signature
             string signature = blob.GetSharedAccessSignature(policy);
-
-            // get full temporary uri
             return blob.Uri + signature;
 
         }

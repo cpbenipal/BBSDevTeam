@@ -18,7 +18,7 @@ namespace BBS.Services.Repository
 
         public Company? GetCompanyByName(string name)
         {
-            return _repositoryBase.GetAll().Where(c => c.Equals(name)).FirstOrDefault();
+            return _repositoryBase.GetAll().FirstOrDefault(c => c.Equals(name));
         }
 
         public Company InsertCompany(Company company)

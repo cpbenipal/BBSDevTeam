@@ -44,8 +44,6 @@ namespace BBS.Swagger.Extensions
 
         public static void ConfigureJWTToken(this IServiceCollection services)
         {
-            // Initializing the IConfig so that it won't have null value
-
             Config = BuildConfiguration();
             var key = Encoding.ASCII.GetBytes(Config["AppSettings:Secret"]);
             services.AddAuthentication(x =>
@@ -184,8 +182,8 @@ namespace BBS.Swagger.Extensions
 
             var TwilioSID = Config["Twilio:SID"];
             var TwilioApiKey = Config["Twilio:ApiKey"];
-            var twilioSMSSender = new TwilioSMSSender(TwilioSID, TwilioApiKey);
-            services.AddTransient<ISMSSender>(sms => twilioSMSSender);
+            var twilioSMSSender = new TwilioSmsSender(TwilioSID, TwilioApiKey);
+            services.AddTransient<ISmsSender>(sms => twilioSMSSender);
 
             services.Configure<MailGunSenderOptions>(options =>
             {
@@ -219,13 +217,6 @@ namespace BBS.Swagger.Extensions
             JsonSerializerOptions options
             )
         {
-            // Caution: Deserialization of type instances like this 
-            // is not recommended and should be avoided
-            // since it can lead to potential security issues.
-
-            // If you really want this supported (for instance if the JSON input is trusted):
-            // string assemblyQualifiedName = reader.GetString();
-            // return Type.GetType(assemblyQualifiedName);
             throw new NotSupportedException();
         }
 
@@ -236,7 +227,6 @@ namespace BBS.Swagger.Extensions
             )
         {
             string assemblyQualifiedName = value.AssemblyQualifiedName!;
-            // Use this with caution, since you are disclosing type information.
             writer.WriteStringValue(assemblyQualifiedName);
         }
     }

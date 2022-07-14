@@ -4,12 +4,12 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace BBS.Services.Repository
 {
-    public class TwilioSMSSender : ISMSSender
+    public class TwilioSmsSender : ISmsSender
     {
         private readonly string _sid;
         private readonly string _apiKey;
 
-        public TwilioSMSSender(string sid, string apiKey)
+        public TwilioSmsSender(string sid, string apiKey)
         {
             _sid = sid;
             _apiKey = apiKey;
