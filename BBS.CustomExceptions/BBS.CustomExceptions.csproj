@@ -7,8 +7,4 @@
     <CodeAnalysisRuleSet>..\.sonarlint\bbs_livecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="..\.sonarlint\bbs_live\CSharp\SonarLint.xml" Link="SonarLint.xml" />
-  </ItemGroup>
-
 </Project>

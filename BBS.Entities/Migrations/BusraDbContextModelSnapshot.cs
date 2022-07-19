@@ -98,41 +98,14 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("OfferedShareMainTypeId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.HasIndex("OfferedShareMainTypeId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "",
-                            Name = "Information"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Content = "",
-                            Name = "Deal Teaser"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Content = "",
-                            Name = "Team"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Content = "",
-                            Name = "Interviews"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Content = "",
-                            Name = "News"
-                        });
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BBS.Models.Company", b =>
@@ -530,6 +503,30 @@ namespace BBS.Entities.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("CategoryCompanyProfileId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CategoryDealTeaserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CategoryDocumentsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CategoryTagsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CategoryTermsAndLegalId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CompanyProfile")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DealTeaser")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Documents")
+                        .HasColumnType("integer");
+
                     b.Property<string>("IPAddress")
                         .HasColumnType("text");
 
@@ -545,6 +542,9 @@ namespace BBS.Entities.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<decimal>("OfferPrice")
                         .HasColumnType("numeric");
 
@@ -554,10 +554,19 @@ namespace BBS.Entities.Migrations
                     b.Property<int>("OfferTypeId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("OfferedShareMainTypeId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("PrivateShareKey")
                         .HasColumnType("text");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Tags")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TermsAndLegal")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserLoginId")
@@ -565,15 +574,56 @@ namespace BBS.Entities.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryCompanyProfileId");
+
+                    b.HasIndex("CategoryDealTeaserId");
+
+                    b.HasIndex("CategoryDocumentsId");
+
+                    b.HasIndex("CategoryTagsId");
+
+                    b.HasIndex("CategoryTermsAndLegalId");
+
                     b.HasIndex("IssuedDigitalShareId");
 
                     b.HasIndex("OfferTimeLimitId");
 
                     b.HasIndex("OfferTypeId");
 
+                    b.HasIndex("OfferedShareMainTypeId");
+
                     b.HasIndex("UserLoginId");
 
                     b.ToTable("OfferedShares");
+                });
+
+            modelBuilder.Entity("BBS.Models.OfferedShareMainType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OfferedShareMainTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Primary"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Secondary"
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.OfferPayment", b =>
@@ -880,7 +930,7 @@ namespace BBS.Entities.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("PersonalAttachments");
+                    b.ToTable("Attachments");
                 });
 
             modelBuilder.Entity("BBS.Models.Restriction", b =>
@@ -1249,6 +1299,17 @@ namespace BBS.Entities.Migrations
                     b.Navigation("UserLogin");
                 });
 
+            modelBuilder.Entity("BBS.Models.Category", b =>
+                {
+                    b.HasOne("BBS.Models.OfferedShareMainType", "OfferedShareMainType")
+                        .WithMany()
+                        .HasForeignKey("OfferedShareMainTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OfferedShareMainType");
+                });
+
             modelBuilder.Entity("BBS.Models.InvestorDetail", b =>
                 {
                     b.HasOne("BBS.Models.Person", "Person")
@@ -1273,6 +1334,26 @@ namespace BBS.Entities.Migrations
 
             modelBuilder.Entity("BBS.Models.OfferedShare", b =>
                 {
+                    b.HasOne("BBS.Models.Category", "CategoryCompanyProfile")
+                        .WithMany()
+                        .HasForeignKey("CategoryCompanyProfileId");
+
+                    b.HasOne("BBS.Models.Category", "CategoryDealTeaser")
+                        .WithMany()
+                        .HasForeignKey("CategoryDealTeaserId");
+
+                    b.HasOne("BBS.Models.Category", "CategoryDocuments")
+                        .WithMany()
+                        .HasForeignKey("CategoryDocumentsId");
+
+                    b.HasOne("BBS.Models.Category", "CategoryTags")
+                        .WithMany()
+                        .HasForeignKey("CategoryTagsId");
+
+                    b.HasOne("BBS.Models.Category", "CategoryTermsAndLegal")
+                        .WithMany()
+                        .HasForeignKey("CategoryTermsAndLegalId");
+
                     b.HasOne("BBS.Models.IssuedDigitalShare", "IssuedDigitalShare")
                         .WithMany()
                         .HasForeignKey("IssuedDigitalShareId")
@@ -1291,17 +1372,35 @@ namespace BBS.Entities.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BBS.Models.OfferedShareMainType", "OfferedShareMainType")
+                        .WithMany()
+                        .HasForeignKey("OfferedShareMainTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BBS.Models.UserLogin", "UserLogin")
                         .WithMany()
                         .HasForeignKey("UserLoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("CategoryCompanyProfile");
+
+                    b.Navigation("CategoryDealTeaser");
+
+                    b.Navigation("CategoryDocuments");
+
+                    b.Navigation("CategoryTags");
+
+                    b.Navigation("CategoryTermsAndLegal");
+
                     b.Navigation("IssuedDigitalShare");
 
                     b.Navigation("OfferTimeLimit");
 
                     b.Navigation("OfferType");
+
+                    b.Navigation("OfferedShareMainType");
 
                     b.Navigation("UserLogin");
                 });

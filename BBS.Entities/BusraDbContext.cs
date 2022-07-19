@@ -12,13 +12,15 @@ namespace BBS.Entities
             : base(options)
         {
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");                                
-        //    }
-        //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+            }
+        }
+
         // OnBoarding
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
@@ -26,7 +28,7 @@ namespace BBS.Entities
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
-        public virtual DbSet<PersonalAttachment> PersonalAttachments { get; set; }
+        public virtual DbSet<PersonalAttachment> Attachments { get; set; }
         public virtual DbSet<EmployementType> EmployementTypes { get; set; }
 
         // Register Share
@@ -46,6 +48,7 @@ namespace BBS.Entities
         // Offer Share
         public virtual DbSet<OfferedShare> OfferedShares { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
+        public virtual DbSet<OfferedShareMainType> OfferedShareMainTypes { get; set; }
         public virtual DbSet<OfferTimeLimit> OfferTimeLimits { get; set; }
         public virtual DbSet<OfferPayment> OfferPayments { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
@@ -53,7 +56,6 @@ namespace BBS.Entities
 
         // Bid Shares 
         public virtual DbSet<BidShare> BidShares { get; set; }
-
 
         // Investor
         public virtual DbSet<InvestorDetail> InvestorDetails { get; set; }
@@ -63,16 +65,13 @@ namespace BBS.Entities
         // Category
         public virtual DbSet<Category> Categories { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<Category>().HasData(
-               new Category { Id = 1, Name = "Information", Content = "" },
-               new Category { Id = 2, Name = "Deal Teaser", Content = "" },
-               new Category { Id = 3, Name = "Team", Content = "" },
-               new Category { Id = 4, Name = "Interviews", Content = "" },
-               new Category { Id = 5, Name = "News", Content = "" }
-           );
+            modelBuilder.Entity<OfferedShareMainType>().HasData(
+                new OfferedShareMainType { Id = 1, Name = "Primary" },
+                new OfferedShareMainType { Id = 2, Name = "Secondary" }
+            );
 
             modelBuilder.Entity<InvestorType>().HasData(
                 new InvestorType { Id = 1, Value = "Retail" },

@@ -15,20 +15,17 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
-        private readonly IMapper _mapper;
         private readonly GetAllOfferedSharesUtils _getAllOfferedSharesUtils;
         private readonly INewEmailSender _emailSender;
         private readonly EmailHelperUtils _emailHelperUtils;
-
 
         public OfferShareInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
-            IMapper mapper,
             GetAllOfferedSharesUtils getAllOfferedSharesUtils,
-            INewEmailSender emailSender, 
+            INewEmailSender emailSender,
             EmailHelperUtils emailHelperUtils
         )
         {
@@ -36,21 +33,18 @@ namespace BBS.Interactors
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
-            _mapper = mapper;
             _getAllOfferedSharesUtils = getAllOfferedSharesUtils;
             _emailSender = emailSender;
             _emailHelperUtils = emailHelperUtils;
-
         }
 
         public GenericApiResponse InsertOfferedShares(OfferShareDto offerShareDto, string token)
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
-
             try
             {
                 _loggerManager.LogInfo(
-                    "InsertOfferedShares : " + 
+                    "InsertOfferedShares : " +
                     CommonUtils.JSONSerialize(offerShareDto),
                     extractedFromToken.PersonId
                 );
@@ -69,7 +63,7 @@ namespace BBS.Interactors
         }
 
         private GenericApiResponse TryInsertingOfferedShare(
-            OfferShareDto offerShareDto, 
+            OfferShareDto offerShareDto,
             TokenValues extractedTokenValues
         )
         {
@@ -80,9 +74,17 @@ namespace BBS.Interactors
                 return ReturnErrorStatus("Investor Account is not completed");
             }
 
-            var issueDigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId); 
-            var userdigitalShares = _repositoryWrapper.IssuedDigitalShareManager.GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
-            var allOfferedShares = _repositoryWrapper.OfferedShareManager.GetOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
+            var issueDigitalShares = _repositoryWrapper
+                .IssuedDigitalShareManager
+                .GetIssuedDigitalShare(offerShareDto.IssuedDigitalShareId);
+
+            var userdigitalShares = _repositoryWrapper
+                .IssuedDigitalShareManager
+                .GetIssuedDigitalSharesForPerson(extractedTokenValues.UserLoginId);
+
+            var allOfferedShares = _repositoryWrapper
+                .OfferedShareManager
+                .GetOfferedSharesByUserLoginId(extractedTokenValues.UserLoginId);
 
             if (issueDigitalShares == null)
             {
@@ -94,16 +96,40 @@ namespace BBS.Interactors
                 _loggerManager.LogWarn("This Digital Share does not issued to user", extractedTokenValues.PersonId);
                 return ReturnErrorStatus("This Digital Share does not issued to user");
             }
-            else if (allOfferedShares.Any(x => x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId) && x.UserLoginId == extractedTokenValues.UserLoginId))
+            else if (allOfferedShares.Any(x =>
+                x.IssuedDigitalShareId.Equals(offerShareDto.IssuedDigitalShareId) &&
+                x.UserLoginId == extractedTokenValues.UserLoginId)
+            )
             {
                 _loggerManager.LogInfo("This Digital Share already Offered By Current User", extractedTokenValues.PersonId);
                 return ReturnErrorStatus("This Digital Share already Offered By Current User");
             }
             else
             {
-                var offeredShareToInsert = _mapper.Map<OfferedShare>(offerShareDto);
+                var companyProfile = InsertCompanyProfileCategory(offerShareDto);
+                var dealTeaser = InsertDealTeaserCategory(offerShareDto);
+                var termsAndLegal = InsertTermsAndLegalCategory(offerShareDto);
+                var documents = InsertDocumentsCategory(offerShareDto);
+                var tags = InsertTagCategory(offerShareDto);
+                var offeredShareToInsert = new OfferedShare
+                {
+                    CompanyProfile = companyProfile.Id,
+                    DealTeaser = dealTeaser.Id,
+                    TermsAndLegal = termsAndLegal.Id,
+                    Documents = documents.Id,
+                    Tags = tags.Id,
+                    OfferTypeId = offerShareDto.OfferTypeId,
+                    IssuedDigitalShareId = offerShareDto.IssuedDigitalShareId,
+                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                    OfferPrice = offerShareDto.OfferPrice,
+                    OfferTimeLimitId = offerShareDto.OfferTimeLimitId,
+                    Name = (int)OfferedShareMainTypes.PRIMARY == offerShareDto.OfferedShareMainTypeId ? offerShareDto.Name : "",
+                    Quantity = offerShareDto.Quantity,
+
+                };
                 var offeredSharePrivateKey = RegisterUserUtils.GenerateVaultNumber(8);
-                if (offeredShareToInsert.OfferTypeId == (int) OfferTypes.PRIVATE)
+
+                if (offeredShareToInsert.OfferTypeId == (int)OfferTypes.PRIVATE)
                 {
                     offeredShareToInsert.PrivateShareKey = offeredSharePrivateKey;
                 }
@@ -111,9 +137,9 @@ namespace BBS.Interactors
                 offeredShareToInsert.AddedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.ModifiedById = extractedTokenValues.UserLoginId;
                 offeredShareToInsert.UserLoginId = extractedTokenValues.UserLoginId;
-                var insertedOfferedShare = 
-                    _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 
+                var insertedOfferedShare =
+                    _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 
                 NotifyAdminWhenShareIsOffered(
                     insertedOfferedShare,
@@ -128,11 +154,77 @@ namespace BBS.Interactors
             }
         }
 
+        private Category InsertTagCategory(OfferShareDto offerShareDto)
+        {
+            return InsertCategory(
+                new Category
+                {
+                    Content = offerShareDto.Tags,
+                    Name = "Tags",
+                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                }
+            );
+        }
+
+        private Category InsertDocumentsCategory(OfferShareDto offerShareDto)
+        {
+            return InsertCategory(
+                new Category
+                {
+                    Content = offerShareDto.Documents,
+                    Name = "Documents",
+                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                }
+            );
+        }
+
+        private Category InsertTermsAndLegalCategory(OfferShareDto offerShareDto)
+        {
+            return InsertCategory(
+                new Category
+                {
+                    Content = offerShareDto.TermsAndLegal,
+                    Name = "Terms and Legal",
+                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                }
+            );
+        }
+
+        private Category InsertDealTeaserCategory(OfferShareDto offerShareDto)
+        {
+            return InsertCategory(
+                new Category
+                {
+                    Content = offerShareDto.DealTeaser,
+                    Name = "Deal Teaser",
+                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                }
+            );
+        }
+
+        private Category InsertCompanyProfileCategory(OfferShareDto offerShareDto)
+        {
+            return InsertCategory(
+                new Category
+                {
+                    Content = offerShareDto.CompanyProfile,
+                    Name = "Company Profile",
+                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                }
+            );
+        }
+
+        private Category InsertCategory(Category companyProfileCategory)
+        {
+            return _repositoryWrapper.CategoryManager.InsertCategory(
+                companyProfileCategory
+            );
+        }
+
         private void NotifyAdminWhenShareIsOffered(
             OfferedShare insertedOfferedShare, int personId
         )
         {
-
             var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
             var contentToSend = _getAllOfferedSharesUtils.BuildOfferedShare(insertedOfferedShare);
 

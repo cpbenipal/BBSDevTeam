@@ -392,5 +392,19 @@ namespace BBS.Services.Repository
                 return _category;
             }
         }
+
+        private IOfferedShareMainTypeManager _offeredShareMainType;
+        public IOfferedShareMainTypeManager OfferedShareMainTypeManager
+        {
+            get
+            {
+                if (_offeredShareMainType == null)
+                {
+                    var repositoryBase = new RepositoryBase<OfferedShareMainType>(_repoContext);
+                    _offeredShareMainType = new OfferedShareMainTypeManager(repositoryBase);
+                }
+                return _offeredShareMainType;
+            }
+        }
     }
 }

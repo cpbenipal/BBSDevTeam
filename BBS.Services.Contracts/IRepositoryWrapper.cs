@@ -29,5 +29,6 @@
         public IInvestorTypeManager InvestorTypeManager { get; }
         public IInvestorRiskTypeManager InvestorRiskTypeManager { get; }
         public ICategoryManager CategoryManager { get; }
+        public IOfferedShareMainTypeManager OfferedShareMainTypeManager { get; }
     }
 }

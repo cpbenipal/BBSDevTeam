@@ -49,12 +49,34 @@ namespace BBS.Utils
             var offerLimit = _repositoryWrapper
                 .OfferTimeLimitManager
                 .GetOfferTimeLimit(item.OfferTimeLimitId);
+
             var offerType = _repositoryWrapper
                 .OfferTypeManager
                 .GetOfferType(item.OfferTypeId);
-            var paymentStatus = _repositoryWrapper
-                .OfferPaymentManager
-                .GetOfferPaymentByOfferShareId(item.Id);
+
+            var offerShareMainType = _repositoryWrapper
+                .OfferedShareMainTypeManager
+                .GetOfferedShareMainType(item.OfferedShareMainTypeId);
+
+            var companyProfileCategory = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById(item.CompanyProfile);
+
+            var dealTeaserCategory = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById(item.CompanyProfile);
+
+            var documentsCategory = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById(item.CompanyProfile);
+
+            var tagsCategory = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById(item.CompanyProfile);
+
+            var termsAndLegalCategory = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById(item.CompanyProfile);
 
             var bidShares = _repositoryWrapper
                 .BidShareManager
@@ -63,13 +85,21 @@ namespace BBS.Utils
 
             var mappedOfferedShare = _mapper.Map<GetOfferedSharesItemDto>(item);
 
+
             mappedOfferedShare.Id = item.Id;
             mappedOfferedShare.OfferType = offerType.Name;
+            mappedOfferedShare.OfferShareMainType = offerShareMainType.Name;
             mappedOfferedShare.BusinessLogo = BuildBusinessLogo(share);
             mappedOfferedShare.CompanyName = share.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
             mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate.ToShortDateString();
             mappedOfferedShare.UserLoginId = digitallyIssuedShare.UserLoginId;
+            mappedOfferedShare.CompanyProfile = companyProfileCategory?.Content ?? "";
+            mappedOfferedShare.Documents = documentsCategory?.Content ?? "";
+            mappedOfferedShare.DealTeaser = dealTeaserCategory?.Content ?? "";
+            mappedOfferedShare.TermsAndLegal = termsAndLegalCategory?.Content ?? "";
+            mappedOfferedShare.Tags = tagsCategory?.Content ?? "";
+                
             mappedOfferedShare.BidUsers = 
                 item.OfferTypeId == (int) OfferTypes.PRIVATE ? 
                 new List<int> { item.UserLoginId } :

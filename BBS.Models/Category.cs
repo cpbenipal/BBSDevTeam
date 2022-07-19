@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BBS.Models
 {
@@ -12,5 +13,10 @@ namespace BBS.Models
 
         [Required]
         public string? Content { get; set; }
+
+        [Required]
+        [ForeignKey("OfferedShareMainType")]
+        public int OfferedShareMainTypeId { get; set; }
+        public OfferedShareMainType? OfferedShareMainType { get; set; }
     }
 }
