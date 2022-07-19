@@ -1,6 +1,5 @@
 ﻿using BBS.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace BBS.Entities
 {
@@ -248,9 +247,7 @@ namespace BBS.Entities
                   AddedById = 1,
                   ModifiedById = 1
               }); 
-            */
-            OnModelCreatingPartial(modelBuilder);
- 
+            */ 
         }
     }
 }

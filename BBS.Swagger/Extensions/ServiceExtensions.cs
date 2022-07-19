@@ -103,7 +103,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<AuthInteractor>();
             services.AddScoped<ForgotPasscodeInteractor>();
-            services.AddScoped<SendOTPInteractor>();
+            services.AddScoped<SendOtpInteractor>();
 
             services.AddScoped<GetProfileInformationInteractor>();
             services.AddScoped<GetProfileInformationUtils>();

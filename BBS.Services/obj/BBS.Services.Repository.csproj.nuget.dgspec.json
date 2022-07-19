@@ -1,35 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {}
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
         "projectName": "BBS.Constants",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -61,36 +55,30 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
         "projectName": "BBS.Dto",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -128,43 +116,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
         "projectName": "BBS.Entities",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Entities\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               }
             }
           }
@@ -219,43 +201,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
         "projectName": "BBS.Models",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               }
             }
           }
@@ -284,49 +260,43 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
         "projectName": "BBS.Services.Contracts",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               }
             }
           }
@@ -361,52 +331,46 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
         "projectName": "BBS.Services.Repository",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services\\BBS.Services.Repository.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Constants\\BBS.Constants.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Entities\\BBS.Entities.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj"
               }
             }
           }
@@ -473,49 +437,43 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
+    "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
+        "projectUniqueName": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
         "projectName": "BBS.Utils",
-        "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
-        "packagesPath": "C:\\Users\\Benipal\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Utils\\obj\\",
+        "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\BBS.Utils.csproj",
+        "packagesPath": "C:\\Users\\nahom.habtamu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Utils\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benipal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\nahom.habtamu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.pluritech.com/api/v4/projects/3/packages/nuget/index.json": {}
+          "http://192.168.1.23:1212/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Dto\\BBS.Dto.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Models\\BBS.Models.csproj"
               },
-              "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
-                "projectPath": "D:\\Projects\\DevTeam\\Benipal\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
+              "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj": {
+                "projectPath": "C:\\Users\\nahom.habtamu\\Desktop\\Workspace Files\\.Net Core\\BBSDevTeam\\BBS.Services.Contracts\\BBS.Services.Contracts.csproj"
               }
             }
           }
@@ -558,7 +516,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
