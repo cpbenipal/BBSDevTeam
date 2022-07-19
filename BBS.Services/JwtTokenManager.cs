@@ -72,7 +72,7 @@ namespace BBS.Services.Repository
                 
             return tokenValues;
         }
-        public string GetJWTTokenClaim(string token, string claimName)
+        public static string GetJWTTokenClaim(string token, string claimName)
         {  
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
@@ -101,8 +101,12 @@ namespace BBS.Services.Repository
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
-            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(
+                SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase
+            ))
+            { 
                 throw new SecurityTokenException("Invalid token");
+            }
 
             return principal;
 

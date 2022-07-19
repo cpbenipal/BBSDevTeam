@@ -5,18 +5,18 @@ namespace BBS.Services.Repository
 {
     public class LoggerManager : ILoggerManager
     {
-        private static ILogger logger = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         public void LogDebug(string message, int personId)
         {
             logger.Debug("{" + message + " { personId : " + personId + "}, } \n");
         }
-        public void LogError(Exception ex, int personId)
-        {
-            logger.Error(ex, "{" + ExeptionHelper.GetAllErrors(ex) + " { personId : " + personId + "}, } \n");
-        }
         public void LogError_Wrapper(string api, string errorMessage, int personId)
         {
             logger.Error("ERROR from .net core wrapper :: " + api + " | Message:" + errorMessage + " | personId:" + personId + "\n");
+        }
+        public void LogError(Exception ex, int personId)
+        {
+            logger.Error(ex, "{" + ExeptionHelper.GetAllErrors(ex) + " { personId : " + personId + "}, } \n");
         }
         public void LogError(string api, string errorCode, string errorMessage, int personId)
         {
@@ -40,9 +40,6 @@ namespace BBS.Services.Repository
 
     public static class ExeptionHelper
     {
-        // all error checking left out for brevity
-
-        // a.k.a., linked list style enumerator
         public static IEnumerable<TSource> FromHierarchy<TSource>(
             this TSource source,
             Func<TSource, TSource> nextItem,

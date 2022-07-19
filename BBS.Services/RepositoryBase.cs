@@ -6,8 +6,8 @@ namespace BBS.Services.Repository
 {
         public class RepositoryBase<T> : IGenericRepository<T> where T : class
     {
-        private BusraDbContext _context;
-        private DbSet<T> table;
+        private readonly BusraDbContext _context;
+        private readonly DbSet<T> table;
         public RepositoryBase()
         {
             this._context = new BusraDbContext();

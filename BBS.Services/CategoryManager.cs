@@ -20,8 +20,7 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase
                 .GetAll()
-                .Where(c => c.Id == categoryId)
-                .FirstOrDefault();
+                .FirstOrDefault(c => c.Id == categoryId);
         }
 
         public Category InsertCategory(Category category)

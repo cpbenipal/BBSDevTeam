@@ -204,13 +204,16 @@ namespace BBS.Interactors
             if (file != null)
             {
                 var fileData = _uploadService.UploadFileToBlob(file, validExtensions);
-                uploadedFileData = new BlobFile()
+                if (fileData != null)
                 {
-                    ImageUrl = fileData.ImageUrl,
-                    ContentType = fileData.ContentType,
-                    FileName = fileData.FileName,
-                    PublicPath = fileData.PublicPath,
-                };               
+                    uploadedFileData = new BlobFile()
+                    {
+                        ImageUrl = fileData.ImageUrl,
+                        ContentType = fileData.ContentType,
+                        FileName = fileData.FileName,
+                        PublicPath = fileData.PublicPath,
+                    };               
+                }
             }
             return uploadedFileData;
         }

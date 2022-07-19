@@ -16,14 +16,16 @@ namespace BBS.Services.Repository
             _hashManager = hashManager;
         }
 
-        public UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto,int Id)
+        public UserLogin? GetUserLoginByPin(LoginUserDto loginUserDto,int id)
         {
             var encryptedText = _hashManager.EncryptPlainText(loginUserDto.Passcode);
-            return _repositoryBase.GetAll().FirstOrDefault(x => x.Passcode == encryptedText && x.PersonId == Id);
+            return _repositoryBase.GetAll().FirstOrDefault(
+                x => x.Passcode == encryptedText && x.PersonId == id
+            );
         }
-        public UserLogin GetUserLoginById(int Id)
+        public UserLogin GetUserLoginById(int userLoginId)
         {
-            return _repositoryBase.GetById(Id);
+            return _repositoryBase.GetById(userLoginId);
         }
         public UserLogin InsertUserLogin(UserLogin userLogin)
         {
@@ -35,17 +37,19 @@ namespace BBS.Services.Repository
         public bool IsUserExists(string passcode)
         {
             return _repositoryBase.GetAll().Any(
-                x => _hashManager.VerifyPasswordWithSaltAndStoredHash(passcode, x.PasswordHash!, x.PasswordSalt!)
+                x => _hashManager.VerifyPasswordWithSaltAndStoredHash(
+                    passcode, x.PasswordHash!, x.PasswordSalt!
+                )
             );
         }
         public string UpdatePassCode(int userLoginId) 
         {
             var newPasscode = RegisterUserUtils.GenerateUniqueNumber(4);            
-            var userdetail = _repositoryBase.GetAll().Where(x => x.PersonId == userLoginId).FirstOrDefault();
+            var userdetail = _repositoryBase.GetAll().FirstOrDefault(x => x.PersonId == userLoginId);
             userdetail!.Passcode = _hashManager.EncryptPlainText(newPasscode);
             userdetail.ModifiedDate = DateTime.Now;
             userdetail.ModifiedById = userdetail.AddedById = userLoginId;
-            var addedUserLogin = _repositoryBase.Update(userdetail);
+            _repositoryBase.Update(userdetail);
             _repositoryBase.Save();
 
             return newPasscode;
@@ -59,7 +63,7 @@ namespace BBS.Services.Repository
 
         public UserLogin? GetUserLoginByPerson(int personId)
         {
-            return _repositoryBase.GetAll().Where(ul => ul.PersonId == personId).FirstOrDefault();
+            return _repositoryBase.GetAll().FirstOrDefault(ul => ul.PersonId == personId);
         }
     }
 }

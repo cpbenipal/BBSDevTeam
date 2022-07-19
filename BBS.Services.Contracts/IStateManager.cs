@@ -6,6 +6,6 @@ namespace BBS.Services.Contracts
     public interface IStateManager
     {
         List<State> GetAllStates();
-        State GetState(int id);
+        State GetState(int stateId);
     }
 }

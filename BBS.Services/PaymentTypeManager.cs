@@ -17,9 +17,9 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
-        public PaymentType? GetPaymentType(int id)
+        public PaymentType? GetPaymentType(int paymentTypeId)
         {
-            return _repositoryBase.GetById(id);
+            return _repositoryBase.GetById(paymentTypeId);
         }
     }
 }

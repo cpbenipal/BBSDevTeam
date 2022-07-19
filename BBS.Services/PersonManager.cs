@@ -34,7 +34,10 @@ namespace BBS.Services.Repository
         }
         public Person? GetPersonByEmailOrPhone(string emailOrPhone)
         {
-            return _repositoryBase.GetAll().FirstOrDefault(x=> x.Email == emailOrPhone || x.PhoneNumber == emailOrPhone);
+            return _repositoryBase.GetAll().FirstOrDefault(x => 
+                x.Email == emailOrPhone || 
+                x.PhoneNumber == emailOrPhone
+            );
         }
 
         public Person UpdatePerson(Person person)

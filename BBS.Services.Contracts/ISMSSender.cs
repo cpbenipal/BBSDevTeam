@@ -1,6 +1,6 @@
 ﻿namespace BBS.Services.Contracts
 {
-    public interface ISMSSender
+    public interface ISmsSender
     {
         Task Send(string phoneNumber, string message);
     }
