@@ -1,8 +1,0 @@
-﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\BusraDbContext.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220615093735_0.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220615093735_0.Designer.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220620084130_1.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220620084130_1.Designer.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220704080054_Add Category Table.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220704080054_Add Category Table.Designer.cs
-C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\BusraDbContextModelSnapshot.cs

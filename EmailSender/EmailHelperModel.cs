@@ -7,6 +7,7 @@
         public string Password { get; set; }
         public string User { get; set; }
         public string EmailFrom { get; set; }
-        public string AdminEmail { get; set; } 
-    }
+        public string AdminEmail { get; set; }
+    } 
+    
 }

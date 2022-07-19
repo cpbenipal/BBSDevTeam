@@ -1,6 +1,7 @@
 ﻿using BBS.Dto;
 using BBS.Interactors;
 using BBS.Middlewares;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Services.Repository;
 using BBS.Utils;
@@ -15,16 +16,18 @@ namespace BBS.Swagger.Extensions
 {
     public static class ServiceExtensions
     {
-        public static IConfiguration? Config { get; set; }         
+        public static IConfiguration? Config { get; set; }
 
         public static void ConfigureCors(this IServiceCollection services)
         {
+            Config = BuildConfiguration();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder
+                    .WithOrigins(Config["Origin:BaseUrl"])
                     .AllowAnyMethod()
-                    .AllowAnyHeader()); 
+                    .AllowAnyHeader());
             });
         }
 
@@ -36,9 +39,9 @@ namespace BBS.Swagger.Extensions
             });
         }
 
-        public static void ConfigureLoggerService(this IServiceCollection services) 
+        public static void ConfigureLoggerService(this IServiceCollection services)
         {
-            services.AddSingleton<ILoggerManager, LoggerManager>(); 
+            services.AddSingleton<ILoggerManager, LoggerManager>();
         }
 
 
@@ -65,7 +68,8 @@ namespace BBS.Swagger.Extensions
 
                 x.Events = new JwtBearerEvents
                 {
-                    OnAuthenticationFailed = context => {
+                    OnAuthenticationFailed = context =>
+                    {
                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                         {
                             context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
@@ -85,8 +89,8 @@ namespace BBS.Swagger.Extensions
             return builder.Build();
         }
 
-        public static void ConfigureRepositoryWrapper(this IServiceCollection services) 
-        {            
+        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+        {
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<ITokenManager, JwtTokenManager>();
@@ -108,7 +112,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GetRegisteredSharesInteractor>();
             services.AddScoped<GetRegisteredSharesUtils>();
-            
+
             services.AddScoped<IssueDigitalSharesInteractor>();
             services.AddScoped<IssueDigitalShareUtils>();
 
@@ -123,7 +127,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllEmployementTypesInteractor>();
             services.AddScoped<GetDigitalCertificateOfIssuedShareInteractor>();
             services.AddScoped<GetAllCertificatesIssuedByUserInteractor>();
-            services.AddScoped<RefreshTokenInteractor>();         
+            services.AddScoped<RefreshTokenInteractor>();
             services.AddScoped<GetOfferTimeLimitsInteractor>();
             services.AddScoped<GetPrivatelyOfferedShareInteractor>();
             services.AddScoped<GetBusraFeeInteractor>();
@@ -202,9 +206,15 @@ namespace BBS.Swagger.Extensions
                 options.PortNumber = Config["ExternalProviders:EmailHelperModel:PortNumber"];
                 options.AdminEmail = Config["ExternalProviders:EmailHelperModel:AdminEmail"];
             });
-
             services.AddTransient<SwaggerAuthenticationMiddleware>();
-            
+            services.Configure<SwaggerAccount>(options =>
+            {
+                options.UserName = Config["SwaggerAccount:UserName"];
+                options.Password = Config["SwaggerAccount:Password"];
+            });
+
+           
+
         }
     }
 

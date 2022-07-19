@@ -16,15 +16,7 @@ builder.Services.ConfigureLoggerService();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<BusraDbContext>(options => options.UseNpgsql(connectionString));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-/*
-services.Configure<SendGridEmailSenderOptions>(options =>
-{
-    options.ApiKey = Configuration["ExternalProviders:SendGrid:ApiKey"];
-    options.SenderEMail = Configuration["ExternalProviders:SendGrid:SenderEmail"]; 
-    options.SenderName = Configuration["ExternalProviders:SendGrid:SenderName"];
-});
-*/
+ 
 builder.Services.ConfigureJWTToken();
 builder.Services.ConfigureRepositoryWrapper();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -38,20 +30,11 @@ builder.Services.AddSwaggerGen(options => {
     
 });
 
+var app = builder.Build(); 
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging())
-{
-    app.UseMiddleware<SwaggerAuthenticationMiddleware>();
-    app.UseSwagger();
-    app.UseSwaggerUI();    
-    app.UseDeveloperExceptionPage();
-}
-else
-    app.UseHsts();
-
+app.UseMiddleware<SwaggerAuthenticationMiddleware>();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 

@@ -14,18 +14,18 @@ namespace EmailSender
         }
 
         public void SendEmail(
-            string email,
+            string emailAddress,
             string subject,
             string message, bool Isadmin = false
         )
         {
-            Execute(subject, message, email, Isadmin);
+            Execute(subject, message, emailAddress, Isadmin);
         }
 
         private void Execute(
             string subject,
             string message,
-            string email, bool Isadmin 
+            string emailAddress, bool Isadmin 
         )
         {
             var smtpProvider = _emailSettings.EmailProvider;
@@ -33,7 +33,7 @@ namespace EmailSender
             var user = _emailSettings.User;
             var password = _emailSettings.Password;
             var sender = _emailSettings.EmailFrom;
-            string EmailAddress = Isadmin ? _emailSettings.AdminEmail : email;
+            string EmailAddress = Isadmin ? _emailSettings.AdminEmail : emailAddress;
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("", sender));
              
@@ -46,8 +46,7 @@ namespace EmailSender
             };
 
             using (var client = new SmtpClient())
-            {
-                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+            {                
                 client.Connect(smtpProvider, portNumber, SecureSocketOptions.Auto);
                 client.Authenticate(user, password);
                 client.Send(emailMessage);

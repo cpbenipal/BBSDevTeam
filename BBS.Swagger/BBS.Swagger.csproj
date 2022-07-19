@@ -1,40 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <CodeAnalysisRuleSet>..\.sonarlint\bbs_livecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Remove="log4net.config" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="email_templates\bid_share.html" />
-    <None Remove="email_templates\change_share_status.html" />
-    <None Remove="email_templates\change_user_status.html" />
-    <None Remove="email_templates\issue_digital_share.html" />
-    <None Remove="email_templates\new_passcode.html" />
-    <None Remove="email_templates\offered_share.html" />
-    <None Remove="email_templates\register_share-approve.html" />
-    <None Remove="email_templates\register_share.html" />
-    <None Remove="email_templates\register_user.html" />
-    <None Remove="email_templates\verify_email.html" />
+  <ItemGroup> 
+    <AdditionalFiles Include="..\.sonarlint\bbs_live\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="email_templates\bid_share.html" />
-    <Content Include="email_templates\verify_email.html" />
-    <Content Include="email_templates\change_share_status.html" />
-    <Content Include="email_templates\change_user_status.html" />
-    <Content Include="email_templates\issue_digital_share.html" />
-    <Content Include="email_templates\new_passcode.html" />
-    <Content Include="email_templates\offered_share.html" />
-    <Content Include="email_templates\register_share-approve.html" />
-    <Content Include="email_templates\register_share.html" />
-    <Content Include="email_templates\register_user.html" />
+    <AdditionalFiles Include="..\.sonarlint\bbs_live\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+ 
   </ItemGroup>
 
   <ItemGroup>

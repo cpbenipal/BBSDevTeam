@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BBS.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text;
 
@@ -6,8 +8,11 @@ namespace BBS.Middlewares
 {
     public class SwaggerAuthenticationMiddleware : IMiddleware
     {
-        private const string UserName = "admin";
-        private const string Password = "admin@321";
+        public  readonly SwaggerAccount Config;
+        public SwaggerAuthenticationMiddleware(IOptions<SwaggerAccount> options)
+        {
+            Config = options.Value;
+        }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -18,7 +23,7 @@ namespace BBS.Middlewares
                 {
                     var encodedUsernamePassword = authHeader.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries)[1]?.Trim();
                     var decodedUsernamePassword = Encoding.UTF8.GetString(Convert.FromBase64String(encodedUsernamePassword!));
-
+                       
                     var username = decodedUsernamePassword.Split(':', 2)[0];
                     var password = decodedUsernamePassword.Split(':', 2)[1];
 
@@ -37,7 +42,7 @@ namespace BBS.Middlewares
                 await next.Invoke(context);
             }
         }
-
-        private static bool IsAuthorized(string username, string password) => UserName == username && Password == password;
+         
+        private bool IsAuthorized(string username, string password) => username == Config.UserName && password== Config.Password;
     }
 }
