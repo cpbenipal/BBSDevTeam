@@ -68,18 +68,17 @@ namespace BBS.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Information", Content = "", OfferedShareMainTypeId = 1},    
-                new Category { Id = 2, Name = "Deal Teaser", Content = "", OfferedShareMainTypeId = 1},    
-                new Category { Id = 3, Name = "Team", Content = "", OfferedShareMainTypeId = 1},    
-                new Category { Id = 4, Name = "Interviews", Content = "", OfferedShareMainTypeId = 1},    
-                new Category { Id = 5, Name = "News", Content = "", OfferedShareMainTypeId = 1},
+                new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2 },
+                new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
+                new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
+                new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 },
+                new Category { Id = 5, Name = "News", OfferedShareMainTypeId = 2 },
 
-                new Category { Id = 6, Name = "Company Profile", Content = "", OfferedShareMainTypeId = 2 },
-                new Category { Id = 7, Name = "Deal Teaser", Content = "", OfferedShareMainTypeId = 2 },
-                new Category { Id = 8, Name = "Terms And Legal", Content = "", OfferedShareMainTypeId = 2 },
-                new Category { Id = 9, Name = "Documents", Content = "", OfferedShareMainTypeId = 2 }
+                new Category { Id = 6, Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
+                new Category { Id = 7, Name = "Company Profile", OfferedShareMainTypeId = 1 },
+                new Category { Id = 8, Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
+                new Category { Id = 9, Name = "Documents", OfferedShareMainTypeId = 1 }
             );
 
             modelBuilder.Entity<OfferedShareMainType>().HasData(
