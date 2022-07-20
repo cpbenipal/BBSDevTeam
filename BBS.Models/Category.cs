@@ -12,19 +12,7 @@ namespace BBS.Models
         public string Name { get; set; }
 
         [Required]
-        public string Tags { get; set; }
-
-        [Required]
-        public string DealTeaser { get; set; }
-
-        [Required]
-        public string CompanyProfile { get; set; }
-
-        [Required]
-        public string TermsAndLegal { get; set; }
-
-        [Required]
-        public string Documents { get; set; }
+        public string Content { get; set; }
 
         [Required]
         [ForeignKey("OfferedShareMainType")]

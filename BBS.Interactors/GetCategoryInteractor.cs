@@ -11,19 +11,16 @@ namespace BBS.Interactors
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
-        private readonly GetCategoriesUtils _getCategoriesUtils;
 
         public GetCategoryInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
-            ILoggerManager loggerManager,
-            GetCategoriesUtils getCategoriesUtils
+            ILoggerManager loggerManager
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
-            _getCategoriesUtils = getCategoriesUtils;
         }
 
         public GenericApiResponse GetCategory(int? offeredShareMainTypeId)
@@ -65,12 +62,10 @@ namespace BBS.Interactors
                 categories = BuildCategoryWithCurrentId(offeredShareMainTypeId);
             }
 
-            var result = _getCategoriesUtils.ParseCategoriesToDto(categories);
-
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
-                result
+                categories
             );
         }
 
@@ -80,13 +75,7 @@ namespace BBS.Interactors
                 .CategoryManager
                 .GetCategoryByOfferShareMainType((int)offeredShareMainTypeId!);
 
-            if(categoryFound == null)
-            {
-                return new List<Category>();
-            }
-
-            var categories = new List<Category> { categoryFound! };
-            return categories;
+            return categoryFound;
         }
     }
 }

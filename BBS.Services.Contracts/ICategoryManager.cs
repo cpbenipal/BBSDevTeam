@@ -6,7 +6,7 @@ namespace BBS.Services.Contracts
     {
         Category InsertCategory(Category category);
         Category? GetCategoryById(int categoryId);
-        Category? GetCategoryByOfferShareMainType(int offeredShareMainTypeId);
+        List<Category> GetCategoryByOfferShareMainType(int offeredShareMainTypeId);
         Category UpdateCategory(Category category);
         List<Category> GetCategories();
     }

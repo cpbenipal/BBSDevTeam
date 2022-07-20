@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using BBS.Constants;
 using BBS.CustomExceptions;
 using EmailSender;
+using BBS.CustomExceptions.RegisterUserExceptions;
 
 namespace BBS.Interactors
 {

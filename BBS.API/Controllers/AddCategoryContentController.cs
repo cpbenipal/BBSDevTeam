@@ -7,23 +7,23 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AddCategoryController : ControllerBase
+    public class AddCategoryContentController : ControllerBase
     {
-        private readonly AddCategoryInteractor _addCategoryInteractor;
+        private readonly AddCategoryContentInteractor _addCategoryContentInteractor;
 
-        public AddCategoryController(AddCategoryInteractor interactor)
+        public AddCategoryContentController(AddCategoryContentInteractor interactor)
         {
-            _addCategoryInteractor = interactor;
+            _addCategoryContentInteractor = interactor;
         }
 
         [Authorize]
         [HttpPost]
         public IActionResult AddCategory(
-            AddCategoryDto addCategoryContentDto
+            AddCategoryContent addCategoryContentDto
         )
         {
             var token = HttpContext.Request.Headers["Authorization"];
-            var response = _addCategoryInteractor
+            var response = _addCategoryContentInteractor
                 .AddCategory(token, addCategoryContentDto);
 
             return Ok(response);

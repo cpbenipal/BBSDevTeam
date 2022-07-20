@@ -166,7 +166,7 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GetAllCategoriesInteractor>();
             services.AddScoped<GetCategoryInteractor>();
-            services.AddScoped<AddCategoryInteractor>();
+            services.AddScoped<AddCategoryContentInteractor>();
             services.AddScoped<GetCategoriesUtils>();
             
             Config = BuildConfiguration();

@@ -1,4 +1,4 @@
-﻿namespace BBS.CustomExceptions
+﻿namespace BBS.CustomExceptions.RegisterUserExceptions
 {
     public class UserAlreadyExistsException : RegisterUserException
     {

@@ -1,38 +1,33 @@
-﻿using AutoMapper;
-using BBS.Constants;
+﻿using BBS.Constants;
 using BBS.Dto;
-using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class AddCategoryInteractor
+    public class AddCategoryContentInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
-        private readonly IMapper _mapper;
 
-        public AddCategoryInteractor(
+        public AddCategoryContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            ITokenManager tokenManager,
-            IMapper mapper
+            ITokenManager tokenManager
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
-            _mapper = mapper;
         }
 
         public GenericApiResponse AddCategory(
-            string token, AddCategoryDto addCategoryDto
+            string token, AddCategoryContent addCategoryContent
         )
         {
             try
@@ -42,7 +37,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryAddingCategoryContent(token, addCategoryDto);
+                return TryAddingCategoryContent(token, addCategoryContent);
             }
             catch (Exception ex)
             {
@@ -61,8 +56,8 @@ namespace BBS.Interactors
         }
 
         private GenericApiResponse TryAddingCategoryContent(
-            string token, 
-            AddCategoryDto addCategoryDto
+            string token,
+            AddCategoryContent addCategoryContent
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -72,31 +67,24 @@ namespace BBS.Interactors
                 return ReturnErrorStatus("Access Denied");
             }
 
-            if (HasCategoryWithSameOfferShareMainType(addCategoryDto))
-            {
-                return ReturnErrorStatus("Category Already Created");
+            var categoryToUpdate = _repositoryWrapper.CategoryManager.GetCategoryById(addCategoryContent.CategoryId);
 
+            if(categoryToUpdate == null)
+            {
+                return ReturnErrorStatus("Category Not Found");
             }
 
-            var categoryToInsert = _mapper.Map<Category>(addCategoryDto);
+            categoryToUpdate.Content = addCategoryContent.Content;
 
             _repositoryWrapper
                 .CategoryManager
-                .InsertCategory(categoryToInsert);
+                .UpdateCategory(categoryToUpdate);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
                 1
             );
-        }
-
-        private bool HasCategoryWithSameOfferShareMainType(AddCategoryDto addCategoryDto)
-        {
-            return _repositoryWrapper
-                .CategoryManager
-                .GetCategories()
-                .Any(c =>  c.OfferedShareMainTypeId == addCategoryDto.OfferedShareMainTypeId);
         }
     }
 }
