@@ -1,33 +1,38 @@
-﻿using BBS.Constants;
+﻿using AutoMapper;
+using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class AddCategoryContentInteractor
+    public class AddCategoryInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
+        private readonly IMapper _mapper;
 
-        public AddCategoryContentInteractor(
+        public AddCategoryInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            ITokenManager tokenManager
+            ITokenManager tokenManager,
+            IMapper mapper
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
+            _mapper = mapper;
         }
 
-        public GenericApiResponse AddCategoryContent(
-            string token, AddCategoryContentDto addCategoryDto
+        public GenericApiResponse AddCategory(
+            string token, AddCategoryDto addCategoryDto
         )
         {
             try
@@ -57,38 +62,41 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryAddingCategoryContent(
             string token, 
-            AddCategoryContentDto addCategoryContentDto
+            AddCategoryDto addCategoryDto
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
-         
+
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
                 return ReturnErrorStatus("Access Denied");
             }
 
-            var categoryToUpdate = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(addCategoryContentDto.CategoryId);
-
-
-            if(categoryToUpdate == null)
+            if (HasCategoryWithSameOfferShareMainType(addCategoryDto))
             {
-                return ReturnErrorStatus("Category With the Id you Entered is not found");
+                return ReturnErrorStatus("Category Already Created");
+
             }
 
-
-            categoryToUpdate.Content = addCategoryContentDto.Content;
+            var categoryToInsert = _mapper.Map<Category>(addCategoryDto);
 
             _repositoryWrapper
                 .CategoryManager
-                .UpdateCategory(categoryToUpdate);
+                .InsertCategory(categoryToInsert);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
                 1
             );
+        }
+
+        private bool HasCategoryWithSameOfferShareMainType(AddCategoryDto addCategoryDto)
+        {
+            return _repositoryWrapper
+                .CategoryManager
+                .GetCategories()
+                .Any(c =>  c.OfferedShareMainTypeId == addCategoryDto.OfferedShareMainTypeId);
         }
     }
 }

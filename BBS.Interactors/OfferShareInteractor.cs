@@ -106,26 +106,14 @@ namespace BBS.Interactors
             }
             else
             {
-                var companyProfile = InsertCompanyProfileCategory(offerShareDto);
-                var dealTeaser = InsertDealTeaserCategory(offerShareDto);
-                var termsAndLegal = InsertTermsAndLegalCategory(offerShareDto);
-                var documents = InsertDocumentsCategory(offerShareDto);
-                var tags = InsertTagCategory(offerShareDto);
                 var offeredShareToInsert = new OfferedShare
                 {
-                    CompanyProfile = companyProfile.Id,
-                    DealTeaser = dealTeaser.Id,
-                    TermsAndLegal = termsAndLegal.Id,
-                    Documents = documents.Id,
-                    Tags = tags.Id,
                     OfferTypeId = offerShareDto.OfferTypeId,
                     IssuedDigitalShareId = offerShareDto.IssuedDigitalShareId,
                     OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
                     OfferPrice = offerShareDto.OfferPrice,
                     OfferTimeLimitId = offerShareDto.OfferTimeLimitId,
-                    Name = (int)OfferedShareMainTypes.PRIMARY == offerShareDto.OfferedShareMainTypeId ? offerShareDto.Name : "",
                     Quantity = offerShareDto.Quantity,
-
                 };
                 var offeredSharePrivateKey = RegisterUserUtils.GenerateVaultNumber(8);
 
@@ -154,72 +142,6 @@ namespace BBS.Interactors
             }
         }
 
-        private Category InsertTagCategory(OfferShareDto offerShareDto)
-        {
-            return InsertCategory(
-                new Category
-                {
-                    Content = offerShareDto.Tags,
-                    Name = "Tags",
-                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
-                }
-            );
-        }
-
-        private Category InsertDocumentsCategory(OfferShareDto offerShareDto)
-        {
-            return InsertCategory(
-                new Category
-                {
-                    Content = offerShareDto.Documents,
-                    Name = "Documents",
-                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
-                }
-            );
-        }
-
-        private Category InsertTermsAndLegalCategory(OfferShareDto offerShareDto)
-        {
-            return InsertCategory(
-                new Category
-                {
-                    Content = offerShareDto.TermsAndLegal,
-                    Name = "Terms and Legal",
-                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
-                }
-            );
-        }
-
-        private Category InsertDealTeaserCategory(OfferShareDto offerShareDto)
-        {
-            return InsertCategory(
-                new Category
-                {
-                    Content = offerShareDto.DealTeaser,
-                    Name = "Deal Teaser",
-                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
-                }
-            );
-        }
-
-        private Category InsertCompanyProfileCategory(OfferShareDto offerShareDto)
-        {
-            return InsertCategory(
-                new Category
-                {
-                    Content = offerShareDto.CompanyProfile,
-                    Name = "Company Profile",
-                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
-                }
-            );
-        }
-
-        private Category InsertCategory(Category companyProfileCategory)
-        {
-            return _repositoryWrapper.CategoryManager.InsertCategory(
-                companyProfileCategory
-            );
-        }
 
         private void NotifyAdminWhenShareIsOffered(
             OfferedShare insertedOfferedShare, int personId

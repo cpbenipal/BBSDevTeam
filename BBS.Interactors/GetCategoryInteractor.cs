@@ -6,24 +6,27 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class GetCategoryContentInteractor
+    public class GetCategoryInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
+        private readonly GetCategoriesUtils _getCategoriesUtils;
 
-        public GetCategoryContentInteractor(
+        public GetCategoryInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
-            ILoggerManager loggerManager
+            ILoggerManager loggerManager,
+            GetCategoriesUtils getCategoriesUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
+            _getCategoriesUtils = getCategoriesUtils;
         }
 
-        public GenericApiResponse GetCategoryContent(int? categoryId)
+        public GenericApiResponse GetCategory(int? offeredShareMainTypeId)
         {
             try
             {
@@ -32,7 +35,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryGettingCategoryContent(categoryId);
+                return TryGettingCategories(offeredShareMainTypeId);
             }
             catch (Exception ex)
             {
@@ -50,34 +53,37 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingCategoryContent(int? categoryId)
+        private GenericApiResponse TryGettingCategories(int? offeredShareMainTypeId)
         {
 
             var categories = _repositoryWrapper
                 .CategoryManager
                 .GetCategories();
 
-            if (categoryId != null)
+            if (offeredShareMainTypeId != null)
             {
-                categories = BuildCategoryWithCurrentId(categoryId);
+                categories = BuildCategoryWithCurrentId(offeredShareMainTypeId);
             }
 
-            object response = categories.Count == 1 ? 
-                categories[0].Content! : 
-                categories.Select(c => c.Content).ToList();
+            var result = _getCategoriesUtils.ParseCategoriesToDto(categories);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
-                response
+                result
             );
         }
 
-        private List<Category> BuildCategoryWithCurrentId(int? categoryId)
+        private List<Category> BuildCategoryWithCurrentId(int? offeredShareMainTypeId)
         {
             var categoryFound = _repositoryWrapper
                 .CategoryManager
-                .GetCategoryById((int)categoryId!);
+                .GetCategoryByOfferShareMainType((int)offeredShareMainTypeId!);
+
+            if(categoryFound == null)
+            {
+                return new List<Category>();
+            }
 
             var categories = new List<Category> { categoryFound! };
             return categories;

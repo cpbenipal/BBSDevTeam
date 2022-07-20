@@ -23,6 +23,13 @@ namespace BBS.Services.Repository
                 .FirstOrDefault(c => c.Id == categoryId);
         }
 
+        public Category? GetCategoryByOfferShareMainType(int offeredShareMainTypeId)
+        {
+            return _repositoryBase
+               .GetAll()
+               .FirstOrDefault(c => c.OfferedShareMainTypeId == offeredShareMainTypeId);
+        }
+
         public Category InsertCategory(Category category)
         {
             var addedCategory = _repositoryBase.Insert(category);

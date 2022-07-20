@@ -58,26 +58,6 @@ namespace BBS.Utils
                 .OfferedShareMainTypeManager
                 .GetOfferedShareMainType(item.OfferedShareMainTypeId);
 
-            var companyProfileCategory = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(item.CompanyProfile);
-
-            var dealTeaserCategory = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(item.CompanyProfile);
-
-            var documentsCategory = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(item.CompanyProfile);
-
-            var tagsCategory = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(item.CompanyProfile);
-
-            var termsAndLegalCategory = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(item.CompanyProfile);
-
             var bidShares = _repositoryWrapper
                 .BidShareManager
                 .GetAllBidShares()
@@ -94,12 +74,7 @@ namespace BBS.Utils
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
             mappedOfferedShare.AddedDate = digitallyIssuedShare.AddedDate.ToShortDateString();
             mappedOfferedShare.UserLoginId = digitallyIssuedShare.UserLoginId;
-            mappedOfferedShare.CompanyProfile = companyProfileCategory?.Content ?? "";
-            mappedOfferedShare.Documents = documentsCategory?.Content ?? "";
-            mappedOfferedShare.DealTeaser = dealTeaserCategory?.Content ?? "";
-            mappedOfferedShare.TermsAndLegal = termsAndLegalCategory?.Content ?? "";
-            mappedOfferedShare.Tags = tagsCategory?.Content ?? "";
-                
+     
             mappedOfferedShare.BidUsers = 
                 item.OfferTypeId == (int) OfferTypes.PRIVATE ? 
                 new List<int> { item.UserLoginId } :

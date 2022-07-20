@@ -165,9 +165,10 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetOfferedShareWithBidInformationUtils>();
 
             services.AddScoped<GetAllCategoriesInteractor>();
-            services.AddScoped<GetCategoryContentInteractor>();
-            services.AddScoped<AddCategoryContentInteractor>();
-
+            services.AddScoped<GetCategoryInteractor>();
+            services.AddScoped<AddCategoryInteractor>();
+            services.AddScoped<GetCategoriesUtils>();
+            
             Config = BuildConfiguration();
 
             var ConnectionString = Config["AzureStorage:ConnectionString"];

@@ -10,11 +10,6 @@ namespace BBS.Dto
         public string CompanyName { get; set; }
         public string OfferType { get; set; }
         public string OfferShareMainType { get; set; }
-        public string CompanyProfile { get; set; }
-        public string Tags { get; set; }
-        public string TermsAndLegal { get; set; }
-        public string Documents { get; set; }
-        public string DealTeaser { get; set; }
         public int Quantity { get; set; }
         public decimal OfferPrice { get; set; }
         public string OfferTimeLimit { get; set; }
