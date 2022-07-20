@@ -66,6 +66,7 @@ namespace BBS.Utils
                 UserLoginId = bidShare.UserLoginId,
                 OfferTimeLimit = offerLimit.Value,
                 OfferType = offerType.Name, 
+                OfferShareMainTypeId = offeredShare.OfferedShareMainTypeId
             };
         }
     }

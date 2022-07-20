@@ -15,6 +15,7 @@
         public string BusinessLogo { get; set; }
         public string LostValuation { get; set; } = "$ 55 mn";
         public string AddedDate { get; set; }
+        public int OfferShareMainTypeId { get; set; } 
         public int UserLoginId { get; set; }        
     }
 }

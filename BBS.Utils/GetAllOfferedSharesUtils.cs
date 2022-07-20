@@ -69,6 +69,7 @@ namespace BBS.Utils
             mappedOfferedShare.Id = item.Id;
             mappedOfferedShare.OfferType = offerType.Name;
             mappedOfferedShare.OfferShareMainType = offerShareMainType.Name;
+            mappedOfferedShare.OfferShareMainTypeId = item.OfferedShareMainTypeId;
             mappedOfferedShare.BusinessLogo = BuildBusinessLogo(share);
             mappedOfferedShare.CompanyName = share.CompanyName;
             mappedOfferedShare.OfferTimeLimit = offerLimit!.Value;
