@@ -75,6 +75,8 @@ namespace BBS.Interactors
             }
 
             categoryToUpdate.Content = addCategoryContent.Content;
+            categoryToUpdate.OfferPrice = addCategoryContent.OfferPrice;
+            categoryToUpdate.TotalShares = addCategoryContent.TotalShares;
 
             _repositoryWrapper
                 .CategoryManager

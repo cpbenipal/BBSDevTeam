@@ -23,5 +23,16 @@ namespace BBS.Dto
         public int OfferTimeLimitId { get; set; }
 
     }
+    public class OfferShareCategoryDto
+    {
+        public int Id { get; set; }
 
+        public string Name { get; set; }
+
+        public string Content { get; set; }
+
+        public decimal? OfferPrice { get; set; }
+        public int? TotalShares { get; set; }
+        public int OfferedShareMainTypeId { get; set; }
+    }
 }

@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBS.Middlewares", "BBS.Midd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBS.CustomExceptions", "BBS.CustomExceptions\BBS.CustomExceptions.csproj", "{180A4347-F979-441B-AF65-89DDD25D0F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{0F137C3A-42A7-46F4-BD6A-965B094C631F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSender", "EmailSender\EmailSender.csproj", "{0F137C3A-42A7-46F4-BD6A-965B094C631F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

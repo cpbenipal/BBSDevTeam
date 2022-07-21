@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class GetCategoryInteractor
+    public class GetCategoryContentInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-        public GetCategoryInteractor(
+        public GetCategoryContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager
@@ -23,7 +23,7 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetCategory(int? offeredShareMainTypeId)
+        public GenericApiResponse GetCategoryContent(int? categoryId)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryGettingCategories(offeredShareMainTypeId);
+                return TryGettingCategoryContent(categoryId);
             }
             catch (Exception ex)
             {
@@ -50,46 +50,36 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingCategories(int? offeredShareMainTypeId)
+        private GenericApiResponse TryGettingCategoryContent(int? categoryId)
         {
-            var categories = BuildCategoryWithCurrentId(offeredShareMainTypeId);
+
+            var categories = _repositoryWrapper
+                .CategoryManager
+                .GetCategories();
+
+            if (categoryId != null)
+            {
+                categories = BuildCategoryWithCurrentId(categoryId);
+            }
+
+            object response = categories.Count == 1 ? 
+                categories[0].Content! : 
+                categories.Select(c => c.Content).ToList();
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
-                categories
+                response
             );
         }
 
-        private List<OfferShareCategoryDto> BuildCategoryWithCurrentId(int? offeredShareMainTypeId)
+        private List<Category> BuildCategoryWithCurrentId(int? categoryId)
         {
-            List<Category> categoryFound = new();
+            var categoryFound = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById((int)categoryId!);
 
-            if (offeredShareMainTypeId != null)
-            {
-                categoryFound = _repositoryWrapper
-                 .CategoryManager
-                 .GetCategoryByOfferShareMainType((int)offeredShareMainTypeId!);
-            }
-            else
-            {
-                categoryFound = _repositoryWrapper.CategoryManager.GetCategories();
-            }
-
-            List<OfferShareCategoryDto> categories = new();
-            foreach (var category in categoryFound)
-            {
-                categories.Add(new OfferShareCategoryDto()
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    Content = category.Content,
-                    OfferedShareMainTypeId = category.OfferedShareMainTypeId,
-                    OfferPrice = category.OfferPrice,
-                    TotalShares = category.TotalShares,
-                });
-            }
-            
+            var categories = new List<Category> { categoryFound! };
             return categories;
         }
     }

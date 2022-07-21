@@ -11,15 +11,7 @@ namespace BBS.Entities
         public BusraDbContext(DbContextOptions<BusraDbContext> options)
             : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
-            }
-        }
+        } 
 
         // OnBoarding
         public virtual DbSet<Country> Countries { get; set; }
@@ -67,20 +59,7 @@ namespace BBS.Entities
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2 },
-                new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
-                new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
-                new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 },
-                new Category { Id = 5, Name = "News", OfferedShareMainTypeId = 2 },
-
-                new Category { Id = 6, Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
-                new Category { Id = 7, Name = "Company Profile", OfferedShareMainTypeId = 1 },
-                new Category { Id = 8, Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
-                new Category { Id = 9, Name = "Documents", OfferedShareMainTypeId = 1 }
-            );
-
+        {             
             modelBuilder.Entity<OfferedShareMainType>().HasData(
                 new OfferedShareMainType { Id = 1, Name = "Primary" },
                 new OfferedShareMainType { Id = 2, Name = "Secondary" }
@@ -193,6 +172,19 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
+
+            modelBuilder.Entity<Category>().HasData(
+               new Category { Id = 1, Content = "Information", Name = "Information", OfferedShareMainTypeId = 2 },
+               new Category { Id = 2, Content = "Deal Teaser", Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
+               new Category { Id = 3, Content = "Team", Name = "Team", OfferedShareMainTypeId = 2 },
+               new Category { Id = 4, Content = "Interviews", Name = "Interviews", OfferedShareMainTypeId = 2 },
+               new Category { Id = 5, Content = "News", Name = "News", OfferedShareMainTypeId = 2 },
+               new Category { Id = 6, Content = "Deal Teaser", Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
+               new Category { Id = 7, Content = "Company Profile", Name = "Company Profile", OfferedShareMainTypeId = 1 },
+               new Category { Id = 8, Content = "Terms & Legal", Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
+               new Category { Id = 9, Content = "Documents", Name = "Documents", OfferedShareMainTypeId = 1 }
+            );
+
         }
     }
 }
