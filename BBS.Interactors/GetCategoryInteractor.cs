@@ -63,7 +63,7 @@ namespace BBS.Interactors
 
         private List<OfferShareCategoryDto> BuildCategoryWithCurrentId(int? offeredShareMainTypeId)
         {
-            List<Category> categoryFound = new();
+            List<Category> categoryFound;
 
             if (offeredShareMainTypeId != null)
             {

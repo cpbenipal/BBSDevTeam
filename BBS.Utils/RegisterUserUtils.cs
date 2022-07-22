@@ -3,7 +3,7 @@ using BBS.Models;
 
 namespace BBS.Utils
 {
-    public class RegisterUserUtils
+    public static class RegisterUserUtils
     {
         public static string GenerateVaultNumber(int length)
         {

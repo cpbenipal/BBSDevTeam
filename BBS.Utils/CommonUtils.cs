@@ -1,18 +1,17 @@
-﻿using BBS.Dto;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
 namespace BBS.Utils
 {
-    public class CommonUtils
+    public static class CommonUtils
     {
         public static string JSONSerializeFromList<T>(T obj)
         {
             string retVal = String.Empty;
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                DataContractJsonSerializer serializer = new(obj!.GetType());
                 serializer.WriteObject(ms, obj);
                 var byteArray = ms.ToArray();
                 retVal = Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);

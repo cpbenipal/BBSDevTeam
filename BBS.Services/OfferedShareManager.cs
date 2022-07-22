@@ -47,11 +47,11 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase
                 .GetAll()
-                .Where(
+                .FirstOrDefault(
                     s => s.UserLoginId == userLoginId && 
                     s.OfferTypeId == 2 && 
                     s.PrivateShareKey!.Equals(offerPrivateKey)
-                ).FirstOrDefault();
+                );
         }
 
         public OfferedShare InsertOfferedShare(OfferedShare offeredShare)

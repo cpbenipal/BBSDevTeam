@@ -64,7 +64,7 @@ namespace BBS.Utils
                         _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
                 AddedDate = bidShare.AddedDate.ToShortDateString(),
                 UserLoginId = bidShare.UserLoginId,
-                OfferTimeLimit = offerLimit.Value,
+                OfferTimeLimit = offerLimit?.Value ?? "",
                 OfferType = offerType.Name, 
                 OfferShareMainTypeId = offeredShare.OfferedShareMainTypeId
             };

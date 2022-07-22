@@ -1,0 +1,12 @@
+{
+  "ServerUri": "http://localhost:9000/",
+  "Organization": null,
+  "ProjectKey": "BBS_Live",
+  "ProjectName": "BBS_Live",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AYHr-TfYMF4LDB01wWT_",
+      "ProfileTimestamp": "2022-07-11T06:36:27Z"
+    }
+  }
+}

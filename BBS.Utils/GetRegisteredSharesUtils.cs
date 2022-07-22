@@ -6,8 +6,8 @@ namespace BBS.Utils
 {
     public class GetRegisteredSharesUtils
     {
-        private IRepositoryWrapper _repository;
-        private IFileUploadService _uploadService;
+        private readonly IRepositoryWrapper _repository;
+        private readonly IFileUploadService _uploadService;
         public GetRegisteredSharesUtils(
             IRepositoryWrapper repositoryWrapper, 
             IFileUploadService fileUploadService
@@ -31,8 +31,10 @@ namespace BBS.Utils
 
         public RegisteredShareDto BuildShareDtoObject(Share share)
         {
-            var debtRound =  share.DebtRoundId == null ?  null : _repository.DebtRoundManager.GetDebtRound((int)share.DebtRoundId!);
-            var equityRound = share.EquityRoundId == null ? null : _repository.EquityRoundManager.GetEquityRound((int)share.EquityRoundId!);
+            var debtRound =  share.DebtRoundId == null ?  null :
+                _repository.DebtRoundManager.GetDebtRound((int)share.DebtRoundId!);
+            var equityRound = share.EquityRoundId == null ? null : 
+                _repository.EquityRoundManager.GetEquityRound((int)share.EquityRoundId!);
             var grantType = _repository.GrantTypeManager.GetGrantType(share.GrantTypeId);
             var restriction = _repository.RestrictionManager.GetAllRestrictions();
             var storageLocation = _repository.StorageLocationManager.GetStorageLocation(share.GrantTypeId);
@@ -47,14 +49,17 @@ namespace BBS.Utils
             var registeredShare = new RegisteredShareDto
             {
                 Id = share.Id,
-                BusinessLogo = !string.IsNullOrEmpty(share.BusinessLogo) ? _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
+                BusinessLogo = !string.IsNullOrEmpty(share.BusinessLogo) ?
+                    _uploadService.GetFilePublicUri(share.BusinessLogo!) : null,
                 FirstName = share?.FirstName,
                 LastName = share?.LastName,
                 Email = share?.Email,
                 DebtRound = debtRound?.Name,
                 EquityRound = equityRound?.Name,
-                ShareOwnerShipDocument = !string.IsNullOrEmpty(share!.ShareOwnershipDocument) ? _uploadService.GetFilePublicUri(share!.ShareOwnershipDocument!) : null,
-                CompanyInformationDocument = !string.IsNullOrEmpty(share!.CompanyInformationDocument) ? _uploadService.GetFilePublicUri(share.CompanyInformationDocument!) : null,
+                ShareOwnerShipDocument = !string.IsNullOrEmpty(share!.ShareOwnershipDocument) ?
+                    _uploadService.GetFilePublicUri(share!.ShareOwnershipDocument!) : null,
+                CompanyInformationDocument = !string.IsNullOrEmpty(share!.CompanyInformationDocument) ? 
+                    _uploadService.GetFilePublicUri(share.CompanyInformationDocument!) : null,
                 CompanyName = share.CompanyName,
                 DateOfGrant = share.DateOfGrant.Day + " of " + share.DateOfGrant.ToString("MMMM") + " " + share.DateOfGrant.Year,
                 GrantType = grantType.Name,

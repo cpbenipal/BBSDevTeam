@@ -98,10 +98,8 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<IApiResponseManager, ApiResponseManager>();
 
             services.AddScoped<RegisterUserInteractor>();
-            services.AddScoped<RegisterUserUtils>();
 
             services.AddScoped<RegisterShareInteractor>();
-            services.AddScoped<RegisterShareUtils>();
 
             services.AddScoped<AuthInteractor>();
             services.AddScoped<ForgotPasscodeInteractor>();

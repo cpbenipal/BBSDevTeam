@@ -2,18 +2,19 @@
 
 namespace BBS.Constants
 {
-    public class FileUploadExtensions
+    public static class FileUploadExtensions
     {
-        public static List<string> IMAGE = new List<string>
+        public static List<string> IMAGE { get; } = new List<string>
         {
             ".jpg", ".jpeg",".png",".PNG", ".JPEG", ".JPG"
         };
 
-        public static List<string> PDF = new List<string>
+        public static List<string> PDF { get; } = new List<string>
         {
             ".pdf",".PDF"
         };
-        public static List<string> DOCUMENT = new List<string>
+
+        public static List<string> DOCUMENT { get; } = new List<string>
         {
             ".jpg", ".jpeg",".png",".PNG", ".JPEG", ".JPG",".pdf",".PDF"
         };

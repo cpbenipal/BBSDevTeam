@@ -1,0 +1,15 @@
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\CommonUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\EmailHelperUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GenerateHtmlCertificate.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetAllOfferedSharesUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetBidShareUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetCategoriesUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetIssuedDigitalSharesUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetOfferedShareWithBidInformationUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetProfileInformationUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\GetRegisteredSharesUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\IssueDigitalShareUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\OfferPaymentUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\RegisterShareUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\RegisterUserUtils.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Utils\BBS.Utils.ruleset

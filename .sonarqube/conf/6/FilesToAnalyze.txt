@@ -1,0 +1,9 @@
+﻿C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\BusraDbContext.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220719133541_First.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220719133541_First.Designer.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220720075449_Changed Offershare and Category.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220720075449_Changed Offershare and Category.Designer.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220720085454_Changed Offershare and Category Back.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\20220720085454_Changed Offershare and Category Back.Designer.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\Migrations\BusraDbContextModelSnapshot.cs
+C:\Users\nahom.habtamu\Desktop\Workspace Files\Net Core\BBSDevTeam\BBS.Entities\BBS.Entities.ruleset

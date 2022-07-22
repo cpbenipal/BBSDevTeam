@@ -50,7 +50,7 @@ namespace BBS.Utils
 
             var grantType = _repositoryWrapper
                 .GrantTypeManager
-                .GetGrantType((int)(share.GrantTypeId))
+                .GetGrantType((share.GrantTypeId))
                 .Name;
 
             var offerType = _repositoryWrapper

@@ -3,7 +3,7 @@ using BBS.Models;
 
 namespace BBS.Utils
 {
-    public class RegisterShareUtils
+    public static class RegisterShareUtils
     {
         public static Share ParseShareObjectFromRegisterShareDto(
             RegisterShareDto registerShareDto
