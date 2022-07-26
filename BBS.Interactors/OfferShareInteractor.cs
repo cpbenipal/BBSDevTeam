@@ -144,24 +144,24 @@ namespace BBS.Interactors
             }
         }
 
-        private void InsertDefaultCategoriesForThisOfferShare(int id)
+        private void InsertDefaultCategoriesForThisOfferShare(int offerShareId)
         {
-            var categories = new List<string>
-            {
-                "Deal Teaser", "Information", "Team", "Interviews", "News"
-            };
+            var categories = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryByOfferShareMainType(
+                    (int)OfferedShareMainTypes.SECONDARY
+                );
 
-            foreach (var item in categories)
+            foreach (var category in categories)
             {
-                _repositoryWrapper.CategoryManager.InsertCategory(new Category
-                {
-                    Content = item,
-                    Name = item,
-                    OfferedShareId = id,
-                    OfferPrice = 0,
-                    TotalShares = 0,
-                    OfferedShareMainTypeId = (int) OfferedShareMainTypes.SECONDARY
-                });
+                _repositoryWrapper.SecondaryOfferShareDataManager.InsertSecondaryOfferShareData(
+                    new SecondaryOfferShareData
+                    {
+                        CategoryId = category.Id,
+                        Content = "",
+                        OfferedShareId = offerShareId,
+                    }    
+                );
             }
         }
 

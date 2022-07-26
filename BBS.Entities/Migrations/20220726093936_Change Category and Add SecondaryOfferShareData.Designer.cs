@@ -3,6 +3,7 @@ using System;
 using BBS.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBS.Entities.Migrations
 {
     [DbContext(typeof(BusraDbContext))]
-    partial class BusraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220726093936_Change Category and Add SecondaryOfferShareData")]
+    partial class ChangeCategoryandAddSecondaryOfferShareData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -977,33 +979,6 @@ namespace BBS.Entities.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BBS.Models.SecondaryOfferShareData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("OfferedShareId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("OfferedShareId");
-
-                    b.ToTable("SecondaryOfferShareDatas");
-                });
-
             modelBuilder.Entity("BBS.Models.Share", b =>
                 {
                     b.Property<int>("Id")
@@ -1450,25 +1425,6 @@ namespace BBS.Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("BBS.Models.SecondaryOfferShareData", b =>
-                {
-                    b.HasOne("BBS.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BBS.Models.OfferedShare", "OfferedShare")
-                        .WithMany()
-                        .HasForeignKey("OfferedShareId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("OfferedShare");
                 });
 
             modelBuilder.Entity("BBS.Models.Share", b =>

@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class GetCategoryInteractor
+    public class GetSecondaryOfferDataForOfferShareInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-        public GetCategoryInteractor(
+        public GetSecondaryOfferDataForOfferShareInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager
@@ -23,7 +23,7 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetCategory(int? offeredShareMainTypeId)
+        public GenericApiResponse GetSecondaryOfferData(int? offeredShareId)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryGettingCategories(offeredShareMainTypeId);
+                return TryGettingSecondaryOfferData(offeredShareId);
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingCategories(int? offeredShareMainTypeId)
+        private GenericApiResponse TryGettingSecondaryOfferData(int? offeredShareMainTypeId)
         {
             var categories = BuildCategoryWithCurrentId(offeredShareMainTypeId);
 
@@ -61,36 +61,41 @@ namespace BBS.Interactors
             );
         }
 
-        private List<OfferShareCategoryDto> BuildCategoryWithCurrentId(int? offeredShareMainTypeId)
+        private List<GetSecondaryOfferDataDto> BuildCategoryWithCurrentId(int? offerShareId)
         {
-            List<Category> categoryFound;
+            List<SecondaryOfferShareData> secondaryOfferShareDatas;
 
-            if (offeredShareMainTypeId != null)
+            if (offerShareId != null)
             {
-                categoryFound = _repositoryWrapper
-                 .CategoryManager
-                 .GetCategoryByOfferShareMainType((int)offeredShareMainTypeId!);
+                secondaryOfferShareDatas = _repositoryWrapper
+                 .SecondaryOfferShareDataManager
+                 .GetSecondaryOfferByOfferShare((int)offerShareId);
             }
             else
             {
-                categoryFound = _repositoryWrapper.CategoryManager.GetCategories();
+                secondaryOfferShareDatas = _repositoryWrapper
+                    .SecondaryOfferShareDataManager.
+                    GetAllSecondaryOfferShareData();
             }
 
-            List<OfferShareCategoryDto> categories = new();
-            foreach (var category in categoryFound)
+            List<GetSecondaryOfferDataDto> builtData = new();
+            foreach (var secondaryOfferData in secondaryOfferShareDatas)
             {
-                categories.Add(new OfferShareCategoryDto()
+                var category = _repositoryWrapper
+                    .CategoryManager
+                    .GetCategoryById(secondaryOfferData.CategoryId);
+
+                builtData.Add(new GetSecondaryOfferDataDto()
                 {
-                    Id = category.Id,
-                    Name = category.Name,
-                    Content = category.Content,
-                    OfferedShareMainTypeId = category.OfferedShareMainTypeId,
-                    OfferPrice = category.OfferPrice,
-                    TotalShares = category.TotalShares,
+                    Id = secondaryOfferData.Id,
+                    Content = secondaryOfferData.Content,
+                    OfferShareId = secondaryOfferData.Id,
+                    Name = category?.Name ?? ""
+
                 });
             }
-            
-            return categories;
+          
+            return builtData;
         }
     }
 }

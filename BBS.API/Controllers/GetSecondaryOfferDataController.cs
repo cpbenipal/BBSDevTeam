@@ -7,11 +7,11 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GetCategoryController : ControllerBase
+    public class GetSecondaryOfferDataController : ControllerBase
     {
-        private readonly GetCategoryInteractor _getCategoryInteractor;
+        private readonly GetSecondaryOfferDataForOfferShareInteractor _getCategoryInteractor;
 
-        public GetCategoryController(GetCategoryInteractor interactor)
+        public GetSecondaryOfferDataController(GetSecondaryOfferDataForOfferShareInteractor interactor)
         {
             _getCategoryInteractor = interactor;
         }
@@ -19,11 +19,11 @@ namespace BBS.API.Controllers
         [Authorize]
         [HttpPost]
         public IActionResult GetCategoryContentInteractor(
-            GetCategoryByTypeDto? getCategoryDto = null
+            GetSecondaryOfferDataByOfferedShareDto? getCategoryDto = null
         )
         {
             var response = _getCategoryInteractor
-                .GetCategory(getCategoryDto?.offeredShareMainTypeId);
+                .GetSecondaryOfferData(getCategoryDto?.OfferedShareId);
             return Ok(response);
         }
     }

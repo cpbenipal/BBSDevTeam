@@ -406,5 +406,19 @@ namespace BBS.Services.Repository
                 return _offeredShareMainType;
             }
         }
+
+        private ISecondaryOfferShareDataManager _secondaryOfferData;
+        public ISecondaryOfferShareDataManager SecondaryOfferShareDataManager
+        {
+            get
+            {
+                if (_secondaryOfferData == null)
+                {
+                    var repositoryBase = new RepositoryBase<SecondaryOfferShareData>(_repoContext);
+                    _secondaryOfferData = new SecondaryOfferShareDataManager(repositoryBase);
+                }
+                return _secondaryOfferData;
+            }
+        }
     }
 }

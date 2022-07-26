@@ -163,8 +163,8 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetOfferedShareWithBidInformationUtils>();
 
             services.AddScoped<GetAllCategoriesInteractor>();
-            services.AddScoped<GetCategoryInteractor>();
-            services.AddScoped<AddCategoryContentInteractor>();
+            services.AddScoped<GetSecondaryOfferDataForOfferShareInteractor>();
+            services.AddScoped<AddSecondaryOfferContentInteractor>();
             services.AddScoped<GetCategoriesUtils>();
             
             Config = BuildConfiguration();

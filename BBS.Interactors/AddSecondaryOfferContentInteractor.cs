@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class AddCategoryContentInteractor
+    public class AddSecondaryOfferContentInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
 
-        public AddCategoryContentInteractor(
+        public AddSecondaryOfferContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
@@ -26,8 +26,8 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
         }
 
-        public GenericApiResponse AddCategory(
-            string token, AddCategoryContent addCategoryContent
+        public GenericApiResponse AddSecondaryOfferContent(
+            string token, AddSecondaryOfferContent addSecondaryOffer
         )
         {
             try
@@ -37,7 +37,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryAddingCategoryContent(token, addCategoryContent);
+                return TryAddingCategoryContent(token, addSecondaryOffer);
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryAddingCategoryContent(
             string token,
-            AddCategoryContent addCategoryContent
+            AddSecondaryOfferContent addSecondaryOffer
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -67,22 +67,20 @@ namespace BBS.Interactors
                 return ReturnErrorStatus("Access Denied");
             }
 
-            var categoryToUpdate = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryById(addCategoryContent.Id);
+            var secondaryOfferToUpdate = _repositoryWrapper
+                .SecondaryOfferShareDataManager
+                .GetSecondaryOfferShareData(addSecondaryOffer.Id);
 
-            if(categoryToUpdate == null)
+            if(secondaryOfferToUpdate == null)
             {
                 return ReturnErrorStatus("Category Not Found");
             }
 
-            categoryToUpdate.Content = addCategoryContent.Content;
-            categoryToUpdate.OfferPrice = addCategoryContent.OfferPrice;
-            categoryToUpdate.TotalShares = addCategoryContent.TotalShares;
+            secondaryOfferToUpdate.Content = addSecondaryOffer.Content;
 
             _repositoryWrapper
-                .CategoryManager
-                .UpdateCategory(categoryToUpdate);
+                .SecondaryOfferShareDataManager
+                .UpdateSecondaryOfferShareData(secondaryOfferToUpdate);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
