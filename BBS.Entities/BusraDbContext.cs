@@ -11,7 +11,16 @@ namespace BBS.Entities
         public BusraDbContext(DbContextOptions<BusraDbContext> options)
             : base(options)
         {
-        } 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+            }
+        }
 
         // OnBoarding
         public virtual DbSet<Country> Countries { get; set; }
@@ -36,7 +45,6 @@ namespace BBS.Entities
         // Issuing Shares
         public virtual DbSet<IssuedDigitalShare> IssuedDigitalShares { get; set; }
 
-
         // Offer Share
         public virtual DbSet<OfferedShare> OfferedShares { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
@@ -56,7 +64,6 @@ namespace BBS.Entities
 
         // Category
         public virtual DbSet<Category> Categories { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {             
@@ -172,19 +179,6 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
-
-            modelBuilder.Entity<Category>().HasData(
-               new Category { Id = 1, Content = "Information", Name = "Information", OfferedShareMainTypeId = 2 },
-               new Category { Id = 2, Content = "Deal Teaser", Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
-               new Category { Id = 3, Content = "Team", Name = "Team", OfferedShareMainTypeId = 2 },
-               new Category { Id = 4, Content = "Interviews", Name = "Interviews", OfferedShareMainTypeId = 2 },
-               new Category { Id = 5, Content = "News", Name = "News", OfferedShareMainTypeId = 2 },
-               new Category { Id = 6, Content = "Deal Teaser", Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
-               new Category { Id = 7, Content = "Company Profile", Name = "Company Profile", OfferedShareMainTypeId = 1 },
-               new Category { Id = 8, Content = "Terms & Legal", Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
-               new Category { Id = 9, Content = "Documents", Name = "Documents", OfferedShareMainTypeId = 1 }
-            );
-
         }
     }
 }

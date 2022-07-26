@@ -67,7 +67,9 @@ namespace BBS.Interactors
                 return ReturnErrorStatus("Access Denied");
             }
 
-            var categoryToUpdate = _repositoryWrapper.CategoryManager.GetCategoryById(addCategoryContent.CategoryId);
+            var categoryToUpdate = _repositoryWrapper
+                .CategoryManager
+                .GetCategoryById(addCategoryContent.Id);
 
             if(categoryToUpdate == null)
             {

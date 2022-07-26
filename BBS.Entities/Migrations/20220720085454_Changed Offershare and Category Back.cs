@@ -29,21 +29,6 @@ namespace BBS.Entities.Migrations
                 table: "Categories",
                 newName: "Content");
 
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Content", "Name", "OfferedShareMainTypeId" },
-                values: new object[,]
-                {
-                    { 1, "", "Information", 1 },
-                    { 2, "", "Deal Teaser", 1 },
-                    { 3, "", "Team", 1 },
-                    { 4, "", "Interviews", 1 },
-                    { 5, "", "News", 1 },
-                    { 6, "", "Company Profile", 2 },
-                    { 7, "", "Deal Teaser", 2 },
-                    { 8, "", "Terms And Legal", 2 },
-                    { 9, "", "Documents", 2 }
-                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

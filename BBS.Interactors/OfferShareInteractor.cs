@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BBS.Constants;
+﻿using BBS.Constants;
 using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
@@ -110,7 +109,7 @@ namespace BBS.Interactors
                 {
                     OfferTypeId = offerShareDto.OfferTypeId,
                     IssuedDigitalShareId = offerShareDto.IssuedDigitalShareId,
-                    OfferedShareMainTypeId = offerShareDto.OfferedShareMainTypeId,
+                    OfferedShareMainTypeId = (int) OfferedShareMainTypes.SECONDARY,
                     OfferPrice = offerShareDto.OfferPrice,
                     OfferTimeLimitId = offerShareDto.OfferTimeLimitId,
                     Quantity = offerShareDto.Quantity,
@@ -129,6 +128,9 @@ namespace BBS.Interactors
                 var insertedOfferedShare =
                     _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 
+
+                InsertDefaultCategoriesForThisOfferShare(insertedOfferedShare.Id);
+
                 NotifyAdminWhenShareIsOffered(
                     insertedOfferedShare,
                     extractedTokenValues.PersonId
@@ -142,6 +144,26 @@ namespace BBS.Interactors
             }
         }
 
+        private void InsertDefaultCategoriesForThisOfferShare(int id)
+        {
+            var categories = new List<string>
+            {
+                "Deal Teaser", "Information", "Team", "Interviews", "News"
+            };
+
+            foreach (var item in categories)
+            {
+                _repositoryWrapper.CategoryManager.InsertCategory(new Category
+                {
+                    Content = item,
+                    Name = item,
+                    OfferedShareId = id,
+                    OfferPrice = 0,
+                    TotalShares = 0,
+                    OfferedShareMainTypeId = (int) OfferedShareMainTypes.SECONDARY
+                });
+            }
+        }
 
         private void NotifyAdminWhenShareIsOffered(
             OfferedShare insertedOfferedShare, int personId
