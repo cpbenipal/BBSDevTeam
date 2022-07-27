@@ -22,7 +22,7 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetAllCategories()
+        public GenericApiResponse GetAllCategories(int? offerShareMainTypeId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryGettingAllCategories();
+                return TryGettingAllCategories(offerShareMainTypeId);
             }
             catch (Exception ex)
             {
@@ -49,11 +49,18 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingAllCategories()
+        private GenericApiResponse TryGettingAllCategories(int? offerShareMainTypeId)
         {
             var allCategories = _repositoryWrapper
                 .CategoryManager
                 .GetCategories();
+
+            if(offerShareMainTypeId != null)
+            {
+                allCategories = _repositoryWrapper
+                    .CategoryManager
+                    .GetCategoryByOfferShareMainType((int)offerShareMainTypeId);
+            }
 
             return _responseManager.SuccessResponse(
                 "Successfull",

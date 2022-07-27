@@ -1,5 +1,6 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -71,16 +72,24 @@ namespace BBS.Interactors
                 .SecondaryOfferShareDataManager
                 .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
 
-            if(secondaryOfferToUpdate == null)
+            if(secondaryOfferToUpdate == null || secondaryOfferToUpdate.Count == 0)
             {
-                return ReturnErrorStatus("Category Not Found");
+                return ReturnErrorStatus("Category Not Found with this offershare");
             }
 
-            // parse dto to entity here ......
+            var builtSecondaryOfferShareData = addSecondaryOffer.Content.Select(
+                c => new SecondaryOfferShareData
+                {
+                    CategoryId = c.CategoryId,
+                    Content = c.Content,
+                    Id = c.Id,
+                    OfferedShareId = addSecondaryOffer.OfferShareId
+                }
+            ).ToList();
 
             _repositoryWrapper
                 .SecondaryOfferShareDataManager
-                .UpdateSecondaryOfferShareData(secondaryOfferToUpdate);
+                .UpdateSecondaryOfferShareDataRange(builtSecondaryOfferShareData);
 
             return _responseManager.SuccessResponse(
                 "Successfull",

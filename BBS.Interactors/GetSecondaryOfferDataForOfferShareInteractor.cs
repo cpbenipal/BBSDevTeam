@@ -28,7 +28,7 @@ namespace BBS.Interactors
             try
             {
                 _loggerManager.LogInfo(
-                    "GetCategoryContent : " +
+                    "GetSecondaryOfferData : " +
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
@@ -50,9 +50,9 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryGettingSecondaryOfferData(int? offeredShareMainTypeId)
+        private GenericApiResponse TryGettingSecondaryOfferData(int? offeredShareId)
         {
-            var categories = BuildCategoryWithCurrentId(offeredShareMainTypeId);
+            var categories = BuildCategoryWithCurrentId(offeredShareId);
 
             return _responseManager.SuccessResponse(
                 "Successfull",

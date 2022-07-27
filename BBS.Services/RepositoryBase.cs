@@ -20,7 +20,7 @@ namespace BBS.Services.Repository
         }
         public IEnumerable<T> GetAll()
         {
-            return table.ToList();
+            return table.AsNoTracking().ToList();
         }
         public T GetById(object id)
         {

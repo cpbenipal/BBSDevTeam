@@ -30,22 +30,30 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetById(id);
         }
 
-        public SecondaryOfferShareData InsertSecondaryOfferShareData(
-            SecondaryOfferShareData secondaryOfferData
-        )
-        {
-            var added = _repositoryBase.Insert(secondaryOfferData);
-            _repositoryBase.Save();
-            return added;
-        }
-
-        public List<SecondaryOfferShareData> UpdateSecondaryOfferShareData(
+        public List<SecondaryOfferShareData> InsertSecondaryOfferShareDataRange(
             List<SecondaryOfferShareData> secondaryOfferData
         )
         {
-            var updated = _repositoryBase.UpdateRange(secondaryOfferData);
+            var added = _repositoryBase.InsertRange(secondaryOfferData);
             _repositoryBase.Save();
-            return updated.ToList();
+            return added.ToList();
+        }
+
+        public List<SecondaryOfferShareData> UpdateSecondaryOfferShareDataRange(
+            List<SecondaryOfferShareData> secondaryOfferData
+        )
+        {
+            List<SecondaryOfferShareData> updatedList = new();
+
+            foreach (var item in secondaryOfferData)
+            {
+                var updated = _repositoryBase.Update(item);
+                updatedList.Add(updated);
+            }
+
+            _repositoryBase.Save();
+
+            return updatedList;
         }
     }
 }

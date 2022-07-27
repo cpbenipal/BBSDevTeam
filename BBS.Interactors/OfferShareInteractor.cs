@@ -152,17 +152,18 @@ namespace BBS.Interactors
                     (int)OfferedShareMainTypes.SECONDARY
                 );
 
-            foreach (var category in categories)
-            {
-                _repositoryWrapper.SecondaryOfferShareDataManager.InsertSecondaryOfferShareData(
-                    new SecondaryOfferShareData
-                    {
-                        CategoryId = category.Id,
-                        Content = "",
-                        OfferedShareId = offerShareId,
-                    }    
-                );
-            }
+
+            var builtSecondaryOfferShareData = categories.Select(
+                c => new SecondaryOfferShareData {
+                    CategoryId = c.Id,
+                    Content = "",
+                    OfferedShareId = offerShareId,
+                }
+            ).ToList();
+
+            _repositoryWrapper
+                .SecondaryOfferShareDataManager
+                .InsertSecondaryOfferShareDataRange(builtSecondaryOfferShareData);
         }
 
         private void NotifyAdminWhenShareIsOffered(
