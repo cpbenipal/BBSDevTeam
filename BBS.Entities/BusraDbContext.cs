@@ -75,8 +75,7 @@ namespace BBS.Entities
                 new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2 },
                 new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
                 new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
-                new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 },
-                new Category { Id = 5, Name = "News", OfferedShareMainTypeId = 2 }
+                new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 }
             );
 
             modelBuilder.Entity<OfferedShareMainType>().HasData(

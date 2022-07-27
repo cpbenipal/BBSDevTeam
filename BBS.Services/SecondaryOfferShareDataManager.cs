@@ -39,13 +39,13 @@ namespace BBS.Services.Repository
             return added;
         }
 
-        public SecondaryOfferShareData UpdateSecondaryOfferShareData(
-            SecondaryOfferShareData secondaryOfferData
+        public List<SecondaryOfferShareData> UpdateSecondaryOfferShareData(
+            List<SecondaryOfferShareData> secondaryOfferData
         )
         {
-            var updated = _repositoryBase.Update(secondaryOfferData);
+            var updated = _repositoryBase.UpdateRange(secondaryOfferData);
             _repositoryBase.Save();
-            return updated;
+            return updated.ToList();
         }
     }
 }

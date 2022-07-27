@@ -6,7 +6,9 @@ namespace BBS.Services.Contracts
         IEnumerable<T> GetAll();
         T GetById(object id);
         T Insert(T obj);
+        IEnumerable<T> InsertRange(IEnumerable<T> obj);
         T Update(T obj);
+        IEnumerable<T> UpdateRange(IEnumerable<T> obj);
         void Delete(object id);
         void Save();
     }

@@ -31,9 +31,20 @@ namespace BBS.Services.Repository
             table.Add(obj);
             return obj;
         }
+        public IEnumerable<T> InsertRange(IEnumerable<T> obj)
+        {
+            table.AddRange(obj);
+            return obj;
+        }
         public T Update(T obj)
         {
             table.Attach(obj);
+            _context.Entry(obj).State = EntityState.Modified;
+            return obj;
+        }
+        public IEnumerable<T> UpdateRange(IEnumerable<T> obj)
+        {
+            table.AttachRange(obj);
             _context.Entry(obj).State = EntityState.Modified;
             return obj;
         }

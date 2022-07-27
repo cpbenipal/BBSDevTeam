@@ -1,8 +1,16 @@
-﻿namespace BBS.Dto
+﻿using System.Collections.Generic;
+
+namespace BBS.Dto
 {
+    public class AddSecondaryOfferDto
+    {
+        public int Id { get; set; } 
+        public int CategoryId { get; set; }
+        public string Content { get; set; } 
+    }
     public class AddSecondaryOfferContent
     {
-        public int Id { get; set; }
-        public string Content { get; set; }
+        public List<AddSecondaryOfferDto> Content { get; set; }
+        public int OfferShareId { get; set; } 
     }
 }

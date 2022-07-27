@@ -69,14 +69,14 @@ namespace BBS.Interactors
 
             var secondaryOfferToUpdate = _repositoryWrapper
                 .SecondaryOfferShareDataManager
-                .GetSecondaryOfferShareData(addSecondaryOffer.Id);
+                .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
 
             if(secondaryOfferToUpdate == null)
             {
                 return ReturnErrorStatus("Category Not Found");
             }
 
-            secondaryOfferToUpdate.Content = addSecondaryOffer.Content;
+            // parse dto to entity here ......
 
             _repositoryWrapper
                 .SecondaryOfferShareDataManager
