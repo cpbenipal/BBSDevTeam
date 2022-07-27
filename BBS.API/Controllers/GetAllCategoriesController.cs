@@ -17,9 +17,9 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetAllGetAllBidShares([FromQuery] int? offerShareMainTypeId)
+        public IActionResult GetAllBidShares([FromQuery] int? offerShareMainTypeId)
         {
-            return Ok(_getAllCategoriesInteractor.GetAllCategories(offerShareMainTypeId));
+            return Ok(_getAllCategoriesInteractor.GetAllCategories(offerShareMainTypeId)); 
         }
     }
 }

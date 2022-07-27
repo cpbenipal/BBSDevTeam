@@ -83,7 +83,9 @@ namespace BBS.Interactors
                     CategoryId = c.CategoryId,
                     Content = c.Content,
                     Id = c.Id,
-                    OfferedShareId = addSecondaryOffer.OfferShareId
+                    OfferedShareId = addSecondaryOffer.OfferShareId,
+                    OfferPrice = c.OfferPrice,
+                    TotalShares = c.TotalShares,
                 }
             ).ToList();
 

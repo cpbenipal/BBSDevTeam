@@ -15,7 +15,7 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllGetAllBidShares()
+        public IActionResult GetAllBidShares()
         {
             var token = HttpContext.Request.Headers["Authorization"];
             return Ok(_getAllBidSharesInteractor.GetAllBidShares(token));

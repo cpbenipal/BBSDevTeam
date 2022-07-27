@@ -90,8 +90,9 @@ namespace BBS.Interactors
                     Id = secondaryOfferData.Id,
                     Content = secondaryOfferData.Content,
                     OfferShareId = secondaryOfferData.Id,
-                    Name = category?.Name ?? ""
-
+                    Name = category?.Name ?? "",
+                    OfferPrice = secondaryOfferData.OfferPrice,
+                    TotalShares = secondaryOfferData.TotalShares
                 });
             }
           

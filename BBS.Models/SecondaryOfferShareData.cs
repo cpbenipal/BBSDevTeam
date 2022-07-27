@@ -15,6 +15,10 @@ namespace BBS.Models
 
         [Required]
         public string Content { get; set; }
+         
+        public int TotalShares { get; set; } 
+         
+        public decimal OfferPrice { get; set; } 
 
         [Required]
         [ForeignKey("OfferedShareId")]
