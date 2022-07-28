@@ -11,7 +11,6 @@ namespace BBS.Services.Contracts
             List<PrimaryOfferShareData> primaryOfferShare
         );
         PrimaryOfferShareData GetPrimaryOfferShareData(int id);
-        List<PrimaryOfferShareData> GetPrimaryOfferByPrimaryBid(int primaryBidShareId);
         List<PrimaryOfferShareData> GetAllPrimaryOfferShareData();
     }
 }

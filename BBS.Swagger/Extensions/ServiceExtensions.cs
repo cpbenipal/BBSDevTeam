@@ -170,8 +170,8 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<BidOnPrimaryOfferInteractor>();
             services.AddScoped<AddPrimaryOfferContentInteractor>();
+            services.AddScoped<UpdatePrimaryOfferContentInteractor>();
             services.AddScoped<ChangePrimaryShareStatusToCompletedInteractor>();
-
 
             services.AddScoped<GetAllBidsOnPrimaryOfferInteractor>();
             services.AddScoped<GetBidOnPrimaryOfferUtils>();

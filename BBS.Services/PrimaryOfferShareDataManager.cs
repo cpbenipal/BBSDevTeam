@@ -17,14 +17,6 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
-        public List<PrimaryOfferShareData> GetPrimaryOfferByPrimaryBid(int primaryBidShareId)
-        {
-            return _repositoryBase
-                .GetAll().Where(
-                    p => p.BidOnPrimaryOfferingId == primaryBidShareId
-                ).ToList();
-        }
-
         public PrimaryOfferShareData GetPrimaryOfferShareData(int id)
         {
             return _repositoryBase.GetById(id);

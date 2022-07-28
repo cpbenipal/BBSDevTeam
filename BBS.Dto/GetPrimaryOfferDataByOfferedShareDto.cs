@@ -2,6 +2,6 @@
 {
     public class GetPrimaryOfferDataByOfferedShareDto
     {
-        public int? PrimaryBidId { get; set; }
+        public int? CompanyId { get; set; }
     }
 }

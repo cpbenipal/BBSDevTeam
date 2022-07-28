@@ -62,9 +62,14 @@ namespace BBS.Interactors
             TokenValues extractedFromToken
         )
         {
-            if(extractedFromToken.RoleId != (int)Roles.INVESTOR)
+            if (extractedFromToken.RoleId != (int)Roles.INVESTOR)
             {
                 return ReturnErrorStatus("Access Denied");
+            }
+
+            if (!CheckIfThisCompanyHasOfferedPrimaryShare(bidOnPrimary))
+            {
+                return ReturnErrorStatus("This Company Has No Offered PrimaryShare");
             }
 
             var mapped = _mapper.Map<BidOnPrimaryOffering>(bidOnPrimary);
@@ -73,11 +78,9 @@ namespace BBS.Interactors
             mapped.UserLoginId = extractedFromToken.UserLoginId;
             mapped.TransactionId = RegisterUserUtils.GenerateUniqueNumber(20);
 
-            var addedPrimaryBid = _repositoryWrapper
-                .BidOnPrimaryOfferingManager
-                .InsertBidOnPrimaryOffering(mapped);
-
-            InsertDefaultCategoriesForThisOfferShare(addedPrimaryBid);
+            _repositoryWrapper
+               .BidOnPrimaryOfferingManager
+               .InsertBidOnPrimaryOffering(mapped);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -86,28 +89,12 @@ namespace BBS.Interactors
             );
         }
 
-        private void InsertDefaultCategoriesForThisOfferShare(BidOnPrimaryOffering bidOnPrimary)
+        private bool CheckIfThisCompanyHasOfferedPrimaryShare(BidOnPrimaryOfferingDto bidOnPrimary)
         {
-            var categories = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryByOfferShareMainType(
-                    (int)OfferedShareMainTypes.PRIMARY
-                );
-
-            var builtPrimaryOfferShareData = categories.Select(
-                c => new PrimaryOfferShareData
-                {
-                    CategoryId = c.Id,
-                    Content = "",
-                    CompanyId = bidOnPrimary.CompanyId,
-                    BidOnPrimaryOfferingId = bidOnPrimary.Id
-                }
-            ).ToList();
-
-            _repositoryWrapper
+            return _repositoryWrapper
                 .PrimaryOfferShareDataManager
-                .InsertPrimaryOfferShareDataRange(builtPrimaryOfferShareData);
-
+                .GetAllPrimaryOfferShareData()
+                .Any(p => p.CompanyId == bidOnPrimary.CompanyId);
         }
 
         private GenericApiResponse ReturnErrorStatus(string s)

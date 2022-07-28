@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class AddPrimaryOfferContentInteractor
+    public class UpdatePrimaryOfferContentInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
 
-        public AddPrimaryOfferContentInteractor(
+        public UpdatePrimaryOfferContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
@@ -27,18 +27,18 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
         }
 
-        public GenericApiResponse AddPrimaryOfferContent(
+        public GenericApiResponse UpdatePrimaryOfferContent(
             string token, AddPrimaryOfferContent addPrimaryOffer
         )
         {
             try
             {
                 _loggerManager.LogInfo(
-                    "AddPrimaryOfferContent : " +
+                    "UpdatePrimaryOfferContent : " +
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryAddingCategoryContent(token, addPrimaryOffer);
+                return TryUpdatingCategoryContent(token, addPrimaryOffer);
             }
             catch (Exception ex)
             {
@@ -48,8 +48,8 @@ namespace BBS.Interactors
 
         }
 
-        private GenericApiResponse TryAddingCategoryContent(
-            string token,
+        private GenericApiResponse TryUpdatingCategoryContent(
+            string token, 
             AddPrimaryOfferContent addPrimaryOffer
         )
         {
@@ -60,36 +60,33 @@ namespace BBS.Interactors
                 return ReturnErrorStatus("Access Denied");
             }
 
-            var company = InsertCompany(addPrimaryOffer);
+            var primaryOfferToUpdate = _repositoryWrapper
+                .PrimaryOfferShareDataManager
+                .GetAllPrimaryOfferShareData();
+
+            if (primaryOfferToUpdate == null || primaryOfferToUpdate.Count == 0)
+            {
+                return ReturnErrorStatus("Category Not Found");
+            }
 
             var builtPrimaryOfferShareData = addPrimaryOffer.Content.Select(
                 c => new PrimaryOfferShareData
                 {
                     CategoryId = c.CategoryId,
                     Content = c.Content,
-                    CompanyId = company.Id,
+                    Id = c.Id,
+                    CompanyId = addPrimaryOffer.CompanyId,
                 }
             ).ToList();
 
             _repositoryWrapper
                 .PrimaryOfferShareDataManager
-                .InsertPrimaryOfferShareDataRange(builtPrimaryOfferShareData);
+                .UpdatePrimaryOfferShareDataRange(builtPrimaryOfferShareData);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
                 1
-            );
-        }
-
-        private Company InsertCompany(AddPrimaryOfferContent addPrimaryOffer)
-        {
-            return _repositoryWrapper.CompanyManager.InsertCompany(
-                new Company
-                {
-                    Description = "",
-                    Name = addPrimaryOffer.CompanyName,
-                }
             );
         }
 

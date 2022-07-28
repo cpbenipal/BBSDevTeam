@@ -23,7 +23,7 @@ namespace BBS.API.Controllers
         )
         {
             var response = _getCategoryInteractor
-                .GetPrimaryOfferData(getCategoryDto?.PrimaryBidId);
+                .GetPrimaryOfferData(getCategoryDto?.CompanyId);
             return Ok(response);
         }
     }

@@ -23,7 +23,7 @@ namespace BBS.Interactors
             _loggerManager = loggerManager;
         }
 
-        public GenericApiResponse GetPrimaryOfferData(int? primaryBidId)
+        public GenericApiResponse GetPrimaryOfferData(int? companyId)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryGettingPrimaryOfferData(primaryBidId);
+                return TryGettingPrimaryOfferData(companyId);
             }
             catch (Exception ex)
             {
@@ -42,9 +42,9 @@ namespace BBS.Interactors
 
         }
 
-        private GenericApiResponse TryGettingPrimaryOfferData(int? primaryBidId)
+        private GenericApiResponse TryGettingPrimaryOfferData(int? companyId)
         {
-            var response = BuildPrimaryOfferDataWithCurrentId(primaryBidId);
+            var response = BuildPrimaryOfferDataWithCurrentId(companyId);
 
             return _responseManager.SuccessResponse(
                 "Successfull",
@@ -53,16 +53,18 @@ namespace BBS.Interactors
             );
         }
 
-        private List<GetPrimaryOfferDataDto> BuildPrimaryOfferDataWithCurrentId(int? primaryBidId)
+        private List<GetPrimaryOfferDataDto> BuildPrimaryOfferDataWithCurrentId(int? companyId)
         {
 
             List<PrimaryOfferShareData> primaryOfferShareDatas;
 
-            if (primaryBidId != null)
+            if (companyId != null)
             {
                 primaryOfferShareDatas = _repositoryWrapper
                  .PrimaryOfferShareDataManager
-                 .GetPrimaryOfferByPrimaryBid((int)primaryBidId);
+                 .GetAllPrimaryOfferShareData()
+                 .Where(p => p.CompanyId == (int)companyId)
+                 .ToList();
             }
             else
             {
@@ -88,7 +90,6 @@ namespace BBS.Interactors
                     Content = primaryOfferData.Content,
                     Name = category?.Name ?? "",
                     Company = company?.Name ?? "",
-                    BidPrimaryShareId = primaryOfferData.BidOnPrimaryOfferingId,
                 });
             }
 

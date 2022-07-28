@@ -19,11 +19,6 @@ namespace BBS.Models
         public Category? Category { get; set; }
 
         [Required]
-        [ForeignKey("BidOnPrimaryOffering")]
-        public int BidOnPrimaryOfferingId { get; set; }
-        public BidOnPrimaryOffering? BidOnPrimaryOffering { get; set; }
-
-        [Required]
         public string Content { get; set; }
     }
 }
