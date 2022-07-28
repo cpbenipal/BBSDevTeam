@@ -16,6 +16,11 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetAll().ToList();
         }
 
+        public Company? GetCompany(int id)
+        {
+            return _repositoryBase.GetById(id);
+        }
+
         public Company? GetCompanyByName(string name)
         {
             return _repositoryBase.GetAll().FirstOrDefault(c => c.Equals(name));

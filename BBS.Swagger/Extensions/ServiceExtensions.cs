@@ -163,10 +163,20 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetOfferedShareWithBidInformationUtils>();
 
             services.AddScoped<GetAllCategoriesInteractor>();
-            services.AddScoped<GetSecondaryOfferDataForOfferShareInteractor>();
+            services.AddScoped<GetSecondaryOfferDataInteractor>();
+            services.AddScoped<GetPrimaryOfferDataInteractor>();
             services.AddScoped<AddSecondaryOfferContentInteractor>();
             services.AddScoped<GetCategoriesUtils>();
-            
+
+            services.AddScoped<BidOnPrimaryOfferInteractor>();
+            services.AddScoped<AddPrimaryOfferContentInteractor>();
+            services.AddScoped<ChangePrimaryShareStatusToCompletedInteractor>();
+
+
+            services.AddScoped<GetAllBidsOnPrimaryOfferInteractor>();
+            services.AddScoped<GetBidOnPrimaryOfferUtils>();
+
+
             Config = BuildConfiguration();
 
             var ConnectionString = Config["AzureStorage:ConnectionString"];

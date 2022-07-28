@@ -6,41 +6,40 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-
-    public class GetAllBidSharesInteractor
+    public class GetAllBidsOnPrimaryOfferInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
-        private readonly GetBidShareUtils _getBidSharesUtil;
+        private readonly GetBidOnPrimaryOfferUtils _getBidOnPrimaryOfferUtils;
 
-        public GetAllBidSharesInteractor(
+        public GetAllBidsOnPrimaryOfferInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
-            GetBidShareUtils getBidSharesUtil
+            GetBidOnPrimaryOfferUtils getBidOnPrimaryOfferUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
-            _getBidSharesUtil = getBidSharesUtil;
+            _getBidOnPrimaryOfferUtils = getBidOnPrimaryOfferUtils;
         }
 
-        public GenericApiResponse GetAllBidShares(string token)
+        public GenericApiResponse GetAllBidsOnPrimaryOffer(string token)
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             try
             {
                 _loggerManager.LogInfo(
-                    "GetAllBidShares : " + 
-                    CommonUtils.JSONSerialize("No Body"), 
+                    "GetAllBidsOnPrimaryOffer : " +
+                    CommonUtils.JSONSerialize("No Body"),
                     extractedFromToken.PersonId
                 );
-                return TryGettingAllBidShares(extractedFromToken);
+                return TryGettingAllBidsOnPrimaryOffer(extractedFromToken);
             }
             catch (Exception ex)
             {
@@ -49,33 +48,34 @@ namespace BBS.Interactors
             }
         }
 
-        private GenericApiResponse ReturnErrorStatus(string message)
+        private GenericApiResponse TryGettingAllBidsOnPrimaryOffer(TokenValues extractedFromToken)
         {
-            return _responseManager.ErrorResponse(
-                message, 
-                StatusCodes.Status500InternalServerError
-            );
-        }
-
-        private GenericApiResponse TryGettingAllBidShares(TokenValues extractedFromToken)
-        {
-            var allBidShares = _repositoryWrapper
-                .BidShareManager
-                .GetAllBidShares();
+            var allBidsOnPrimaryOffer = _repositoryWrapper
+                .BidOnPrimaryOfferingManager
+                .GetAllBidOnPrimaryOfferings();
 
             if (extractedFromToken.RoleId != (int)Roles.ADMIN)
             {
-                allBidShares = _repositoryWrapper
-                .BidShareManager
-                .GetAllBidSharesByUser(extractedFromToken.UserLoginId);
+                allBidsOnPrimaryOffer = _repositoryWrapper
+                .BidOnPrimaryOfferingManager
+                .GetBidOnPrimaryOfferingByUser(extractedFromToken.UserLoginId);
             }
 
-            var response = _getBidSharesUtil.ParseBidSharesToDto(allBidShares);
+            var response = _getBidOnPrimaryOfferUtils
+                .ParseBidsOnPrimaryShare(allBidsOnPrimaryOffer);
 
             return _responseManager.SuccessResponse(
-                "Successfull", 
-                StatusCodes.Status200OK, 
+                "Successfull",
+                StatusCodes.Status200OK,
                 response
+            );
+        }
+
+        private GenericApiResponse ReturnErrorStatus(string message)
+        {
+            return _responseManager.ErrorResponse(
+                message,
+                StatusCodes.Status500InternalServerError
             );
         }
     }

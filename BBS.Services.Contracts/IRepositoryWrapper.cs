@@ -31,5 +31,7 @@
         public ICategoryManager CategoryManager { get; }
         public IOfferedShareMainTypeManager OfferedShareMainTypeManager { get; }
         public ISecondaryOfferShareDataManager SecondaryOfferShareDataManager { get; }
+        public IPrimaryOfferShareDataManager PrimaryOfferShareDataManager { get; }
+        public IBidOnPrimaryOfferingManager BidOnPrimaryOfferingManager { get; }
     }
 }

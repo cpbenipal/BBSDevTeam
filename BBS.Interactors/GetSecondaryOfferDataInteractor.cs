@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class GetSecondaryOfferDataForOfferShareInteractor
+    public class GetSecondaryOfferDataInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
 
-        public GetSecondaryOfferDataForOfferShareInteractor(
+        public GetSecondaryOfferDataInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager
@@ -95,7 +95,7 @@ namespace BBS.Interactors
                     TotalShares = secondaryOfferData.TotalShares
                 });
             }
-          
+
             return builtData;
         }
     }

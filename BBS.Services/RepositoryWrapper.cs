@@ -420,5 +420,33 @@ namespace BBS.Services.Repository
                 return _secondaryOfferData;
             }
         }
+
+        private IPrimaryOfferShareDataManager _primaryOfferData;
+        public IPrimaryOfferShareDataManager PrimaryOfferShareDataManager
+        {
+            get
+            {
+                if (_primaryOfferData == null)
+                {
+                    var repositoryBase = new RepositoryBase<PrimaryOfferShareData>(_repoContext);
+                    _primaryOfferData = new PrimaryOfferShareDataManager(repositoryBase);
+                }
+                return _primaryOfferData;
+            }
+        }
+
+        private IBidOnPrimaryOfferingManager _bidOnPrimary;
+        public IBidOnPrimaryOfferingManager BidOnPrimaryOfferingManager
+        {
+            get
+            {
+                if (_bidOnPrimary == null)
+                {
+                    var repositoryBase = new RepositoryBase<BidOnPrimaryOffering>(_repoContext);
+                    _bidOnPrimary = new BidOnPrimaryOfferingManager(repositoryBase);
+                }
+                return _bidOnPrimary;
+            }
+        }
     }
 }

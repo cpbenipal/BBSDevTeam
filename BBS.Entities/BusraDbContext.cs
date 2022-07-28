@@ -68,6 +68,12 @@ namespace BBS.Entities
 
         // Offer Share Datas
         public virtual DbSet<SecondaryOfferShareData> SecondaryOfferShareDatas { get; set; }
+        public virtual DbSet<PrimaryOfferShareData> PrimaryOfferShareDatas { get; set; }
+
+
+        // primary offer bid data
+        public virtual DbSet<BidOnPrimaryOffering> BidOnPrimaryOfferings { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,6 +82,16 @@ namespace BBS.Entities
                 new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
                 new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
                 new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 }
+                //new Category { Id = 5, Name = "Tags", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 6, Name = "Short Description", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 7, Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 8, Name = "Company Profile", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 9, Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 10, Name = "Documents", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 11, Name = "Minumum Investment", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 11, Name = "Closing Date", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 13, Name = "Investment Manager", OfferedShareMainTypeId = 1 },
+                //new Category { Id = 14, Name = "Fees in %", OfferedShareMainTypeId = 1 }
             );
 
             modelBuilder.Entity<OfferedShareMainType>().HasData(
@@ -121,7 +137,6 @@ namespace BBS.Entities
                 new Country { Id = 2, Name = "Pakistan" },
                 new Country { Id = 3, Name = "British" }
             );
-
 
             modelBuilder.Entity<Nationality>().HasData(
                 new Nationality { Id = 1, Name = "Emirati" },

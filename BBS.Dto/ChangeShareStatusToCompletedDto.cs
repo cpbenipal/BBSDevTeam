@@ -7,4 +7,10 @@ namespace BBS.Dto
         [Required]
         public int ShareId { get; set; }
     }
+
+    public class ChangePrimaryShareStatusToCompletedDto
+    {
+        [Required]
+        public int PrimaryOfferShareId { get; set; }
+    }
 }

@@ -21,7 +21,7 @@ namespace BBS.API.Controllers
         public IActionResult BidShare([FromBody] BidShareDto bidShareDto)
         {
             var token = HttpContext.Request.Headers["Authorization"];
-            var response = _bidShareInteractor.InsertBidShare(token,bidShareDto);
+            var response = _bidShareInteractor.InsertBidShare(token, bidShareDto);
             return Ok(response);
         }
 
