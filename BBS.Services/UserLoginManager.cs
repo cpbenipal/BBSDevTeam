@@ -26,7 +26,7 @@ namespace BBS.Services.Repository
         public UserLogin GetUserLoginById(int userLoginId)
         {
             return _repositoryBase.GetById(userLoginId);
-        }
+        }        
         public UserLogin InsertUserLogin(UserLogin userLogin)
         {
             var addedUserLogin = _repositoryBase.Insert(userLogin);
@@ -64,6 +64,10 @@ namespace BBS.Services.Repository
         public UserLogin? GetUserLoginByPerson(int personId)
         {
             return _repositoryBase.GetAll().FirstOrDefault(ul => ul.PersonId == personId);
+        }
+        public List<UserLogin> GetAllLoginByPersonIds(List<int> personIds) 
+        {
+            return _repositoryBase.GetAll().Where(ul => personIds.Contains(ul.PersonId)).ToList();
         }
     }
 }

@@ -23,9 +23,13 @@ namespace BBS.Services.Repository
 
         public Company? GetCompanyByName(string name)
         {
-            return _repositoryBase.GetAll().FirstOrDefault(c => c.Equals(name));
+            return _repositoryBase.GetAll().FirstOrDefault(c => c.Name.Equals(name));
         }
-
+        public bool IsCompanyNameUnique(string name)
+        {
+            var asda = _repositoryBase.GetAll().Any(c => c.Name.Equals(name));
+            return asda;
+        }
         public Company InsertCompany(Company company)
         {
             var addedCompany = _repositoryBase.Insert(company);

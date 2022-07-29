@@ -15,6 +15,7 @@ namespace BBS.Interactors
         private readonly ITokenManager _tokenManager;
         private readonly EmailHelperUtils _emailHelperUtils;
         private readonly INewEmailSender _emailSender;
+        private readonly GetBidOnPrimaryOfferUtils _getBidOnPrimaryOfferUtils; 
 
         public ChangePrimaryShareStatusToCompletedInteractor(
             IRepositoryWrapper repositoryWrapper,
@@ -22,7 +23,8 @@ namespace BBS.Interactors
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
             EmailHelperUtils emailHelperUtils,
-            INewEmailSender emailSender
+            INewEmailSender emailSender,
+            GetBidOnPrimaryOfferUtils getBidOnPrimaryOfferUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -31,6 +33,7 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
             _emailHelperUtils = emailHelperUtils;
             _emailSender = emailSender;
+            _getBidOnPrimaryOfferUtils = getBidOnPrimaryOfferUtils;
         }
 
         public GenericApiResponse ChangePrimaryShareStatusToCompleted(string token, int primaryOfferId)
@@ -70,7 +73,22 @@ namespace BBS.Interactors
             _repositoryWrapper
                 .BidOnPrimaryOfferingManager
                 .UpdateBidOnPrimaryOffering(primaryOffering);
+             
+            var contentToSend = _getBidOnPrimaryOfferUtils.BuildPrimaryBidOfferingsFromDto(primaryOffering);
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginById(primaryOffering.UserLoginId);
+            var shareHolder = _repositoryWrapper.PersonManager.GetPerson(userLogin.PersonId);
 
+            var message = _emailHelperUtils.FillEmailContents(
+               contentToSend,
+               "change_primaryoffer_status",
+               shareHolder.FirstName ?? "",
+               shareHolder.LastName ?? ""
+           );
+
+            var subject = "Bursa <> Your Bid Primary Offer Request is Approved";
+
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(shareHolder.Email!, subject, message, false);
 
             return _responseManager.SuccessResponse(
                 "Successfull",

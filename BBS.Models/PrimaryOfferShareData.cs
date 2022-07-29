@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BBS.Constants;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BBS.Models
 {
-    public class PrimaryOfferShareData
+    public class PrimaryOfferShareData:BaseEntity
     {
         [Key]
         public int Id { get; set; }

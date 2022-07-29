@@ -47,7 +47,7 @@ namespace BBS.Interactors
             }
 
         }
-
+        
         private GenericApiResponse TryAddingCategoryContent(
             string token,
             AddPrimaryOfferContent addPrimaryOffer
@@ -59,8 +59,11 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus("Access Denied");
             }
-
-            var company = InsertCompany(addPrimaryOffer);
+            if (_repositoryWrapper.CompanyManager.IsCompanyNameUnique(addPrimaryOffer.CompanyName))
+            {
+                return ReturnErrorStatus("Company name already exists");
+            }
+            var company = InsertCompany(addPrimaryOffer, extractedFromToken.UserLoginId);
 
             var builtPrimaryOfferShareData = addPrimaryOffer.Content.Select(
                 c => new PrimaryOfferShareData
@@ -68,6 +71,8 @@ namespace BBS.Interactors
                     CategoryId = c.CategoryId,
                     Content = c.Content,
                     CompanyId = company.Id,
+                    AddedById = extractedFromToken.UserLoginId,
+                    ModifiedById= extractedFromToken.UserLoginId                    
                 }
             ).ToList();
 
@@ -82,13 +87,15 @@ namespace BBS.Interactors
             );
         }
 
-        private Company InsertCompany(AddPrimaryOfferContent addPrimaryOffer)
+        private Company InsertCompany(AddPrimaryOfferContent addPrimaryOffer, int UserLoginId)
         {
             return _repositoryWrapper.CompanyManager.InsertCompany(
                 new Company
                 {
                     Description = "",
                     Name = addPrimaryOffer.CompanyName,
+                    AddedById = UserLoginId,
+                    ModifiedById = UserLoginId
                 }
             );
         }

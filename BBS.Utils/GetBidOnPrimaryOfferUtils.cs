@@ -28,14 +28,14 @@ namespace BBS.Utils
             return result;
         }
 
-        private GetBidOnPrimaryOfferingDto BuildPrimaryBidOfferingsFromDto(
+        public GetBidOnPrimaryOfferingDto BuildPrimaryBidOfferingsFromDto(
             BidOnPrimaryOffering bidOnPrimary
         )
         {
             var paymentType = _repository.PaymentTypeManager.GetPaymentType(bidOnPrimary.PaymentTypeId);
             var verificationState = _repository.StateManager.GetState(bidOnPrimary.VerificationStatus);
             var company = _repository.CompanyManager.GetCompany(bidOnPrimary.CompanyId);
-            var approvedDate = bidOnPrimary.ApprovedOn.ToString();
+            var approvedDate = bidOnPrimary.ApprovedOn.ToShortDateString();
 
             return new GetBidOnPrimaryOfferingDto
             {
@@ -45,7 +45,9 @@ namespace BBS.Utils
                 PaymentType = paymentType?.Value ?? "",
                 PlacementAmount = bidOnPrimary.PlacementAmount,
                 TransactionId = bidOnPrimary.TransactionId,
-                UserLoginId = bidOnPrimary.UserLoginId,
+                UserLoginId = bidOnPrimary.UserLoginId,  
+                IsDownload = bidOnPrimary.IsDownload,
+                IsESign = bidOnPrimary.IsESign,
                 VerificationStatus = verificationState?.Name ?? ""
             };
         }

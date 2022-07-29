@@ -9,5 +9,5 @@
         public int NormalInvestorsCount { get; set; }
         public int RetailInvestorsCount { get; set; }
         public int QualifiedInvestorsCount { get; set; }
-    }
+    } 
 }

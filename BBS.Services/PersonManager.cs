@@ -51,6 +51,10 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetAll().ToList();
         }
+        public List<Person> GetAllPerson(List<int> personIds)
+        {
+            return _repositoryBase.GetAll().Where(x=> personIds.Contains(x.Id)).ToList();
+        }
     }
 }
  

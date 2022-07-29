@@ -12,5 +12,6 @@ namespace BBS.Services.Contracts
         string UpdatePassCode(int userLoginId);
         UserLogin GetUserLoginById(int userLoginId);
         UserLogin UpdateUserLogin(UserLogin userLogin);
+        List<UserLogin> GetAllLoginByPersonIds(List<int> personIds);
     }
 }

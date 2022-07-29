@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BBS.Constants;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BBS.Models
 {
-    public class BidOnPrimaryOffering
+    public class BidOnPrimaryOffering: BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -27,13 +28,12 @@ namespace BBS.Models
         [ForeignKey("VerificationStatus")]
         public int VerificationStatus { get; set; }
         public State? State { get; set; }
-
         [Required]
         public double PlacementAmount { get; set; }
-
         [Required]
         public string TransactionId { get; set; }
-
+        public bool IsESign { get; set; } = false;
+        public bool IsDownload { get; set; } = false;
         public DateTime ApprovedOn { get; set; }
     }
 }

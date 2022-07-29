@@ -12,6 +12,7 @@ namespace BBS.Dto
 
         [Required]
         public int PaymentTypeId { get; set; }
-
+        public bool IsESign { get; set; } = false;
+        public bool IsDownload { get; set; }= false;
     }
 }
