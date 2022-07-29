@@ -17,8 +17,8 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Dev;User Id=postgres;Password=7Xp2NGP45Wux");
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+                optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Host2;User Id=postgres;Password=7Xp2NGP45Wux");
+                //optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
             }
         }
 
@@ -77,22 +77,22 @@ namespace BBS.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2 },
-                new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
-                new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
-                new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 }
-                //new Category { Id = 5, Name = "Tags", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 6, Name = "Short Description", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 7, Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 8, Name = "Company Profile", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 9, Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 10, Name = "Documents", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 11, Name = "Minumum Investment", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 11, Name = "Closing Date", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 13, Name = "Investment Manager", OfferedShareMainTypeId = 1 },
-                //new Category { Id = 14, Name = "Fees in %", OfferedShareMainTypeId = 1 }
-            );
+            //modelBuilder.Entity<Category>().HasData(
+            //    new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2 },
+            //    new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
+            //    new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
+            //    new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 },
+            //    new Category { Id = 5, Name = "Tags", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 6, Name = "Short Description", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 7, Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 8, Name = "Company Profile", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 9, Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 10, Name = "Documents", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 11, Name = "Minumum Investment", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 11, Name = "Closing Date", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 13, Name = "Investment Manager", OfferedShareMainTypeId = 1 },
+            //    new Category { Id = 14, Name = "Fees in %", OfferedShareMainTypeId = 1 }
+            //);
 
             modelBuilder.Entity<OfferedShareMainType>().HasData(
                 new OfferedShareMainType { Id = 1, Name = "Primary" },
@@ -205,6 +205,9 @@ namespace BBS.Entities
                   new OfferType { Id = 1, Name = "Auction" },
                   new OfferType { Id = 2, Name = "Private" }
             );
+
+            OnModelCreatingPartial(modelBuilder);
         }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

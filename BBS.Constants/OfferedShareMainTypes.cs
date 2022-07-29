@@ -2,6 +2,6 @@
 {
     public enum OfferedShareMainTypes
     {
-        SECONDARY = 2, PRIMARY = 1,
+        PRIMARY = 1, SECONDARY, 
     }
 }

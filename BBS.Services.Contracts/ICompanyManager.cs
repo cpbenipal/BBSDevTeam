@@ -6,6 +6,7 @@ namespace BBS.Services.Contracts
     {
         Company InsertCompany(Company company);
         Company? GetCompanyByName(string name);
+        bool IsCompanyNameUnique(string name);
         Company? GetCompany(int id);
         List<Company> GetCompanies();
     }

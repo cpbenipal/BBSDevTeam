@@ -8,6 +8,8 @@
         public string PaymentType { get; set; }
         public string VerificationStatus { get; set; }
         public double PlacementAmount { get; set; }
+        public bool IsESign { get; set; } = false;
+        public bool IsDownload { get; set; } = false;
         public string TransactionId { get; set; }
         public string ApprovedOn { get; set; }
     }

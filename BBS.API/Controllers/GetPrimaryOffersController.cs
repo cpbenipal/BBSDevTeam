@@ -7,21 +7,22 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GetPrimaryOfferDataController : ControllerBase
+    public class GetPrimaryOffersController : ControllerBase
     {
         private readonly GetPrimaryOfferDataInteractor _getCategoryInteractor;
 
-        public GetPrimaryOfferDataController(GetPrimaryOfferDataInteractor interactor)
-        {
+        public GetPrimaryOffersController(GetPrimaryOfferDataInteractor interactor)
+        { 
             _getCategoryInteractor = interactor;
         }
 
         [Authorize]
-        [HttpPost]
-        public IActionResult GetCategoryContentInteractor(GetPrimaryOfferDataByOfferedShareDto? getCategoryDto)
+        [HttpGet]
+        public IActionResult GetCategoryContentInteractor()
         {
+            var token = HttpContext.Request.Headers["Authorization"];
             var response = _getCategoryInteractor
-                .GetPrimaryOfferData(getCategoryDto?.CompanyId);
+                .GetPrimaryOffers(token);
             return Ok(response);
         }
     }

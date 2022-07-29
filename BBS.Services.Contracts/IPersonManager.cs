@@ -11,5 +11,6 @@ namespace BBS.Services.Contracts
         Person? GetPersonByEmailOrPhone(string emailOrPhone);
         Person UpdatePerson(Person person);
         List<Person> GetAllPerson();
+        List<Person> GetAllPerson(List<int> personIds); 
     }
 }

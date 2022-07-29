@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BBS.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace BBS.Models
 {
-    public class Company
+    public class Company: BaseEntity
     {
         [Key]
         public int Id { get; set; } 

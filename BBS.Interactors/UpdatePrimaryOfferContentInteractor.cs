@@ -82,6 +82,8 @@ namespace BBS.Interactors
                     Content = c.Content,
                     Id = c.Id,
                     CompanyId = addPrimaryOffer.CompanyId,
+                    ModifiedById = extractedFromToken.UserLoginId,
+                    ModifiedDate = DateTime.Now
                 }
             ).ToList();
 
