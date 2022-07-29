@@ -108,7 +108,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> Your Bid is Completed";
+            var subject = "Bursa <> Your Bid on Primary Share is Pending";
 
             _emailSender.SendEmail("", subject, message!, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message!, false);
