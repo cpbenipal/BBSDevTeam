@@ -3,6 +3,7 @@ using BBS.Dto;
 using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
+using EmailSender;
 using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
@@ -13,18 +14,24 @@ namespace BBS.Interactors
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
         private readonly ITokenManager _tokenManager;
+        private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly INewEmailSender _emailSender;
 
         public AddSecondaryOfferContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            ITokenManager tokenManager
+            ITokenManager tokenManager,
+            EmailHelperUtils emailHelperUtils,
+            INewEmailSender newEmailSender
         )
         {
             _repositoryWrapper = repositoryWrapper;
             _responseManager = responseManager;
             _loggerManager = loggerManager;
             _tokenManager = tokenManager;
+            _emailHelperUtils = emailHelperUtils;
+            _emailSender = newEmailSender;
         }
 
         public GenericApiResponse AddSecondaryOfferContent(
@@ -72,7 +79,7 @@ namespace BBS.Interactors
                 .SecondaryOfferShareDataManager
                 .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
 
-            if(secondaryOfferToUpdate == null || secondaryOfferToUpdate.Count == 0)
+            if (secondaryOfferToUpdate == null || secondaryOfferToUpdate.Count == 0)
             {
                 return ReturnErrorStatus("Category Not Found with this offershare");
             }
@@ -93,11 +100,44 @@ namespace BBS.Interactors
                 .SecondaryOfferShareDataManager
                 .UpdateSecondaryOfferShareDataRange(builtSecondaryOfferShareData);
 
+            NotifyAdminAboutSecondaryOfferInsert(builtSecondaryOfferShareData, extractedFromToken.PersonId);
+
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
                 1
             );
+        }
+
+        private void NotifyAdminAboutSecondaryOfferInsert(List<SecondaryOfferShareData> builtSecondaryOfferShareData, int personId)
+        {
+            var dataToSend = BuildEmailTemplateData(builtSecondaryOfferShareData);
+            var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
+
+            var message = _emailHelperUtils.FillEmailContents(
+                dataToSend,
+                "secondary_offer_data",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
+
+            var subject = "Bursa <> Your Secondary Share Is Updated";
+
+            _emailSender.SendEmail("", subject, message!, true);
+        }
+
+        private object BuildEmailTemplateData(List<SecondaryOfferShareData> builtSecondaryOfferShareData)
+        {
+            var emailTemplate = new SecondaryOfferShareDataEmailDto
+            {
+                Information = builtSecondaryOfferShareData[0].Content,
+                DealTeaser = builtSecondaryOfferShareData[1].Content,
+                Team = builtSecondaryOfferShareData[2].Content,
+                Interviews = builtSecondaryOfferShareData[3].Content,
+                OfferShareId = builtSecondaryOfferShareData?.FirstOrDefault()?.OfferedShareId ?? 0
+            };
+
+            return emailTemplate;
         }
     }
 }

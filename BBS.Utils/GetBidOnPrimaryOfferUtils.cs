@@ -28,7 +28,7 @@ namespace BBS.Utils
             return result;
         }
 
-        private GetBidOnPrimaryOfferingDto BuildPrimaryBidOfferingsFromDto(
+        public GetBidOnPrimaryOfferingDto BuildPrimaryBidOfferingsFromDto(
             BidOnPrimaryOffering bidOnPrimary
         )
         {
@@ -41,7 +41,7 @@ namespace BBS.Utils
             {
                 Id = bidOnPrimary.Id,
                 ApprovedOn = approvedDate,
-                Company = company?.Name ?? "",
+                CompanyName = company?.Name ?? "",
                 PaymentType = paymentType?.Value ?? "",
                 PlacementAmount = bidOnPrimary.PlacementAmount,
                 TransactionId = bidOnPrimary.TransactionId,

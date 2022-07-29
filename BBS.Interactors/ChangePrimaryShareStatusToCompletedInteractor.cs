@@ -1,5 +1,6 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using EmailSender;
@@ -15,6 +16,7 @@ namespace BBS.Interactors
         private readonly ITokenManager _tokenManager;
         private readonly EmailHelperUtils _emailHelperUtils;
         private readonly INewEmailSender _emailSender;
+        private readonly GetBidOnPrimaryOfferUtils _getBidOnPrimaryOfferUtils;
 
         public ChangePrimaryShareStatusToCompletedInteractor(
             IRepositoryWrapper repositoryWrapper,
@@ -22,7 +24,8 @@ namespace BBS.Interactors
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
             EmailHelperUtils emailHelperUtils,
-            INewEmailSender emailSender
+            INewEmailSender emailSender,
+            GetBidOnPrimaryOfferUtils getBidOnPrimaryOfferUtils
         )
         {
             _repositoryWrapper = repositoryWrapper;
@@ -31,6 +34,7 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
             _emailHelperUtils = emailHelperUtils;
             _emailSender = emailSender;
+            _getBidOnPrimaryOfferUtils = getBidOnPrimaryOfferUtils;
         }
 
         public GenericApiResponse ChangePrimaryShareStatusToCompleted(string token, int primaryOfferId)
@@ -71,12 +75,31 @@ namespace BBS.Interactors
                 .BidOnPrimaryOfferingManager
                 .UpdateBidOnPrimaryOffering(primaryOffering);
 
-
+            NotifyAdminAndUserAboutStatusChange(primaryOffering);
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status202Accepted,
                 1
             );
+        }
+
+        private void NotifyAdminAndUserAboutStatusChange(BidOnPrimaryOffering bidOnPrimary)
+        {
+            var userLogin = _repositoryWrapper.UserLoginManager.GetUserLoginById(bidOnPrimary.UserLoginId);
+            var person = _repositoryWrapper.PersonManager.GetPerson(userLogin.PersonId);
+            var contentToSend = _getBidOnPrimaryOfferUtils.BuildPrimaryBidOfferingsFromDto(bidOnPrimary);
+
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend,
+                "primary_bid_approve",
+                person.FirstName ?? "",
+                person.LastName ?? ""
+            );
+
+            var subject = "Bursa <> Your Bid on Primary Share Request is Approved";
+
+            _emailSender.SendEmail("", subject, message, true);
+            _emailSender.SendEmail(person.Email!, subject, message, false);
         }
 
         private GenericApiResponse ReturnErrorStatus(string message)

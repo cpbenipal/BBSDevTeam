@@ -18,6 +18,7 @@ namespace BBS.Interactors
         private readonly ITokenManager _tokenManager;
         private readonly INewEmailSender _emailSender;
         private readonly EmailHelperUtils _emailHelperUtils;
+        private readonly GetBidOnPrimaryOfferUtils _getBidOnPrimaryOfferUtils;
 
         public BidOnPrimaryOfferInteractor(
             IMapper mapper,
@@ -26,7 +27,8 @@ namespace BBS.Interactors
             ILoggerManager loggerManager,
             ITokenManager tokenManager,
             INewEmailSender emailSender,
-            EmailHelperUtils emailHelperUtils
+            EmailHelperUtils emailHelperUtils,
+            GetBidOnPrimaryOfferUtils getBidOnPrimaryOfferUtils
         )
         {
             _mapper = mapper;   
@@ -36,6 +38,7 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
             _emailSender = emailSender;
             _emailHelperUtils = emailHelperUtils;
+            _getBidOnPrimaryOfferUtils = getBidOnPrimaryOfferUtils;
         }
 
         public GenericApiResponse BidOnPrimaryOffers(BidOnPrimaryOfferingDto bidOnPrimary, string token)
@@ -78,15 +81,37 @@ namespace BBS.Interactors
             mapped.UserLoginId = extractedFromToken.UserLoginId;
             mapped.TransactionId = RegisterUserUtils.GenerateUniqueNumber(20);
 
-            _repositoryWrapper
+            var response = _repositoryWrapper
                .BidOnPrimaryOfferingManager
                .InsertBidOnPrimaryOffering(mapped);
+
+
+            NotifyAdminAboutPrimaryOfferBid(response, extractedFromToken.PersonId);
+
 
             return _responseManager.SuccessResponse(
                 "Successfull",
                 StatusCodes.Status200OK,
                 1
             );
+        }
+
+        private void NotifyAdminAboutPrimaryOfferBid(BidOnPrimaryOffering bidOnPrimary, int personId)
+        {
+            var contentToSend = _getBidOnPrimaryOfferUtils.BuildPrimaryBidOfferingsFromDto(bidOnPrimary);
+            var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
+
+            var message = _emailHelperUtils.FillEmailContents(
+                contentToSend,
+                "bid_on_primary",
+                personInfo.FirstName ?? "",
+                personInfo.LastName ?? ""
+            );
+
+            var subject = "Bursa <> Your Bid is Completed";
+
+            _emailSender.SendEmail("", subject, message!, true);
+            _emailSender.SendEmail(personInfo.Email!, subject, message!, false);
         }
 
         private bool CheckIfThisCompanyHasOfferedPrimaryShare(BidOnPrimaryOfferingDto bidOnPrimary)

@@ -3,7 +3,7 @@
     public class GetBidOnPrimaryOfferingDto
     {
         public int Id { get; set; }
-        public string Company { get; set; }
+        public string CompanyName { get; set; }
         public int UserLoginId { get; set; }
         public string PaymentType { get; set; }
         public string VerificationStatus { get; set; }
