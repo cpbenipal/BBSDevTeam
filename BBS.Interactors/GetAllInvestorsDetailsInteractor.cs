@@ -109,7 +109,7 @@ namespace BBS.Interactors
             };
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 getInvestorDetail
             );

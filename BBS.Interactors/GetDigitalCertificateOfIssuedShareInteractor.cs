@@ -74,7 +74,7 @@ namespace BBS.Interactors
 
             var response = GetResponse(certificates);
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 response
             );

@@ -14,7 +14,7 @@ namespace BBS.Dto
     {
         public int Id { get; set; }        
         public string Company { get; set; }
-        public List<CompanyInfo> CompanyInfo { get; set; }
+        public List<CatContent> CompanyInfo { get; set; }
         public List<InvestorDetails> InvestorDetails { get; set; }
         public int TotalInvestors { get; set; }
     }
@@ -30,6 +30,11 @@ namespace BBS.Dto
         public string Name { get; set; }
         public string Value { get; set; }
     }
+    public class CategoryDto
+    {
+        public int Id { get; set; } 
+        public string Name { get; set; } 
+    }
     public class InvestorDetails
     {
         public string FirstName { get; set; }         
@@ -44,10 +49,17 @@ namespace BBS.Dto
     {
         public int CompanyId { get; set; } 
     }
+    public class InvestorDto
+    {
+        public int UserLoginId { get; set; }
+        public int VerificationStatus { get; set; }
+    }
     public class CompanyListDto
     {
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
+        public List<InvestorDto> InvestorDto { get; set; }
+        public List<CatContent> Content { get; set; }
     }
     public class CompanyDetailDto 
     {

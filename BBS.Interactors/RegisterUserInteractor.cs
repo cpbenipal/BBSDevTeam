@@ -160,7 +160,7 @@ namespace BBS.Interactors
                 NotifyAdminAndUserAboutRegistration(createdPerson);
             }
             return _responseManager.SuccessResponse(
-               "Successfull",
+               "Successful",
                StatusCodes.Status201Created,
                 new RegisterUserResponseDto
                 {

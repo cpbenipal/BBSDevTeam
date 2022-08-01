@@ -54,7 +54,7 @@ namespace BBS.Interactors
         {
             var allEmployementTypes = _repositoryWrapper.EmployementTypeManager.GetAllEmployementTypes();
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allEmployementTypes
             );

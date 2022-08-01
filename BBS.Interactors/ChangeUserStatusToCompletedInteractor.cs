@@ -89,7 +89,7 @@ namespace BBS.Interactors
             NotifyAdminAndUserAboutStatusChange(personId);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status202Accepted,
                 1
             );

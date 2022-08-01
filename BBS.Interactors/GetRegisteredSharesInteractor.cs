@@ -69,7 +69,7 @@ namespace BBS.Interactors
                 .MapListOfSharesToListOfRegisteredSharesDto(allShares);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allMappedShares
             );

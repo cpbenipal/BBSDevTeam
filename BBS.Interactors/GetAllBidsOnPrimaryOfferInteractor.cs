@@ -65,7 +65,7 @@ namespace BBS.Interactors
                 .ParseBidsOnPrimaryShare(allBidsOnPrimaryOffer);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 response
             );

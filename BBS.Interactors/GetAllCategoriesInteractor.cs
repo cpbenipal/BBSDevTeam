@@ -55,17 +55,22 @@ namespace BBS.Interactors
                 .CategoryManager
                 .GetCategories();
 
-            if(offerShareMainTypeId != null)
+            if (offerShareMainTypeId != null)
             {
                 allCategories = _repositoryWrapper
                     .CategoryManager
                     .GetCategoryByOfferShareMainType((int)offerShareMainTypeId);
             }
 
+            var CatContent = allCategories.Select(x => new CategoryDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            });
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
-                allCategories
+                CatContent
             );
         }
     }

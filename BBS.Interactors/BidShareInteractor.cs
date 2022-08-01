@@ -103,7 +103,7 @@ namespace BBS.Interactors
             NotifyAdminAboutBidShare(insertedBidShare.Id, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 1
             );

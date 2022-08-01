@@ -77,7 +77,7 @@ namespace BBS.Interactors
                 allUsersInformation.FirstOrDefault()! : sortedProfileList;
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 response
             );

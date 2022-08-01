@@ -55,7 +55,7 @@ namespace BBS.Interactors
         {
             var allRestrictions = _repositoryWrapper.RestrictionManager.GetAllRestrictions();
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allRestrictions
             );

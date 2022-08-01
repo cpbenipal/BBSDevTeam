@@ -75,7 +75,7 @@ namespace BBS.Interactors
             var response = _getIssuedDigitalSharesUtils.ParseDigitalSharesToDto(allIssuedShares);
 
             return _responseManager.SuccessResponse(
-                "Successfull", 
+                "Successful", 
                 StatusCodes.Status200OK, 
                 response
             );

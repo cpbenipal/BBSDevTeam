@@ -77,7 +77,7 @@ namespace BBS.Interactors
 
             NotifyAdminAndUserAboutStatusChange(primaryOffering);
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status202Accepted,
                 1
             );

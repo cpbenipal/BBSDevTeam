@@ -22,7 +22,7 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult OfferShare()
+        public IActionResult GetOfferedShareWithBidInformation()
         {
             var token = HttpContext.Request.Headers["Authorization"];
             var response = 

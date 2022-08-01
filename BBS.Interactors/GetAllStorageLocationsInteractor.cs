@@ -52,7 +52,7 @@ namespace BBS.Interactors
         {
             var allStorageLocations = _repositoryWrapper.StorageLocationManager.GetAllStorageLocations();
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allStorageLocations
             );

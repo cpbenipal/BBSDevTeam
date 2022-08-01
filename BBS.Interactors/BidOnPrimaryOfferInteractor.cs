@@ -74,7 +74,10 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus("This Company Has No Offered PrimaryShare");
             }
-
+            if(CheckIfAlreadyBid(bidOnPrimary.CompanyId, extractedFromToken.UserLoginId))
+            {
+                return ReturnErrorStatus("This Investor already bid on this Primary offer");
+            }
             var mapped = _mapper.Map<BidOnPrimaryOffering>(bidOnPrimary);
 
             mapped.VerificationStatus = (int)States.PENDING;
@@ -90,10 +93,17 @@ namespace BBS.Interactors
 
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 1
             );
+        }
+
+        private bool CheckIfAlreadyBid(int companyId, int userLoginId)
+        {
+            var payemtns = _repositoryWrapper.BidOnPrimaryOfferingManager.GetBidOnPrimaryOfferingByUser(userLoginId);
+
+            return payemtns.Any(x => x.CompanyId == companyId);
         }
 
         private void NotifyAdminAboutPrimaryOfferBid(BidOnPrimaryOffering bidOnPrimary, int personId)
@@ -108,7 +118,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> Your Bid is Completed";
+            var subject = "Bursa <> Your Bid on Primary Share is Pending";
 
             _emailSender.SendEmail("", subject, message!, true);
             _emailSender.SendEmail(personInfo.Email!, subject, message!, false);

@@ -71,7 +71,7 @@ namespace BBS.Interactors
             var response = _getBidSharesUtil.ParseBidSharesToDto(bidsForThisShare);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 response
             );

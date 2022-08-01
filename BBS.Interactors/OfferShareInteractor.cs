@@ -137,7 +137,7 @@ namespace BBS.Interactors
                 );
 
                 return _responseManager.SuccessResponse(
-                    "Successfull",
+                    "Successful",
                     StatusCodes.Status200OK,
                     offeredShareToInsert.OfferTypeId == 2 ? offeredSharePrivateKey : 1
                 );

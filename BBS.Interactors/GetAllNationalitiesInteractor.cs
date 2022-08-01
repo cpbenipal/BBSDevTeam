@@ -63,7 +63,7 @@ namespace BBS.Interactors
                     ).ToList();
             }
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allNationalities
             );

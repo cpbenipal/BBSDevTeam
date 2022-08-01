@@ -147,7 +147,7 @@ namespace BBS.Interactors
             };
             _loggerManager.LogInfo("Digitally Share Issued to user", valuesFromToken.PersonId);
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 response
             );

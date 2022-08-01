@@ -117,7 +117,7 @@ namespace BBS.Interactors
 
             _loggerManager.LogInfo("Share Registered",extractedTokenValues.PersonId);
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status201Created,
                 1
             );

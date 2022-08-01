@@ -103,7 +103,7 @@ namespace BBS.Interactors
             NotifyAdminAboutSecondaryOfferInsert(builtSecondaryOfferShareData, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 1
             );

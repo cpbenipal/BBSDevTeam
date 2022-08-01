@@ -55,7 +55,7 @@ namespace BBS.Interactors
             var categories = BuildCategoryWithCurrentId(offeredShareId);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 categories
             );
@@ -89,7 +89,7 @@ namespace BBS.Interactors
                 {
                     Id = secondaryOfferData.Id,
                     Content = secondaryOfferData.Content,
-                    OfferShareId = secondaryOfferData.Id,
+                    OfferShareId = secondaryOfferData.OfferedShareId,
                     Name = category?.Name ?? "",
                     OfferPrice = secondaryOfferData.OfferPrice,
                     TotalShares = secondaryOfferData.TotalShares

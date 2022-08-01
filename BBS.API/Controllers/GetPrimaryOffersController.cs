@@ -18,11 +18,11 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetCategoryContentInteractor()
+        public IActionResult GetPrimaryOffers([FromQuery] int? companyId)  
         {
             var token = HttpContext.Request.Headers["Authorization"];
             var response = _getCategoryInteractor
-                .GetPrimaryOffers(token);
+                .GetPrimaryOffers(token, companyId);
             return Ok(response);
         }
     }

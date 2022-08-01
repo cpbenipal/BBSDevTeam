@@ -51,7 +51,7 @@ namespace BBS.Interactors
         {
             var allPaymentTypes = _repositoryWrapper.PaymentTypeManager.GetAllPaymentTypes();
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allPaymentTypes
             );

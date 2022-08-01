@@ -55,7 +55,7 @@ namespace BBS.Interactors
         {
             var busraFee = int.Parse(_configuration["AppSettings:BusraFee"]);
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 busraFee
             );

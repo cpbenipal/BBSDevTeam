@@ -45,7 +45,7 @@ namespace BBS.Interactors
         {
             var response = _repository.OfferTimeLimitManager.GetAllOfferTimeLimits();
             return _responseManager.SuccessResponse(
-                 "Successfull",
+                 "Successful",
                 StatusCodes.Status200OK,
                 response
             );

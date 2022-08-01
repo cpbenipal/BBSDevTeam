@@ -28,29 +28,55 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
         }
 
-        public GenericApiResponse GetPrimaryOffers(string token)
+        public GenericApiResponse GetPrimaryOffers(string token,int? companyId)
         {
             try
             {
                 var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
-                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
-                {
-                    return ReturnErrorStatus("Access Denied");
-                }
-                var companies = _repositoryWrapper.CompanyManager.GetCompanies();
+                var companies = _repositoryWrapper.CompanyManager.GetCompanies().Where(x => companyId == null || x.Id == companyId);
+                var PrimaryCategories = _repositoryWrapper.CategoryManager.GetCategoryByOfferShareMainType((int)OfferedShareMainTypes.PRIMARY);
+                var PrimaryOfferShareDatas = _repositoryWrapper.PrimaryOfferShareDataManager.GetAllPrimaryOfferShareData();
+                List<BidOnPrimaryOffering> InvestorBids;
 
-                var PrimaryOffers = companies.Select(x=> new CompanyListDto()
+                if (extractedFromToken.RoleId == (int)Roles.ADMIN)
+                    InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
+                else
+                    InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetBidOnPrimaryOfferingByUser(extractedFromToken.UserLoginId);
+
+
+                List<CompanyListDto> AllCompanyInfo = new();
+                foreach (var company in companies)
                 {
-                    CompanyId = x.Id,
-                    CompanyName = x.Name
-                });
-                
+                    CompanyListDto companyDetail = new();
+                    companyDetail.CompanyId = company.Id;
+                    companyDetail.CompanyName = company.Name;
+                    List<InvestorDto> investorDtos = InvestorBids.Where(x => x.CompanyId == company.Id).Select(x => new InvestorDto()
+                    { UserLoginId = x.UserLoginId, VerificationStatus = x.VerificationStatus }).ToList();
+                    companyDetail.InvestorDto = investorDtos;
+
+                    List<CatContent> CompanyInfo = new();
+                    foreach (var data in PrimaryCategories)
+                    {
+                        var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
+                         
+                        CompanyInfo.Add(new CatContent()
+                        {
+                            Id = data.Id,
+                            Name = data.Name,
+                            Value = CompanyPrimaryData?.Content
+                        });
+
+                        companyDetail.Content = CompanyInfo;
+                    }
+                    AllCompanyInfo.Add(companyDetail);
+                }
+
                 return _responseManager.SuccessResponse(
-                  "Successfull",
-                  StatusCodes.Status200OK,
-                  PrimaryOffers
-              );
+              "Successful",
+              StatusCodes.Status200OK,
+              AllCompanyInfo
+          );
             }
             catch (Exception ex)
             {
@@ -81,37 +107,31 @@ namespace BBS.Interactors
                     return ReturnErrorStatus("Offering Company Does not exist");
                 }
                 var PrimaryCategories = _repositoryWrapper.CategoryManager.GetCategoryByOfferShareMainType((int)OfferedShareMainTypes.PRIMARY);
-
                 var PrimaryOfferShareDatas = _repositoryWrapper.PrimaryOfferShareDataManager.GetAllPrimaryOfferShareData();
                 var InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
                 var UserLogins = _repositoryWrapper.UserLoginManager.GetAllLoginByPersonIds(InvestorBids.Select(x => x.UserLoginId).ToList());
                 var Investors = _repositoryWrapper.PersonManager.GetAllPerson(UserLogins.Select(x => x.PersonId).ToList());
 
                 List<GetPrimaryOffersDto> PrimaryOffers = new();
-                //foreach (var company in OfferingCompanies)
-                //{
+
                 var companyDetail = new GetPrimaryOffersDto();
                 companyDetail.Id = company.Id;
                 companyDetail.Company = company.Name;
-                var CompanyPrimaryData = PrimaryOfferShareDatas.Where(x => x.CompanyId == company.Id);
-                List<CompanyInfo> CompanyInfo = new();
-                foreach (var data in CompanyPrimaryData)
+                List<CatContent> CompanyInfo = new();
+                foreach (var data in PrimaryCategories)
                 {
-                    var NameOfCategory = PrimaryCategories.FirstOrDefault(x => x.Id == data.CategoryId)!;
+                    var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
 
-                    CompanyInfo.Add(new CompanyInfo()
+                    CompanyInfo.Add(new CatContent()
                     {
                         Id = data.Id,
-                        CategoryId = data.CategoryId,
-                        Content = new CatContent()
-                        {
-                            Id = NameOfCategory.Id,
-                            Name = NameOfCategory.Name,
-                            Value = data.Content
-                        }
+                        Name = data.Name,
+                        Value = CompanyPrimaryData?.Content
                     });
+                    companyDetail.CompanyInfo = CompanyInfo;
                 }
-                companyDetail.CompanyInfo = CompanyInfo;
+               
+                PrimaryOffers.Add(companyDetail);
 
                 var BidUserLoginIds = InvestorBids.Where(x => x.CompanyId == company.Id).ToList();
 
@@ -136,11 +156,8 @@ namespace BBS.Interactors
                 companyDetail.InvestorDetails = InvestorDetails;
                 companyDetail.TotalInvestors = InvestorDetails.Count;
 
-                PrimaryOffers.Add(companyDetail);
-                //}
-
                 return _responseManager.SuccessResponse(
-               "Successfull",
+               "Successful",
                StatusCodes.Status200OK,
                PrimaryOffers
            );
@@ -208,12 +225,12 @@ namespace BBS.Interactors
             builtData.Content = Content;
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 builtData
             );
         }
-         
+
 
         private GenericApiResponse ReturnErrorStatus(string message)
         {

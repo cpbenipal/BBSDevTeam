@@ -76,7 +76,7 @@ namespace BBS.Interactors
 
             var response = allIssuedSharesForPerson.Select(s => GetPublicPath(s)).ToList();
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 response
             );

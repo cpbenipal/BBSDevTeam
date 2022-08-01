@@ -55,7 +55,7 @@ namespace BBS.Interactors
             var allEquityRounds = _repositoryWrapper.EquityRoundManager.GetAllEquityRounds();
             
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK,
                 allEquityRounds
             );

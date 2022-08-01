@@ -41,7 +41,7 @@ namespace BBS.Interactors
                         CommonUtils.JSONSerialize(loginUserDto), 0
                     );
                     return _responseManager.SuccessResponse(
-                        "Successfull", 
+                        "Successful", 
                         StatusCodes.Status202Accepted, 
                         new VerifyResponseDto { IsVerified = loginUserDto.Otp == "2604" }
                     );

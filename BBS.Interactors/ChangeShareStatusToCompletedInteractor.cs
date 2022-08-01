@@ -82,7 +82,7 @@ namespace BBS.Interactors
             NotifyAdminAndUserAboutStatusChange(shareId);
 
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status202Accepted,
                 1
             );

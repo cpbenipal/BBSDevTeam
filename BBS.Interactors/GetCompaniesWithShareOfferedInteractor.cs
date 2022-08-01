@@ -109,7 +109,7 @@ namespace BBS.Interactors
                 SelectIdAndCompanyNameFromIssuedDigitalShare(s)).ToList();
 
             return _responseManager.SuccessResponse(
-                "Successfull", 
+                "Successful", 
                 StatusCodes.Status200OK, 
                 response
             );

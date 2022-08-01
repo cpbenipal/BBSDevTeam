@@ -80,7 +80,7 @@ namespace BBS.Interactors
                 .MapOfferedShareObjectFromRequest(allOfferedShares);
 
             return _responseManager.SuccessResponse(
-                "Successfull", 
+                "Successful", 
                 StatusCodes.Status200OK,
                 parsedOfferedShares
             );

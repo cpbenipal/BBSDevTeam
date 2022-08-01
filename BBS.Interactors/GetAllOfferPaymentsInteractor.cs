@@ -64,7 +64,7 @@ namespace BBS.Interactors
             var parsedResponse = _offerPaymentUtils.ParseGetOfferPaymentDtoList(allOfferedPayment);
 
             return _responseManager.SuccessResponse(
-                 "Successfull",
+                 "Successful",
                 StatusCodes.Status200OK,
                 parsedResponse
             );

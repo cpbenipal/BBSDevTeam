@@ -53,7 +53,7 @@ namespace BBS.Interactors
         {
             var allDebtRounds = _repositoryWrapper.DebtRoundManager.GetAllDebtRounds();
             return _responseManager.SuccessResponse(
-                "Successfull",
+                "Successful",
                 StatusCodes.Status200OK, 
                 allDebtRounds
             );
