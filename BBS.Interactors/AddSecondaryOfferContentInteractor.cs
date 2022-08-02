@@ -83,24 +83,34 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus("Category Not Found with this offershare");
             }
+             
+            List<SecondaryOfferShareData> secondaryOfferData = new();
 
-            var builtSecondaryOfferShareData = addSecondaryOffer.Content.Select(
-                c => new SecondaryOfferShareData
+            foreach (var c in addSecondaryOffer.Content)
+            {
+                var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.CategoryId == c.CategoryId)!;
+                secondaryOfferData.Add(new SecondaryOfferShareData()
                 {
                     CategoryId = c.CategoryId,
+                    Id = pkId.Id,
                     Content = c.Content,
-                    Id = c.Id,
-                    OfferedShareId = addSecondaryOffer.OfferShareId,
-                    OfferPrice = c.OfferPrice,
-                    TotalShares = c.TotalShares,
-                }
-            ).ToList();
+                    OfferedShareId = addSecondaryOffer.OfferShareId,                    
+                    ModifiedById = extractedFromToken.UserLoginId,
+                    ModifiedDate = DateTime.Now,
+                    OfferPrice = 0,
+                    TotalShares = 0,
+                });
+            }
 
             _repositoryWrapper
                 .SecondaryOfferShareDataManager
-                .UpdateSecondaryOfferShareDataRange(builtSecondaryOfferShareData);
+                .UpdateSecondaryOfferShareDataRange(secondaryOfferData);
 
-            NotifyAdminAboutSecondaryOfferInsert(builtSecondaryOfferShareData, extractedFromToken.PersonId);
+            var updatedContent = _repositoryWrapper 
+                .SecondaryOfferShareDataManager
+                .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
+
+            NotifyAdminAboutSecondaryOfferInsert(updatedContent, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
                 "Successful",
@@ -136,7 +146,6 @@ namespace BBS.Interactors
                 Interviews = builtSecondaryOfferShareData[3].Content,
                 OfferShareId = builtSecondaryOfferShareData?.FirstOrDefault()?.OfferedShareId ?? 0
             };
-
             return emailTemplate;
         }
     }

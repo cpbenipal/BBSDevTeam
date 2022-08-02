@@ -1,5 +1,6 @@
 ﻿using BBS.Constants;
 using BBS.Dto;
+using BBS.Models;
 using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,7 @@ namespace BBS.Interactors
             _getBidOnPrimaryOfferUtils = getBidOnPrimaryOfferUtils;
         }
 
-        public GenericApiResponse GetAllBidsOnPrimaryOffer(string token)
+        public GenericApiResponse GetAllBidsOnPrimaryOffer(string token, int? companyId)
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
             try
@@ -39,7 +40,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     extractedFromToken.PersonId
                 );
-                return TryGettingAllBidsOnPrimaryOffer(extractedFromToken);
+                return TryGettingAllBidsOnPrimaryOffer(extractedFromToken,companyId);
             }
             catch (Exception ex)
             {
@@ -48,9 +49,11 @@ namespace BBS.Interactors
             }
         }
 
-        private GenericApiResponse TryGettingAllBidsOnPrimaryOffer(TokenValues extractedFromToken)
+        private GenericApiResponse TryGettingAllBidsOnPrimaryOffer(TokenValues extractedFromToken, int? companyId)
         {
-            var allBidsOnPrimaryOffer = _repositoryWrapper
+            List<BidOnPrimaryOffering> allBidsOnPrimaryOffer;
+
+            allBidsOnPrimaryOffer = _repositoryWrapper
                 .BidOnPrimaryOfferingManager
                 .GetAllBidOnPrimaryOfferings();
 
@@ -59,6 +62,11 @@ namespace BBS.Interactors
                 allBidsOnPrimaryOffer = _repositoryWrapper
                 .BidOnPrimaryOfferingManager
                 .GetBidOnPrimaryOfferingByUser(extractedFromToken.UserLoginId);
+            }
+
+            if (companyId != null)
+            {
+                allBidsOnPrimaryOffer = allBidsOnPrimaryOffer.Where(x=>x.CompanyId == companyId).ToList();
             }
 
             var response = _getBidOnPrimaryOfferUtils

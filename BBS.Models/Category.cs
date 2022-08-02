@@ -11,6 +11,8 @@ namespace BBS.Models
         [Required]
         public string Name { get; set; }
 
+        public bool IsWebView {get;set;} 
+
         [Required]
         [ForeignKey("OfferedShareMainType")]
         public int OfferedShareMainTypeId { get; set; }

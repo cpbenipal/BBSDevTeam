@@ -56,18 +56,32 @@ namespace BBS.Interactors
                     companyDetail.InvestorDto = investorDtos;
 
                     List<CatContent> CompanyInfo = new();
+                    List<CatContent> WebView = new(); 
                     foreach (var data in PrimaryCategories)
                     {
                         var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
-                         
-                        CompanyInfo.Add(new CatContent()
-                        {
-                            Id = data.Id,
-                            Name = data.Name,
-                            Value = CompanyPrimaryData?.Content
-                        });
 
-                        companyDetail.Content = CompanyInfo;
+                        if (!data.IsWebView)
+                        {
+                            CompanyInfo.Add(new CatContent()
+                            {
+                                Id = data.Id,
+                                Name = data.Name,
+                                Value = CompanyPrimaryData?.Content,
+                            });
+                        }
+                        else
+                        {
+                            WebView.Add(new CatContent()
+                            {
+                                Id = data.Id,
+                                Name = data.Name,
+                                Value = CompanyPrimaryData?.Content,
+                            });
+
+                        }
+                        companyDetail.CompanyInfo = CompanyInfo;
+                        companyDetail.WebView = WebView;
                     }
                     AllCompanyInfo.Add(companyDetail);
                 }
@@ -118,17 +132,32 @@ namespace BBS.Interactors
                 companyDetail.Id = company.Id;
                 companyDetail.Company = company.Name;
                 List<CatContent> CompanyInfo = new();
+                List<CatContent> WebView = new();
                 foreach (var data in PrimaryCategories)
                 {
                     var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
 
-                    CompanyInfo.Add(new CatContent()
+                    if (!data.IsWebView)
                     {
-                        Id = data.Id,
-                        Name = data.Name,
-                        Value = CompanyPrimaryData?.Content
-                    });
+                        CompanyInfo.Add(new CatContent()
+                        {
+                            Id = data.Id,
+                            Name = data.Name,
+                            Value = CompanyPrimaryData?.Content,
+                        });
+                    }
+                    else
+                    {
+                        WebView.Add(new CatContent()
+                        {
+                            Id = data.Id,
+                            Name = data.Name,
+                            Value = CompanyPrimaryData?.Content,
+                        });
+
+                    }
                     companyDetail.CompanyInfo = CompanyInfo;
+                    companyDetail.WebView = WebView;
                 }
                
                 PrimaryOffers.Add(companyDetail);

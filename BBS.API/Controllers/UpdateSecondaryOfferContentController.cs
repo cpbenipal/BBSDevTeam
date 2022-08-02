@@ -7,18 +7,18 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AddSecondaryOfferContentController : ControllerBase
+    public class UpdateSecondaryOfferContentController : ControllerBase
     {
         private readonly AddSecondaryOfferContentInteractor 
             _addSecondaryOfferContentInteractor;
 
-        public AddSecondaryOfferContentController(AddSecondaryOfferContentInteractor interactor)
+        public UpdateSecondaryOfferContentController(AddSecondaryOfferContentInteractor interactor)
         {
             _addSecondaryOfferContentInteractor = interactor;
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost] 
         public IActionResult AddCategory(
             AddSecondaryOfferContent addCategoryContentDto
         )

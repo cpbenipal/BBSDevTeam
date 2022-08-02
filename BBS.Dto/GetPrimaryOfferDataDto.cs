@@ -15,6 +15,7 @@ namespace BBS.Dto
         public int Id { get; set; }        
         public string Company { get; set; }
         public List<CatContent> CompanyInfo { get; set; }
+        public List<CatContent> WebView { get; set; }
         public List<InvestorDetails> InvestorDetails { get; set; }
         public int TotalInvestors { get; set; }
     }
@@ -59,7 +60,8 @@ namespace BBS.Dto
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public List<InvestorDto> InvestorDto { get; set; }
-        public List<CatContent> Content { get; set; }
+        public List<CatContent> CompanyInfo { get; set; } 
+        public List<CatContent> WebView { get; set; } 
     }
     public class CompanyDetailDto 
     {

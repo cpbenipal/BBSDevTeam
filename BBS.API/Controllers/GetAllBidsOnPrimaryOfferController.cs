@@ -15,10 +15,10 @@ namespace BBS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllBidsOnPrimaryOffer()
+        public IActionResult GetAllBidsOnPrimaryOffer([FromQuery] int? companyId)
         {
             var token = HttpContext.Request.Headers["Authorization"];
-            return Ok(_getAllBidsOnPrimaryOfferInteractor.GetAllBidsOnPrimaryOffer(token));
+            return Ok(_getAllBidsOnPrimaryOfferInteractor.GetAllBidsOnPrimaryOffer(token, companyId));
         }
     }
 }
