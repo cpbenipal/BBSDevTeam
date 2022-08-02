@@ -9,23 +9,23 @@ namespace BBS.API.Controllers
     [Route("api/[controller]")]
     public class UpdateSecondaryOfferContentController : ControllerBase
     {
-        private readonly AddSecondaryOfferContentInteractor 
-            _addSecondaryOfferContentInteractor;
+        private readonly UpdateSecondaryOfferContentInteractor 
+            _updateSecondaryOfferContentInteractor;
 
-        public UpdateSecondaryOfferContentController(AddSecondaryOfferContentInteractor interactor)
+        public UpdateSecondaryOfferContentController(UpdateSecondaryOfferContentInteractor interactor)
         {
-            _addSecondaryOfferContentInteractor = interactor;
+            _updateSecondaryOfferContentInteractor = interactor;
         }
 
         [Authorize]
         [HttpPost] 
         public IActionResult AddCategory(
-            AddSecondaryOfferContent addCategoryContentDto
+            UpdateSecondaryOfferContent addCategoryContentDto
         )
         {
             var token = HttpContext.Request.Headers["Authorization"];
-            var response = _addSecondaryOfferContentInteractor
-                .AddSecondaryOfferContent(token, addCategoryContentDto);
+            var response = _updateSecondaryOfferContentInteractor
+                .UpdateSecondaryOfferContent(token, addCategoryContentDto);
 
             return Ok(response);
         }

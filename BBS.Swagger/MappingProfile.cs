@@ -47,7 +47,7 @@ namespace BBS.Swagger
             CreateMap<BidShareDto, BidShare>();
             CreateMap<BidShare, BidShareDto>();
 
-            CreateMap<AddSecondaryOfferContent, Category>();
+            CreateMap<UpdateSecondaryOfferContent, Category>();
             CreateMap<Category, GetCategoryResultItem>();
 
             CreateMap<BidOnPrimaryOfferingDto, BidOnPrimaryOffering>();

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace BBS.Interactors
 {
-    public class AddSecondaryOfferContentInteractor
+    public class UpdateSecondaryOfferContentInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
@@ -17,7 +17,7 @@ namespace BBS.Interactors
         private readonly EmailHelperUtils _emailHelperUtils;
         private readonly INewEmailSender _emailSender;
 
-        public AddSecondaryOfferContentInteractor(
+        public UpdateSecondaryOfferContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
@@ -34,8 +34,8 @@ namespace BBS.Interactors
             _emailSender = newEmailSender;
         }
 
-        public GenericApiResponse AddSecondaryOfferContent(
-            string token, AddSecondaryOfferContent addSecondaryOffer
+        public GenericApiResponse UpdateSecondaryOfferContent(
+            string token, UpdateSecondaryOfferContent updateSecondaryOffer
         )
         {
             try
@@ -45,7 +45,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryAddingCategoryContent(token, addSecondaryOffer);
+                return TryUpdatingCategoryContent(token, updateSecondaryOffer);
             }
             catch (Exception ex)
             {
@@ -63,9 +63,9 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryAddingCategoryContent(
+        private GenericApiResponse TryUpdatingCategoryContent(
             string token,
-            AddSecondaryOfferContent addSecondaryOffer
+            UpdateSecondaryOfferContent addSecondaryOffer
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -86,31 +86,35 @@ namespace BBS.Interactors
              
             List<SecondaryOfferShareData> secondaryOfferData = new();
 
-            foreach (var c in addSecondaryOffer.Content)
+            foreach (var c in secondaryOfferToUpdate)
             {
-                var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.CategoryId == c.CategoryId)!;
-                secondaryOfferData.Add(new SecondaryOfferShareData()
+                var updated = addSecondaryOffer.Content.FirstOrDefault(x => x.CategoryId == c.CategoryId);
+                if(updated == null)
                 {
-                    CategoryId = c.CategoryId,
-                    Id = pkId.Id,
-                    Content = c.Content,
-                    OfferedShareId = addSecondaryOffer.OfferShareId,                    
-                    ModifiedById = extractedFromToken.UserLoginId,
-                    ModifiedDate = DateTime.Now,
-                    OfferPrice = 0,
-                    TotalShares = 0,
-                });
+                    secondaryOfferData.Add(c);
+                }
+                else
+                {
+                    var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.CategoryId == c.CategoryId)!;
+                    secondaryOfferData.Add(new SecondaryOfferShareData()
+                    {
+                        CategoryId = c.CategoryId,
+                        Id = pkId.Id,
+                        Content = updated.Content,
+                        OfferedShareId = addSecondaryOffer.OfferShareId,
+                        ModifiedById = extractedFromToken.UserLoginId,
+                        ModifiedDate = DateTime.Now,
+                        OfferPrice = 0,
+                        TotalShares = 0,
+                    });
+                }
             }
 
             _repositoryWrapper
                 .SecondaryOfferShareDataManager
                 .UpdateSecondaryOfferShareDataRange(secondaryOfferData);
 
-            var updatedContent = _repositoryWrapper 
-                .SecondaryOfferShareDataManager
-                .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
-
-            NotifyAdminAboutSecondaryOfferInsert(updatedContent, extractedFromToken.PersonId);
+            NotifyAdminAboutSecondaryOfferInsert(secondaryOfferData, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
                 "Successful",
@@ -136,8 +140,12 @@ namespace BBS.Interactors
             _emailSender.SendEmail("", subject, message!, true);
         }
 
-        private object BuildEmailTemplateData(List<SecondaryOfferShareData> builtSecondaryOfferShareData)
+        private static object BuildEmailTemplateData(List<SecondaryOfferShareData> builtSecondaryOfferShareData)
         {
+
+            builtSecondaryOfferShareData = builtSecondaryOfferShareData
+                .OrderBy(d => d.CategoryId)
+                .ToList();
             var emailTemplate = new SecondaryOfferShareDataEmailDto
             {
                 Information = builtSecondaryOfferShareData[0].Content,
