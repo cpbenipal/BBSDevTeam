@@ -148,6 +148,8 @@ namespace BBS.Interactors
                 {
                     Description = "",
                     Name = addPrimaryOffer.CompanyName,
+                    OfferPrice= addPrimaryOffer.OfferPrice,
+                    Quantity = addPrimaryOffer.Quantity,
                     AddedById = UserLoginId,
                     ModifiedById = UserLoginId
                 }

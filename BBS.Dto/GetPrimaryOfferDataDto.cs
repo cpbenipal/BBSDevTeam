@@ -10,10 +10,22 @@ namespace BBS.Dto
         public string Company { get; set; }
     }
 
+    public class GetAllPrimaryOffersDto 
+    {
+        public int Id { get; set; }
+        public string Company { get; set; }
+        public decimal OfferPrice { get; set; }
+        public int Quantity { get; set; }        
+        public int TotalBids { get; set; } 
+    }
+
+
     public class GetPrimaryOffersDto 
     {
         public int Id { get; set; }        
-        public string Company { get; set; }
+        public string Company { get; set; }     
+        public decimal OfferPrice { get; set; }     
+        public int Quantity { get; set; }
         public List<CatContent> CompanyInfo { get; set; }
         public List<CatContent> WebView { get; set; }
         public List<InvestorDetails> InvestorDetails { get; set; }
@@ -38,6 +50,7 @@ namespace BBS.Dto
     }
     public class InvestorDetails
     {
+        public int OfferShareId { get; set; } 
         public string FirstName { get; set; }         
         public string LastName { get; set; }         
         public string Email { get; set; }

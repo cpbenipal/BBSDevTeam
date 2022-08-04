@@ -20,8 +20,7 @@ namespace BBS.Services.Repository
         public PrimaryOfferShareData GetPrimaryOfferShareData(int id)
         {
             return _repositoryBase.GetById(id);
-        }
-
+        } 
         public List<PrimaryOfferShareData> InsertPrimaryOfferShareDataRange(
             List<PrimaryOfferShareData> primaryOfferShare
         )

@@ -53,7 +53,7 @@ namespace BBS.Interactors
                     return ReturnErrorStatus("Access Denied");
                 }
 
-                return TryChangingPrimaryShareStatusToCompleted(primaryOfferId);
+                return TryChangingPrimaryShareStatusToCompleted(primaryOfferId, extractedFromToken.UserLoginId);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace BBS.Interactors
             }
         }
 
-        private GenericApiResponse TryChangingPrimaryShareStatusToCompleted(int primaryOfferId)
+        private GenericApiResponse TryChangingPrimaryShareStatusToCompleted(int primaryOfferId, int UserLoginId)
         {
             var primaryOffering = _repositoryWrapper
                 .BidOnPrimaryOfferingManager
@@ -70,6 +70,8 @@ namespace BBS.Interactors
 
             primaryOffering.VerificationStatus = (int)States.COMPLETED;
             primaryOffering.ApprovedOn = DateTime.Now;
+            primaryOffering.ModifiedById = UserLoginId;
+            primaryOffering.ModifiedDate = DateTime.Now;
 
             _repositoryWrapper
                 .BidOnPrimaryOfferingManager

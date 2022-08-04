@@ -41,7 +41,7 @@ namespace BBS.Interactors
             {
                 _loggerManager.LogInfo(
                     "UpdatePrimaryOfferContent : " +
-                    CommonUtils.JSONSerialize("No Body"),
+                    CommonUtils.JSONSerialize(addPrimaryOffer),
                     0
                 );
                 return TryUpdatingCategoryContent(token, addPrimaryOffer);
@@ -55,7 +55,7 @@ namespace BBS.Interactors
         }
 
         private GenericApiResponse TryUpdatingCategoryContent(
-            string token, 
+            string token,
             AddPrimaryOfferContent addPrimaryOffer
         )
         {
@@ -74,18 +74,21 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus("Category Not Found");
             }
+             
 
-            var builtPrimaryOfferShareData = addPrimaryOffer.Content.Select(
-                c => new PrimaryOfferShareData
-                {
-                    CategoryId = c.CategoryId,
-                    Content = c.Content,
-                    Id = c.Id,
-                    CompanyId = addPrimaryOffer.CompanyId,
-                    ModifiedById = extractedFromToken.UserLoginId,
-                    ModifiedDate = DateTime.Now
-                }
-            ).ToList();
+            var company = UpdateCompany(addPrimaryOffer, extractedFromToken.UserLoginId);             
+
+            List<PrimaryOfferShareData> builtPrimaryOfferShareData = new();
+            foreach (var c in addPrimaryOffer.Content)
+            {
+                PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x=>x.CategoryId == c.CategoryId && x.CompanyId == addPrimaryOffer.CompanyId)!;                
+                contentDetail.Content = c.Content;                                
+                contentDetail.ModifiedById = extractedFromToken.UserLoginId;
+                contentDetail.ModifiedDate = DateTime.Now;
+                contentDetail.CompanyId = addPrimaryOffer.CompanyId;
+
+                builtPrimaryOfferShareData.Add(contentDetail);
+            }
 
             _repositoryWrapper
                 .PrimaryOfferShareDataManager
@@ -101,6 +104,20 @@ namespace BBS.Interactors
             );
         }
 
+        private Company UpdateCompany(AddPrimaryOfferContent model, int UserLoginId)
+        {
+            var entity = _repositoryWrapper.CompanyManager.GetCompany(model.CompanyId)!;
+
+            entity.Id = model.CompanyId;
+            entity.Name = model.CompanyName;
+            entity.OfferPrice = model.OfferPrice;
+            entity.Quantity = model.Quantity;
+            entity.AddedById = UserLoginId;
+            entity.ModifiedById = UserLoginId;
+            entity.ModifiedDate = DateTime.Now;
+            return _repositoryWrapper.CompanyManager.UpdateCompany(entity);
+        }
+
         private void NotifyAdminAboutPrimaryOfferInsert(List<PrimaryOfferShareData> builtPrimaryOfferShareData, int personId)
         {
             var dataToSend = BuildEmailTemplateData(builtPrimaryOfferShareData);
@@ -113,7 +130,7 @@ namespace BBS.Interactors
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> Your Secondary Share Is Updated";
+            var subject = "Bursa <> Your Primary Offering Is Updated";
 
             _emailSender.SendEmail("", subject, message!, true);
         }

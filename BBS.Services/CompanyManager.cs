@@ -25,14 +25,19 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetAll().FirstOrDefault(c => c.Name.Equals(name));
         }
-        public bool IsCompanyNameUnique(string name)
+        public bool IsCompanyNameUnique(string name, int companyId = 0)
         {
-            var asda = _repositoryBase.GetAll().Any(c => c.Name.Equals(name));
-            return asda;
+            return _repositoryBase.GetAll().Any(c => (companyId > 0 || c.Id != companyId) && c.Name.Equals(name));
         }
         public Company InsertCompany(Company company)
         {
             var addedCompany = _repositoryBase.Insert(company);
+            _repositoryBase.Save();
+            return addedCompany;
+        }
+        public Company UpdateCompany(Company company)
+        {
+            var addedCompany = _repositoryBase.Update(company);
             _repositoryBase.Save();
             return addedCompany;
         }

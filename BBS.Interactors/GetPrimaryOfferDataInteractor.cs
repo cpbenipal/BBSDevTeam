@@ -28,7 +28,48 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
         }
 
-        public GenericApiResponse GetPrimaryOffers(string token,int? companyId)
+        public GenericApiResponse GetListing(StringValues token)
+        {
+            try
+            { 
+                var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+                _loggerManager.LogInfo(
+                  "UpdatePrimaryOfferContent : " +
+                  CommonUtils.JSONSerialize(extractedFromToken),
+                  extractedFromToken.PersonId
+              );
+                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+                {
+                    return ReturnErrorStatus("Access Denied");
+                }
+                else
+                {
+                    var companies = _repositoryWrapper.CompanyManager.GetCompanies();
+                    List<BidOnPrimaryOffering> InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
+                    List<GetAllPrimaryOffersDto> AllCompanyInfo = new();
+                    foreach (var company in companies)
+                    { 
+                        AllCompanyInfo.Add(
+                            new GetAllPrimaryOffersDto()
+                            {
+                                Id = company.Id,
+                                Company = company.Name,
+                                OfferPrice = company.OfferPrice,
+                                Quantity = company.Quantity,
+                                TotalBids = InvestorBids.Where(x => x.CompanyId == company.Id)!.Count()
+                            }
+                        );
+                    }
+                    return _responseManager.SuccessResponse("Successful",StatusCodes.Status200OK,AllCompanyInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex, 0);
+                return ReturnErrorStatus(ex.Message);
+            }
+        }
+        public GenericApiResponse GetPrimaryOffers(string token, int? companyId)
         {
             try
             {
@@ -56,7 +97,7 @@ namespace BBS.Interactors
                     companyDetail.InvestorDto = investorDtos;
 
                     List<CatContent> CompanyInfo = new();
-                    List<CatContent> WebView = new(); 
+                    List<CatContent> WebView = new();
                     foreach (var data in PrimaryCategories)
                     {
                         var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
@@ -131,6 +172,9 @@ namespace BBS.Interactors
                 var companyDetail = new GetPrimaryOffersDto();
                 companyDetail.Id = company.Id;
                 companyDetail.Company = company.Name;
+                companyDetail.Quantity = company.Quantity;
+                companyDetail.OfferPrice = company.OfferPrice;
+
                 List<CatContent> CompanyInfo = new();
                 List<CatContent> WebView = new();
                 foreach (var data in PrimaryCategories)
@@ -159,7 +203,7 @@ namespace BBS.Interactors
                     companyDetail.CompanyInfo = CompanyInfo;
                     companyDetail.WebView = WebView;
                 }
-               
+
                 PrimaryOffers.Add(companyDetail);
 
                 var BidUserLoginIds = InvestorBids.Where(x => x.CompanyId == company.Id).ToList();
@@ -173,6 +217,7 @@ namespace BBS.Interactors
 
                     InvestorDetails.Add(new InvestorDetails()
                     {
+                        OfferShareId = bid.Id,
                         Email = investor.Email,
                         FirstName = investor.FirstName,
                         LastName = investor.LastName,

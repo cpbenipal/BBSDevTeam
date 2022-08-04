@@ -14,7 +14,7 @@ namespace BBS.API.Controllers
         public GetAllPrimaryOfferInvestorsController(GetPrimaryOfferDataInteractor interactor)
         {
             _getCategoryInteractor = interactor;
-        } 
+        }        
 
         [Authorize]
         [HttpPost]

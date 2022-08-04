@@ -7,25 +7,41 @@ namespace BBS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PrimaryOfferContentController : ControllerBase
+    public class PrimaryOfferController : ControllerBase 
     {
         private readonly AddPrimaryOfferContentInteractor
             _addPrimaryOfferContentInteractor;
         private readonly UpdatePrimaryOfferContentInteractor
             _updatePrimaryOfferContentInteractor;
 
-        public PrimaryOfferContentController(
+        private readonly GetPrimaryOfferDataInteractor _CompaniesInteractor;
+
+        public PrimaryOfferController(
             AddPrimaryOfferContentInteractor addPrimaryOfferContentInteractor,
-            UpdatePrimaryOfferContentInteractor updatePrimaryOfferContentInteractor
+            UpdatePrimaryOfferContentInteractor updatePrimaryOfferContentInteractor,
+            GetPrimaryOfferDataInteractor CompaniesInteractor
         )
         {
             _addPrimaryOfferContentInteractor = addPrimaryOfferContentInteractor;
             _updatePrimaryOfferContentInteractor = updatePrimaryOfferContentInteractor;
+            _CompaniesInteractor = CompaniesInteractor;
+        }
+        /// <summary>
+        /// Get All offering companies
+        /// </summary>
+        /// <returns>Id, CompanyName , OfferPrice , Quanity , totalBids</returns>
+        [Authorize]
+        [HttpGet("GetAll")]
+        public IActionResult GetAll() 
+        {
+            var token = HttpContext.Request.Headers["Authorization"];
+            var response = _CompaniesInteractor.GetListing(token);
+            return Ok(response);
         }
 
         [Authorize]
         [HttpPost("Add")]
-        public IActionResult AddCategory(
+        public IActionResult Add(
             AddPrimaryOfferContent addCategoryContentDto
         )
         {
@@ -38,7 +54,7 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpPut("Update")]
-        public IActionResult UpdateCategory(
+        public IActionResult Update( 
             AddPrimaryOfferContent addCategoryContentDto
         )
         {

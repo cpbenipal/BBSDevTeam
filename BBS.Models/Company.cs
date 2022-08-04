@@ -12,6 +12,11 @@ namespace BBS.Models
         [MaxLength(100)]
         public string Name { get; set; }
 
+        [Required]
+        public decimal OfferPrice { get; set; }
+        [Required]
+        public int Quantity { get; set; }
+
         public string? Description { get; set; }
     }
 }
