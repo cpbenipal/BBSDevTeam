@@ -160,6 +160,9 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsWebView")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -172,6 +175,106 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("OfferedShareMainTypeId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsWebView = false,
+                            Name = "Information",
+                            OfferedShareMainTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsWebView = false,
+                            Name = "Deal Teaser",
+                            OfferedShareMainTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsWebView = false,
+                            Name = "Team",
+                            OfferedShareMainTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsWebView = false,
+                            Name = "Interviews",
+                            OfferedShareMainTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsWebView = false,
+                            Name = "Tags",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsWebView = false,
+                            Name = "Short Description",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsWebView = false,
+                            Name = "Deal Teaser",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsWebView = false,
+                            Name = "Company Profile",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsWebView = false,
+                            Name = "Terms & Legal",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsWebView = false,
+                            Name = "Documents",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsWebView = false,
+                            Name = "Minumum Investment",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsWebView = false,
+                            Name = "Closing Date",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsWebView = false,
+                            Name = "Investment Manager",
+                            OfferedShareMainTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsWebView = false,
+                            Name = "Fees in %",
+                            OfferedShareMainTypeId = 1
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.Company", b =>
@@ -207,6 +310,12 @@ namespace BBS.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<decimal>("OfferPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -924,6 +1033,42 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("NationalityId");
 
                     b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 0,
+                            AddedDate = new DateTime(2022, 8, 10, 16, 34, 47, 437, DateTimeKind.Local).AddTicks(652),
+                            AddressLine = "Dubai",
+                            AnnualIncome = 10000000m,
+                            City = "Dubai",
+                            CountryId = 1,
+                            DateOfBirth = new DateTime(2022, 8, 10, 11, 4, 47, 437, DateTimeKind.Utc).AddTicks(664),
+                            DateOfEmployement = new DateTime(2022, 8, 10, 11, 4, 47, 437, DateTimeKind.Utc).AddTicks(668),
+                            Email = "admin@bursa.com",
+                            EmiratesID = "000000000000",
+                            EmployementTypeId = 1,
+                            EmployerName = "Bursa",
+                            FirstName = "Admin",
+                            HaveConvicted = false,
+                            HaveCriminalRecord = false,
+                            HaveExperience = true,
+                            HavePriorExpirence = true,
+                            HaveTraining = true,
+                            IBANNumber = "00000000000",
+                            IsDeleted = false,
+                            IsIndividual = false,
+                            IsPublicSectorEmployee = false,
+                            IsUSCitizen = false,
+                            LastName = "",
+                            ModifiedById = 0,
+                            ModifiedDate = new DateTime(2022, 8, 10, 16, 34, 47, 437, DateTimeKind.Local).AddTicks(662),
+                            NationalityId = 1,
+                            PhoneNumber = "5512345678",
+                            VaultNumber = "00000000000",
+                            VerificationState = 2
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.PersonalAttachment", b =>
@@ -1086,12 +1231,30 @@ namespace BBS.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("OfferPrice")
                         .HasColumnType("numeric");
@@ -1340,6 +1503,23 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("UserLogin");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 0,
+                            AddedDate = new DateTime(2022, 8, 10, 16, 34, 47, 437, DateTimeKind.Local).AddTicks(1521),
+                            IsDeleted = false,
+                            ModifiedById = 0,
+                            ModifiedDate = new DateTime(2022, 8, 10, 16, 34, 47, 437, DateTimeKind.Local).AddTicks(1522),
+                            Passcode = "MDAwMA==",
+                            PasswordHash = new byte[] { 121, 111, 98, 228, 58, 135, 57, 207, 170, 190, 128, 167, 127, 225, 69, 154, 19, 231, 208, 242, 73, 70, 27, 238, 17, 251, 107, 160, 35, 69, 92, 197, 210, 26, 150, 221, 47, 160, 196, 66, 85, 55, 41, 105, 206, 31, 195, 200, 249, 97, 41, 222, 196, 179, 163, 4, 131, 76, 5, 25, 49, 193, 65, 131, 254, 121, 95, 234, 90, 101, 41, 170, 138, 16, 40, 224, 156, 79, 219, 24, 12, 254, 203, 177, 233, 38, 140, 84, 56, 57, 88, 162, 9, 142, 210, 57, 47, 109, 195, 198, 152, 5, 66, 52, 151, 42, 239, 234, 201, 143, 171, 74, 51, 142, 16, 64, 38, 116, 210, 2, 121, 240, 185, 157, 215, 255, 59, 47 },
+                            PasswordSalt = new byte[] { 113, 127, 109, 37, 22, 3, 26, 214, 211, 1, 184, 6, 197, 171, 71, 221, 110, 87, 49, 157, 117, 130, 144, 111, 235, 227, 156, 180, 136, 62, 112, 159, 37, 150, 163, 43, 172, 220, 0, 10, 203, 212, 101, 188, 17, 18, 144, 234, 182, 203, 232, 73, 125, 6, 20, 238, 202, 194, 29, 85, 245, 113, 180, 177 },
+                            PersonId = 1,
+                            RefreshToken = "",
+                            Username = ""
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.UserRole", b =>
@@ -1381,6 +1561,19 @@ namespace BBS.Entities.Migrations
                     b.HasIndex("UserLoginId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddedById = 0,
+                            AddedDate = new DateTime(2022, 8, 10, 16, 34, 47, 437, DateTimeKind.Local).AddTicks(1537),
+                            IsDeleted = false,
+                            ModifiedById = 0,
+                            ModifiedDate = new DateTime(2022, 8, 10, 16, 34, 47, 437, DateTimeKind.Local).AddTicks(1538),
+                            RoleId = 2,
+                            UserLoginId = 1
+                        });
                 });
 
             modelBuilder.Entity("BBS.Models.BidOnPrimaryOffering", b =>
