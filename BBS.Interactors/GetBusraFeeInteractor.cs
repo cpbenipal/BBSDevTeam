@@ -10,17 +10,17 @@ namespace BBS.Interactors
     {
         private readonly IApiResponseManager _responseManager;
         private readonly ILoggerManager _loggerManager;
-        private readonly IConfiguration _configuration;
+        private readonly GetBursaFeesUtil _getBursaFeesUtil;
 
         public GetBusraFeeInteractor(
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
-            IConfiguration configuration
+            GetBursaFeesUtil getBursaFeesUtil
         )
         {
             _responseManager = responseManager;
             _loggerManager = loggerManager;
-            _configuration = configuration;
+            _getBursaFeesUtil = getBursaFeesUtil;
         }
 
         public GenericApiResponse GetBusraFee()
@@ -53,7 +53,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingBusraFee()
         {
-            var busraFee = int.Parse(_configuration["AppSettings:BusraFee"]);
+            var busraFee = _getBursaFeesUtil.Fetch();
             return _responseManager.SuccessResponse(
                 "Successful",
                 StatusCodes.Status200OK,

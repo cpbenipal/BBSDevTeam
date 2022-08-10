@@ -13,7 +13,7 @@ namespace BBS.Services.Repository
         }
         public List<Company> GetCompanies()
         {
-            return _repositoryBase.GetAll().ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x => x.ModifiedDate).ToList();
         }
 
         public Company? GetCompany(int id)

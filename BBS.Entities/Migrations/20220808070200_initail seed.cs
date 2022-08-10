@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBS.Entities.Migrations
 {
-    public partial class First : Migration
+    public partial class initailseed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,15 @@ namespace BBS.Entities.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true)
+                    OfferPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    AddedById = table.Column<int>(type: "integer", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedById = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,7 +310,7 @@ namespace BBS.Entities.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
+                    IsWebView = table.Column<bool>(type: "boolean", nullable: false),
                     OfferedShareMainTypeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -391,6 +399,90 @@ namespace BBS.Entities.Migrations
                         name: "FK_UserLogin_Person_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PrimaryOfferShareDatas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyId = table.Column<int>(type: "integer", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    AddedById = table.Column<int>(type: "integer", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedById = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrimaryOfferShareDatas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PrimaryOfferShareDatas_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PrimaryOfferShareDatas_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BidOnPrimaryOfferings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyId = table.Column<int>(type: "integer", nullable: false),
+                    UserLoginId = table.Column<int>(type: "integer", nullable: false),
+                    PaymentTypeId = table.Column<int>(type: "integer", nullable: false),
+                    VerificationStatus = table.Column<int>(type: "integer", nullable: false),
+                    StateId = table.Column<int>(type: "integer", nullable: true),
+                    PlacementAmount = table.Column<double>(type: "double precision", nullable: false),
+                    TransactionId = table.Column<string>(type: "text", nullable: false),
+                    IsESign = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDownload = table.Column<bool>(type: "boolean", nullable: false),
+                    ApprovedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AddedById = table.Column<int>(type: "integer", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedById = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BidOnPrimaryOfferings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BidOnPrimaryOfferings_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BidOnPrimaryOfferings_PaymentTypes_PaymentTypeId",
+                        column: x => x.PaymentTypeId,
+                        principalTable: "PaymentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BidOnPrimaryOfferings_States_StateId",
+                        column: x => x.StateId,
+                        principalTable: "States",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_BidOnPrimaryOfferings_UserLogin_UserLoginId",
+                        column: x => x.UserLoginId,
+                        principalTable: "UserLogin",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -515,17 +607,6 @@ namespace BBS.Entities.Migrations
                     OfferTimeLimitId = table.Column<int>(type: "integer", nullable: false),
                     OfferTypeId = table.Column<int>(type: "integer", nullable: false),
                     UserLoginId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Tags = table.Column<int>(type: "integer", nullable: false),
-                    CategoryTagsId = table.Column<int>(type: "integer", nullable: true),
-                    DealTeaser = table.Column<int>(type: "integer", nullable: false),
-                    CategoryDealTeaserId = table.Column<int>(type: "integer", nullable: true),
-                    CompanyProfile = table.Column<int>(type: "integer", nullable: false),
-                    CategoryCompanyProfileId = table.Column<int>(type: "integer", nullable: true),
-                    TermsAndLegal = table.Column<int>(type: "integer", nullable: false),
-                    CategoryTermsAndLegalId = table.Column<int>(type: "integer", nullable: true),
-                    Documents = table.Column<int>(type: "integer", nullable: false),
-                    CategoryDocumentsId = table.Column<int>(type: "integer", nullable: true),
                     AddedById = table.Column<int>(type: "integer", nullable: false),
                     AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ModifiedById = table.Column<int>(type: "integer", nullable: false),
@@ -536,31 +617,6 @@ namespace BBS.Entities.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OfferedShares", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OfferedShares_Categories_CategoryCompanyProfileId",
-                        column: x => x.CategoryCompanyProfileId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OfferedShares_Categories_CategoryDealTeaserId",
-                        column: x => x.CategoryDealTeaserId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OfferedShares_Categories_CategoryDocumentsId",
-                        column: x => x.CategoryDocumentsId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OfferedShares_Categories_CategoryTagsId",
-                        column: x => x.CategoryTagsId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OfferedShares_Categories_CategoryTermsAndLegalId",
-                        column: x => x.CategoryTermsAndLegalId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OfferedShares_IssuedDigitalShares_IssuedDigitalShareId",
                         column: x => x.IssuedDigitalShareId,
@@ -672,6 +728,41 @@ namespace BBS.Entities.Migrations
                         name: "FK_OfferPayments_UserLogin_UserLoginId",
                         column: x => x.UserLoginId,
                         principalTable: "UserLogin",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SecondaryOfferShareDatas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    TotalShares = table.Column<int>(type: "integer", nullable: false),
+                    OfferPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    OfferedShareId = table.Column<int>(type: "integer", nullable: false),
+                    AddedById = table.Column<int>(type: "integer", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedById = table.Column<int>(type: "integer", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecondaryOfferShareDatas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SecondaryOfferShareDatas_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SecondaryOfferShareDatas_OfferedShares_OfferedShareId",
+                        column: x => x.OfferedShareId,
+                        principalTable: "OfferedShares",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -835,10 +926,66 @@ namespace BBS.Entities.Migrations
                     { 5, "My Desktop" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "IsWebView", "Name", "OfferedShareMainTypeId" },
+                values: new object[,]
+                {
+                    { 1, true, "Information", 2 },
+                    { 2, true, "Deal Teaser", 2 },
+                    { 3, true, "Team", 2 },
+                    { 4, true, "Interviews", 2 },
+                    { 5, false, "Tags", 1 },
+                    { 6, false, "Short Description", 1 },
+                    { 7, true, "Deal Teaser", 1 },
+                    { 8, true, "Company Profile", 1 },
+                    { 9, true, "Terms & Legal", 1 },
+                    { 10, true, "Documents", 1 },
+                    { 11, false, "Minumum Investment", 1 },
+                    { 12, false, "Closing Date", 1 },
+                    { 13, false, "Investment Manager", 1 },
+                    { 14, false, "Fees in %", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Person",
+                columns: new[] { "Id", "AddedById", "AddedDate", "AddressLine", "AnnualIncome", "City", "CountryId", "DateOfBirth", "DateOfEmployement", "Email", "EmiratesID", "EmployementTypeId", "EmployerName", "FirstName", "HaveConvicted", "HaveCriminalRecord", "HaveExperience", "HavePriorExpirence", "HaveTraining", "IBANNumber", "IPAddress", "IsDeleted", "IsIndividual", "IsPublicSectorEmployee", "IsUSCitizen", "LastName", "ModifiedById", "ModifiedDate", "NationalityId", "PhoneNumber", "VaultNumber", "VerificationState" },
+                values: new object[] { 1, 0, DateTime.UtcNow, "Dubai", 10000000m, "Dubai", 1, DateTime.UtcNow, DateTime.UtcNow, "admin@bursa.com", "000000000000", 1, "Bursa", "Admin", false, false, true, true, true, "00000000000", null, false, false, false, false, "", 0, DateTime.UtcNow, 1, "0926849888", "00000000000", 2 });
+
+            migrationBuilder.InsertData(
+                table: "UserLogin",
+                columns: new[] { "Id", "AddedById", "AddedDate", "IPAddress", "IsDeleted", "ModifiedById", "ModifiedDate", "Passcode", "PasswordHash", "PasswordSalt", "PersonId", "RefreshToken", "Username" },
+                values: new object[] { 1, 0, DateTime.UtcNow, null, false, 0, DateTime.UtcNow, "MDAwMA==", new byte[] { 206, 61, 20, 64, 229, 0, 197, 63, 218, 89, 227, 150, 94, 163, 110, 39, 38, 86, 190, 196, 196, 130, 87, 75, 167, 36, 9, 88, 122, 33, 123, 47, 244, 110, 218, 202, 23, 18, 36, 95, 168, 204, 44, 7, 105, 179, 69, 9, 102, 67, 247, 69, 212, 198, 111, 16, 70, 133, 250, 69, 115, 109, 62, 203, 176, 182, 138, 112, 249, 224, 39, 219, 111, 126, 119, 188, 226, 197, 117, 51, 91, 176, 33, 64, 55, 99, 145, 14, 139, 130, 162, 15, 120, 196, 13, 242, 149, 28, 209, 118, 192, 255, 14, 144, 96, 36, 178, 240, 108, 142, 132, 194, 134, 49, 41, 100, 137, 247, 96, 78, 36, 216, 116, 216, 89, 167, 150, 65 }, new byte[] { 149, 101, 156, 178, 59, 176, 129, 86, 62, 140, 219, 25, 156, 4, 239, 60, 14, 53, 150, 111, 38, 218, 164, 220, 150, 42, 191, 208, 15, 121, 111, 27, 28, 11, 205, 162, 153, 116, 244, 78, 76, 218, 218, 161, 34, 33, 14, 61, 252, 237, 89, 137, 15, 208, 196, 137, 201, 97, 62, 57, 90, 42, 206, 93 }, 1, "", "" });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "Id", "AddedById", "AddedDate", "IPAddress", "IsDeleted", "ModifiedById", "ModifiedDate", "RoleId", "UserLoginId" },
+                values: new object[] { 1, 0, DateTime.UtcNow, null, false, 0, DateTime.UtcNow, 2, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Attachments_PersonId",
                 table: "Attachments",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidOnPrimaryOfferings_CompanyId",
+                table: "BidOnPrimaryOfferings",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidOnPrimaryOfferings_PaymentTypeId",
+                table: "BidOnPrimaryOfferings",
+                column: "PaymentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidOnPrimaryOfferings_StateId",
+                table: "BidOnPrimaryOfferings",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BidOnPrimaryOfferings_UserLoginId",
+                table: "BidOnPrimaryOfferings",
+                column: "UserLoginId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BidShares_OfferedShareId",
@@ -874,31 +1021,6 @@ namespace BBS.Entities.Migrations
                 name: "IX_IssuedDigitalShares_UserLoginId",
                 table: "IssuedDigitalShares",
                 column: "UserLoginId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfferedShares_CategoryCompanyProfileId",
-                table: "OfferedShares",
-                column: "CategoryCompanyProfileId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfferedShares_CategoryDealTeaserId",
-                table: "OfferedShares",
-                column: "CategoryDealTeaserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfferedShares_CategoryDocumentsId",
-                table: "OfferedShares",
-                column: "CategoryDocumentsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfferedShares_CategoryTagsId",
-                table: "OfferedShares",
-                column: "CategoryTagsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfferedShares_CategoryTermsAndLegalId",
-                table: "OfferedShares",
-                column: "CategoryTermsAndLegalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OfferedShares_IssuedDigitalShareId",
@@ -956,6 +1078,26 @@ namespace BBS.Entities.Migrations
                 column: "NationalityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PrimaryOfferShareDatas_CategoryId",
+                table: "PrimaryOfferShareDatas",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrimaryOfferShareDatas_CompanyId",
+                table: "PrimaryOfferShareDatas",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SecondaryOfferShareDatas_CategoryId",
+                table: "SecondaryOfferShareDatas",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SecondaryOfferShareDatas_OfferedShareId",
+                table: "SecondaryOfferShareDatas",
+                column: "OfferedShareId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Shares_UserLoginId",
                 table: "Shares",
                 column: "UserLoginId");
@@ -982,10 +1124,10 @@ namespace BBS.Entities.Migrations
                 name: "Attachments");
 
             migrationBuilder.DropTable(
-                name: "BidShares");
+                name: "BidOnPrimaryOfferings");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "BidShares");
 
             migrationBuilder.DropTable(
                 name: "DebtRounds");
@@ -1009,7 +1151,13 @@ namespace BBS.Entities.Migrations
                 name: "OfferPayments");
 
             migrationBuilder.DropTable(
+                name: "PrimaryOfferShareDatas");
+
+            migrationBuilder.DropTable(
                 name: "Restrictions");
+
+            migrationBuilder.DropTable(
+                name: "SecondaryOfferShareDatas");
 
             migrationBuilder.DropTable(
                 name: "Shares");
@@ -1024,28 +1172,31 @@ namespace BBS.Entities.Migrations
                 name: "States");
 
             migrationBuilder.DropTable(
-                name: "OfferedShares");
-
-            migrationBuilder.DropTable(
                 name: "PaymentTypes");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "OfferedShares");
+
+            migrationBuilder.DropTable(
+                name: "Role");
+
+            migrationBuilder.DropTable(
                 name: "IssuedDigitalShares");
+
+            migrationBuilder.DropTable(
+                name: "OfferedShareMainTypes");
 
             migrationBuilder.DropTable(
                 name: "OfferTimeLimits");
 
             migrationBuilder.DropTable(
                 name: "OfferTypes");
-
-            migrationBuilder.DropTable(
-                name: "OfferedShareMainTypes");
 
             migrationBuilder.DropTable(
                 name: "UserLogin");

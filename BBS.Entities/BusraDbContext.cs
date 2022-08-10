@@ -17,8 +17,8 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Host2;User Id=postgres;Password=7Xp2NGP45Wux");
-                //optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Dev;User Id=postgres;Password=secret");
+                //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Host2;User Id=postgres;Password=7Xp2NGP45Wux");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Host2;User Id=postgres;Password=secret");
             }
         }
 
@@ -77,22 +77,22 @@ namespace BBS.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Category>().HasData(
-            //    new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2 },
-            //    new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2 },
-            //    new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2 },
-            //    new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2 },
-            //    new Category { Id = 5, Name = "Tags", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 6, Name = "Short Description", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 7, Name = "Deal Teaser", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 8, Name = "Company Profile", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 9, Name = "Terms & Legal", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 10, Name = "Documents", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 11, Name = "Minumum Investment", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 11, Name = "Closing Date", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 13, Name = "Investment Manager", OfferedShareMainTypeId = 1 },
-            //    new Category { Id = 14, Name = "Fees in %", OfferedShareMainTypeId = 1 }
-            //);
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Information", OfferedShareMainTypeId = 2, IsWebView = true },
+                new Category { Id = 2, Name = "Deal Teaser", OfferedShareMainTypeId = 2, IsWebView = true },
+                new Category { Id = 3, Name = "Team", OfferedShareMainTypeId = 2, IsWebView = true },
+                new Category { Id = 4, Name = "Interviews", OfferedShareMainTypeId = 2, IsWebView = true }
+                //new Category { Id = 5, Name = "Tags", OfferedShareMainTypeId = 1, IsWebView = false },
+                //new Category { Id = 6, Name = "Short Description", OfferedShareMainTypeId = 1, IsWebView = false },
+                //new Category { Id = 7, Name = "Deal Teaser", OfferedShareMainTypeId = 1, IsWebView = true },
+                //new Category { Id = 8, Name = "Company Profile", OfferedShareMainTypeId = 1, IsWebView = true },
+                //new Category { Id = 9, Name = "Terms & Legal", OfferedShareMainTypeId = 1, IsWebView = true },
+                //new Category { Id = 10, Name = "Documents", OfferedShareMainTypeId = 1, IsWebView = true }
+                // new Category { Id = 11, Name = "Minumum Investment", OfferedShareMainTypeId = 1, IsWebView = false },
+                // new Category { Id = 12, Name = "Closing Date", OfferedShareMainTypeId = 1, IsWebView = false },
+                // new Category { Id = 13, Name = "Investment Manager", OfferedShareMainTypeId = 1, IsWebView = false }
+                // new Category { Id = 14, Name = "Fees in %", OfferedShareMainTypeId = 1 , IsWebView = false }
+            );
 
             modelBuilder.Entity<OfferedShareMainType>().HasData(
                 new OfferedShareMainType { Id = 1, Name = "Primary" },
@@ -206,6 +206,73 @@ namespace BBS.Entities
                   new OfferType { Id = 2, Name = "Private" }
             );
 
+            
+            modelBuilder.Entity<Person>().HasData(
+                new Person
+                {
+                    FirstName = "Admin",
+                    LastName = "",
+                    Email = "admin@bursa.com",
+                    DateOfBirth = DateTime.UtcNow,
+                    IsUSCitizen = false,
+                    IsPublicSectorEmployee = false,
+                    IsIndividual = false,
+                    HaveCriminalRecord = false,
+                    HaveConvicted = false,
+                    City = "Dubai",
+                    AddressLine = "Dubai",
+                    EmiratesID = "000000000000",
+                    VaultNumber = "00000000000",
+                    IBANNumber = "00000000000",
+                    EmployerName = "Bursa",
+                    AnnualIncome = 10000000,
+                    DateOfEmployement = DateTime.UtcNow,
+                    HavePriorExpirence = true,
+                    HaveTraining = true,
+                    HaveExperience = true,
+                    VerificationState = 2,
+                    CountryId = 1,
+                    NationalityId = 1,
+                    Id = 1,
+                    EmployementTypeId = 1,
+                    PhoneNumber = "5512345678"
+                }
+
+           );
+
+            var hash = new List<byte[]>();
+            string password = "0000";
+             
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                var hashOne = hmac.Key;
+                var hashTwo = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                hash.Add(hashOne);
+                hash.Add(hashTwo);
+            }
+
+            modelBuilder.Entity<UserLogin>().HasData(
+                 new UserLogin
+                 {
+                     Id = 1,
+                     Passcode = "MDAwMA==",
+                     PasswordHash = hash[0],
+                     PasswordSalt = hash[1],
+                     PersonId = 1,
+                     Username = "",
+                     RefreshToken = "",
+                 }
+            );
+
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole
+                {
+                    Id = 1,
+                    RoleId = 2,
+                    UserLoginId = 1,
+                }
+           );
+            
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

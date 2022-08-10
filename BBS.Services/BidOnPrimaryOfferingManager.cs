@@ -14,7 +14,7 @@ namespace BBS.Services.Repository
 
         public List<BidOnPrimaryOffering> GetAllBidOnPrimaryOfferings()
         {
-            return _repositoryBase.GetAll().ToList();
+            return _repositoryBase.GetAll().OrderByDescending(x => x.ModifiedDate).OrderBy(x => x.VerificationStatus).ToList();
         }
 
         public BidOnPrimaryOffering GetBidOnPrimaryOffering(int bidOnPrimaryId)

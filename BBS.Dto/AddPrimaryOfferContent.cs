@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BBS.Dto
@@ -11,8 +12,20 @@ namespace BBS.Dto
         [Required]
         public decimal OfferPrice { get; set; }
         [Required]
+        [Display(Name = "Investment Manager")]
+        public string InvestmentManager { get; set; }
+        [Required]
+        [Display(Name = "Total Target Amount")]
+        public decimal TotalTargetAmount { get; set; }        
+        [Required]
+        [Display(Name = "Minimum Investment")]
+        public decimal MinimumInvestment { get; set; }
+        [Required]
+        [Display(Name = "Closing Date")]
+        public DateTime ClosingDate { get; set; }  
+        [Required]
         public int Quantity { get; set; }
-        public List<AddPrimaryOfferDto> Content { get; set; }       
+        public List<AddPrimaryOfferDto> Content { get; set; }      
 
     }
 }

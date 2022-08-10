@@ -28,7 +28,7 @@ namespace BBS.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Now;
 
         [Required]
         public bool IsUSCitizen { get; set; }
@@ -86,7 +86,7 @@ namespace BBS.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DateOfEmployement { get; set; }
+        public DateTime DateOfEmployement { get; set; } = DateTime.Now;
 
         [Required]
         public bool HavePriorExpirence { get; set; }

@@ -31,10 +31,10 @@ namespace BBS.Interactors
         public GenericApiResponse GetListing(StringValues token)
         {
             try
-            { 
+            {
                 var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
                 _loggerManager.LogInfo(
-                  "UpdatePrimaryOfferContent : " +
+                  "Admin GetPrimaryOffers : " +
                   CommonUtils.JSONSerialize(extractedFromToken),
                   extractedFromToken.PersonId
               );
@@ -48,7 +48,7 @@ namespace BBS.Interactors
                     List<BidOnPrimaryOffering> InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
                     List<GetAllPrimaryOffersDto> AllCompanyInfo = new();
                     foreach (var company in companies)
-                    { 
+                    {
                         AllCompanyInfo.Add(
                             new GetAllPrimaryOffersDto()
                             {
@@ -60,7 +60,7 @@ namespace BBS.Interactors
                             }
                         );
                     }
-                    return _responseManager.SuccessResponse("Successful",StatusCodes.Status200OK,AllCompanyInfo);
+                    return _responseManager.SuccessResponse("Successful", StatusCodes.Status200OK, AllCompanyInfo);
                 }
             }
             catch (Exception ex)
@@ -74,6 +74,12 @@ namespace BBS.Interactors
             try
             {
                 var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
+                _loggerManager.LogInfo(
+                 "GetPrimaryOffers for " + extractedFromToken.RoleId + " " +
+                 CommonUtils.JSONSerialize(extractedFromToken),
+                 extractedFromToken.PersonId
+             );
 
                 var companies = _repositoryWrapper.CompanyManager.GetCompanies().Where(x => companyId == null || x.Id == companyId);
                 var PrimaryCategories = _repositoryWrapper.CategoryManager.GetCategoryByOfferShareMainType((int)OfferedShareMainTypes.PRIMARY);
@@ -100,7 +106,9 @@ namespace BBS.Interactors
                     List<CatContent> WebView = new();
                     foreach (var data in PrimaryCategories)
                     {
-                        var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
+                        var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id 
+                        //&& x.CategoryId == data.Id
+                        );
 
                         if (!data.IsWebView)
                         {
@@ -179,7 +187,9 @@ namespace BBS.Interactors
                 List<CatContent> WebView = new();
                 foreach (var data in PrimaryCategories)
                 {
-                    var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id && x.CategoryId == data.Id);
+                    var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id 
+                    //&& x.CategoryId == data.Id
+                    );
 
                     if (!data.IsWebView)
                     {
@@ -284,15 +294,12 @@ namespace BBS.Interactors
             builtData.CompanyName = company.Name;
             List<CatContent> Content = new();
             foreach (var primaryOfferData in primaryOfferShareDatas)
-            {
-                var category = _repositoryWrapper
-                    .CategoryManager
-                    .GetCategoryById(primaryOfferData.CategoryId)!;
+            {               
 
                 Content.Add(new CatContent()
                 {
                     Id = primaryOfferData.Id,
-                    Name = category.Name,
+                    Name = primaryOfferData.Title,
                     Value = primaryOfferData.Content
                 });
             }

@@ -81,7 +81,9 @@ namespace BBS.Interactors
             List<PrimaryOfferShareData> builtPrimaryOfferShareData = new();
             foreach (var c in addPrimaryOffer.Content)
             {
-                PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x=>x.CategoryId == c.CategoryId && x.CompanyId == addPrimaryOffer.CompanyId)!;                
+                PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x=>
+                //x.CategoryId == c.CategoryId && 
+                x.CompanyId == addPrimaryOffer.CompanyId)!;                
                 contentDetail.Content = c.Content;                                
                 contentDetail.ModifiedById = extractedFromToken.UserLoginId;
                 contentDetail.ModifiedDate = DateTime.Now;
@@ -107,14 +109,16 @@ namespace BBS.Interactors
         private Company UpdateCompany(AddPrimaryOfferContent model, int UserLoginId)
         {
             var entity = _repositoryWrapper.CompanyManager.GetCompany(model.CompanyId)!;
-
             entity.Id = model.CompanyId;
             entity.Name = model.CompanyName;
             entity.OfferPrice = model.OfferPrice;
             entity.Quantity = model.Quantity;
-            entity.AddedById = UserLoginId;
+            entity.TotalTargetAmount = model.TotalTargetAmount;
+            entity.InvestmentManager = model.InvestmentManager;
+            entity.MinimumInvestment = model.MinimumInvestment;
+            entity.ClosingDate = model.ClosingDate;            
             entity.ModifiedById = UserLoginId;
-            entity.ModifiedDate = DateTime.Now;
+            entity.ModifiedDate = DateTime.Now;            
             return _repositoryWrapper.CompanyManager.UpdateCompany(entity);
         }
 

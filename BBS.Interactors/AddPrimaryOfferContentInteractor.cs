@@ -54,7 +54,7 @@ namespace BBS.Interactors
             }
 
         }
-        
+
         private GenericApiResponse TryAddingCategoryContent(
             string token,
             AddPrimaryOfferContent addPrimaryOffer
@@ -75,11 +75,12 @@ namespace BBS.Interactors
             var builtPrimaryOfferShareData = addPrimaryOffer.Content.Select(
                 c => new PrimaryOfferShareData
                 {
-                    CategoryId = c.CategoryId,
-                    Content = c.Content,
+                    //CategoryId = c.CategoryId,
+                    Title = c.Title,
+                    Content = c.Content,                    
                     CompanyId = company.Id,
                     AddedById = extractedFromToken.UserLoginId,
-                    ModifiedById= extractedFromToken.UserLoginId                    
+                    ModifiedById = extractedFromToken.UserLoginId
                 }
             ).ToList();
 
@@ -148,8 +149,12 @@ namespace BBS.Interactors
                 {
                     Description = "",
                     Name = addPrimaryOffer.CompanyName,
-                    OfferPrice= addPrimaryOffer.OfferPrice,
+                    OfferPrice = addPrimaryOffer.OfferPrice,
                     Quantity = addPrimaryOffer.Quantity,
+                    TotalTargetAmount = addPrimaryOffer.TotalTargetAmount,
+                    InvestmentManager = addPrimaryOffer.InvestmentManager,
+                    MinimumInvestment = addPrimaryOffer.MinimumInvestment,
+                    ClosingDate = addPrimaryOffer.ClosingDate,
                     AddedById = UserLoginId,
                     ModifiedById = UserLoginId
                 }
