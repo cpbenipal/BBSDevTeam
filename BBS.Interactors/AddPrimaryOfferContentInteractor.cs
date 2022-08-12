@@ -42,7 +42,7 @@ namespace BBS.Interactors
             {
                 _loggerManager.LogInfo(
                     "AddPrimaryOfferContent : " +
-                    CommonUtils.JSONSerialize("No Body"),
+                    CommonUtils.JSONSerialize(addPrimaryOffer),
                     0
                 );
                 return TryAddingCategoryContent(token, addPrimaryOffer);
@@ -96,30 +96,48 @@ namespace BBS.Interactors
                 1
             );
         }
-
-        private object BuildEmailTemplateData(List<PrimaryOfferShareData> builtPrimaryOfferShareData)
+        private Company InsertCompany(AddPrimaryOfferContent addPrimaryOffer, int UserLoginId)
+        {
+            return _repositoryWrapper.CompanyManager.InsertCompany(
+                new Company
+                {
+                    ShortDescription = addPrimaryOffer.ShortDescription ,
+                    Name = addPrimaryOffer.CompanyName,
+                    OfferPrice = addPrimaryOffer.OfferPrice,
+                    Quantity = addPrimaryOffer.Quantity,
+                    TotalTargetAmount = addPrimaryOffer.TotalTargetAmount,
+                    InvestmentManager = addPrimaryOffer.InvestmentManager,
+                    MinimumInvestment = addPrimaryOffer.MinimumInvestment,
+                    ClosingDate = addPrimaryOffer.ClosingDate,
+                    Tags = addPrimaryOffer.Tags,
+                    AddedById = UserLoginId,
+                    ModifiedById = UserLoginId
+                }
+            );
+        }
+        private Dictionary<string, string> BuildEmailTemplateData(List<PrimaryOfferShareData> builtPrimaryOfferShareData)
         {
 
-            var company = _repositoryWrapper.CompanyManager.GetCompany(
-                builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId
-            );
+            var company = _repositoryWrapper.CompanyManager.GetCompany(builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId)!;
 
-            var emailTemplate = new PrimaryOfferShareDataEmailDto
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+
+            keyValuePairs.Add("Company", company.Name);
+            keyValuePairs.Add("Tags", company.Tags);
+            keyValuePairs.Add("ShortDescription", company.ShortDescription); 
+            keyValuePairs.Add("Offer Price", company.OfferPrice.ToString());
+            keyValuePairs.Add("Quantity", company.Quantity.ToString());
+            keyValuePairs.Add("Total Target", company.TotalTargetAmount.ToString());
+            keyValuePairs.Add("Investment Manager", company.InvestmentManager);
+            keyValuePairs.Add("Minimum Investment", company.MinimumInvestment.ToString());
+            keyValuePairs.Add("Closing Date", company.ClosingDate.ToShortDateString());
+
+            foreach (var data in builtPrimaryOfferShareData)
             {
-                Tags = builtPrimaryOfferShareData[0].Content,
-                ShortDescription = builtPrimaryOfferShareData[1].Content,
-                DealTeaser = builtPrimaryOfferShareData[2].Content,
-                CompanyProfile = builtPrimaryOfferShareData[3].Content,
-                TermsAndLegal = builtPrimaryOfferShareData[4].Content,
-                Documents = builtPrimaryOfferShareData[5].Content,
-                MinimumInvestement = builtPrimaryOfferShareData[6].Content,
-                ClosingDate = builtPrimaryOfferShareData[7].Content,
-                InvestementManager = builtPrimaryOfferShareData[8].Content,
-                FeesInPercentage = builtPrimaryOfferShareData[9].Content,
-                CompanyName = company?.Name ?? ""
-            };
+                keyValuePairs.Add(data.Title, data.Content);
+            }
 
-            return emailTemplate;
+            return keyValuePairs;
         }
 
         private void NotifyAdminAboutPrimaryOfferInsert(
@@ -128,38 +146,22 @@ namespace BBS.Interactors
         )
         {
             var dataToSend = BuildEmailTemplateData(builtPrimaryOfferShareData);
+
             var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
 
-            var message = _emailHelperUtils.FillEmailContents(
+            var message = _emailHelperUtils.FillDynamicEmailContents( 
                 dataToSend,
                 "primary_offer_data",
                 personInfo.FirstName ?? "",
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> Your Primary Share Is Created";
+            var subject = "Bursa <> Your Primary Offer has been added";
 
             _emailSender.SendEmail("", subject, message!, true);
         }
 
-        private Company InsertCompany(AddPrimaryOfferContent addPrimaryOffer, int UserLoginId)
-        {
-            return _repositoryWrapper.CompanyManager.InsertCompany(
-                new Company
-                {
-                    Description = "",
-                    Name = addPrimaryOffer.CompanyName,
-                    OfferPrice = addPrimaryOffer.OfferPrice,
-                    Quantity = addPrimaryOffer.Quantity,
-                    TotalTargetAmount = addPrimaryOffer.TotalTargetAmount,
-                    InvestmentManager = addPrimaryOffer.InvestmentManager,
-                    MinimumInvestment = addPrimaryOffer.MinimumInvestment,
-                    ClosingDate = addPrimaryOffer.ClosingDate,
-                    AddedById = UserLoginId,
-                    ModifiedById = UserLoginId
-                }
-            );
-        }
+       
 
         private GenericApiResponse ReturnErrorStatus(string message)
         {

@@ -16,7 +16,10 @@ namespace BBS.Services.Repository
         {
             return _repositoryBase.GetAll().ToList();
         }
-
+        public List<PrimaryOfferShareData> GetPrimaryOfferShareDataByCompanyId(int CompanyId)
+        {
+            return _repositoryBase.GetAll().Where(x=>x.CompanyId == CompanyId).ToList();
+        }
         public PrimaryOfferShareData GetPrimaryOfferShareData(int id)
         {
             return _repositoryBase.GetById(id);
@@ -45,6 +48,14 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
 
             return updatedList;
+        }
+        public void RemovePrimaryOfferShareDataRange(List<PrimaryOfferShareData> primaryOfferShare)
+        { 
+            foreach (var item in primaryOfferShare)
+            {
+               _repositoryBase.Delete(item);               
+            }
+            _repositoryBase.Save();
         }
     }
 }

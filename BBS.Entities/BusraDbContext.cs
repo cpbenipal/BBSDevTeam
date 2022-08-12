@@ -17,8 +17,8 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Host2;User Id=postgres;Password=7Xp2NGP45Wux");
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Host2;User Id=postgres;Password=secret");
+                optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Host2;User Id=postgres;Password=7Xp2NGP45Wux");
+                //optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Host2;User Id=postgres;Password=secret");
             }
         }
 
@@ -272,7 +272,11 @@ namespace BBS.Entities
                     UserLoginId = 1,
                 }
            );
-            
+             
+            modelBuilder.Entity<Company>(entity => {
+                entity.HasIndex(e => e.Name).IsUnique();
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -25,7 +25,10 @@ namespace BBS.Dto
         public DateTime ClosingDate { get; set; }  
         [Required]
         public int Quantity { get; set; }
-        public List<AddPrimaryOfferDto> Content { get; set; }      
+        [Required]
+        public string Tags { get; set; }
+        public string ShortDescription { get; set; }
+        public List<AddPrimaryOfferDto> Content { get; set; }     
 
     }
 }

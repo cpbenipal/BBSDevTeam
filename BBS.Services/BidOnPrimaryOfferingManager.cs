@@ -15,7 +15,7 @@ namespace BBS.Services.Repository
         public List<BidOnPrimaryOffering> GetAllBidOnPrimaryOfferings()
         {
             return _repositoryBase.GetAll().OrderByDescending(x => x.ModifiedDate).OrderBy(x => x.VerificationStatus).ToList();
-        }
+        } 
 
         public BidOnPrimaryOffering GetBidOnPrimaryOffering(int bidOnPrimaryId)
         {
@@ -42,6 +42,13 @@ namespace BBS.Services.Repository
             var updated = _repositoryBase.Update(bidOnPrimary);
             _repositoryBase.Save();
             return updated;
+        }
+        public List<BidOnPrimaryOffering> GetBidOnPrimaryOfferingByCompany(int companyId)
+        {
+            return _repositoryBase
+                .GetAll()
+                .Where(b => b.CompanyId == companyId)
+                .ToList();
         }
     }
 }

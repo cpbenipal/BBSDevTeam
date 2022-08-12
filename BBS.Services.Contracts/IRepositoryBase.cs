@@ -9,7 +9,8 @@ namespace BBS.Services.Contracts
         IEnumerable<T> InsertRange(IEnumerable<T> obj);
         T Update(T obj);
         IEnumerable<T> UpdateRange(IEnumerable<T> obj);
-        void Delete(object id);
+        void Delete(T existing);
+        void RemoveRange(IEnumerable<T> entities);
         void Save();
     }
 }

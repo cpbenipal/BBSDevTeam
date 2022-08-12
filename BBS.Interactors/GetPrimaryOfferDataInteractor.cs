@@ -5,6 +5,7 @@ using BBS.Services.Contracts;
 using BBS.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System.Globalization;
 
 namespace BBS.Interactors
 {
@@ -56,6 +57,8 @@ namespace BBS.Interactors
                                 Company = company.Name,
                                 OfferPrice = company.OfferPrice,
                                 Quantity = company.Quantity,
+                                TotalTargetAmount = company.TotalTargetAmount,
+                                ClosingDate = company.ClosingDate.ToShortDateString(),
                                 TotalBids = InvestorBids.Where(x => x.CompanyId == company.Id)!.Count()
                             }
                         );
@@ -83,14 +86,9 @@ namespace BBS.Interactors
 
                 var companies = _repositoryWrapper.CompanyManager.GetCompanies().Where(x => companyId == null || x.Id == companyId);
                 var PrimaryCategories = _repositoryWrapper.CategoryManager.GetCategoryByOfferShareMainType((int)OfferedShareMainTypes.PRIMARY);
-                var PrimaryOfferShareDatas = _repositoryWrapper.PrimaryOfferShareDataManager.GetAllPrimaryOfferShareData();
-                List<BidOnPrimaryOffering> InvestorBids;
-
-                if (extractedFromToken.RoleId == (int)Roles.ADMIN)
-                    InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
-                else
-                    InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetBidOnPrimaryOfferingByUser(extractedFromToken.UserLoginId);
-
+                var PrimaryOfferShareDatas = _repositoryWrapper.PrimaryOfferShareDataManager.GetAllPrimaryOfferShareData().Where(x => companyId == null || x.CompanyId == companyId);
+                List<BidOnPrimaryOffering> InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
+                //.Where(x => companyId == null || x.Id == companyId).ToList()
 
                 List<CompanyListDto> AllCompanyInfo = new();
                 foreach (var company in companies)
@@ -98,40 +96,42 @@ namespace BBS.Interactors
                     CompanyListDto companyDetail = new();
                     companyDetail.CompanyId = company.Id;
                     companyDetail.CompanyName = company.Name;
-                    List<InvestorDto> investorDtos = InvestorBids.Where(x => x.CompanyId == company.Id).Select(x => new InvestorDto()
-                    { UserLoginId = x.UserLoginId, VerificationStatus = x.VerificationStatus }).ToList();
-                    companyDetail.InvestorDto = investorDtos;
+                    companyDetail.Quantity = company.Quantity;
+                    companyDetail.OfferPrice = company.OfferPrice;
+                    companyDetail.InvestmentManager = company.InvestmentManager;
+                    companyDetail.TotalTargetAmount = company.TotalTargetAmount;
+                    companyDetail.MinimumInvestment = company.MinimumInvestment;
+                    companyDetail.ClosingDate = company.ClosingDate.ToShortDateString();
+                    companyDetail.ShortDescription = company.ShortDescription;
+                    companyDetail.Tags = company.Tags;
+                    companyDetail.DaysLeft = company.ClosingDate.Subtract(DateTime.Today).TotalDays.ToString() + " Day(s) Left";
+                    companyDetail.RaisedAmount = Convert.ToDecimal(InvestorBids.Where(x => x.CompanyId == company.Id).Sum(x => x.PlacementAmount));
 
-                    List<CatContent> CompanyInfo = new();
+                    // Fees Percentage 
+
+                    if (companyDetail.TotalTargetAmount.CompareTo(companyDetail.RaisedAmount) >= 0)
+                        companyDetail.FeePercentage = ((companyDetail.TotalTargetAmount - companyDetail.RaisedAmount) / companyDetail.TotalTargetAmount).ToString("P", CultureInfo.InvariantCulture);
+                    else
+                        companyDetail.FeePercentage = ((companyDetail.RaisedAmount - companyDetail.TotalTargetAmount) / companyDetail.TotalTargetAmount).ToString("P", CultureInfo.InvariantCulture);
+
+                    List<InvestorDto> investorDtos = companyDetail.InvestorDto = InvestorBids.Where(x => x.CompanyId == company.Id).Select(x => new InvestorDto()
+                        { UserLoginId = x.UserLoginId, VerificationStatus = x.VerificationStatus }).ToList();
+
+                    // Total Investors 
+                    companyDetail.TotalInvestors = companyDetail.InvestorDto.Count;
                     List<CatContent> WebView = new();
-                    foreach (var data in PrimaryCategories)
+
+                    foreach (var data in PrimaryOfferShareDatas.Where(x => x.CompanyId == company.Id))
                     {
-                        var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id 
-                        //&& x.CategoryId == data.Id
-                        );
-
-                        if (!data.IsWebView)
+                        WebView.Add(new CatContent()
                         {
-                            CompanyInfo.Add(new CatContent()
-                            {
-                                Id = data.Id,
-                                Name = data.Name,
-                                Value = CompanyPrimaryData?.Content,
-                            });
-                        }
-                        else
-                        {
-                            WebView.Add(new CatContent()
-                            {
-                                Id = data.Id,
-                                Name = data.Name,
-                                Value = CompanyPrimaryData?.Content,
-                            });
-
-                        }
-                        companyDetail.CompanyInfo = CompanyInfo;
+                            Id = data.Id,
+                            Name = data.Title,
+                            Value = data.Content,
+                        });
                         companyDetail.WebView = WebView;
                     }
+
                     AllCompanyInfo.Add(companyDetail);
                 }
 
@@ -148,6 +148,8 @@ namespace BBS.Interactors
             }
         }
 
+
+
         public GenericApiResponse GetPrimaryOffers(string token, int companyId)
         {
             try
@@ -155,7 +157,7 @@ namespace BBS.Interactors
                 var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
                 _loggerManager.LogInfo(
-                   "GetPrimaryOffers : " +
+                   "GetPrimaryOffers From Admin : " +
                    CommonUtils.JSONSerialize("No Body"),
                    extractedFromToken.UserLoginId
                );
@@ -169,9 +171,8 @@ namespace BBS.Interactors
                 {
                     return ReturnErrorStatus("Offering Company Does not exist");
                 }
-                var PrimaryCategories = _repositoryWrapper.CategoryManager.GetCategoryByOfferShareMainType((int)OfferedShareMainTypes.PRIMARY);
-                var PrimaryOfferShareDatas = _repositoryWrapper.PrimaryOfferShareDataManager.GetAllPrimaryOfferShareData();
-                var InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetAllBidOnPrimaryOfferings();
+                var PrimaryOfferShareDatas = _repositoryWrapper.PrimaryOfferShareDataManager.GetPrimaryOfferShareDataByCompanyId(companyId);
+                var InvestorBids = _repositoryWrapper.BidOnPrimaryOfferingManager.GetBidOnPrimaryOfferingByCompany(companyId);
                 var UserLogins = _repositoryWrapper.UserLoginManager.GetAllLoginByPersonIds(InvestorBids.Select(x => x.UserLoginId).ToList());
                 var Investors = _repositoryWrapper.PersonManager.GetAllPerson(UserLogins.Select(x => x.PersonId).ToList());
 
@@ -182,35 +183,23 @@ namespace BBS.Interactors
                 companyDetail.Company = company.Name;
                 companyDetail.Quantity = company.Quantity;
                 companyDetail.OfferPrice = company.OfferPrice;
+                companyDetail.InvestmentManager = company.InvestmentManager;
+                companyDetail.TotalTargetAmount = company.TotalTargetAmount;
+                companyDetail.MinimumInvestment = company.MinimumInvestment;
+                companyDetail.ClosingDate = company.ClosingDate.ToShortDateString();
+                companyDetail.ShortDescription = company.ShortDescription;
+                companyDetail.Tags = company.Tags;
 
                 List<CatContent> CompanyInfo = new();
                 List<CatContent> WebView = new();
-                foreach (var data in PrimaryCategories)
+                foreach (var data in PrimaryOfferShareDatas)
                 {
-                    var CompanyPrimaryData = PrimaryOfferShareDatas.FirstOrDefault(x => x.CompanyId == company.Id 
-                    //&& x.CategoryId == data.Id
-                    );
-
-                    if (!data.IsWebView)
+                    WebView.Add(new CatContent()
                     {
-                        CompanyInfo.Add(new CatContent()
-                        {
-                            Id = data.Id,
-                            Name = data.Name,
-                            Value = CompanyPrimaryData?.Content,
-                        });
-                    }
-                    else
-                    {
-                        WebView.Add(new CatContent()
-                        {
-                            Id = data.Id,
-                            Name = data.Name,
-                            Value = CompanyPrimaryData?.Content,
-                        });
-
-                    }
-                    companyDetail.CompanyInfo = CompanyInfo;
+                        Id = data.Id,
+                        Name = data.Title,
+                        Value = data.Content,
+                    });
                     companyDetail.WebView = WebView;
                 }
 
@@ -294,7 +283,7 @@ namespace BBS.Interactors
             builtData.CompanyName = company.Name;
             List<CatContent> Content = new();
             foreach (var primaryOfferData in primaryOfferShareDatas)
-            {               
+            {
 
                 Content.Add(new CatContent()
                 {

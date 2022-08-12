@@ -48,11 +48,18 @@ namespace BBS.Services.Repository
             _context.Entry(obj).State = EntityState.Modified;
             return obj;
         }
-        public void Delete(object id)
+        public void Delete(T existing)
         {
-            T existing = table.Find(id)!;
+            _context.Entry(existing).State = EntityState.Deleted;
             table.Remove(existing);
         }
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            table.AttachRange(entities);
+            _context.Entry(entities).State = EntityState.Detached;
+            table.RemoveRange(entities);
+        }
+
         public void Save()
         {
             _context.SaveChanges();

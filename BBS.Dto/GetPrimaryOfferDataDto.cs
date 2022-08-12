@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BBS.Dto
 {
@@ -15,7 +16,9 @@ namespace BBS.Dto
         public int Id { get; set; }
         public string Company { get; set; }
         public decimal OfferPrice { get; set; }
-        public int Quantity { get; set; }        
+        public int Quantity { get; set; }
+        public decimal TotalTargetAmount { get; set; }
+        public string ClosingDate { get; set; }
         public int TotalBids { get; set; } 
     }
 
@@ -26,7 +29,12 @@ namespace BBS.Dto
         public string Company { get; set; }     
         public decimal OfferPrice { get; set; }     
         public int Quantity { get; set; }
-        public List<CatContent> CompanyInfo { get; set; }
+        public string InvestmentManager { get; set; }
+        public decimal TotalTargetAmount { get; set; }
+        public decimal MinimumInvestment { get; set; }
+        public string ClosingDate { get; set; }
+        public string Tags { get; set; }
+        public string ShortDescription { get; set; }        
         public List<CatContent> WebView { get; set; }
         public List<InvestorDetails> InvestorDetails { get; set; }
         public int TotalInvestors { get; set; }
@@ -66,14 +74,26 @@ namespace BBS.Dto
     public class InvestorDto
     {
         public int UserLoginId { get; set; }
-        public int VerificationStatus { get; set; }
+        public int VerificationStatus { get; set; }  
     }
     public class CompanyListDto
     {
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
-        public List<InvestorDto> InvestorDto { get; set; }
-        public List<CatContent> CompanyInfo { get; set; } 
+        public decimal OfferPrice { get; set; }
+        public int Quantity { get; set; }
+        public string InvestmentManager { get; set; }
+        public decimal TotalTargetAmount { get; set; }
+        public decimal MinimumInvestment { get; set; }
+        public string ClosingDate { get; set; }
+        public string Tags { get; set; }
+        public string ShortDescription { get; set; }
+        public decimal RaisedAmount { get; set; }
+        public string DaysLeft { get; set; }
+        public string FeePercentage { get; set; } 
+        public string Allocation { get; set; } = "1.4%";
+        public int TotalInvestors { get; set; } 
+        public List<InvestorDto> InvestorDto { get; set; }       
         public List<CatContent> WebView { get; set; } 
     }
     public class CompanyDetailDto 

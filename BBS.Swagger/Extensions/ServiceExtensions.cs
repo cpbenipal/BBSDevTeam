@@ -175,8 +175,8 @@ namespace BBS.Swagger.Extensions
 
             services.AddScoped<GetAllBidsOnPrimaryOfferInteractor>();
             services.AddScoped<GetBidOnPrimaryOfferUtils>();
-
-
+            services.AddScoped<GetBursaFeesUtil>();
+         
             Config = BuildConfiguration();
 
             var ConnectionString = Config["AzureStorage:ConnectionString"];

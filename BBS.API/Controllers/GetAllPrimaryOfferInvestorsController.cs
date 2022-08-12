@@ -15,7 +15,11 @@ namespace BBS.API.Controllers
         {
             _getCategoryInteractor = interactor;
         }        
-
+        /// <summary>
+        /// Get Company's Primary Offer detail with Investor Details
+        /// </summary>
+        /// <param name="Company"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult GetCategoryContentInteractor([FromBody] CompanyDto Company)

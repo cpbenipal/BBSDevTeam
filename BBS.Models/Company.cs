@@ -7,7 +7,7 @@ namespace BBS.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required] 
         [MaxLength(100)]
         public string Name { get; set; }
         [Required]
@@ -22,6 +22,8 @@ namespace BBS.Models
         public decimal MinimumInvestment { get; set; }
         [Required]
         public DateTime ClosingDate { get; set; }
-        public string? Description { get; set; }
+        public string ShortDescription { get; set; }
+        [Required]
+        public string Tags { get; set; }
     }
 }

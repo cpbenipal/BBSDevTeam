@@ -68,37 +68,64 @@ namespace BBS.Interactors
 
             var primaryOfferToUpdate = _repositoryWrapper
                 .PrimaryOfferShareDataManager
-                .GetAllPrimaryOfferShareData();
+                .GetPrimaryOfferShareDataByCompanyId(addPrimaryOffer.CompanyId);
 
+            
+            List<PrimaryOfferShareData> builtPrimaryOfferShareData = new();
+            List<PrimaryOfferShareData> UpdatePrimaryOfferShareData = new();
+            List<PrimaryOfferShareData> AddPrimaryOfferShareData = new();
+
+           
             if (primaryOfferToUpdate == null || primaryOfferToUpdate.Count == 0)
             {
-                return ReturnErrorStatus("Category Not Found");
-            }
-             
+                return ReturnErrorStatus("Company Content Not Found");
+            } 
 
-            var company = UpdateCompany(addPrimaryOffer, extractedFromToken.UserLoginId);             
-
-            List<PrimaryOfferShareData> builtPrimaryOfferShareData = new();
             foreach (var c in addPrimaryOffer.Content)
             {
-                PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x=>
-                //x.CategoryId == c.CategoryId && 
-                x.CompanyId == addPrimaryOffer.CompanyId)!;                
-                contentDetail.Content = c.Content;                                
-                contentDetail.ModifiedById = extractedFromToken.UserLoginId;
-                contentDetail.ModifiedDate = DateTime.Now;
-                contentDetail.CompanyId = addPrimaryOffer.CompanyId;
-
-                builtPrimaryOfferShareData.Add(contentDetail);
+                if (c.Id > 0)
+                {
+                    PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x => x.Id == c.Id)!;
+                   // if (c.IsEnabled)
+                    {                        
+                        contentDetail.Title = c.Title;
+                        contentDetail.Content = c.Content;
+                        contentDetail.ModifiedById = extractedFromToken.UserLoginId;
+                        contentDetail.ModifiedDate = DateTime.Now;                    
+                        UpdatePrimaryOfferShareData.Add(contentDetail);                        
+                        builtPrimaryOfferShareData.Add(contentDetail);
+                    }                    
+                } 
+                else
+                {
+                    var newContent = new PrimaryOfferShareData()
+                    {
+                        Title = c.Title,
+                        Content = c.Content,
+                        CompanyId = addPrimaryOffer.CompanyId,
+                        AddedById = extractedFromToken.UserLoginId,
+                        ModifiedById = extractedFromToken.UserLoginId
+                    };
+                    AddPrimaryOfferShareData.Add(newContent);
+                    builtPrimaryOfferShareData.Add(newContent);
+                }
             }
+            
+           var company = UpdateCompany(addPrimaryOffer, extractedFromToken.UserLoginId);
 
-            _repositoryWrapper
-                .PrimaryOfferShareDataManager
-                .UpdatePrimaryOfferShareDataRange(builtPrimaryOfferShareData);
+            List<PrimaryOfferShareData> DeletePrimaryOfferShareData = primaryOfferToUpdate.Where(xx => !addPrimaryOffer.Content.Select(x => x.Id).Contains(xx.Id)).ToList();
+            if (DeletePrimaryOfferShareData.Count > 0)
+               _repositoryWrapper.PrimaryOfferShareDataManager.RemovePrimaryOfferShareDataRange(DeletePrimaryOfferShareData);
 
-            NotifyAdminAboutPrimaryOfferInsert(builtPrimaryOfferShareData, extractedFromToken.PersonId);
+           if (AddPrimaryOfferShareData.Count > 0)
+               _repositoryWrapper.PrimaryOfferShareDataManager.InsertPrimaryOfferShareDataRange(AddPrimaryOfferShareData);
 
+           if (UpdatePrimaryOfferShareData.Count > 0)
+               _repositoryWrapper.PrimaryOfferShareDataManager.UpdatePrimaryOfferShareDataRange(UpdatePrimaryOfferShareData);
 
+           if (builtPrimaryOfferShareData.Count > 0)
+               NotifyAdminAboutPrimaryOfferInsert(builtPrimaryOfferShareData, extractedFromToken.PersonId);
+          
             return _responseManager.SuccessResponse(
                 "Successful",
                 StatusCodes.Status200OK,
@@ -110,59 +137,64 @@ namespace BBS.Interactors
         {
             var entity = _repositoryWrapper.CompanyManager.GetCompany(model.CompanyId)!;
             entity.Id = model.CompanyId;
+            entity.ShortDescription = model.ShortDescription;
+            entity.Tags = model.Tags;
             entity.Name = model.CompanyName;
             entity.OfferPrice = model.OfferPrice;
             entity.Quantity = model.Quantity;
             entity.TotalTargetAmount = model.TotalTargetAmount;
             entity.InvestmentManager = model.InvestmentManager;
             entity.MinimumInvestment = model.MinimumInvestment;
-            entity.ClosingDate = model.ClosingDate;            
+            entity.ClosingDate = model.ClosingDate;
             entity.ModifiedById = UserLoginId;
-            entity.ModifiedDate = DateTime.Now;            
+            entity.ModifiedDate = DateTime.Now;
             return _repositoryWrapper.CompanyManager.UpdateCompany(entity);
         }
 
-        private void NotifyAdminAboutPrimaryOfferInsert(List<PrimaryOfferShareData> builtPrimaryOfferShareData, int personId)
+        private void NotifyAdminAboutPrimaryOfferInsert(
+           List<PrimaryOfferShareData> builtPrimaryOfferShareData,
+           int personId
+       )
         {
             var dataToSend = BuildEmailTemplateData(builtPrimaryOfferShareData);
+
             var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
 
-            var message = _emailHelperUtils.FillEmailContents(
+            var message = _emailHelperUtils.FillDynamicEmailContents(
                 dataToSend,
                 "primary_offer_data",
                 personInfo.FirstName ?? "",
                 personInfo.LastName ?? ""
             );
 
-            var subject = "Bursa <> Your Primary Offering Is Updated";
+            var subject = "Bursa <> Your Primary Offer has been Updated";
 
             _emailSender.SendEmail("", subject, message!, true);
         }
 
-        private object BuildEmailTemplateData(List<PrimaryOfferShareData> builtPrimaryOfferShareData)
+        private Dictionary<string, string> BuildEmailTemplateData(List<PrimaryOfferShareData> builtPrimaryOfferShareData)
         {
 
-            var company = _repositoryWrapper.CompanyManager.GetCompany(
-                builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId
-            );
+            var company = _repositoryWrapper.CompanyManager.GetCompany(builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId)!;
 
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
 
-            var emailTemplate = new PrimaryOfferShareDataEmailDto
+            keyValuePairs.Add("Company", company.Name);
+            keyValuePairs.Add("Tags", company.Tags);
+            keyValuePairs.Add("ShortDescription", company.ShortDescription);
+            keyValuePairs.Add("Offer Price", company.OfferPrice.ToString());
+            keyValuePairs.Add("Quantity", company.Quantity.ToString());
+            keyValuePairs.Add("Total Target", company.TotalTargetAmount.ToString());
+            keyValuePairs.Add("Investment Manager", company.InvestmentManager);
+            keyValuePairs.Add("Minimum Investment", company.MinimumInvestment.ToString());
+            keyValuePairs.Add("Closing Date", company.ClosingDate.ToShortDateString());
+
+            foreach (var data in builtPrimaryOfferShareData)
             {
-                Tags = builtPrimaryOfferShareData[0].Content,
-                ShortDescription = builtPrimaryOfferShareData[1].Content,
-                DealTeaser = builtPrimaryOfferShareData[2].Content,
-                CompanyProfile = builtPrimaryOfferShareData[3].Content,
-                TermsAndLegal = builtPrimaryOfferShareData[4].Content,
-                Documents = builtPrimaryOfferShareData[5].Content,
-                MinimumInvestement = builtPrimaryOfferShareData[6].Content,
-                ClosingDate = builtPrimaryOfferShareData[7].Content,
-                InvestementManager = builtPrimaryOfferShareData[8].Content,
-                FeesInPercentage = builtPrimaryOfferShareData[9].Content,
-                CompanyName = company?.Name ?? ""
-            };
+                keyValuePairs.Add(data.Title, data.Content);
+            }
 
-            return emailTemplate;
+            return keyValuePairs;
         }
 
         private GenericApiResponse ReturnErrorStatus(string message)

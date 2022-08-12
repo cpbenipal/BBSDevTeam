@@ -9,5 +9,6 @@ namespace BBS.Services.Contracts
         BidOnPrimaryOffering GetBidOnPrimaryOffering(int bidOnPrimaryId);
         List<BidOnPrimaryOffering> GetAllBidOnPrimaryOfferings();
         List<BidOnPrimaryOffering> GetBidOnPrimaryOfferingByUser(int userLoginId);
+        List<BidOnPrimaryOffering> GetBidOnPrimaryOfferingByCompany(int companyId);
     }
 }
