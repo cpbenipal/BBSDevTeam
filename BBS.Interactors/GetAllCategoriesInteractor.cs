@@ -51,26 +51,10 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryGettingAllCategories(int? offerShareMainTypeId)
         {
-            var allCategories = _repositoryWrapper
-                .CategoryManager
-                .GetCategories();
-
-            if (offerShareMainTypeId != null)
-            {
-                allCategories = _repositoryWrapper
-                    .CategoryManager
-                    .GetCategoryByOfferShareMainType((int)offerShareMainTypeId);
-            }
-
-            var CatContent = allCategories.Select(x => new CategoryDto
-            {
-                Id = x.Id,
-                Name = x.Name
-            });
             return _responseManager.SuccessResponse(
                 "Successful",
                 StatusCodes.Status200OK,
-                CatContent
+                ""
             );
         }
     }

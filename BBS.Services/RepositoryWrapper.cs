@@ -379,20 +379,6 @@ namespace BBS.Services.Repository
             }
         }
 
-        private ICategoryManager _category;
-        public ICategoryManager CategoryManager
-        {
-            get
-            {
-                if (_category == null)
-                {
-                    var repositoryBase = new RepositoryBase<Category>(_repoContext);
-                    _category = new CategoryManager(repositoryBase);
-                }
-                return _category;
-            }
-        }
-
         private IOfferedShareMainTypeManager _offeredShareMainType;
         public IOfferedShareMainTypeManager OfferedShareMainTypeManager
         {

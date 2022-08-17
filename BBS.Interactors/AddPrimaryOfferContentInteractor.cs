@@ -45,7 +45,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize(addPrimaryOffer),
                     0
                 );
-                return TryAddingCategoryContent(token, addPrimaryOffer);
+                return TryAddingPrimaryOfferContent(token, addPrimaryOffer);
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace BBS.Interactors
 
         }
 
-        private GenericApiResponse TryAddingCategoryContent(
+        private GenericApiResponse TryAddingPrimaryOfferContent(
             string token,
             AddPrimaryOfferContent addPrimaryOffer
         )
@@ -75,9 +75,8 @@ namespace BBS.Interactors
             var builtPrimaryOfferShareData = addPrimaryOffer.Content.Select(
                 c => new PrimaryOfferShareData
                 {
-                    //CategoryId = c.CategoryId,
                     Title = c.Title,
-                    Content = c.Content,                    
+                    Content = c.Content,
                     CompanyId = company.Id,
                     AddedById = extractedFromToken.UserLoginId,
                     ModifiedById = extractedFromToken.UserLoginId
@@ -101,13 +100,14 @@ namespace BBS.Interactors
             return _repositoryWrapper.CompanyManager.InsertCompany(
                 new Company
                 {
-                    ShortDescription = addPrimaryOffer.ShortDescription ,
+                    ShortDescription = addPrimaryOffer.ShortDescription,
                     Name = addPrimaryOffer.CompanyName,
                     OfferPrice = addPrimaryOffer.OfferPrice,
                     Quantity = addPrimaryOffer.Quantity,
                     TotalTargetAmount = addPrimaryOffer.TotalTargetAmount,
                     InvestmentManager = addPrimaryOffer.InvestmentManager,
                     MinimumInvestment = addPrimaryOffer.MinimumInvestment,
+                    BusraFees = addPrimaryOffer.BusraFees,
                     ClosingDate = addPrimaryOffer.ClosingDate,
                     Tags = addPrimaryOffer.Tags,
                     AddedById = UserLoginId,
@@ -118,19 +118,23 @@ namespace BBS.Interactors
         private Dictionary<string, string> BuildEmailTemplateData(List<PrimaryOfferShareData> builtPrimaryOfferShareData)
         {
 
-            var company = _repositoryWrapper.CompanyManager.GetCompany(builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId)!;
+            var company = _repositoryWrapper
+                .CompanyManager
+                .GetCompany(builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId)!;
 
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
-
-            keyValuePairs.Add("Company", company.Name);
-            keyValuePairs.Add("Tags", company.Tags);
-            keyValuePairs.Add("ShortDescription", company.ShortDescription); 
-            keyValuePairs.Add("Offer Price", company.OfferPrice.ToString());
-            keyValuePairs.Add("Quantity", company.Quantity.ToString());
-            keyValuePairs.Add("Total Target", company.TotalTargetAmount.ToString());
-            keyValuePairs.Add("Investment Manager", company.InvestmentManager);
-            keyValuePairs.Add("Minimum Investment", company.MinimumInvestment.ToString());
-            keyValuePairs.Add("Closing Date", company.ClosingDate.ToShortDateString());
+            Dictionary<string, string> keyValuePairs = new()
+            {
+                { "Company", company.Name },
+                { "Tags", company.Tags },
+                { "ShortDescription", company.ShortDescription },
+                { "Offer Price", company.OfferPrice.ToString() },
+                { "Quantity", company.Quantity.ToString() },
+                { "Total Target", company.TotalTargetAmount.ToString() },
+                { "Investment Manager", company.InvestmentManager },
+                { "Minimum Investment", company.MinimumInvestment.ToString() },
+                { "Busra Fees", Convert.ToString(company.BusraFees) ?? "" },
+                { "Closing Date", company.ClosingDate.ToShortDateString() }
+            };
 
             foreach (var data in builtPrimaryOfferShareData)
             {
@@ -149,7 +153,7 @@ namespace BBS.Interactors
 
             var personInfo = _repositoryWrapper.PersonManager.GetPerson(personId);
 
-            var message = _emailHelperUtils.FillDynamicEmailContents( 
+            var message = _emailHelperUtils.FillDynamicEmailContents(
                 dataToSend,
                 "primary_offer_data",
                 personInfo.FirstName ?? "",
@@ -160,8 +164,6 @@ namespace BBS.Interactors
 
             _emailSender.SendEmail("", subject, message!, true);
         }
-
-       
 
         private GenericApiResponse ReturnErrorStatus(string message)
         {

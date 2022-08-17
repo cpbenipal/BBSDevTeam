@@ -7,6 +7,9 @@ namespace BBS.Services.Contracts
         List<SecondaryOfferShareData> InsertSecondaryOfferShareDataRange(
             List<SecondaryOfferShareData> secondaryOfferData
         );
+        SecondaryOfferShareData InsertSecondaryOfferShareData(
+            SecondaryOfferShareData secondaryOfferData
+        );
         List<SecondaryOfferShareData> UpdateSecondaryOfferShareDataRange(
             List<SecondaryOfferShareData> secondaryOfferData
         );

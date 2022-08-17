@@ -129,7 +129,7 @@ namespace BBS.Interactors
                     _repositoryWrapper.OfferedShareManager.InsertOfferedShare(offeredShareToInsert);
 
 
-                InsertDefaultCategoriesForThisOfferShare(insertedOfferedShare.Id);
+                InsertDefaultSecondaryData(insertedOfferedShare);
 
                 NotifyAdminWhenShareIsOffered(
                     insertedOfferedShare,
@@ -144,26 +144,23 @@ namespace BBS.Interactors
             }
         }
 
-        private void InsertDefaultCategoriesForThisOfferShare(int offerShareId)
+        private void InsertDefaultSecondaryData(OfferedShare offeredShare)
         {
-            var categories = _repositoryWrapper
-                .CategoryManager
-                .GetCategoryByOfferShareMainType(
-                    (int)OfferedShareMainTypes.SECONDARY
-                );
-
-
-            var builtSecondaryOfferShareData = categories.Select(
-                c => new SecondaryOfferShareData {
-                    CategoryId = c.Id,
-                    Content = "",
-                    OfferedShareId = offerShareId,
-                }
-            ).ToList();
 
             _repositoryWrapper
                 .SecondaryOfferShareDataManager
-                .InsertSecondaryOfferShareDataRange(builtSecondaryOfferShareData);
+                .InsertSecondaryOfferShareData(new SecondaryOfferShareData
+                {
+                    Title = "About Us",
+                    AddedById = offeredShare.AddedById,
+                    ModifiedById = offeredShare.ModifiedById,
+                    Content = "Default Content",
+                    OfferedShareId = offeredShare.Id,
+                    OfferPrice = 0,
+                    ModifiedDate = DateTime.UtcNow,
+                    AddedDate = DateTime.UtcNow,
+                    TotalShares = 0,
+                });
         }
 
         private void NotifyAdminWhenShareIsOffered(

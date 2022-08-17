@@ -30,6 +30,13 @@ namespace BBS.Services.Repository
             return _repositoryBase.GetById(id);
         }
 
+        public SecondaryOfferShareData InsertSecondaryOfferShareData(SecondaryOfferShareData secondaryOfferData)
+        {
+            var added = _repositoryBase.Insert(secondaryOfferData);
+            _repositoryBase.Save();
+            return added;
+        }
+
         public List<SecondaryOfferShareData> InsertSecondaryOfferShareDataRange(
             List<SecondaryOfferShareData> secondaryOfferData
         )

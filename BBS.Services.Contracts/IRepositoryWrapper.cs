@@ -28,7 +28,6 @@
         public IInvestorDetailManager InvestorDetailManager { get; }
         public IInvestorTypeManager InvestorTypeManager { get; }
         public IInvestorRiskTypeManager InvestorRiskTypeManager { get; }
-        public ICategoryManager CategoryManager { get; }
         public IOfferedShareMainTypeManager OfferedShareMainTypeManager { get; }
         public ISecondaryOfferShareDataManager SecondaryOfferShareDataManager { get; }
         public IPrimaryOfferShareDataManager PrimaryOfferShareDataManager { get; }

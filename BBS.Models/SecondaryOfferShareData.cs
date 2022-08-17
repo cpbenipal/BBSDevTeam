@@ -10,13 +10,11 @@ namespace BBS.Models
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("CategoryId")]
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+        public string Content { get; set; }
 
         [Required]
-        public string Content { get; set; }
-         
+        public string Title { get; set; }
+
         public int TotalShares { get; set; } 
          
         public decimal OfferPrice { get; set; } 

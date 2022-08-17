@@ -81,16 +81,12 @@ namespace BBS.Interactors
             List<GetSecondaryOfferDataDto> builtData = new();
             foreach (var secondaryOfferData in secondaryOfferShareDatas)
             {
-                var category = _repositoryWrapper
-                    .CategoryManager
-                    .GetCategoryById(secondaryOfferData.CategoryId);
-
                 builtData.Add(new GetSecondaryOfferDataDto()
                 {
                     Id = secondaryOfferData.Id,
                     Content = secondaryOfferData.Content,
                     OfferShareId = secondaryOfferData.OfferedShareId,
-                    Name = category?.Name ?? "",                    
+                    Title = secondaryOfferData.Title,                    
                     OfferPrice = secondaryOfferData.OfferPrice,
                     TotalShares = secondaryOfferData.TotalShares
                 });

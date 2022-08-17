@@ -86,7 +86,6 @@ namespace BBS.Interactors
                 if (c.Id > 0)
                 {
                     PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x => x.Id == c.Id)!;
-                   // if (c.IsEnabled)
                     {                        
                         contentDetail.Title = c.Title;
                         contentDetail.Content = c.Content;
@@ -111,7 +110,7 @@ namespace BBS.Interactors
                 }
             }
             
-           var company = UpdateCompany(addPrimaryOffer, extractedFromToken.UserLoginId);
+            UpdateCompany(addPrimaryOffer, extractedFromToken.UserLoginId);
 
             List<PrimaryOfferShareData> DeletePrimaryOfferShareData = primaryOfferToUpdate.Where(xx => !addPrimaryOffer.Content.Select(x => x.Id).Contains(xx.Id)).ToList();
             if (DeletePrimaryOfferShareData.Count > 0)
@@ -133,7 +132,7 @@ namespace BBS.Interactors
             );
         }
 
-        private Company UpdateCompany(AddPrimaryOfferContent model, int UserLoginId)
+        private void UpdateCompany(AddPrimaryOfferContent model, int UserLoginId)
         {
             var entity = _repositoryWrapper.CompanyManager.GetCompany(model.CompanyId)!;
             entity.Id = model.CompanyId;
@@ -145,10 +144,12 @@ namespace BBS.Interactors
             entity.TotalTargetAmount = model.TotalTargetAmount;
             entity.InvestmentManager = model.InvestmentManager;
             entity.MinimumInvestment = model.MinimumInvestment;
+            entity.BusraFees = model.BusraFees;
             entity.ClosingDate = model.ClosingDate;
             entity.ModifiedById = UserLoginId;
             entity.ModifiedDate = DateTime.Now;
-            return _repositoryWrapper.CompanyManager.UpdateCompany(entity);
+            
+            _repositoryWrapper.CompanyManager.UpdateCompany(entity);
         }
 
         private void NotifyAdminAboutPrimaryOfferInsert(
@@ -177,7 +178,7 @@ namespace BBS.Interactors
 
             var company = _repositoryWrapper.CompanyManager.GetCompany(builtPrimaryOfferShareData.FirstOrDefault()!.CompanyId)!;
 
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            Dictionary<string, string> keyValuePairs = new();
 
             keyValuePairs.Add("Company", company.Name);
             keyValuePairs.Add("Tags", company.Tags);

@@ -21,6 +21,9 @@ namespace BBS.Dto
         [Display(Name = "Minimum Investment")]
         public decimal MinimumInvestment { get; set; }
         [Required]
+        [Display(Name = "Busra Fees")]
+        public decimal BusraFees { get; set; }
+        [Required]
         [Display(Name = "Closing Date")]
         public DateTime ClosingDate { get; set; }  
         [Required]

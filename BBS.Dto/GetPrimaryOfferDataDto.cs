@@ -19,6 +19,7 @@ namespace BBS.Dto
         public int Quantity { get; set; }
         public decimal TotalTargetAmount { get; set; }
         public string ClosingDate { get; set; }
+        public decimal? BusraFees { get; set; }
         public int TotalBids { get; set; } 
     }
 
@@ -32,6 +33,7 @@ namespace BBS.Dto
         public string InvestmentManager { get; set; }
         public decimal TotalTargetAmount { get; set; }
         public decimal MinimumInvestment { get; set; }
+        public decimal? BusraFees { get; set; }
         public string ClosingDate { get; set; }
         public string Tags { get; set; }
         public string ShortDescription { get; set; }        
@@ -85,6 +87,7 @@ namespace BBS.Dto
         public string InvestmentManager { get; set; }
         public decimal TotalTargetAmount { get; set; }
         public decimal MinimumInvestment { get; set; }
+        public decimal? BusraFees { get; set; }
         public string ClosingDate { get; set; }
         public string Tags { get; set; }
         public string ShortDescription { get; set; }

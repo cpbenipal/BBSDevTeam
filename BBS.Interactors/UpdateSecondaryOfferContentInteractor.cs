@@ -88,19 +88,19 @@ namespace BBS.Interactors
 
             foreach (var c in secondaryOfferToUpdate)
             {
-                var updated = addSecondaryOffer.Content.FirstOrDefault(x => x.CategoryId == c.CategoryId);
+                var updated = addSecondaryOffer.Content.FirstOrDefault(x => x.Title == c.Title);
                 if(updated == null)
                 {
                     secondaryOfferData.Add(c);
                 }
                 else
                 {
-                    var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.CategoryId == c.CategoryId)!;
+                    var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.Title == c.Title)!;
                     secondaryOfferData.Add(new SecondaryOfferShareData()
                     {
-                        CategoryId = c.CategoryId,
                         Id = pkId.Id,
                         Content = updated.Content,
+                        Title = updated.Title,
                         OfferedShareId = addSecondaryOffer.OfferShareId,
                         ModifiedById = extractedFromToken.UserLoginId,
                         ModifiedDate = DateTime.Now,
@@ -144,7 +144,7 @@ namespace BBS.Interactors
         {
 
             builtSecondaryOfferShareData = builtSecondaryOfferShareData
-                .OrderBy(d => d.CategoryId)
+                .OrderBy(d => d.Title)
                 .ToList();
             var emailTemplate = new SecondaryOfferShareDataEmailDto
             {
