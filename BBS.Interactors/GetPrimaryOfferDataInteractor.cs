@@ -104,7 +104,7 @@ namespace BBS.Interactors
                     companyDetail.ClosingDate = company.ClosingDate.ToShortDateString();
                     companyDetail.ShortDescription = company.ShortDescription;
                     companyDetail.Tags = company.Tags;
-                    companyDetail.DaysLeft = company.ClosingDate.Subtract(DateTime.Today).TotalDays.ToString() + " Day(s) Left";
+                    companyDetail.DaysLeft = company.ClosingDate.Subtract(DateTime.Today).Days.ToString() + " Day(s) Left";
                     companyDetail.RaisedAmount = Convert.ToDecimal(InvestorBids.Where(x => x.CompanyId == company.Id).Sum(x => x.PlacementAmount));
 
                     // Fees Percentage 
@@ -115,10 +115,14 @@ namespace BBS.Interactors
                         companyDetail.FeePercentage = ((companyDetail.RaisedAmount - companyDetail.TotalTargetAmount) / companyDetail.TotalTargetAmount).ToString("P", CultureInfo.InvariantCulture);
 
                     List<InvestorDto> investorDtos = companyDetail.InvestorDto = InvestorBids.Where(x => x.CompanyId == company.Id).Select(x => new InvestorDto()
-                        { UserLoginId = x.UserLoginId, VerificationStatus = x.VerificationStatus }).ToList();
+                    { UserLoginId = x.UserLoginId, VerificationStatus = x.VerificationStatus }).ToList();
 
                     // Total Investors 
                     companyDetail.TotalInvestors = companyDetail.InvestorDto.Count;
+                    if (extractedFromToken.RoleId == (int)Roles.INVESTOR && companyDetail.TotalInvestors > 0 && investorDtos.Any(x => x.UserLoginId == extractedFromToken.UserLoginId))
+                    {
+                        companyDetail.MyBidStatus = investorDtos.FirstOrDefault(x => x.UserLoginId == extractedFromToken.UserLoginId)!.VerificationStatus;
+                    }
                     List<CatContent> WebView = new();
 
                     foreach (var data in PrimaryOfferShareDatas.Where(x => x.CompanyId == company.Id))

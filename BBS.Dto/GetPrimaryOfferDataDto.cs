@@ -92,7 +92,8 @@ namespace BBS.Dto
         public string DaysLeft { get; set; }
         public string FeePercentage { get; set; } 
         public string Allocation { get; set; } = "1.4%";
-        public int TotalInvestors { get; set; } 
+        public int TotalInvestors { get; set; }
+        public int MyBidStatus { get; set; }
         public List<InvestorDto> InvestorDto { get; set; }       
         public List<CatContent> WebView { get; set; } 
     }
