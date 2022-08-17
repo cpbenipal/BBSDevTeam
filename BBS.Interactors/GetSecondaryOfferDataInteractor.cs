@@ -86,7 +86,7 @@ namespace BBS.Interactors
                     Id = secondaryOfferData.Id,
                     Content = secondaryOfferData.Content,
                     OfferShareId = secondaryOfferData.OfferedShareId,
-                    Title = secondaryOfferData.Title,                    
+                    Title = secondaryOfferData.Title ?? "",                    
                     OfferPrice = secondaryOfferData.OfferPrice,
                     TotalShares = secondaryOfferData.TotalShares
                 });

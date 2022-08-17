@@ -12,7 +12,7 @@ namespace BBS.Models
         [ForeignKey("Company")]
         public int CompanyId { get; set; }
         public Company? Company { get; set; }
-        public string? Title { get; set; } 
+        public string Title { get; set; } 
         [Required]
         public string Content { get; set; }
     }

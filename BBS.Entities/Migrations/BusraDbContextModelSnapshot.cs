@@ -166,7 +166,7 @@ namespace BBS.Entities.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("BusraFees")
+                    b.Property<decimal?>("BusraFees")
                         .HasColumnType("numeric");
 
                     b.Property<DateTime>("ClosingDate")
@@ -938,13 +938,13 @@ namespace BBS.Entities.Migrations
                         {
                             Id = 1,
                             AddedById = 0,
-                            AddedDate = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Local).AddTicks(8148),
+                            AddedDate = new DateTime(2022, 8, 17, 16, 29, 57, 378, DateTimeKind.Local).AddTicks(2104),
                             AddressLine = "Dubai",
                             AnnualIncome = 10000000m,
                             City = "Dubai",
                             CountryId = 1,
-                            DateOfBirth = new DateTime(2022, 8, 17, 10, 55, 56, 573, DateTimeKind.Utc).AddTicks(8150),
-                            DateOfEmployement = new DateTime(2022, 8, 17, 10, 55, 56, 573, DateTimeKind.Utc).AddTicks(8155),
+                            DateOfBirth = new DateTime(2022, 8, 17, 13, 29, 57, 378, DateTimeKind.Utc).AddTicks(2106),
+                            DateOfEmployement = new DateTime(2022, 8, 17, 13, 29, 57, 378, DateTimeKind.Utc).AddTicks(2112),
                             Email = "admin@bursa.com",
                             EmiratesID = "000000000000",
                             EmployementTypeId = 1,
@@ -962,7 +962,7 @@ namespace BBS.Entities.Migrations
                             IsUSCitizen = false,
                             LastName = "",
                             ModifiedById = 0,
-                            ModifiedDate = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Local).AddTicks(8148),
+                            ModifiedDate = new DateTime(2022, 8, 17, 16, 29, 57, 378, DateTimeKind.Local).AddTicks(2105),
                             NationalityId = 1,
                             PhoneNumber = "5512345678",
                             VaultNumber = "00000000000",
@@ -1406,13 +1406,13 @@ namespace BBS.Entities.Migrations
                         {
                             Id = 1,
                             AddedById = 0,
-                            AddedDate = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Local).AddTicks(9370),
+                            AddedDate = new DateTime(2022, 8, 17, 16, 29, 57, 378, DateTimeKind.Local).AddTicks(3486),
                             IsDeleted = false,
                             ModifiedById = 0,
-                            ModifiedDate = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Local).AddTicks(9372),
+                            ModifiedDate = new DateTime(2022, 8, 17, 16, 29, 57, 378, DateTimeKind.Local).AddTicks(3489),
                             Passcode = "MDAwMA==",
-                            PasswordHash = new byte[] { 125, 255, 148, 207, 34, 238, 226, 41, 38, 108, 72, 131, 15, 225, 136, 190, 147, 196, 113, 234, 169, 206, 2, 85, 147, 105, 166, 199, 225, 101, 20, 39, 140, 254, 5, 145, 210, 219, 99, 158, 109, 242, 92, 227, 83, 149, 125, 88, 84, 60, 197, 92, 204, 100, 181, 200, 171, 174, 246, 6, 15, 188, 26, 253, 36, 114, 229, 142, 24, 153, 56, 59, 106, 34, 5, 16, 83, 92, 153, 249, 243, 54, 113, 97, 33, 98, 209, 159, 184, 109, 124, 244, 246, 57, 5, 164, 53, 118, 94, 202, 11, 233, 0, 33, 250, 109, 50, 194, 85, 130, 239, 129, 162, 92, 156, 57, 226, 32, 31, 177, 168, 144, 31, 168, 162, 155, 223, 49 },
-                            PasswordSalt = new byte[] { 109, 250, 241, 63, 84, 35, 228, 203, 2, 165, 132, 59, 186, 68, 194, 81, 125, 165, 43, 243, 125, 233, 170, 217, 39, 111, 94, 13, 17, 139, 225, 244, 6, 210, 223, 181, 40, 53, 81, 223, 55, 70, 178, 181, 91, 19, 100, 222, 206, 126, 228, 162, 243, 142, 82, 138, 56, 190, 187, 21, 19, 137, 51, 215 },
+                            PasswordHash = new byte[] { 84, 98, 93, 133, 38, 149, 217, 89, 135, 4, 180, 154, 174, 43, 196, 232, 31, 178, 64, 115, 154, 230, 212, 39, 102, 164, 103, 19, 72, 123, 236, 16, 164, 95, 98, 196, 186, 125, 13, 244, 234, 1, 130, 32, 184, 225, 148, 187, 80, 22, 154, 167, 239, 145, 202, 218, 122, 246, 96, 189, 204, 179, 180, 134, 45, 127, 123, 201, 123, 35, 240, 248, 85, 178, 184, 167, 123, 42, 103, 49, 77, 93, 81, 138, 111, 221, 21, 205, 31, 159, 104, 1, 72, 254, 4, 36, 230, 46, 123, 196, 18, 86, 250, 71, 153, 6, 245, 97, 111, 4, 78, 91, 233, 209, 110, 214, 92, 12, 174, 73, 134, 29, 5, 127, 196, 222, 216, 57 },
+                            PasswordSalt = new byte[] { 73, 190, 138, 117, 67, 180, 7, 163, 99, 201, 83, 125, 55, 90, 245, 205, 92, 28, 19, 212, 77, 245, 205, 255, 224, 107, 82, 236, 212, 88, 119, 67, 135, 17, 39, 16, 95, 153, 76, 251, 242, 239, 67, 192, 203, 246, 153, 199, 235, 60, 90, 200, 131, 108, 91, 69, 254, 197, 27, 46, 32, 250, 82, 243 },
                             PersonId = 1,
                             RefreshToken = "",
                             Username = ""
@@ -1464,10 +1464,10 @@ namespace BBS.Entities.Migrations
                         {
                             Id = 1,
                             AddedById = 0,
-                            AddedDate = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Local).AddTicks(9398),
+                            AddedDate = new DateTime(2022, 8, 17, 16, 29, 57, 378, DateTimeKind.Local).AddTicks(3518),
                             IsDeleted = false,
                             ModifiedById = 0,
-                            ModifiedDate = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Local).AddTicks(9399),
+                            ModifiedDate = new DateTime(2022, 8, 17, 16, 29, 57, 378, DateTimeKind.Local).AddTicks(3519),
                             RoleId = 2,
                             UserLoginId = 1
                         });
