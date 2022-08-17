@@ -5,11 +5,10 @@ using BBS.Services.Contracts;
 using BBS.Utils;
 using EmailSender;
 using Microsoft.AspNetCore.Http;
-using System.Linq;
 
 namespace BBS.Interactors
 {
-    public class UpdateSecondaryOfferContentInteractor
+    public class AddSecondaryOfferContentInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IApiResponseManager _responseManager;
@@ -18,7 +17,7 @@ namespace BBS.Interactors
         private readonly EmailHelperUtils _emailHelperUtils;
         private readonly INewEmailSender _emailSender;
 
-        public UpdateSecondaryOfferContentInteractor(
+        public AddSecondaryOfferContentInteractor(
             IRepositoryWrapper repositoryWrapper,
             IApiResponseManager responseManager,
             ILoggerManager loggerManager,
@@ -35,8 +34,8 @@ namespace BBS.Interactors
             _emailSender = newEmailSender;
         }
 
-        public GenericApiResponse UpdateSecondaryOfferContent(
-            string token, UpdateSecondaryOfferContent updateSecondaryOffer
+        public GenericApiResponse AddSecondaryOfferContent(
+            string token, AddSecondaryOfferContent addSecondaryOffer
         )
         {
             try
@@ -46,7 +45,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize("No Body"),
                     0
                 );
-                return TryUpdatingCategoryContent(token, updateSecondaryOffer);
+                return TryAddingCategoryContent(token, addSecondaryOffer);
             }
             catch (Exception ex)
             {
@@ -64,9 +63,9 @@ namespace BBS.Interactors
             );
         }
 
-        private GenericApiResponse TryUpdatingCategoryContent(
+        private GenericApiResponse TryAddingCategoryContent(
             string token,
-            UpdateSecondaryOfferContent addSecondaryOffer
+            AddSecondaryOfferContent addSecondaryOffer
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -76,56 +75,50 @@ namespace BBS.Interactors
                 return ReturnErrorStatus("Access Denied");
             }
 
-            var secondaryOfferToUpdate = _repositoryWrapper
-                .SecondaryOfferShareDataManager
-                .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
+            var offerShare = _repositoryWrapper
+                .OfferedShareManager
+                .GetOfferedShare(addSecondaryOffer.OfferShareId);
 
-            if (secondaryOfferToUpdate == null || secondaryOfferToUpdate.Count == 0)
+            if (offerShare == null)
             {
-                return ReturnErrorStatus("Category Not Found with this offershare");
+                return ReturnErrorStatus("No Offer Share Found");
             }
 
-            List<SecondaryOfferShareData> secondaryOfferData = new();
-
-            foreach (var c in secondaryOfferToUpdate)
-            {
-                var updated = addSecondaryOffer.Content.FirstOrDefault(x => x.Id == c.Id);
-
-                if (updated == null)
+            var secondaryOffersToInsert =
+                addSecondaryOffer.Content.Select(item => new SecondaryOfferShareData
                 {
-                    _repositoryWrapper
-                        .SecondaryOfferShareDataManager
-                        .DeleteSecondaryOfferShareData(c.Id);
-                }
-                else
-                {
-                    var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.Title == c.Title)!;
-                    secondaryOfferData.Add(new SecondaryOfferShareData()
-                    {
-                        Id = pkId.Id,
-                        Content = updated.Content,
-                        Title = updated.Title ?? "",
-                        OfferedShareId = addSecondaryOffer.OfferShareId,
-                        ModifiedById = extractedFromToken.UserLoginId,
-                        ModifiedDate = DateTime.Now,
-                        OfferPrice = 0,
-                        TotalShares = 0,
-                    });
+                    Title = item.Title,
+                    AddedById = offerShare.AddedById,
+                    ModifiedById = offerShare.ModifiedById,
+                    Content = item.Content,
+                    OfferedShareId = offerShare.Id,
+                    OfferPrice = 0,
+                    ModifiedDate = DateTime.UtcNow,
+                    AddedDate = DateTime.UtcNow,
+                    TotalShares = 0,
+                }).ToList();
 
-                }
-            }
+            InsertBuiltSecondaryOffers(secondaryOffersToInsert);
 
-            _repositoryWrapper
+            var updatedSecondaryOfferings = _repositoryWrapper
                 .SecondaryOfferShareDataManager
-                .UpdateSecondaryOfferShareDataRange(secondaryOfferData);
+                .GetSecondaryOfferByOfferShare(offerShare.Id);
 
-            NotifyAdminAboutSecondaryOfferInsert(secondaryOfferData, extractedFromToken.PersonId);
+            NotifyAdminAboutSecondaryOfferInsert(updatedSecondaryOfferings, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
                 "Successful",
                 StatusCodes.Status200OK,
                 1
             );
+        }
+
+        private void InsertBuiltSecondaryOffers(List<SecondaryOfferShareData> secondaryOffersToInsert)
+        {
+            foreach (var item in secondaryOffersToInsert)
+            {
+                _repositoryWrapper.SecondaryOfferShareDataManager.InsertSecondaryOfferShareData(item);
+            }
         }
 
         private void NotifyAdminAboutSecondaryOfferInsert(

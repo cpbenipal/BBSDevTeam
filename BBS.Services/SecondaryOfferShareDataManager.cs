@@ -12,6 +12,13 @@ namespace BBS.Services.Repository
             _repositoryBase = repositoryBase;
         }
 
+        public void DeleteSecondaryOfferShareData(int id)
+        {
+            var deleted = _repositoryBase.GetById(id);
+             _repositoryBase.Delete(deleted);
+            _repositoryBase.Save();
+        }
+
         public List<SecondaryOfferShareData> GetAllSecondaryOfferShareData()
         {
             return _repositoryBase.GetAll().ToList();

@@ -7,4 +7,10 @@ namespace BBS.Dto
         public List<AddSecondaryOfferDto> Content { get; set; }
         public int OfferShareId { get; set; } 
     }
+
+    public class AddSecondaryOfferContent
+    {
+        public List<AddSecondaryOfferDto> Content { get; set; }
+        public int OfferShareId { get; set; }
+    }
 }

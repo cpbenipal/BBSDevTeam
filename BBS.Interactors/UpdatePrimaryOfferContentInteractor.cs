@@ -155,7 +155,7 @@ namespace BBS.Interactors
         private void NotifyAdminAboutPrimaryOfferInsert(
            List<PrimaryOfferShareData> builtPrimaryOfferShareData,
            int personId
-       )
+        )
         {
             var dataToSend = BuildEmailTemplateData(builtPrimaryOfferShareData);
 
