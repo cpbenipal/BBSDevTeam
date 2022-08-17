@@ -83,7 +83,7 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus("Category Not Found with this offershare");
             }
-             
+
             List<SecondaryOfferShareData> secondaryOfferData = new();
 
             foreach (var c in secondaryOfferToUpdate)
@@ -100,7 +100,7 @@ namespace BBS.Interactors
                     {
                         Id = pkId.Id,
                         Content = updated.Content,
-                        Title = updated.Title,
+                        Title = updated.Title ?? "",
                         OfferedShareId = addSecondaryOffer.OfferShareId,
                         ModifiedById = extractedFromToken.UserLoginId,
                         ModifiedDate = DateTime.Now,
