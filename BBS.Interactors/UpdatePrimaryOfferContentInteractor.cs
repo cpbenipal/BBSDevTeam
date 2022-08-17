@@ -186,9 +186,11 @@ namespace BBS.Interactors
             keyValuePairs.Add("Offer Price", company.OfferPrice.ToString());
             keyValuePairs.Add("Quantity", company.Quantity.ToString());
             keyValuePairs.Add("Total Target", company.TotalTargetAmount.ToString());
+            keyValuePairs.Add("Busra Fees", Convert.ToString(company.BusraFees) ?? "");
             keyValuePairs.Add("Investment Manager", company.InvestmentManager);
             keyValuePairs.Add("Minimum Investment", company.MinimumInvestment.ToString());
             keyValuePairs.Add("Closing Date", company.ClosingDate.ToShortDateString());
+            
 
             foreach (var data in builtPrimaryOfferShareData)
             {

@@ -130,9 +130,9 @@ namespace BBS.Interactors
                 { "Offer Price", company.OfferPrice.ToString() },
                 { "Quantity", company.Quantity.ToString() },
                 { "Total Target", company.TotalTargetAmount.ToString() },
-                { "Investment Manager", company.InvestmentManager },
-                { "Minimum Investment", company.MinimumInvestment.ToString() },
                 { "Busra Fees", Convert.ToString(company.BusraFees) ?? "" },
+                { "Investment Manager", company.InvestmentManager },
+                { "Minimum Investment", company.MinimumInvestment.ToString() },                
                 { "Closing Date", company.ClosingDate.ToShortDateString() }
             };
 
