@@ -92,10 +92,10 @@ namespace BBS.Interactors
                     ModifiedById = offerShare.ModifiedById,
                     Content = item.Content,
                     OfferedShareId = offerShare.Id,
-                    OfferPrice = 0,
+                    
                     ModifiedDate = DateTime.UtcNow,
                     AddedDate = DateTime.UtcNow,
-                    TotalShares = 0,
+                    
                 }).ToList();
 
             InsertBuiltSecondaryOffers(secondaryOffersToInsert);

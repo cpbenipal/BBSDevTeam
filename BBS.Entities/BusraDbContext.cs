@@ -17,7 +17,7 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Backup;User Id=postgres;Password=secret");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Host2;User Id=postgres;Password=secret");
             }
         }
 

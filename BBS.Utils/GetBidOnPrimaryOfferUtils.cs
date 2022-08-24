@@ -48,7 +48,8 @@ namespace BBS.Utils
                 UserLoginId = bidOnPrimary.UserLoginId,  
                 IsDownload = bidOnPrimary.IsDownload,
                 IsESign = bidOnPrimary.IsESign,
-                VerificationStatus = verificationState?.Name ?? ""
+                VerificationStatus = verificationState?.Name ?? "",
+                BusraFees = company?.BusraFees
             };
         }
     }

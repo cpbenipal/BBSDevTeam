@@ -15,6 +15,7 @@ namespace BBS.Services.Contracts
         );
         SecondaryOfferShareData GetSecondaryOfferShareData(int id);
         void DeleteSecondaryOfferShareData(int id);
+        void RemoveSecondaryOfferShareDataRange(List<SecondaryOfferShareData> secondaryOfferData);
         List<SecondaryOfferShareData> GetSecondaryOfferByOfferShare(int offerShareId);
         List<SecondaryOfferShareData> GetAllSecondaryOfferShareData();
     }

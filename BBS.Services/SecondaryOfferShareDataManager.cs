@@ -69,5 +69,15 @@ namespace BBS.Services.Repository
 
             return updatedList;
         }
+
+
+        public void RemoveSecondaryOfferShareDataRange(List<SecondaryOfferShareData> secondaryOfferData)
+        {
+            foreach (var item in secondaryOfferData)
+            {
+                _repositoryBase.Delete(item);
+            }
+            _repositoryBase.Save();
+        }         
     }
 }

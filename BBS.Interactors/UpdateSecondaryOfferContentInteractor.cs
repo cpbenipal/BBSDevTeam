@@ -82,44 +82,55 @@ namespace BBS.Interactors
 
             if (secondaryOfferToUpdate == null || secondaryOfferToUpdate.Count == 0)
             {
-                return ReturnErrorStatus("Category Not Found with this offershare");
+                return ReturnErrorStatus("Title and Content Not Found with this offershare");
             }
+            
 
-            List<SecondaryOfferShareData> secondaryOfferData = new();
+            List<SecondaryOfferShareData> builtOfferShareData = new();
+            List<SecondaryOfferShareData> UpdateOfferShareData = new();
+            List<SecondaryOfferShareData> AddOfferShareData = new();
 
-            foreach (var c in secondaryOfferToUpdate)
+            foreach (var c in addSecondaryOffer.Content)
             {
-                var updated = addSecondaryOffer.Content.FirstOrDefault(x => x.Id == c.Id);
-
-                if (updated == null)
+                if (c.Id > 0)
                 {
-                    _repositoryWrapper
-                        .SecondaryOfferShareDataManager
-                        .DeleteSecondaryOfferShareData(c.Id);
+                    SecondaryOfferShareData contentDetail = secondaryOfferToUpdate.FirstOrDefault(x => x.Id == c.Id)!;
+                    {
+                        contentDetail.Title = c.Title;
+                        contentDetail.Content = c.Content;
+                        contentDetail.ModifiedById = extractedFromToken.UserLoginId;
+                        contentDetail.ModifiedDate = DateTime.Now;
+                        UpdateOfferShareData.Add(contentDetail);
+                        builtOfferShareData.Add(contentDetail);
+                    }
                 }
                 else
                 {
-                    var pkId = secondaryOfferToUpdate.FirstOrDefault(x => x.Title == c.Title)!;
-                    secondaryOfferData.Add(new SecondaryOfferShareData()
+                    var newContent = new SecondaryOfferShareData()
                     {
-                        Id = pkId.Id,
-                        Content = updated.Content,
-                        Title = updated.Title ?? "",
+                        Title = c.Title,
+                        Content = c.Content,
                         OfferedShareId = addSecondaryOffer.OfferShareId,
-                        ModifiedById = extractedFromToken.UserLoginId,
-                        ModifiedDate = DateTime.Now,
-                        OfferPrice = 0,
-                        TotalShares = 0,
-                    });
-
+                        AddedById = extractedFromToken.UserLoginId,
+                        ModifiedById = extractedFromToken.UserLoginId
+                    };
+                    AddOfferShareData.Add(newContent);
+                    builtOfferShareData.Add(newContent);
                 }
             }
 
-            _repositoryWrapper
-                .SecondaryOfferShareDataManager
-                .UpdateSecondaryOfferShareDataRange(secondaryOfferData);
+            List<SecondaryOfferShareData> DeleteOfferShareData = secondaryOfferToUpdate.Where(xx => !addSecondaryOffer.Content.Select(x => x.Id).Contains(xx.Id)).ToList();
+            if (DeleteOfferShareData.Count > 0)
+                _repositoryWrapper.SecondaryOfferShareDataManager.RemoveSecondaryOfferShareDataRange(DeleteOfferShareData);
 
-            NotifyAdminAboutSecondaryOfferInsert(secondaryOfferData, extractedFromToken.PersonId);
+            if (AddOfferShareData.Count > 0)
+                _repositoryWrapper.SecondaryOfferShareDataManager.InsertSecondaryOfferShareDataRange(AddOfferShareData);
+
+            if (UpdateOfferShareData.Count > 0)
+                _repositoryWrapper.SecondaryOfferShareDataManager.UpdateSecondaryOfferShareDataRange(UpdateOfferShareData);
+
+            if (builtOfferShareData.Count > 0)
+                NotifyAdminAboutSecondaryOfferInsert(builtOfferShareData, extractedFromToken.PersonId);
 
             return _responseManager.SuccessResponse(
                 "Successful",
@@ -151,12 +162,23 @@ namespace BBS.Interactors
 
         private Dictionary<string, string> BuildEmailTemplateData(List<SecondaryOfferShareData> buildSecondary)
         {
+
             var offerShare = _repositoryWrapper
                 .OfferedShareManager
                 .GetOfferedShare(buildSecondary.FirstOrDefault()!.OfferedShareId)!;
 
+            var digitalShare = _repositoryWrapper 
+                .IssuedDigitalShareManager
+                .GetIssuedDigitalShare(offerShare.IssuedDigitalShareId);
+
+            var shareInfo = _repositoryWrapper.ShareManager.GetShare(digitalShare.ShareId)!;
+
             Dictionary<string, string> keyValuePairs = new();
-            keyValuePairs.Add("OfferShare", offerShare.Id.ToString());
+            keyValuePairs.Add("Company Name", shareInfo.CompanyName!);
+            keyValuePairs.Add("Share price", shareInfo.SharePrice.ToString());
+            keyValuePairs.Add("No of Shares", shareInfo.NumberOfShares.ToString());
+            keyValuePairs.Add("Offer Price", offerShare.OfferPrice.ToString());
+            keyValuePairs.Add("Offer Quantity", offerShare.Quantity.ToString());
 
             foreach (var data in buildSecondary)
             {

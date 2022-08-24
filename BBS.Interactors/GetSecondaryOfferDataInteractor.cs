@@ -84,11 +84,8 @@ namespace BBS.Interactors
                 builtData.Add(new GetSecondaryOfferDataDto()
                 {
                     Id = secondaryOfferData.Id,
-                    Content = secondaryOfferData.Content,
-                    OfferShareId = secondaryOfferData.OfferedShareId,
-                    Title = secondaryOfferData.Title ?? "",                    
-                    OfferPrice = secondaryOfferData.OfferPrice,
-                    TotalShares = secondaryOfferData.TotalShares
+                    Content = secondaryOfferData.Content, 
+                    Title = secondaryOfferData.Title 
                 });
             }
 

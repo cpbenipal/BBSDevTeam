@@ -155,11 +155,9 @@ namespace BBS.Interactors
                     AddedById = offeredShare.AddedById,
                     ModifiedById = offeredShare.ModifiedById,
                     Content = "Default Content",
-                    OfferedShareId = offeredShare.Id,
-                    OfferPrice = 0,
+                    OfferedShareId = offeredShare.Id,                    
                     ModifiedDate = DateTime.UtcNow,
-                    AddedDate = DateTime.UtcNow,
-                    TotalShares = 0,
+                    AddedDate = DateTime.UtcNow                    
                 });
         }
 
