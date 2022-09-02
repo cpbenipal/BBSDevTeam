@@ -165,8 +165,7 @@ namespace BBS.Swagger.Extensions
             services.AddScoped<GetAllCategoriesInteractor>();
             services.AddScoped<GetSecondaryOfferDataInteractor>();
             services.AddScoped<GetPrimaryOfferDataInteractor>();
-            services.AddScoped<UpdateSecondaryOfferContentInteractor>();
-            services.AddScoped<AddSecondaryOfferContentInteractor>();
+            services.AddScoped<UpdateSecondaryOfferContentInteractor>();            
 
             services.AddScoped<BidOnPrimaryOfferInteractor>();
             services.AddScoped<AddPrimaryOfferContentInteractor>();

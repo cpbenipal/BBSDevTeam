@@ -32,22 +32,61 @@ namespace BBS.API.Controllers
         /// <returns>Id, CompanyName , OfferPrice , Quanity , totalBids</returns>
         [Authorize]
         [HttpGet("GetAll")]
-        public IActionResult GetAll() 
+        public IActionResult GetAll(int? companyId) 
         {
             var token = HttpContext.Request.Headers["Authorization"];
-            var response = _CompaniesInteractor.GetListing(token);
+            var response = _CompaniesInteractor.GetListing(token,companyId);
             return Ok(response);
         }
 
         [Authorize]
         [HttpPost("Add")]
         public IActionResult Add(
-            AddPrimaryOfferContent addCategoryContentDto
+            PrimaryOfferDto addCategoryContentDto
         )
         {
             var token = HttpContext.Request.Headers["Authorization"];
             var response = _addPrimaryOfferContentInteractor
-                .AddPrimaryOfferContent(token, addCategoryContentDto);
+                .AddPrimaryOffer(token, addCategoryContentDto);
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpPost("AddContent")]
+        public IActionResult AddContent(
+           PrimaryOfferingContentDto content 
+       )
+        {
+            var token = HttpContext.Request.Headers["Authorization"];
+            var response = _addPrimaryOfferContentInteractor
+                .AddPrimaryOfferContent(token, content);
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpPut("UpdateContent")]
+        public IActionResult UpdateContent(
+           PrimaryOfferingContentDto content
+       )
+        {
+            var token = HttpContext.Request.Headers["Authorization"];
+            var response = _updatePrimaryOfferContentInteractor
+                .UpdatePrimaryOfferContent(token, content);
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpDelete("DeleteContent")]
+        public IActionResult DeleteContent(
+        [FromBody] int contentId
+      )
+        {
+            var token = HttpContext.Request.Headers["Authorization"];
+            var response = _addPrimaryOfferContentInteractor
+                .DeleteContent(token, contentId); 
 
             return Ok(response);
         }
@@ -55,12 +94,12 @@ namespace BBS.API.Controllers
         [Authorize]
         [HttpPut("Update")]
         public IActionResult Update( 
-            AddPrimaryOfferContent addCategoryContentDto
+            PrimaryOfferDto addCategoryContentDto
         )
         {
             var token = HttpContext.Request.Headers["Authorization"];
             var response = _updatePrimaryOfferContentInteractor
-                .UpdatePrimaryOfferContent(token, addCategoryContentDto);
+                .UpdatePrimaryOffer(token, addCategoryContentDto);
 
             return Ok(response);
         }

@@ -17,7 +17,7 @@ namespace BBS.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Busra_Host2;User Id=postgres;Password=secret");
+                optionsBuilder.UseNpgsql("Server=172.16.0.1;Port=5432;Database=Busra_Host2;User Id=postgres;Password=7Xp2NGP45Wux");
             }
         }
 
@@ -191,7 +191,7 @@ namespace BBS.Entities
                     FirstName = "Admin",
                     LastName = "",
                     Email = "admin@bursa.com",
-                    DateOfBirth = DateTime.UtcNow,
+                    DateOfBirth = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Utc).AddTicks(8148),
                     IsUSCitizen = false,
                     IsPublicSectorEmployee = false,
                     IsIndividual = false,
@@ -204,7 +204,7 @@ namespace BBS.Entities
                     IBANNumber = "00000000000",
                     EmployerName = "Bursa",
                     AnnualIncome = 10000000,
-                    DateOfEmployement = DateTime.UtcNow,
+                    DateOfEmployement = new DateTime(2022, 8, 17, 13, 55, 56, 573, DateTimeKind.Utc).AddTicks(8149),
                     HavePriorExpirence = true,
                     HaveTraining = true,
                     HaveExperience = true,

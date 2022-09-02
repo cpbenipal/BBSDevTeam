@@ -29,7 +29,7 @@ namespace BBS.Interactors
             _tokenManager = tokenManager;
         }
 
-        public GenericApiResponse GetListing(StringValues token)
+        public GenericApiResponse GetListing(StringValues token, int? CompanyId)
         {
             try
             {
@@ -45,7 +45,15 @@ namespace BBS.Interactors
                 }
                 else
                 {
-                    var companies = _repositoryWrapper.CompanyManager.GetCompanies();
+                    List<Company?> companies = new();
+                    if (CompanyId == null || CompanyId == 0)
+                        companies = _repositoryWrapper.CompanyManager.GetCompanies()!;
+                    else
+                    {
+                        var company = _repositoryWrapper.CompanyManager.GetCompany((int)CompanyId!);
+                        companies.Add(company);
+                    }
+
                     List<BidOnPrimaryOffering> InvestorBids = _repositoryWrapper
                         .BidOnPrimaryOfferingManager
                         .GetAllBidOnPrimaryOfferings();

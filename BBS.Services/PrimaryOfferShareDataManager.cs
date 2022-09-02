@@ -32,7 +32,14 @@ namespace BBS.Services.Repository
             _repositoryBase.Save();
             return added.ToList();
         }
-
+        public PrimaryOfferShareData InsertPrimaryOfferShareData(
+           PrimaryOfferShareData primaryOfferShare
+       )
+        {
+            var added = _repositoryBase.Insert(primaryOfferShare);
+            _repositoryBase.Save();
+            return added;
+        }
         public List<PrimaryOfferShareData> UpdatePrimaryOfferShareDataRange(
             List<PrimaryOfferShareData> primaryOfferShare
         )
@@ -49,12 +56,25 @@ namespace BBS.Services.Repository
 
             return updatedList;
         }
+        public PrimaryOfferShareData UpdatePrimaryOfferShareData(
+           PrimaryOfferShareData primaryOfferShare
+       )
+        {
+             var updated = _repositoryBase.Update(primaryOfferShare);             
+            _repositoryBase.Save();
+            return updated;
+        }
         public void RemovePrimaryOfferShareDataRange(List<PrimaryOfferShareData> primaryOfferShare)
         { 
             foreach (var item in primaryOfferShare)
             {
                _repositoryBase.Delete(item);               
             }
+            _repositoryBase.Save();
+        }
+        public void RemovePrimaryOfferShareData(PrimaryOfferShareData item)
+        { 
+            _repositoryBase.Delete(item);            
             _repositoryBase.Save();
         }
     }

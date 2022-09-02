@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BBS.Dto
 {
-    public class AddPrimaryOfferContent
+    public class PrimaryOfferDto
     {
         public int CompanyId { get; set; }
         [Required]
@@ -16,6 +16,7 @@ namespace BBS.Dto
         public string InvestmentManager { get; set; }
         [Required]
         [Display(Name = "Total Target Amount")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
         public decimal TotalTargetAmount { get; set; }        
         [Required]
         [Display(Name = "Minimum Investment")]
@@ -30,8 +31,13 @@ namespace BBS.Dto
         public int Quantity { get; set; }
         [Required]
         public string Tags { get; set; }
-        public string ShortDescription { get; set; }
-        public List<AddPrimaryOfferDto> Content { get; set; }     
-
+        public string ShortDescription { get; set; }        
+    }
+    public class PrimaryOfferingContentDto
+    {
+        public int CompanyId { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
     }
 }

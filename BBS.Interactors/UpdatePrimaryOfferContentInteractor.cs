@@ -5,6 +5,7 @@ using BBS.Services.Contracts;
 using BBS.Utils;
 using EmailSender;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace BBS.Interactors
 {
@@ -33,8 +34,8 @@ namespace BBS.Interactors
             _emailSender = newEmailSender;
         }
 
-        public GenericApiResponse UpdatePrimaryOfferContent(
-            string token, AddPrimaryOfferContent addPrimaryOffer
+        public GenericApiResponse UpdatePrimaryOffer(
+            string token, PrimaryOfferDto addPrimaryOffer
         )
         {
             try
@@ -44,7 +45,7 @@ namespace BBS.Interactors
                     CommonUtils.JSONSerialize(addPrimaryOffer),
                     0
                 );
-                return TryUpdatingCategoryContent(token, addPrimaryOffer);
+                return TryUpdatingCategory(token, addPrimaryOffer);
             }
             catch (Exception ex)
             {
@@ -54,9 +55,9 @@ namespace BBS.Interactors
 
         }
 
-        private GenericApiResponse TryUpdatingCategoryContent(
+        private GenericApiResponse TryUpdatingCategory(
             string token,
-            AddPrimaryOfferContent addPrimaryOffer
+            PrimaryOfferDto addPrimaryOffer
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -68,71 +69,77 @@ namespace BBS.Interactors
 
             var primaryOfferToUpdate = _repositoryWrapper
                 .PrimaryOfferShareDataManager
-                .GetPrimaryOfferShareDataByCompanyId(addPrimaryOffer.CompanyId);
-
-            
-            List<PrimaryOfferShareData> builtPrimaryOfferShareData = new();
-            List<PrimaryOfferShareData> UpdatePrimaryOfferShareData = new();
-            List<PrimaryOfferShareData> AddPrimaryOfferShareData = new();
-
+                .GetPrimaryOfferShareDataByCompanyId(addPrimaryOffer.CompanyId);             
            
             if (primaryOfferToUpdate == null || primaryOfferToUpdate.Count == 0)
             {
                 return ReturnErrorStatus("Company Content Not Found");
-            } 
-
-            foreach (var c in addPrimaryOffer.Content)
-            {
-                if (c.Id > 0)
-                {
-                    PrimaryOfferShareData contentDetail = primaryOfferToUpdate.FirstOrDefault(x => x.Id == c.Id)!;
-                    {                        
-                        contentDetail.Title = c.Title;
-                        contentDetail.Content = c.Content;
-                        contentDetail.ModifiedById = extractedFromToken.UserLoginId;
-                        contentDetail.ModifiedDate = DateTime.Now;                    
-                        UpdatePrimaryOfferShareData.Add(contentDetail);                        
-                        builtPrimaryOfferShareData.Add(contentDetail);
-                    }                    
-                } 
-                else
-                {
-                    var newContent = new PrimaryOfferShareData()
-                    {
-                        Title = c.Title,
-                        Content = c.Content,
-                        CompanyId = addPrimaryOffer.CompanyId,
-                        AddedById = extractedFromToken.UserLoginId,
-                        ModifiedById = extractedFromToken.UserLoginId
-                    };
-                    AddPrimaryOfferShareData.Add(newContent);
-                    builtPrimaryOfferShareData.Add(newContent);
-                }
-            }
+            }           
             
             UpdateCompany(addPrimaryOffer, extractedFromToken.UserLoginId);
 
-            List<PrimaryOfferShareData> DeletePrimaryOfferShareData = primaryOfferToUpdate.Where(xx => !addPrimaryOffer.Content.Select(x => x.Id).Contains(xx.Id)).ToList();
-            if (DeletePrimaryOfferShareData.Count > 0)
-               _repositoryWrapper.PrimaryOfferShareDataManager.RemovePrimaryOfferShareDataRange(DeletePrimaryOfferShareData);
+            var data = _repositoryWrapper.PrimaryOfferShareDataManager.GetPrimaryOfferShareDataByCompanyId(addPrimaryOffer.CompanyId);
 
-           if (AddPrimaryOfferShareData.Count > 0)
-               _repositoryWrapper.PrimaryOfferShareDataManager.InsertPrimaryOfferShareDataRange(AddPrimaryOfferShareData);
+            NotifyAdminAboutPrimaryOfferInsert(data, extractedFromToken.PersonId);
 
-           if (UpdatePrimaryOfferShareData.Count > 0)
-               _repositoryWrapper.PrimaryOfferShareDataManager.UpdatePrimaryOfferShareDataRange(UpdatePrimaryOfferShareData);
-
-           if (builtPrimaryOfferShareData.Count > 0)
-               NotifyAdminAboutPrimaryOfferInsert(builtPrimaryOfferShareData, extractedFromToken.PersonId);
-          
             return _responseManager.SuccessResponse(
                 "Successful",
                 StatusCodes.Status200OK,
-                1
+                addPrimaryOffer.CompanyId
             );
         }
 
-        private void UpdateCompany(AddPrimaryOfferContent model, int UserLoginId)
+        public GenericApiResponse UpdatePrimaryOfferContent(string token, PrimaryOfferingContentDto content)
+        {
+            try
+            {
+                var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
+                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+                {
+                    return ReturnErrorStatus("Access Denied");
+                }
+
+                _loggerManager.LogInfo(
+                    "UpdatePrimaryOfferContent : " +
+                    CommonUtils.JSONSerialize(content),
+                   extractedFromToken.PersonId
+                );
+                return TryUpdatePrimaryOfferContent(extractedFromToken, content);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex, 0);
+                return ReturnErrorStatus(ex.Message);
+            }
+        }
+
+        private GenericApiResponse TryUpdatePrimaryOfferContent(TokenValues extractedFromToken, PrimaryOfferingContentDto content)
+        {
+            _repositoryWrapper
+                .PrimaryOfferShareDataManager
+                .UpdatePrimaryOfferShareData(new PrimaryOfferShareData
+                {
+                    Id = content.Id,
+                    Title = content.Title,
+                    Content = content.Content,
+                    CompanyId = content.CompanyId,
+                    AddedById = extractedFromToken.UserLoginId,
+                    ModifiedById = extractedFromToken.UserLoginId
+                });
+
+            var data = _repositoryWrapper.PrimaryOfferShareDataManager.GetPrimaryOfferShareDataByCompanyId(content.CompanyId);
+
+            NotifyAdminAboutPrimaryOfferInsert(data, extractedFromToken.PersonId);
+
+            return _responseManager.SuccessResponse(
+                "Successful",
+                StatusCodes.Status200OK,
+               1
+            );
+        }
+
+        private void UpdateCompany(PrimaryOfferDto model, int UserLoginId)
         {
             var entity = _repositoryWrapper.CompanyManager.GetCompany(model.CompanyId)!;
             entity.Id = model.CompanyId;
@@ -194,7 +201,7 @@ namespace BBS.Interactors
 
             foreach (var data in builtPrimaryOfferShareData)
             {
-                keyValuePairs.Add(data.Title, data.Content);
+                keyValuePairs.TryAdd(data.Title, data.Content);
             }
 
             return keyValuePairs;

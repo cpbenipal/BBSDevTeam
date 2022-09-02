@@ -5,6 +5,7 @@ using BBS.Services.Contracts;
 using BBS.Utils;
 using EmailSender;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System.Linq;
 
 namespace BBS.Interactors
@@ -36,7 +37,7 @@ namespace BBS.Interactors
         }
 
         public GenericApiResponse UpdateSecondaryOfferContent(
-            string token, UpdateSecondaryOfferContent updateSecondaryOffer
+            string token, AddSecondaryOfferContent updateSecondaryOffer
         )
         {
             try
@@ -56,6 +57,44 @@ namespace BBS.Interactors
 
         }
 
+        public GenericApiResponse DeleteContent(string token, int contentId)
+        {
+            try
+            {
+                var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
+                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+                {
+                    return ReturnErrorStatus("Access Denied");
+                }
+
+                _loggerManager.LogInfo(
+                    "Delete Secondary Content : " +
+                    CommonUtils.JSONSerialize(contentId),
+                   extractedFromToken.PersonId
+                );
+                return TryDeleteSecondaryOfferContent(contentId);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex, 0);
+                return ReturnErrorStatus(ex.Message);
+            }
+        }
+
+        private GenericApiResponse TryDeleteSecondaryOfferContent(int contentId)
+        {
+            _repositoryWrapper
+               .SecondaryOfferShareDataManager
+               .DeleteSecondaryOfferShareData(contentId);
+
+            return _responseManager.SuccessResponse(
+                           "Successful",
+                           StatusCodes.Status200OK,
+                          1
+                       );
+        }
+
         private GenericApiResponse ReturnErrorStatus(string message)
         {
             return _responseManager.ErrorResponse(
@@ -66,7 +105,7 @@ namespace BBS.Interactors
 
         private GenericApiResponse TryUpdatingCategoryContent(
             string token,
-            UpdateSecondaryOfferContent addSecondaryOffer
+            AddSecondaryOfferContent addSecondaryOffer
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -84,50 +123,35 @@ namespace BBS.Interactors
             {
                 return ReturnErrorStatus("Title and Content Not Found with this offershare");
             }
-            
 
-            List<SecondaryOfferShareData> builtOfferShareData = new();
-            List<SecondaryOfferShareData> UpdateOfferShareData = new();
-            List<SecondaryOfferShareData> AddOfferShareData = new();
-
-            foreach (var c in addSecondaryOffer.Content)
+            if (addSecondaryOffer.Id > 0)
             {
-                if (c.Id > 0)
+                SecondaryOfferShareData contentDetail = secondaryOfferToUpdate.FirstOrDefault(x => x.Id == addSecondaryOffer.Id)!;
+
+                contentDetail.Title = addSecondaryOffer.Title;
+                contentDetail.Content = addSecondaryOffer.Content;
+                contentDetail.ModifiedById = extractedFromToken.UserLoginId;
+                contentDetail.ModifiedDate = DateTime.Now;
+                _repositoryWrapper.SecondaryOfferShareDataManager.UpdateSecondaryOfferShareData(contentDetail);
+
+            }
+            else
+            {
+                var newContent = new SecondaryOfferShareData()
                 {
-                    SecondaryOfferShareData contentDetail = secondaryOfferToUpdate.FirstOrDefault(x => x.Id == c.Id)!;
-                    {
-                        contentDetail.Title = c.Title;
-                        contentDetail.Content = c.Content;
-                        contentDetail.ModifiedById = extractedFromToken.UserLoginId;
-                        contentDetail.ModifiedDate = DateTime.Now;
-                        UpdateOfferShareData.Add(contentDetail);
-                        builtOfferShareData.Add(contentDetail);
-                    }
-                }
-                else
-                {
-                    var newContent = new SecondaryOfferShareData()
-                    {
-                        Title = c.Title,
-                        Content = c.Content,
-                        OfferedShareId = addSecondaryOffer.OfferShareId,
-                        AddedById = extractedFromToken.UserLoginId,
-                        ModifiedById = extractedFromToken.UserLoginId
-                    };
-                    AddOfferShareData.Add(newContent);
-                    builtOfferShareData.Add(newContent);
-                }
+                    Title = addSecondaryOffer.Title,
+                    Content = addSecondaryOffer.Content,
+                    OfferedShareId = addSecondaryOffer.OfferShareId,
+                    AddedById = extractedFromToken.UserLoginId,
+                    ModifiedById = extractedFromToken.UserLoginId
+                };
+                _repositoryWrapper.SecondaryOfferShareDataManager.InsertSecondaryOfferShareData(newContent);
             }
 
-            List<SecondaryOfferShareData> DeleteOfferShareData = secondaryOfferToUpdate.Where(xx => !addSecondaryOffer.Content.Select(x => x.Id).Contains(xx.Id)).ToList();
-            if (DeleteOfferShareData.Count > 0)
-                _repositoryWrapper.SecondaryOfferShareDataManager.RemoveSecondaryOfferShareDataRange(DeleteOfferShareData);
 
-            if (AddOfferShareData.Count > 0)
-                _repositoryWrapper.SecondaryOfferShareDataManager.InsertSecondaryOfferShareDataRange(AddOfferShareData);
-
-            if (UpdateOfferShareData.Count > 0)
-                _repositoryWrapper.SecondaryOfferShareDataManager.UpdateSecondaryOfferShareDataRange(UpdateOfferShareData);
+            var builtOfferShareData = _repositoryWrapper
+                  .SecondaryOfferShareDataManager
+                  .GetSecondaryOfferByOfferShare(addSecondaryOffer.OfferShareId);
 
             if (builtOfferShareData.Count > 0)
                 NotifyAdminAboutSecondaryOfferInsert(builtOfferShareData, extractedFromToken.PersonId);
@@ -167,7 +191,7 @@ namespace BBS.Interactors
                 .OfferedShareManager
                 .GetOfferedShare(buildSecondary.FirstOrDefault()!.OfferedShareId)!;
 
-            var digitalShare = _repositoryWrapper 
+            var digitalShare = _repositoryWrapper
                 .IssuedDigitalShareManager
                 .GetIssuedDigitalShare(offerShare.IssuedDigitalShareId);
 
@@ -182,7 +206,7 @@ namespace BBS.Interactors
 
             foreach (var data in buildSecondary)
             {
-                keyValuePairs.Add(data.Title, data.Content);
+                keyValuePairs.TryAdd(data.Title, data.Content);
             }
 
             return keyValuePairs;

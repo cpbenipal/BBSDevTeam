@@ -5,6 +5,7 @@ using BBS.Services.Contracts;
 using BBS.Utils;
 using EmailSender;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace BBS.Interactors
 {
@@ -34,18 +35,18 @@ namespace BBS.Interactors
             _emailSender = newEmailSender;
         }
 
-        public GenericApiResponse AddPrimaryOfferContent(
-            string token, AddPrimaryOfferContent addPrimaryOffer
+        public GenericApiResponse AddPrimaryOffer(
+            string token, PrimaryOfferDto addPrimaryOffer
         )
         {
             try
             {
                 _loggerManager.LogInfo(
-                    "AddPrimaryOfferContent : " +
+                    "AddPrimaryOffer : " +
                     CommonUtils.JSONSerialize(addPrimaryOffer),
                     0
                 );
-                return TryAddingPrimaryOfferContent(token, addPrimaryOffer);
+                return TryAddingPrimaryOffer(token, addPrimaryOffer);
             }
             catch (Exception ex)
             {
@@ -54,10 +55,99 @@ namespace BBS.Interactors
             }
 
         }
+        public GenericApiResponse AddPrimaryOfferContent(string token, PrimaryOfferingContentDto content)
+        {
+            try
+            {
+                var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
 
-        private GenericApiResponse TryAddingPrimaryOfferContent(
+                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+                {
+                    return ReturnErrorStatus("Access Denied");
+                }
+
+                _loggerManager.LogInfo(
+                    "AddPrimaryOfferContent : " +
+                    CommonUtils.JSONSerialize(content),
+                   extractedFromToken.PersonId
+                );
+                return TryAddingPrimaryOfferContent(extractedFromToken, content);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex, 0);
+                return ReturnErrorStatus(ex.Message);
+            }
+        }
+         
+        public GenericApiResponse DeleteContent(StringValues token, int contentId)
+        {
+            try
+            {
+                var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
+
+                if (extractedFromToken.RoleId != (int)Roles.ADMIN)
+                {
+                    return ReturnErrorStatus("Access Denied");
+                }
+
+                _loggerManager.LogInfo(
+                    "Delete PrimaryOffer Content : " +
+                    CommonUtils.JSONSerialize(contentId),
+                   extractedFromToken.PersonId
+                );
+                return TryDeletePrimaryOfferContent(contentId);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex, 0);
+                return ReturnErrorStatus(ex.Message);
+            }
+        }
+
+        private GenericApiResponse TryDeletePrimaryOfferContent(int contentId)
+        {
+            var primaryContent = _repositoryWrapper.PrimaryOfferShareDataManager.GetPrimaryOfferShareData(contentId);
+
+            _repositoryWrapper
+               .PrimaryOfferShareDataManager
+               .RemovePrimaryOfferShareData(primaryContent);
+
+            return _responseManager.SuccessResponse(
+                           "Successful",
+                           StatusCodes.Status200OK,
+                          1
+                       );
+        }
+
+        private GenericApiResponse TryAddingPrimaryOfferContent(TokenValues extractedFromToken, PrimaryOfferingContentDto content)
+        {
+            _repositoryWrapper
+                .PrimaryOfferShareDataManager
+                .InsertPrimaryOfferShareData(new PrimaryOfferShareData
+                {
+                    Id = 0,
+                    Title = content.Title,
+                    Content = content.Content,
+                    CompanyId = content.CompanyId,
+                    AddedById = extractedFromToken.UserLoginId,
+                    ModifiedById = extractedFromToken.UserLoginId
+                });
+
+            var data = _repositoryWrapper.PrimaryOfferShareDataManager.GetPrimaryOfferShareDataByCompanyId(content.CompanyId);
+
+            NotifyAdminAboutPrimaryOfferInsert(data, extractedFromToken.PersonId);
+
+            return _responseManager.SuccessResponse(
+                "Successful",
+                StatusCodes.Status200OK,
+               1
+            );
+        }
+
+        private GenericApiResponse TryAddingPrimaryOffer(
             string token,
-            AddPrimaryOfferContent addPrimaryOffer
+            PrimaryOfferDto addPrimaryOffer
         )
         {
             var extractedFromToken = _tokenManager.GetNeededValuesFromToken(token);
@@ -72,30 +162,34 @@ namespace BBS.Interactors
             }
             var company = InsertCompany(addPrimaryOffer, extractedFromToken.UserLoginId);
 
-            var builtPrimaryOfferShareData = addPrimaryOffer.Content.Select(
-                c => new PrimaryOfferShareData
+            var builtPrimaryOfferShareData = new List<PrimaryOfferShareData>();
+
+            builtPrimaryOfferShareData.Add
+            (
+                new PrimaryOfferShareData
                 {
-                    Title = c.Title,
-                    Content = c.Content,
+                    Title = "About Us",
+                    Content = "About Us",
                     CompanyId = company.Id,
                     AddedById = extractedFromToken.UserLoginId,
                     ModifiedById = extractedFromToken.UserLoginId
                 }
-            ).ToList();
+             );
 
             _repositoryWrapper
                 .PrimaryOfferShareDataManager
                 .InsertPrimaryOfferShareDataRange(builtPrimaryOfferShareData);
 
-            NotifyAdminAboutPrimaryOfferInsert(builtPrimaryOfferShareData, extractedFromToken.PersonId);
-
             return _responseManager.SuccessResponse(
                 "Successful",
                 StatusCodes.Status200OK,
-                1
+               company.Id
             );
         }
-        private Company InsertCompany(AddPrimaryOfferContent addPrimaryOffer, int UserLoginId)
+
+
+
+        private Company InsertCompany(PrimaryOfferDto addPrimaryOffer, int UserLoginId)
         {
             return _repositoryWrapper.CompanyManager.InsertCompany(
                 new Company
@@ -132,13 +226,13 @@ namespace BBS.Interactors
                 { "Total Target", company.TotalTargetAmount.ToString() },
                 { "Busra Fees", Convert.ToString(company.BusraFees) ?? "" },
                 { "Investment Manager", company.InvestmentManager },
-                { "Minimum Investment", company.MinimumInvestment.ToString() },                
+                { "Minimum Investment", company.MinimumInvestment.ToString() },
                 { "Closing Date", company.ClosingDate.ToShortDateString() }
             };
 
             foreach (var data in builtPrimaryOfferShareData)
             {
-                keyValuePairs.Add(data.Title, data.Content);
+                keyValuePairs.TryAdd(data.Title, data.Content);
             }
 
             return keyValuePairs;

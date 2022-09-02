@@ -13,6 +13,10 @@ namespace BBS.Services.Contracts
         List<SecondaryOfferShareData> UpdateSecondaryOfferShareDataRange(
             List<SecondaryOfferShareData> secondaryOfferData
         );
+        SecondaryOfferShareData UpdateSecondaryOfferShareData(
+           SecondaryOfferShareData secondaryOfferData
+       );
+
         SecondaryOfferShareData GetSecondaryOfferShareData(int id);
         void DeleteSecondaryOfferShareData(int id);
         void RemoveSecondaryOfferShareDataRange(List<SecondaryOfferShareData> secondaryOfferData);

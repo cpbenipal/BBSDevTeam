@@ -19,8 +19,8 @@ namespace BBS.API.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddCategory(
-            UpdateSecondaryOfferContent addCategoryContentDto
+        public IActionResult Add(
+            AddSecondaryOfferContent addCategoryContentDto
         )
         {
             var token = HttpContext.Request.Headers["Authorization"];
@@ -29,5 +29,20 @@ namespace BBS.API.Controllers
 
             return Ok(response);
         }
+
+        [Authorize]
+        [HttpDelete("DeleteContent")]
+        public IActionResult DeleteContent(
+      [FromBody] int contentId
+    )
+        {
+            var token = HttpContext.Request.Headers["Authorization"];
+            var response = _updateSecondaryOfferContentInteractor
+                .DeleteContent(token, contentId);
+
+            return Ok(response);
+        }
+
+
     }
 }

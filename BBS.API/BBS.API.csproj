@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\AddSecondaryOfferContentController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AdditionalFiles Include="..\.sonarlint\bbs_live\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 

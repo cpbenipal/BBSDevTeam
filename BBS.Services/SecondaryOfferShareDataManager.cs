@@ -15,7 +15,7 @@ namespace BBS.Services.Repository
         public void DeleteSecondaryOfferShareData(int id)
         {
             var deleted = _repositoryBase.GetById(id);
-             _repositoryBase.Delete(deleted);
+            _repositoryBase.Delete(deleted);
             _repositoryBase.Save();
         }
 
@@ -69,7 +69,14 @@ namespace BBS.Services.Repository
 
             return updatedList;
         }
-
+        public SecondaryOfferShareData UpdateSecondaryOfferShareData(
+          SecondaryOfferShareData secondaryOfferData
+      )
+        {
+            var updated = _repositoryBase.Update(secondaryOfferData);
+            _repositoryBase.Save();
+            return updated;
+        }
 
         public void RemoveSecondaryOfferShareDataRange(List<SecondaryOfferShareData> secondaryOfferData)
         {
@@ -78,6 +85,6 @@ namespace BBS.Services.Repository
                 _repositoryBase.Delete(item);
             }
             _repositoryBase.Save();
-        }         
+        }
     }
 }
